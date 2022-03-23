@@ -24,6 +24,7 @@ export class AuthController {
             const { accessToken } = this.authService.getCookieWithJwtAccessToken(result.userIdx);
             const { refreshToken } = this.authService.getCookieWithJwtRefreshToken(result.userIdx);
             this.userService.setCurrentRefreshToken(refreshToken, result.userIdx);
+            // 쿠키값 maxAge 고려해보기.
             res.cookie('Authentication', accessToken);
             res.cookie('Refresh', refreshToken);
             res.send(result);
@@ -45,7 +46,7 @@ export class AuthController {
     @Get('logout')
     @UseGuards(JwtRefreshGuard)
     logout(@Req() req, @Res() res: Response) {
-        this.userService.removeRefreshToken(req.user.id);
+        this.userService.removeRefreshToken(req.user.userIdx);
         res.clearCookie('Authentication');
         res.clearCookie('Refresh');
         res.send({

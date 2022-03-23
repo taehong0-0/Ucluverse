@@ -3,6 +3,7 @@ import { Connection } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 
+// 트랜잭션/에러처리 필요.
 @Injectable()
 export class UserService {
     constructor (
@@ -14,7 +15,9 @@ export class UserService {
     }
 
     async findByEmail(email: string): Promise<User> | null {
-        const user = User.findOne({
+        const queryRunner = this.connection.createQueryRunner();
+
+        const user = await queryRunner.manager.findOne(User, {
             where: {
                 email: email,
             }
@@ -26,14 +29,16 @@ export class UserService {
     }
 
     async setCurrentRefreshToken(refreshToken: string, userIdx: number) {
-        await User.update(userIdx, { currentHashedRefreshToken: refreshToken });
+        const queryRunner = this.connection.createQueryRunner();
+        await queryRunner.manager.update(User, userIdx, { currentHashedRefreshToken: refreshToken });
     }
 
     async getUserIfRefreshTokenMatches(refreshToken: string, userIdx: number) {
-        const user = await User.findOne({
-            where: {
-                userIdx: userIdx,
-            }
+        const queryRunner = this.connection.createQueryRunner();
+        const user = await queryRunner.manager.findOne(User, {
+                where: {
+                    userIdx: userIdx,
+                }
         });
         const ifRefreshTokenMatches = refreshToken == user.currentHashedRefreshToken ? true : false;
         if (ifRefreshTokenMatches) {
@@ -44,7 +49,8 @@ export class UserService {
     }
 
     async removeRefreshToken(userIdx: number) {
-        return User.update(userIdx, {
+        const queryRunner = this.connection.createQueryRunner();
+        await queryRunner.manager.update(User, userIdx, {
             currentHashedRefreshToken: null,
         });
     }

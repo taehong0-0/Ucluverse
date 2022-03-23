@@ -1,9 +1,9 @@
 import { Exclude } from "class-transformer";
 import { IsEmail, IsString } from "class-validator";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class User extends BaseEntity {
+export class User {
     @PrimaryGeneratedColumn()
     userIdx: number
     @Column()

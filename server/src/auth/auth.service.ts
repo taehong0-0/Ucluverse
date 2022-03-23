@@ -19,6 +19,7 @@ export class AuthService {
         return true;
     }
 
+    // return 값 DTO로 바꾸는 것 고려해보기.
     async checkIfUserExists(email: string): Promise<any> {
         const checkDomain: boolean = this.checkIfDomainIsAjou(email);
         if (!checkDomain) {

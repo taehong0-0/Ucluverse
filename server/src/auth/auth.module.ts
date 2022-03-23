@@ -6,6 +6,8 @@ import { UserModule } from 'src/user/user.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { GoogleStrategy } from './google.strategy';
+import { JwtRefreshGuard } from './jwt-refresh.guard';
+import { JwtRefreshStrategy } from './jwt-refresh.strategy';
 import { JwtStrategy } from './jwt.strategy';
 
 @Module({
@@ -19,14 +21,12 @@ import { JwtStrategy } from './jwt.strategy';
 			useFactory: async (configService: ConfigService) => ({
 				secret: configService.get('JWT_ACCESS_TOKEN_SECRET'),
 				signOptions: {
-          expiresIn: `${configService.get(
-            'JWT_ACCESS_TOKEN_EXPIRATION_TIME',
-          )}s`,
+                	expiresIn: `${configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME',)}s`,
 				}
 			})
 		})
 	],
   controllers: [AuthController],
-  providers: [AuthService, GoogleStrategy, JwtStrategy],
+  providers: [AuthService, GoogleStrategy, JwtStrategy, JwtRefreshStrategy],
 })
 export class AuthModule {}
