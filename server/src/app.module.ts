@@ -10,7 +10,7 @@ import {TypeOrmModule} from '@nestjs/typeorm';
   imports: [
     ConfigModule.forRoot({
       validationSchema,
-      envFilePath: [`${__dirname}/config/env/.${process.env.NODE_ENV}.env`],
+      envFilePath: [`${__dirname}/../env/.${process.env.NODE_ENV}.env`],
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
