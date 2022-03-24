@@ -6,16 +6,10 @@ interface Props {
   children: ReactElement;
 }
 
-const AuthRoute = ({ children }: Props): React.ReactElement => {
+const LoginRoute = ({ children }: Props): React.ReactElement => {
   // const user = useResetRecoilState();
   const status = 'login';
-  return status === 'login' ? (
-    children
-  ) : status === 'info' ? (
-    <Navigate to="/login/info" />
-  ) : (
-    <Navigate to="/login" />
-  );
+  return status !== 'login' ? <Navigate to="/" /> : children;
 };
 
-export default AuthRoute;
+export default LoginRoute;

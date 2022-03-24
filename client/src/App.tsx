@@ -1,8 +1,10 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Login from './Pages/Login';
+import Login from './Pages/Login/Login';
+import LoginInfo from './Pages/Login/LoginInfo';
 import Main from './Pages/Main';
 import AuthRoute from './Routes/AuthRoute';
+import LoginRoute from './Routes/LoginRoute';
 
 const App = () => {
   return (
@@ -15,7 +17,22 @@ const App = () => {
           </AuthRoute>
         }
       />
-      <Route path="/login" element={<Login />} />
+      <Route
+        path="/login"
+        element={
+          <LoginRoute>
+            <Login />
+          </LoginRoute>
+        }
+      />
+      <Route
+        path="login/info"
+        element={
+          <LoginRoute>
+            <LoginInfo />
+          </LoginRoute>
+        }
+      />
     </Routes>
   );
 };
