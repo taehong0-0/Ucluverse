@@ -38,18 +38,36 @@ export class AuthService {
     async googleLogin(user) {
         const result = await this.checkIfUserExists(user.email);
         if (result.status == 2) {
-            const {accessToken, refreshToken} = await this.getTokens(result.userIdx);
-            return { accessToken, refreshToken, result };
+            const { 
+                access, 
+                refresh,
+            } = await this.getTokens(result.userIdx);
+            return { 
+                access, 
+                refresh, 
+                result 
+            };
         } else {
-            return { result };
+            return { 
+                result 
+            };
         }
     }
 
     async getTokens(userIdx: number) {
-        const { accessToken } = this.getCookieWithJwtAccessToken(userIdx);
-        const { refreshToken } = this.getCookieWithJwtRefreshToken(userIdx);
+        const { accessToken, ...accessOption } = this.getCookieWithJwtAccessToken(userIdx);
+        const { refreshToken, ...refreshOption } = this.getCookieWithJwtRefreshToken(userIdx);
         await this.userService.setCurrentRefreshToken(refreshToken, userIdx);
-        return { accessToken, refreshToken }
+        return { 
+            access: {
+                accessToken, 
+                accessOption,
+            }, 
+            refresh: {
+                refreshToken,
+                refreshOption,
+            }
+        };
     }
 
     getCookieWithJwtAccessToken(userIdx: number) {
@@ -61,6 +79,8 @@ export class AuthService {
 
         return {
             accessToken: token,
+            httpOnly: true,
+            maxAge: this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME') * 1000,
         };
     }
 
@@ -73,6 +93,8 @@ export class AuthService {
 
         return {
             refreshToken: token,
+            httpOnly: true,
+            maxAge: this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME') * 1000,
         };
     }
 
