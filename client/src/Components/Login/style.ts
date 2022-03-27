@@ -14,7 +14,26 @@ export const LoginContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
+export const LoginButtonContainer = styled.div`
+  width: 468px;
+  height: 120px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 3px 3px 10px #00000029;
+  border-radius: 5px;
+  opacity: 1;
+  margin-top: 30px;
+  text-align: center;
+  vertical-align: middle;
+  button {
+    width: 304px;
+    height: 45px;
+    margin-top: 38px;
+    background: none;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+`;
 export const LoginSpan = styled.span`
   width: 86px;
   height: 36px;

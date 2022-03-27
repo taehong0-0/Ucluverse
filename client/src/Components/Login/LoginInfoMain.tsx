@@ -13,10 +13,9 @@ const LoginMain = (): ReactElement => {
   return (
     <LoginMainContainer>
       <LoginContentContainer>
-        <LoginSpan>로그인</LoginSpan>
-        <LoginDetailSpan>유클러버스 회원가입은</LoginDetailSpan>
-        <LoginDetailSpan>구글 아이디 연동을 통해 진행됩니다.</LoginDetailSpan>
-        <LoginDetailSpan>아주메일로 로그인을 진행해주세요</LoginDetailSpan>
+        <LoginSpan>회원가입</LoginSpan>
+        <LoginDetailSpan>간단한 정보를 입력해주세요.</LoginDetailSpan>
+        <LoginDetailSpan>동아리 신청에 편리하게 쓰인답니다.</LoginDetailSpan>
         <LoginButtonContainer>
           <button>
             <img src={googleImg} width="304px" height="45px" />

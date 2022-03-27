@@ -14,9 +14,9 @@ const Header = (): ReactElement => {
         <LinkButton url="/">소학회</LinkButton>
         <LinkButton url="/">그 외 단체</LinkButton>
       </HeaderLinkContainer>
-      <button>
-        <img src="" />
-      </button>
+      <LinkButton url="/login">
+        <img src={logoImg} width="50px" height="50px" />
+      </LinkButton>
     </HeaderContainer>
   );
 };
