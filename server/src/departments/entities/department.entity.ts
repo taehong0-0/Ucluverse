@@ -1,6 +1,7 @@
 import { IsNumber, IsString } from "class-validator";
 import { College } from "src/colleges/entities/college.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/user/entities/user.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Department {
@@ -15,4 +16,6 @@ export class Department {
     @ManyToOne(() => College, college => college.departments)
     @JoinColumn({ name: 'collegeIdx', referencedColumnName: 'collegeIdx' })
     college: College;
+    @OneToMany(() => User, user => user.department)
+    users: User[]
 }
