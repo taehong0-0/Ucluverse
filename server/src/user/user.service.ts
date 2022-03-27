@@ -30,9 +30,12 @@ export class UserService {
             await queryRunner.manager.save(user);
             await queryRunner.commitTransaction();
             const userIdx = (await this.findByEmail(email)).userIdx;
-            const { accessToken, refreshToken } = await this.authService.getTokens(userIdx);
+            const { 
+                access, 
+                refresh 
+            } = await this.authService.getTokens(userIdx);
             const result = new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', user.userIdx, user.email);
-            return { accessToken, refreshToken,result };
+            return { access, refresh, result };
         }catch(e){
             await queryRunner.rollbackTransaction();
         }finally{

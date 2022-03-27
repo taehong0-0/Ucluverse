@@ -11,9 +11,9 @@ export class UserController {
 
     @Post('/signup')
     async signup(@Body() createUserDto: CreateUserDto, @Res() res: Response){
-        const {accessToken, refreshToken, result} = await this.userService.createUser(createUserDto);
-        res.cookie('Authentication', accessToken);
-        res.cookie('Refresh', refreshToken);
+        const { access, refresh, result } = await this.userService.createUser(createUserDto);
+        res.cookie('Authentication', access.accessToken, access.accessOption);
+        res.cookie('Refresh', refresh.refreshToken, refresh.refreshOption);
         res.send(result);
     }
 
