@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
@@ -7,6 +7,7 @@ import { LoginResponseDto } from './dto/login-response.dto';
 @Injectable()
 export class AuthService {
     constructor(
+        @Inject(forwardRef(() => UserService))
         private readonly userService: UserService,
         private readonly jwtService: JwtService,
         private readonly configService: ConfigService,
@@ -32,6 +33,23 @@ export class AuthService {
                 return new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', user.userIdx, email);
             }
         }
+    }
+
+    async googleLogin(req){
+        const result = await this.checkIfUserExists(req.user.email);
+        if (result.status == 2) {
+            const {accessToken, refreshToken} = await this.getTokens(req.user.userIdx);
+            return { accessToken, refreshToken, result}
+        } else {
+            return { result }
+        }
+    }
+
+    getTokens(userIdx){
+        const { accessToken } = this.getCookieWithJwtAccessToken(userIdx);
+        const { refreshToken } = this.getCookieWithJwtRefreshToken(userIdx);
+        this.userService.setCurrentRefreshToken(refreshToken, userIdx);
+        return { accessToken, refreshToken }
     }
 
     getCookieWithJwtAccessToken(userIdx: number) {
