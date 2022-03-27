@@ -58,8 +58,8 @@ export class AuthService {
         };
     }
 
-    getCookiesForLogOut() {
-        return {};
-    }
+    // getCookiesForLogOut() {
+    //     return {};
+    // }
 
 }

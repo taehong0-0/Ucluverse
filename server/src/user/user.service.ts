@@ -30,7 +30,16 @@ export class UserService {
 
     async setCurrentRefreshToken(refreshToken: string, userIdx: number) {
         const queryRunner = this.connection.createQueryRunner();
-        await queryRunner.manager.update(User, userIdx, { currentHashedRefreshToken: refreshToken });
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try{
+            await queryRunner.manager.update(User, userIdx, { currentHashedRefreshToken: refreshToken });
+            await queryRunner.commitTransaction();
+        }catch(e){
+            await queryRunner.rollbackTransaction();
+        }finally{
+            await queryRunner.release();
+        }
     }
 
     async getUserIfRefreshTokenMatches(refreshToken: string, userIdx: number) {
@@ -50,8 +59,17 @@ export class UserService {
 
     async removeRefreshToken(userIdx: number) {
         const queryRunner = this.connection.createQueryRunner();
-        await queryRunner.manager.update(User, userIdx, {
-            currentHashedRefreshToken: null,
-        });
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try{
+            await queryRunner.manager.update(User, userIdx, {
+                currentHashedRefreshToken: null,
+            });
+            await queryRunner.commitTransaction();
+        }catch(e){
+            await queryRunner.rollbackTransaction();
+        }finally{
+            await queryRunner.release();
+        }
     }
 }
