@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react';
 import Header from '../../Components/Header/Header';
-import LoginMain from '../../Components/Login/LoginMain';
-const Login = (): ReactElement => {
+
+const Main = (): ReactElement => {
   return (
     <div>
       <Header />
-      <LoginMain />
+      <span>main</span>
     </div>
   );
 };
-export default Login;
+export default Main;
