@@ -7,7 +7,7 @@ export const InputContainer = styled.div`
   margin-right: 20px;
   position: relative;
   input {
-    width: 15vw;
+    width: 30vw;
     height: 40px;
     padding-top: 15px;
     padding-bottom: -10px;
