@@ -6,6 +6,8 @@ import { validationSchema } from './config/validationSchema';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { CollegesModule } from './colleges/colleges.module';
+import { DepartmentsModule } from './departments/departments.module';
 
 
 @Module({
@@ -27,7 +29,7 @@ import { AuthModule } from './auth/auth.module';
         database: config.get('DATABASE_DATABASE'),
         entities: ["dist/**/*.entity{.ts,.js}"],
         synchronize: Boolean(config.get('DATABASE_SYNCHRONIZE')),
-        loggine: true,
+        logging: true,
       }),
     }),
     // TypeOrmModule.forRoot({
@@ -43,6 +45,8 @@ import { AuthModule } from './auth/auth.module';
     // }),
     UserModule,
     AuthModule,
+    CollegesModule,
+    DepartmentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
