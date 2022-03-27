@@ -30,9 +30,9 @@ export class UserService {
             await queryRunner.manager.save(user);
             await queryRunner.commitTransaction();
             const userIdx = (await this.findByEmail(email)).userIdx;
-            const {accessToken, refreshToken } = await this.authService.getTokens(userIdx);
-            const result = new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', user.userIdx)
-            return {accessToken, refreshToken,result}
+            const { accessToken, refreshToken } = await this.authService.getTokens(userIdx);
+            const result = new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', user.userIdx, user.email);
+            return { accessToken, refreshToken,result };
         }catch(e){
             await queryRunner.rollbackTransaction();
         }finally{
@@ -72,13 +72,14 @@ export class UserService {
         const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
-        try{
+        try {
             const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
             await queryRunner.manager.update(User, userIdx, { currentHashedRefreshToken: hashedRefreshToken });
             await queryRunner.commitTransaction();
-        }catch(e){
+        } catch(e) {
+            console.log(e);
             await queryRunner.rollbackTransaction();
-        }finally{
+        } finally {
             await queryRunner.release();
         }
     }
@@ -90,7 +91,9 @@ export class UserService {
                     userIdx: userIdx,
                 }
         });
-        const ifRefreshTokenMatches = await bcrypt.compare(refreshToken, user.currentHashedRefreshToken);
+        const ifRefreshTokenMatches = await bcrypt.compare(
+            refreshToken, user.currentHashedRefreshToken
+            );
         if (ifRefreshTokenMatches) {
             return user;
         } else {

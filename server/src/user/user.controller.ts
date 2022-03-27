@@ -17,8 +17,8 @@ export class UserController {
         res.send(result);
     }
 
-    @Post('duplicateNickname')
-    async duplicateNickname(@Body('nickname') nickname: string){
+    @Post('checkDuplicateNickname')
+    async checkDuplicateNickname(@Body('nickname') nickname: string){
         return this.userService.findDuplicateNickname(nickname);
     }
 }

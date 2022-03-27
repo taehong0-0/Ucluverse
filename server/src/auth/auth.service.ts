@@ -35,20 +35,20 @@ export class AuthService {
         }
     }
 
-    async googleLogin(req){
-        const result = await this.checkIfUserExists(req.user.email);
+    async googleLogin(user) {
+        const result = await this.checkIfUserExists(user.email);
         if (result.status == 2) {
-            const {accessToken, refreshToken} = await this.getTokens(req.user.userIdx);
-            return { accessToken, refreshToken, result}
+            const {accessToken, refreshToken} = await this.getTokens(result.userIdx);
+            return { accessToken, refreshToken, result };
         } else {
-            return { result }
+            return { result };
         }
     }
 
-    getTokens(userIdx){
+    async getTokens(userIdx: number) {
         const { accessToken } = this.getCookieWithJwtAccessToken(userIdx);
         const { refreshToken } = this.getCookieWithJwtRefreshToken(userIdx);
-        this.userService.setCurrentRefreshToken(refreshToken, userIdx);
+        await this.userService.setCurrentRefreshToken(refreshToken, userIdx);
         return { accessToken, refreshToken }
     }
 
@@ -64,8 +64,8 @@ export class AuthService {
         };
     }
 
-    getCookieWithJwtRefreshToken(id: number) {
-        const payload = { id: id };
+    getCookieWithJwtRefreshToken(userIdx: number) {
+        const payload = { userIdx: userIdx };
         const token = this.jwtService.sign(payload, {
             secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
             expiresIn: `${this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')}s`,
