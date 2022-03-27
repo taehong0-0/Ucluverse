@@ -36,6 +36,7 @@ export const LoginButtonContainer = styled.div`
 `;
 export const InputContainer = styled.div`
   width: 31.5vw;
+  height: 45vh;
   border-right: 0.5px solid #a19279;
   margin-left: 6vw;
   margin-top: 8vw;
@@ -46,28 +47,75 @@ export const InputContainer = styled.div`
         width: 10vw;
       }
     }
+    div:nth-child(2) {
+      input {
+        width: 18.5vw;
+      }
+    }
+  }
+`;
+
+export const ProfileContainer = styled.div`
+  width: 31.5vw;
+  margin-left: 3vw;
+  margin-top: 8vw;
+`;
+export const DropZoneDiv = styled.div`
+  width: 15vw;
+  height: 143px;
+  border: 1px dashed var(---grey1-3);
+  border: 1px dashed #dddae0;
+  border-radius: 5px;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+  img {
+    margin-top: 15px;
+  }
+  span:nth-child(3) {
+    text-align: center;
+    font: normal normal bold 24px/28px Noto Sans KR;
+    letter-spacing: -1.8px;
+    color: #846116;
+    opacity: 1;
+  }
+  span:nth-child(4) {
+    margin-bottom: 15px;
+    font: normal normal normal 14px/20px Noto Sans KR;
+    letter-spacing: -1.05px;
+    color: #a19279;
+    opacity: 1;
+  }
+`;
+export const ImageContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+`;
+export const CharacterContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  div:first-child {
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 `;
 export const LoginInfoContainer = styled.div`
   width: 75vw;
   height: 588px;
+  display: flex;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 3px 3px 10px #00000029;
   border-radius: 5px;
   opacity: 1;
   margin-top: 28px;
 `;
-export const LoginSpan = styled.span`
-  width: 114px;
-  height: 36px;
-  font-size: 36px;
-  margin-bottom: 20px;
-  text-align: center;
-  font: normal normal normal 36px/32px Sandoll Iyagi 03 Bold;
-  letter-spacing: -2.7px;
-  color: #513c0e;
-  opacity: 1;
-`;
+
 export const LoginDetailSpan = styled.span`
   width: 244px;
   text-align: center;
