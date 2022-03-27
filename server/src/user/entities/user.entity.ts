@@ -5,16 +5,16 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    userIdx: number
+    userIdx: number;
     @Column()
     @IsString()
-    name: string
+    name: string;
     @Column()
     @IsNumber()
     studentId: number
     @Column()
     @IsEmail()
-    email: string
+    email: string;
     @Column()
     @IsString()
     phoneNumber: string

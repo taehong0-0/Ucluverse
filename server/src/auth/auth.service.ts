@@ -24,13 +24,13 @@ export class AuthService {
     async checkIfUserExists(email: string): Promise<any> {
         const checkDomain: boolean = this.checkIfDomainIsAjou(email);
         if (!checkDomain) {
-            return new LoginResponseDto(0, '아주대 도메인 아님', null);
+            return new LoginResponseDto(0, '아주대 도메인 아님', null, null);
         } else {
             const user = await this.userService.findByEmail(email);
             if (!user) {
-                return new LoginResponseDto(1, '사용자가 DB에 존재하지 않음.(최초 사용자임.)', null);
+                return new LoginResponseDto(1, '사용자가 DB에 존재하지 않음.(최초 사용자임.)', null, email);
             } else {
-                return new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', user.userIdx);
+                return new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', user.userIdx, email);
             }
         }
     }

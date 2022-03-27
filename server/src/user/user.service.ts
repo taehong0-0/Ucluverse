@@ -4,6 +4,7 @@ import { LoginResponseDto } from 'src/auth/dto/login-response.dto';
 import { Connection } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
+import * as bcrypt from 'bcrypt';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()
@@ -72,7 +73,8 @@ export class UserService {
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
-            await queryRunner.manager.update(User, userIdx, { currentHashedRefreshToken: refreshToken });
+            const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+            await queryRunner.manager.update(User, userIdx, { currentHashedRefreshToken: hashedRefreshToken });
             await queryRunner.commitTransaction();
         }catch(e){
             await queryRunner.rollbackTransaction();
@@ -88,7 +90,7 @@ export class UserService {
                     userIdx: userIdx,
                 }
         });
-        const ifRefreshTokenMatches = refreshToken == user.currentHashedRefreshToken ? true : false;
+        const ifRefreshTokenMatches = await bcrypt.compare(refreshToken, user.currentHashedRefreshToken);
         if (ifRefreshTokenMatches) {
             return user;
         } else {
