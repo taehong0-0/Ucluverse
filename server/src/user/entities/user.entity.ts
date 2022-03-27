@@ -1,6 +1,7 @@
 import { Exclude } from "class-transformer";
 import { IsEmail, IsNumber, IsString } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Department } from "src/departments/entities/department.entity";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -9,6 +10,9 @@ export class User {
     @Column()
     @IsString()
     name: string;
+    @Column()
+    @IsNumber()
+    departmentIdx: number;
     @Column()
     @IsNumber()
     studentId: number
@@ -24,4 +28,7 @@ export class User {
     @Column({ nullable: true })
     @Exclude()
     currentHashedRefreshToken?: string;
+    @ManyToOne(() => Department, department => department.users)
+    @JoinColumn({ name: 'departmentIdx', referencedColumnName: 'departmentIdx' })
+    department: Department;
 }
