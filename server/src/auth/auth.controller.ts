@@ -19,17 +19,12 @@ export class AuthController {
     @Get('google/callback')
     @UseGuards(GoogleAuthGuard)
     async googleAuthRedirect(@Req() req, @Res() res: Response) {
-        const result = await this.authService.checkIfUserExists(req.user.email);
-        if (result.status == 2) {
-            const { accessToken } = this.authService.getCookieWithJwtAccessToken(result.userIdx);
-            const { refreshToken } = this.authService.getCookieWithJwtRefreshToken(result.userIdx);
-            this.userService.setCurrentRefreshToken(refreshToken, result.userIdx);
+        const {accessToken, refreshToken, result} = await this.authService.googleLogin(req);
+        if(accessToken!==undefined){
             res.cookie('Authentication', accessToken);
             res.cookie('Refresh', refreshToken);
-            res.send(result);
-        } else {
-            res.send(result);
-        }      
+        }
+        res.send(result);
     }
 
     @Get('refresh')
