@@ -13,7 +13,7 @@ export const HeaderContainer = styled.div`
 `;
 export const HeaderLinkContainer = styled.div`
   justify-content: space-between;
-  .link-button {
+  button {
     margin-right: 45px;
     &:last-child {
       margin-right: 0px;

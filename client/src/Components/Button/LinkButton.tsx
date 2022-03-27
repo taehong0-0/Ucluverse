@@ -8,9 +8,11 @@ interface props {
 const LinkButton = (props: props): ReactElement => {
   const { url, children } = props;
   return (
-    <Link to={url} className="link-button">
-      <LinkButtonContainer>{children}</LinkButtonContainer>
-    </Link>
+    <LinkButtonContainer>
+      <Link to={url} style={{ textDecoration: 'none', color: '#736f68' }}>
+        {children}
+      </Link>
+    </LinkButtonContainer>
   );
 };
 export default LinkButton;
