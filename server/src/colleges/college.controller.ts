@@ -3,7 +3,7 @@ import { CollegeService } from './college.service';
 import { CreateCollegeDto } from './dto/create-college.dto';
 import { UpdateCollegeDto } from './dto/update-college.dto';
 
-@Controller('colleges')
+@Controller('college')
 export class CollegeController {
     constructor(
         private readonly collegeService: CollegeService,
@@ -21,7 +21,7 @@ export class CollegeController {
 
     @Get(':idx')
     async findOne(@Param('idx') collegeIdx: number){
-        return await this.collegeService.findByCollegeIdx(collegeIdx);
+        return await this.collegeService.findOne(collegeIdx);
     }
 
     @Patch(':idx')

@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
 import { Connection } from 'typeorm';
+import { CollegeResDto } from './dto/college-response.dto';
 import { CreateCollegeDto } from './dto/create-college.dto';
 import { UpdateCollegeDto } from './dto/update-college.dto';
 import { College } from './entities/college.entity';
@@ -20,23 +22,25 @@ export class CollegeService {
         try{
             await queryrunner.manager.save(college);
             await queryrunner.commitTransaction();
+            return new BaseSuccessResDto();
         }catch(e){
             await queryrunner.rollbackTransaction();
+            return new BaseFailResDto('단과대 생성에 실패했습니다');
         }finally{
             await queryrunner.release();
         }
     }
 
-    async findAll():Promise<College[]>{
+    async findAll(){
         const queryRunner = this.connection.createQueryRunner();
         const colleges = await queryRunner.manager.find(College);
         if(!colleges){
             return null;
         }
-        return colleges;
+        return new CollegeResDto(colleges);
     }
 
-    async findByCollegeIdx(collegeIdx: number):Promise<College>{
+    async findOne(collegeIdx: number){
         const queryRunner = this.connection.createQueryRunner();
         const college = await queryRunner.manager.findOne(College, {
             where: {
@@ -46,7 +50,7 @@ export class CollegeService {
         if(!college){
             return null;
         }
-        return college;
+        return new CollegeResDto(college);
     }
     
     async update(collegeIdx: number, updateCollegeDto: UpdateCollegeDto){
@@ -63,8 +67,10 @@ export class CollegeService {
         try{
             await queryRunner.manager.save(college);
             await queryRunner.commitTransaction();
+            return new BaseSuccessResDto();
         }catch(e){
             await queryRunner.rollbackTransaction();
+            return new BaseFailResDto('단과대 정보 변경에 실패했습니다.');
         }finally{
             await queryRunner.release();
         }
@@ -78,8 +84,10 @@ export class CollegeService {
         try{
             await queryRunner.manager.delete(College, collegeIdx);
             await queryRunner.commitTransaction();
+            return new BaseSuccessResDto();
         }catch(e){
             await queryRunner.rollbackTransaction();
+            return new BaseFailResDto('단과대 정보 삭제에 실패했습니다');
         }finally{
             await queryRunner.release();
         }
