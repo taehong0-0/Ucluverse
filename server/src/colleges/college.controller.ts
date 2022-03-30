@@ -10,8 +10,8 @@ export class CollegeController {
     ){}
 
     @Post('')
-    async createCollege(@Body() creteCollegeDto: CreateCollegeDto, @Res() res){
-        return await this.collegeService.createCollege();
+    async create(@Body() createCollegeDto: CreateCollegeDto, @Res() res){
+        return await this.collegeService.create(createCollegeDto);
     }
 
     @Get('')
@@ -21,7 +21,7 @@ export class CollegeController {
 
     @Get(':idx')
     async findOne(@Param('idx') collegeIdx: number){
-        return await this.collegeService.findOne(collegeIdx);
+        return await this.collegeService.findByCollegeIdx(collegeIdx);
     }
 
     @Patch(':idx')
