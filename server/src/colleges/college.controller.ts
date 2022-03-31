@@ -30,6 +30,7 @@ export class CollegeController {
         @Body() updateCollegeDto:UpdateCollegeDto,
         @Res() res
         ){
+
         res.send(await this.collegeService.update(collegeIdx, updateCollegeDto));
     }
 
@@ -38,6 +39,7 @@ export class CollegeController {
         @Param('idx') collegeIdx: number,
         @Res() res,
     ){
+
         res.send(await this.collegeService.remove(collegeIdx));
     }
 }

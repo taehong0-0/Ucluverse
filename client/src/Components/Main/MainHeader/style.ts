@@ -11,8 +11,8 @@ export const MainHeaderDiv = styled.div`
     height: 68vh;
   }
   .content {
-    img::nth-child(1) {
-      width: 30vw;
+    img:nth-child(1) {
+      width: 27vw;
     }
     img:nth-child(2) {
       margin-top: 25px;

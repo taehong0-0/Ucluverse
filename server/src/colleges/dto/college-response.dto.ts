@@ -1,5 +1,6 @@
 import { BaseSuccessResDto } from "src/commons/response.dto";
 
+
 export class CollegeResDto extends BaseSuccessResDto{
     constructor(college: any){
         super();
