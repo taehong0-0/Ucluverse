@@ -6,7 +6,7 @@ import { validationSchema } from './config/validationSchema';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { CollegesModule } from './colleges/colleges.module';
+import { CollegesModule } from './colleges/college.module';
 import { DepartmentsModule } from './departments/departments.module';
 
 
