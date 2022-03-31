@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="152" height="155" viewBox="0 0 152 155">
+  <defs>
+    <filter id="빼기_3" x="0" y="0" width="152" height="155" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feFlood flood-color="#a3a1a6"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="타원_40" x="44" y="23.001" width="62" height="63" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="2" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="로그인-Profile" transform="translate(-893 -572.5)">
+    <g transform="matrix(1, 0, 0, 1, 893, 572.5)" filter="url(#빼기_3)">
+      <path id="빼기_3-2" data-name="빼기 3" d="M26,143H5a5.006,5.006,0,0,1-5-5V5A5.006,5.006,0,0,1,5,0H135a5.006,5.006,0,0,1,5,5V138a5.006,5.006,0,0,1-5,5H114.667c0-21.219-4.611-41.167-12.985-56.172S82.176,63.559,70.334,63.559,47.359,71.822,38.985,86.826,26,121.779,26,143Z" transform="translate(5 5)" fill="#ffb925"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 893, 572.5)" filter="url(#타원_40)">
+      <ellipse id="타원_40-2" data-name="타원 40" cx="25" cy="25.5" rx="25" ry="25.5" transform="translate(50 28)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

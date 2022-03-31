@@ -41,3 +41,4 @@ export class DepartmentsController {
         res.send(await this.departmentsService.remove(departmentIdx));
     }
 }
+

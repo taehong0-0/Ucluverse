@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48.001" viewBox="0 0 48 48.001">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #a45de2;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        filter: url(#빼기_2);
+      }
+    </style>
+    <filter id="빼기_2" x="0" y="0" width="48" height="48.001" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Profile-icon_36_" data-name="Profile-icon(36)" transform="translate(-1146 -269)">
+    <g class="cls-3" transform="matrix(1, 0, 0, 1, 1146, 269)">
+      <path id="빼기_2-2" data-name="빼기 2" class="cls-1" d="M5150.1-7156H5148a5.006,5.006,0,0,1-5-5v-26a5.006,5.006,0,0,1,5-5h26a5.005,5.005,0,0,1,5,5v26a5.005,5.005,0,0,1-5,5h-1.3c.066-.784.1-1.591.1-2.4,0-9.924-5.114-18-11.4-18s-11.4,8.074-11.4,18c0,.8.034,1.609.1,2.4Z" transform="translate(-5138 7197)"/>
+    </g>
+    <circle id="타원_40" data-name="타원 40" class="cls-2" cx="6.5" cy="6.5" r="6.5" transform="translate(1163 279)"/>
+  </g>
+</svg>

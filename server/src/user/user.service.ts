@@ -5,6 +5,7 @@ import { Connection } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import { Department } from 'src/departments/entities/department.entity';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()
@@ -17,7 +18,7 @@ export class UserService {
 
     async createUser(createUserDto: CreateUserDto) {
         const queryRunner = this.connection.createQueryRunner();
-        const { name, email, studentId, phoneNumber, nickname} = createUserDto;
+        const { name, email, department, studentId, phoneNumber, nickname} = createUserDto;
         const user = new User();
         user.name = name;
         user.email = email;
@@ -27,12 +28,25 @@ export class UserService {
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
+            const dpt = await queryRunner.manager.findOne(Department, {
+                where:{
+                    name: department,
+                }
+            })
+            if(!dpt){
+                console.log('해당학과가 존재하지 않습니다.');
+            }
+            user.department = dpt;
+            user.departmentIdx = dpt.departmentIdx;
             await queryRunner.manager.save(user);
             await queryRunner.commitTransaction();
             const userIdx = (await this.findByEmail(email)).userIdx;
-            const { accessToken, refreshToken } = await this.authService.getTokens(userIdx);
+            const { 
+                access, 
+                refresh 
+            } = await this.authService.getTokens(userIdx);
             const result = new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', user.userIdx, user.email);
-            return { accessToken, refreshToken,result };
+            return { access, refresh, result };
         }catch(e){
             await queryRunner.rollbackTransaction();
         }finally{

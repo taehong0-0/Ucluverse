@@ -19,10 +19,14 @@ export class AuthController {
     @Get('google/callback')
     @UseGuards(GoogleAuthGuard)
     async googleAuthRedirect(@Req() req, @Res() res: Response) {
-        const { accessToken, refreshToken, result } = await this.authService.googleLogin(req.user);
-        if( accessToken!==undefined ) {
-            res.cookie('Authentication', accessToken);
-            res.cookie('Refresh', refreshToken);
+        const { 
+            access, 
+            refresh, 
+            result 
+        } = await this.authService.googleLogin(req.user);
+        if ( access !== undefined ) {
+            res.cookie('Authentication', access.accessToken, access.accessOption);
+            res.cookie('Refresh', refresh.refreshToken, refresh.refreshOption);
         }
         res.send(result);
     }
@@ -30,8 +34,8 @@ export class AuthController {
     @Get('refresh')
     @UseGuards(JwtRefreshGuard)
     refreshAccessToken(@Req() req, @Res() res: Response) {
-        const { accessToken } = this.authService.getCookieWithJwtAccessToken(req.user.userIdx); 
-        res.cookie('Authentication', accessToken);
+        const { accessToken, ...accessOption } = this.authService.getCookieWithJwtAccessToken(req.user.userIdx); 
+        res.cookie('Authentication', accessToken, accessOption);
         res.send({
             msg: 'refreshed',
         });

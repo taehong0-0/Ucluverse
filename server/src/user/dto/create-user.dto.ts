@@ -4,6 +4,8 @@ export class CreateUserDto {
     @IsString()
     name: string
     @IsString()
+    department: string
+    @IsString()
     @IsEmail()
     email: string
     @IsNumber()
