@@ -9,7 +9,7 @@ const MainHeader = (): ReactElement => {
     <MainHeaderDiv>
       <img src={mainHeaderImg} className="background"></img>
       <div className="content">
-        <img src={mainHeaderContentImg} />
+        <img src={mainHeaderContentImg} className="main-header" />
         <span>다양한 우리들의 공간을 찾아보세요</span>
         <SearchBar />
       </div>

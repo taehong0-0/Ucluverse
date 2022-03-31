@@ -11,12 +11,8 @@ export const MainHeaderDiv = styled.div`
     height: 68vh;
   }
   .content {
-    img:nth-child(1) {
+    .main-header {
       width: 27vw;
-    }
-    img:nth-child(2) {
-      margin-top: 25px;
-      width: 35vw;
     }
     span {
       top: 235px;
@@ -36,6 +32,7 @@ export const MainHeaderDiv = styled.div`
     margin-top: -460px;
   }
 `;
+
 export const SearchBarDiv = styled.div`
   display: flex;
   width: 36vw;
