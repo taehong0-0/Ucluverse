@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { MainHeaderDiv } from './style';
 import mainHeaderImg from '../../../Assets/메인헤더.png';
 import mainHeaderContentImg from '../../../Assets/메인헤더글.svg';
-import searchBarImg from '../../../Assets/검색창.svg';
+import SearchBar from './SearchBar';
 
 const MainHeader = (): ReactElement => {
   return (
@@ -11,7 +11,7 @@ const MainHeader = (): ReactElement => {
       <div className="content">
         <img src={mainHeaderContentImg} />
         <span>다양한 우리들의 공간을 찾아보세요</span>
-        <img src={searchBarImg} />
+        <SearchBar />
       </div>
     </MainHeaderDiv>
   );
