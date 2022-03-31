@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="498" height="75" viewBox="0 0 498 75">
+  <defs>
+    <filter id="사각형_90" x="0" y="0" width="498" height="75" filterUnits="userSpaceOnUse">
+      <feOffset dx="3" dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#dddae0"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="패스_282" x="408" y="3" width="87" height="69" filterUnits="userSpaceOnUse">
+      <feOffset dx="3" dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="검색창" transform="translate(-378 -273)">
+    <g id="그룹_66" data-name="그룹 66" transform="translate(390 285)">
+      <g transform="matrix(1, 0, 0, 1, -12, -12)" filter="url(#사각형_90)">
+        <rect id="사각형_90-2" data-name="사각형 90" width="468" height="45" rx="5" transform="translate(12 12)" fill="#fff"/>
+      </g>
+      <g id="구성_요소_2_1" data-name="구성 요소 2 – 1" transform="translate(405)">
+        <g transform="matrix(1, 0, 0, 1, -417, -12)" filter="url(#패스_282)">
+          <path id="패스_282-2" data-name="패스 282" d="M0,0H58a5,5,0,0,1,5,5V40a5,5,0,0,1-5,5H0Z" transform="translate(417 12)" fill="#a45de2"/>
+        </g>
+      </g>
+      <path id="Icon_awesome-search" data-name="Icon awesome-search" d="M23.674,20.753,19,16.079a1.124,1.124,0,0,0-.8-.328h-.764a9.746,9.746,0,1,0-1.688,1.688V18.2a1.124,1.124,0,0,0,.328.8l4.674,4.674a1.12,1.12,0,0,0,1.589,0l1.327-1.327a1.13,1.13,0,0,0,0-1.594Zm-13.923-5a6,6,0,1,1,6-6A6,6,0,0,1,9.751,15.751Z" transform="translate(424.5 10.498)" fill="#fff"/>
+    </g>
+    <text id="궁금한_공간을_입력해주세요." data-name="궁금한 공간을 입력해주세요." transform="translate(493 312)" fill="#736f68" font-size="14" font-family="NotoSansKR-Regular, Noto Sans KR" letter-spacing="-0.075em"><tspan x="-75" y="0">궁금한 공간을 입력해주세요.</tspan></text>
+  </g>
+</svg>

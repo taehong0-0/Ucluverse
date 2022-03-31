@@ -12,6 +12,8 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
 `;
 export const HeaderLinkContainer = styled.div`
+  width: 28vw;
+  display: flex;
   justify-content: space-between;
   button {
     margin-right: 45px;
