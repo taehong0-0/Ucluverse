@@ -1,11 +1,14 @@
 import React, { ReactElement } from 'react';
 import Header from '../../Components/Header/Header';
+import MainHeader from '../../Components/Main/MainHeader/MainHeader';
 
 const Main = (): ReactElement => {
   return (
     <div>
       <Header />
-      <span>main</span>
+      <div>
+        <MainHeader />
+      </div>
     </div>
   );
 };
