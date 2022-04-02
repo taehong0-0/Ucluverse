@@ -1,7 +1,8 @@
 import { Exclude } from "class-transformer";
 import { IsEmail, IsNumber, IsString } from "class-validator";
 import { Department } from "src/departments/entities/department.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { ProfilePhoto } from "./profilePhoto.entity";
 
 @Entity()
 export class User {
@@ -31,4 +32,6 @@ export class User {
     @ManyToOne(() => Department, department => department.users)
     @JoinColumn({ name: 'departmentIdx', referencedColumnName: 'departmentIdx' })
     department: Department;
+    @OneToOne(() => ProfilePhoto, profilePhoto => profilePhoto.user)
+    profilePhoto: ProfilePhoto;
 }
