@@ -11,17 +11,17 @@ export class CollegeController {
 
     @Post('')
     async create(@Body() createCollegeDto: CreateCollegeDto, @Res() res){
-        return await this.collegeService.create(createCollegeDto);
+        res.send(await this.collegeService.create(createCollegeDto));
     }
 
     @Get('')
-    async findAll(){
-        return await this.collegeService.findAll();
+    async findAll(@Res() res){
+        res.send(await this.collegeService.findAll());
     }
 
     @Get(':idx')
-    async findOne(@Param('idx') collegeIdx: number){
-        return await this.collegeService.findOne(collegeIdx);
+    async findOne(@Param('idx') collegeIdx: number, @Res() res){
+        res.send(await this.collegeService.findOne(collegeIdx));
     }
 
     @Patch(':idx')
@@ -30,7 +30,8 @@ export class CollegeController {
         @Body() updateCollegeDto:UpdateCollegeDto,
         @Res() res
         ){
-        return await this.collegeService.update(collegeIdx, updateCollegeDto);
+
+        res.send(await this.collegeService.update(collegeIdx, updateCollegeDto));
     }
 
     @Delete(':idx')
@@ -38,6 +39,7 @@ export class CollegeController {
         @Param('idx') collegeIdx: number,
         @Res() res,
     ){
-        return await this.collegeService.remove(collegeIdx);
+
+        res.send(await this.collegeService.remove(collegeIdx));
     }
 }

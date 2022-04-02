@@ -34,23 +34,22 @@ export class CollegeService {
     async findAll(){
         const queryRunner = this.connection.createQueryRunner();
         const colleges = await queryRunner.manager.find(College);
-        if(!colleges){
-            return null;
-        }
         return new CollegeResDto(colleges);
     }
 
     async findOne(collegeIdx: number){
+        const college = await this.findCollegeByIdx(collegeIdx);
+        return new CollegeResDto(college);
+    }
+
+    async findCollegeByIdx(collegeIdx: number){
         const queryRunner = this.connection.createQueryRunner();
         const college = await queryRunner.manager.findOne(College, {
             where: {
                 collegeIdx: collegeIdx,
             }
         });
-        if(!college){
-            return null;
-        }
-        return new CollegeResDto(college);
+        return college;
     }
     
     async update(collegeIdx: number, updateCollegeDto: UpdateCollegeDto){

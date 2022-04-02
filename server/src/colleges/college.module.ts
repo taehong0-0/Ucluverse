@@ -11,6 +11,7 @@ import { College } from './entities/college.entity';
     ])
   ],
   controllers: [CollegeController],
-  providers: [CollegeService]
+  providers: [CollegeService],
+  exports: [CollegeService],
 })
 export class CollegesModule {}
