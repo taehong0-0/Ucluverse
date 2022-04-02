@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CollegeService } from 'src/colleges/college.service';
+import { CollegeService } from 'src/colleges/colleges.service';
 import { BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
 import { Connection } from 'typeorm';
 import { CreateDepartmentsDto } from './dto/create-departments.dto';

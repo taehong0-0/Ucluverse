@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CollegeService } from 'src/colleges/college.service';
+import { CollegesModule } from 'src/colleges/colleges.module';
+import { CollegeService } from 'src/colleges/colleges.service';
 import { College } from 'src/colleges/entities/college.entity';
 import { User } from 'src/user/entities/user.entity';
 import { DepartmentsController } from './departments.controller';
@@ -13,7 +14,7 @@ import { Department } from './entities/department.entity';
       Department,
       College,
     ]),
-    CollegeService,
+    CollegesModule,
   ],
   controllers: [DepartmentsController],
   providers: [DepartmentsService],
