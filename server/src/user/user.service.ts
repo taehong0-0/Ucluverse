@@ -7,6 +7,7 @@ import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { Department } from 'src/departments/entities/department.entity';
 import { ProfilePhoto } from './entities/profilePhoto.entity';
+import { UserResDto } from './dto/user-response.dto';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()
@@ -55,6 +56,19 @@ export class UserService {
         }finally{
             await queryRunner.release();
         }
+    }
+
+    async findUser(userIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        const user = await queryRunner.manager.findOne(User, {
+            where: {
+                userIdx: userIdx,
+            },
+            relations: [
+                'profilePhoto'
+            ]
+        });
+        return new UserResDto(user); 
     }
 
     async saveProfilePath(userIdx: number, files: Array<any>) {
