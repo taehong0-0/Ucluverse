@@ -36,7 +36,6 @@ export const ActivityContainer = styled.div`
       }
     }
   }
-
   img {
     margin: 0 auto;
   }
