@@ -57,14 +57,14 @@ export class UserService {
         }
     }
 
-    async saveProfilePath(userIdx: number, files: Array<any>) {
+    async saveProfilePhoto(userIdx: number, files: Array<any>) {
         const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try {
             const insertProfilePathWithUserIdx = files.map(async (file) => {
                 const profilePhoto = new ProfilePhoto();
-                profilePhoto.path = file.path;
+                profilePhoto.path = file.key;
                 profilePhoto.userIdx = userIdx;
                 await queryRunner.manager.save(profilePhoto);
             });
