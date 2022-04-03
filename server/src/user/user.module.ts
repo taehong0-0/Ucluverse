@@ -9,6 +9,7 @@ import { Department } from 'src/departments/entities/department.entity';
 import { MulterModule } from '@nestjs/platform-express';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { diskStorage } from 'multer';
+import { awsS3config } from 'src/config/awsS3config';
 
 @Module({
   imports: [
@@ -18,21 +19,7 @@ import { diskStorage } from 'multer';
     ]),
     forwardRef(()=>AuthModule),
     MulterModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        storage: diskStorage({
-          destination: (req, file, cb) => {
-            const dest = `${configService.get('FILE_SAVE_PATH')}`;
-            cb(null, dest);
-          },
-          filename: (req, file, cb) => {
-            const timeStamp = Date.now();
-            const fileName = timeStamp + file.originalname;
-            return cb(null, `${fileName}`);
-          }
-        })
-      })
+      useClass: awsS3config,
     }),
   ],
   controllers: [UserController],
