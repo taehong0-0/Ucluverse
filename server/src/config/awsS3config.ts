@@ -20,7 +20,7 @@ export class awsS3config implements MulterOptionsFactory {
     }
 
     createMulterOptions(): MulterOptions | Promise<MulterOptions> {
-        const bucket: string = 'ucluverse';
+        const bucket: string = this.configService.get('AWS_S3_BUCKET_NAME');
         const acl: string = 'public-read';
 
         const multerS3Storage = MulterS3({
