@@ -33,5 +33,6 @@ export class User {
     @JoinColumn({ name: 'departmentIdx', referencedColumnName: 'departmentIdx' })
     department: Department;
     @OneToOne(() => ProfilePhoto, profilePhoto => profilePhoto.user)
+    @JoinColumn({ name: 'userIdx', referencedColumnName: 'userIdx' })
     profilePhoto: ProfilePhoto;
 }
