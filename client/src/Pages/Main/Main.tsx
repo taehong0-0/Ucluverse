@@ -5,6 +5,7 @@ import MainAward from '../../Components/Main/MainAward/MainAward';
 import MainBoard from '../../Components/Main/MainBoard/MainBoard';
 import MainBoardContainer from '../../Components/Main/MainBoard/MainBoardContainer';
 import MainHeader from '../../Components/Main/MainHeader/MainHeader';
+import MainNewClub from '../../Components/Main/MainNewClub/MainNewClub';
 
 const Main = (): ReactElement => {
   return (
@@ -15,6 +16,7 @@ const Main = (): ReactElement => {
         <MainBoardContainer />
         <MainActivity />
         <MainAward />
+        <MainNewClub />
       </div>
     </div>
   );
