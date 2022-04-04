@@ -1,6 +1,6 @@
 import { IsNumber, IsString } from "class-validator";
-import { User } from "src/user/entities/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Answer } from "src/answers/entity/answer.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 export enum questionType{
     text='text',
@@ -22,4 +22,7 @@ export class Question{
     content: string;
     @Column()
     title: string;
+
+    @OneToMany(()=>Answer, answer=>answer.question)
+    answers: Answer[]
 }

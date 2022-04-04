@@ -11,6 +11,7 @@ import { DepartmentsModule } from './departments/departments.module';
 import { LikesModule } from './likes/likes.module';
 import { CommentsModule } from './comments/comments.module';
 import { QuestionsModule } from './questions/questions.module';
+import { AnswersModule } from './answers/answers.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { QuestionsModule } from './questions/questions.module';
     LikesModule,
     CommentsModule,
     QuestionsModule,
+    AnswersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
