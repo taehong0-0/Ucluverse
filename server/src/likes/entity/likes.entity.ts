@@ -12,9 +12,7 @@ export class Like {
     @Column()
     @IsNumber()
     postingIdx: number;
-    
     @ManyToOne(() => User, user => user.likes)
     @JoinColumn({ name: 'userIdx', referencedColumnName: 'userIdx' })
     user: User;
-
 }

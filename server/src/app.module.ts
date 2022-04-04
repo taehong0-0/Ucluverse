@@ -10,6 +10,7 @@ import { CollegesModule } from './colleges/colleges.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { LikesModule } from './likes/likes.module';
 import { CommentsModule } from './comments/comments.module';
+import { QuestionsModule } from './questions/questions.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { CommentsModule } from './comments/comments.module';
     DepartmentsModule,
     LikesModule,
     CommentsModule,
+    QuestionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
