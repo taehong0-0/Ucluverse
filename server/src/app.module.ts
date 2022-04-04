@@ -8,6 +8,8 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { CollegesModule } from './colleges/colleges.module';
 import { DepartmentsModule } from './departments/departments.module';
+import { LikesModule } from './likes/likes.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -35,6 +37,8 @@ import { DepartmentsModule } from './departments/departments.module';
     AuthModule,
     CollegesModule,
     DepartmentsModule,
+    LikesModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

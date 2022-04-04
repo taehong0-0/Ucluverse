@@ -1,7 +1,9 @@
 import { Exclude } from "class-transformer";
 import { IsEmail, IsNumber, IsString } from "class-validator";
+import { Comment } from "src/comments/entity/comment.entity";
 import { Department } from "src/departments/entities/department.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Like } from "src/likes/entity/likes.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ProfilePhoto } from "./profilePhoto.entity";
 
 @Entity()
@@ -35,4 +37,9 @@ export class User {
     @OneToOne(() => ProfilePhoto, profilePhoto => profilePhoto.user)
     @JoinColumn({ name: 'userIdx', referencedColumnName: 'userIdx' })
     profilePhoto: ProfilePhoto;
+    @OneToMany(() => Like, like=>like.user)
+    likes: Like[]
+    @OneToMany(() => Comment, comment=>comment.user)
+    comments: Comment[]
+    
 }
