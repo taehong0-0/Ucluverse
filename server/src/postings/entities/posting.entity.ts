@@ -1,7 +1,9 @@
 import { IsNumber, IsString } from "class-validator";
 import { ClubBoard } from "src/clubs/entities/club.entity";
+import { Comment } from "src/comments/entity/comment.entity";
+import { Like } from "src/likes/entity/likes.entity";
 import { User } from "src/user/entities/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Posting {
@@ -33,4 +35,12 @@ export class Posting {
         referencedColumnName: 'userIdx',
     })
     user: User;
+    @OneToMany(() => Like, like => like.posting, {
+        nullable: true,
+    })
+    likes: Like[];
+    @OneToMany(() => Comment, comment => comment.posting, {
+        nullable: true,
+    })
+    comments: Comment[];
 }
