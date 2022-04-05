@@ -1,7 +1,9 @@
 import { Exclude } from "class-transformer";
-import { IsEmail, IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsEmail, IsNumber, IsString } from "class-validator";
+import { Club } from "src/clubs/entities/club.entity";
 import { Department } from "src/departments/entities/department.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Posting } from "src/postings/entities/posting.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ProfilePhoto } from "./profilePhoto.entity";
 
 @Entity()
@@ -34,4 +36,45 @@ export class User {
     department: Department;
     @OneToOne(() => ProfilePhoto, profilePhoto => profilePhoto.user)
     profilePhoto: ProfilePhoto;
+    @OneToMany(() => UserClub, userClub => userClub.user)
+    userClubs: UserClub[];
+    @OneToMany(() => Posting, posting => posting.user)
+    postings: Posting[];
+}
+
+@Entity()
+export class UserClub {
+    @PrimaryGeneratedColumn()
+    userClubIdx: number;
+    @Column()
+    @IsNumber()
+    userIdx: number;
+    @Column()
+    @IsNumber()
+    clubIdx: number;
+    @Column({
+        nullable: true,
+    })
+    @IsString()
+    role: string;
+    @Column({
+        nullable: true,
+    })
+    @IsString()
+    status: string;
+    @Column()
+    @IsBoolean()
+    star: boolean;
+    @ManyToOne(() => User, user => user.userClubs)
+    @JoinColumn({
+        name: 'userIdx',
+        referencedColumnName: 'userIdx'
+    })
+    user: User;
+    @ManyToOne(() => Club, club => club.userClubs)
+    @JoinColumn({
+        name: 'clubIdx',
+        referencedColumnName: 'clubIdx',
+    })
+    club: Club;
 }
