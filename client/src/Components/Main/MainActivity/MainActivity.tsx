@@ -73,19 +73,19 @@ const MainActivity = (): ReactElement => {
       </Link>
       <Slider {...settings}>
         <div>
-          <img src={test1} />
+          <img src={test1} width="468px" height="350px" />
         </div>
         <div>
-          <img src={test2} />
+          <img src={test2} width="468px" height="350px" />
         </div>
         <div>
-          <img src={test3} />
+          <img src={test3} width="468px" height="350px" />
         </div>
         <div>
-          <img src={test4} />
+          <img src={test4} width="468px" height="350px" />
         </div>
         <div>
-          <img src={test5} />
+          <img src={test5} width="468px" height="350px" />
         </div>
       </Slider>
     </ActivityContainer>

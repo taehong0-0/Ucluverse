@@ -12,6 +12,8 @@ import { LikesModule } from './likes/likes.module';
 import { CommentsModule } from './comments/comments.module';
 import { QuestionsModule } from './questions/questions.module';
 import { AnswersModule } from './answers/answers.module';
+import { ClubsModule } from './clubs/clubs.module';
+import { PostingsModule } from './postings/postings.module';
 
 @Module({
   imports: [
@@ -43,6 +45,8 @@ import { AnswersModule } from './answers/answers.module';
     CommentsModule,
     QuestionsModule,
     AnswersModule,
+    ClubsModule,
+    PostingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

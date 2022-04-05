@@ -3,6 +3,10 @@ import { IsEmail, IsNumber, IsString } from "class-validator";
 import { Comment } from "src/comments/entity/comment.entity";
 import { Department } from "src/departments/entities/department.entity";
 import { Like } from "src/likes/entity/likes.entity";
+import { IsBoolean, IsEmail, IsNumber, IsString } from "class-validator";
+import { Club } from "src/clubs/entities/club.entity";
+import { Department } from "src/departments/entities/department.entity";
+import { Posting } from "src/postings/entities/posting.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ProfilePhoto } from "./profilePhoto.entity";
 
@@ -41,5 +45,45 @@ export class User {
     likes: Like[]
     @OneToMany(() => Comment, comment=>comment.user)
     comments: Comment[]
-    
+    @OneToMany(() => UserClub, userClub => userClub.user)
+    userClubs: UserClub[];
+    @OneToMany(() => Posting, posting => posting.user)
+    postings: Posting[];
+}
+
+@Entity()
+export class UserClub {
+    @PrimaryGeneratedColumn()
+    userClubIdx: number;
+    @Column()
+    @IsNumber()
+    userIdx: number;
+    @Column()
+    @IsNumber()
+    clubIdx: number;
+    @Column({
+        nullable: true,
+    })
+    @IsString()
+    role: string;
+    @Column({
+        nullable: true,
+    })
+    @IsString()
+    status: string;
+    @Column()
+    @IsBoolean()
+    star: boolean;
+    @ManyToOne(() => User, user => user.userClubs)
+    @JoinColumn({
+        name: 'userIdx',
+        referencedColumnName: 'userIdx'
+    })
+    user: User;
+    @ManyToOne(() => Club, club => club.userClubs)
+    @JoinColumn({
+        name: 'clubIdx',
+        referencedColumnName: 'clubIdx',
+    })
+    club: Club;
 }

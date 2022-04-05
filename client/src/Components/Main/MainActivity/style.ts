@@ -19,8 +19,6 @@ export const ActivityContainer = styled.div`
     }
     .slick-active {
       img {
-        width: 468px;
-        height: 350px;
         box-shadow: 3px 3px 10px;
         background: transparent 0% 0% no-repeat padding-box;
         box-shadow: 3px 3px 10px #a3a1a6;
