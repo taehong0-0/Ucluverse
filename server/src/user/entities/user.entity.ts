@@ -1,7 +1,5 @@
 import { Exclude } from "class-transformer";
-import { IsEmail, IsNumber, IsString } from "class-validator";
 import { Comment } from "src/comments/entity/comment.entity";
-import { Department } from "src/departments/entities/department.entity";
 import { Like } from "src/likes/entity/likes.entity";
 import { IsBoolean, IsEmail, IsNumber, IsString } from "class-validator";
 import { Club } from "src/clubs/entities/club.entity";
