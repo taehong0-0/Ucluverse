@@ -1,5 +1,6 @@
 import { IsNumber, IsString } from "class-validator";
 import { Answer } from "src/answers/entity/answer.entity";
+import { Club } from "src/clubs/entities/club.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 export enum questionType{
@@ -25,4 +26,7 @@ export class Question{
 
     @OneToMany(()=>Answer, answer=>answer.question)
     answers: Answer[]
+    @ManyToOne(() => Club, club => club.questions)
+    @JoinColumn({ name: 'clubIdx', referencedColumnName: 'clubIdx' })
+    club: Club;
 }
