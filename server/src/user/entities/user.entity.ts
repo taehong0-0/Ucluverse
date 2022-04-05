@@ -7,6 +7,7 @@ import { Department } from "src/departments/entities/department.entity";
 import { Posting } from "src/postings/entities/posting.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ProfilePhoto } from "./profilePhoto.entity";
+import { Answer } from "src/answers/entity/answer.entity";
 
 @Entity()
 export class User {
@@ -84,4 +85,6 @@ export class UserClub {
         referencedColumnName: 'clubIdx',
     })
     club: Club;
+    @OneToMany(() => Answer, answer => answer.userClub)
+    answers: Answer[]
 }
