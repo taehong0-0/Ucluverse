@@ -8,6 +8,10 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { CollegesModule } from './colleges/colleges.module';
 import { DepartmentsModule } from './departments/departments.module';
+import { LikesModule } from './likes/likes.module';
+import { CommentsModule } from './comments/comments.module';
+import { QuestionsModule } from './questions/questions.module';
+import { AnswersModule } from './answers/answers.module';
 import { ClubsModule } from './clubs/clubs.module';
 import { PostingsModule } from './postings/postings.module';
 
@@ -37,6 +41,10 @@ import { PostingsModule } from './postings/postings.module';
     AuthModule,
     CollegesModule,
     DepartmentsModule,
+    LikesModule,
+    CommentsModule,
+    QuestionsModule,
+    AnswersModule,
     ClubsModule,
     PostingsModule,
   ],
