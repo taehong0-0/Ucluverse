@@ -47,6 +47,8 @@ export class User {
     userClubs: UserClub[];
     @OneToMany(() => Posting, posting => posting.user)
     postings: Posting[];
+    @OneToMany(() => Notification, notification => notification.user)
+    notifications: Notification[];
 }
 
 @Entity()
@@ -86,4 +88,33 @@ export class UserClub {
     club: Club;
     @OneToMany(() => Answer, answer => answer.userClub)
     answers: Answer[]
+}
+
+@Entity()
+export class Notification {
+    @PrimaryGeneratedColumn()
+    notificationIdx: number;
+    @Column()
+    @IsNumber()
+    userIdx: number;
+    @Column()
+    @IsString()
+    title: string;
+    @Column("text")
+    @IsString()
+    content: string;
+    @Column()
+    @IsNumber()
+    from: number;
+    @Column({
+        default: false,
+    })
+    @IsBoolean()
+    isRead: boolean;
+    @ManyToOne(() => User, user => user.notifications)
+    @JoinColumn({
+        name: 'userIdx',
+        referencedColumnName: 'userIdx',
+    })
+    user: User;
 }

@@ -1,10 +1,11 @@
 import { IsNumber, IsOptional, IsString } from "class-validator";
 import { College } from "src/colleges/entities/college.entity";
 import { Department } from "src/departments/entities/department.entity";
+import { Poster } from "src/posters/entities/poster.entity";
 import { Posting } from "src/postings/entities/posting.entity";
 import { Question } from "src/questions/entity/question.entity";
 import { UserClub } from "src/user/entities/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Club {
@@ -44,8 +45,12 @@ export class Club {
     userClubs: UserClub[];
     @OneToMany(() => ClubBoard, clubBoard => clubBoard.club)
     clubBoards: ClubBoard[];
-    @OneToMany(()=>Question, question=>question.club)
+    @OneToMany(() => Question, question => question.club)
     questions: Question[]
+    @OneToMany(() => ClubCategory, clubCategory => clubCategory.club)
+    clubCategories: ClubCategory[];
+    @OneToOne(() => Poster, poster => poster.club)
+    poster: Poster;
 }
 
 @Entity()
@@ -66,4 +71,22 @@ export class ClubBoard {
     club: Club;
     @OneToMany(() => Posting, posting => posting.clubBoard)
     postings: Posting[];
+}
+
+@Entity()
+export class ClubCategory {
+    @PrimaryGeneratedColumn()
+    clubCategoryIdx: number;
+    @Column()
+    @IsNumber()
+    clubIdx: number;
+    @Column()
+    @IsString()
+    name: string;
+    @ManyToOne(() => Club, club => club.clubCategories)
+    @JoinColumn({
+        name: 'clubIdx',
+        referencedColumnName: 'clubIdx',
+    })
+    club: Club;
 }
