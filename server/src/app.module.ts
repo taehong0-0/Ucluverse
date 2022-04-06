@@ -14,6 +14,7 @@ import { QuestionsModule } from './questions/questions.module';
 import { AnswersModule } from './answers/answers.module';
 import { ClubsModule } from './clubs/clubs.module';
 import { PostingsModule } from './postings/postings.module';
+import { PostersModule } from './posters/posters.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { PostingsModule } from './postings/postings.module';
     AnswersModule,
     ClubsModule,
     PostingsModule,
+    PostersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
