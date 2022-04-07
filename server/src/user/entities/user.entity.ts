@@ -5,7 +5,7 @@ import { IsBoolean, IsEmail, IsNumber, IsString } from "class-validator";
 import { Club } from "src/clubs/entities/club.entity";
 import { Department } from "src/departments/entities/department.entity";
 import { Posting } from "src/postings/entities/posting.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ProfilePhoto } from "./profilePhoto.entity";
 import { Answer } from "src/answers/entity/answer.entity";
 
@@ -118,3 +118,4 @@ export class Notification {
     })
     user: User;
 }
+
