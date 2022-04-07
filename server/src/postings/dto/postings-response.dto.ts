@@ -7,3 +7,11 @@ export class PostingResDto extends BaseSuccessResDto{
     }
     postings: any;
 }
+
+export class CreatePostingResDto extends BaseSuccessResDto {
+    constructor(postingIdx: number) {
+        super();
+        this.res.postingIdx = postingIdx;
+    }
+    postingIdx: number;
+}
