@@ -11,11 +11,11 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGene
 export class Club {
     @PrimaryGeneratedColumn()
     clubIdx: number;
-    @Column()
+    @Column({ nullable: true })
     @IsOptional()
     @IsNumber()
     collegeIdx: number;
-    @Column()
+    @Column({ nullable: true })
     @IsOptional()
     @IsNumber()
     departmentIdx: number;
