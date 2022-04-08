@@ -48,8 +48,8 @@ export class PostingsController {
         res.send(await this.postingsService.getEntirePostingsByClub(clubIdx));
     }
     
-    @Get('main/activity')         //동아리 페이지 전체 게시판의 게시물 불러오기
-    async getAllActivityPostings(@Res() res){
-        res.send(await this.postingsService.getAllActivityPostings());
+    @Get('main/:boardName')         //메인 페이지 게시판 게시물 불러오기
+    async getAllActivityPostings(@Param('boardName') boardName: string, @Res() res){
+        res.send(await this.postingsService.getAllPostings(boardName));
     }
 }
