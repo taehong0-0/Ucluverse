@@ -1,5 +1,6 @@
 import { IsNumber, IsOptional, IsString } from "class-validator";
 import { College } from "src/colleges/entities/college.entity";
+import { Common } from "src/commons/entity/common.entity";
 import { Department } from "src/departments/entities/department.entity";
 import { Poster } from "src/posters/entities/poster.entity";
 import { Posting } from "src/postings/entities/posting.entity";
@@ -8,7 +9,7 @@ import { UserClub } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Club {
+export class Club extends Common{
     @PrimaryGeneratedColumn()
     clubIdx: number;
     @Column({ nullable: true })
