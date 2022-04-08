@@ -84,10 +84,32 @@ export class PostingsService {
             where: {
                 clubBoardIdx: clubBoardIdx,
             },
+            relations:[
+                'images',
+                'videos',
+                'attachedFiles',
+            ],
             order: {
                 postingIdx: "ASC",
             }
         });
+        return new PostingResDto(postings);
+    }
+
+    async getEntirePostingsByClub(clubIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        const postings = await queryRunner.manager.find(Posting, {
+            relations:[
+                'clubBoard',
+                'images',
+                'videos',
+                'attachedFiles',
+            ],
+            where:{
+                clubBoard: { clubIdx: clubIdx },
+
+            },
+        })
         return new PostingResDto(postings);
     }
 }

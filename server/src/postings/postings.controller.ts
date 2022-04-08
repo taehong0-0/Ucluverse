@@ -42,4 +42,10 @@ export class PostingsController {
     async getPostingsByClubBoard(@Param('clubBoardIdx') clubBoardIdx: number, @Res() res){
         res.send(await this.postingsService.getPostingsByClubBoard(clubBoardIdx));
     }
+
+    @Get('entire/club/:clubIdx')         //동아리 페이지 전체 게시판의 게시물 불러오기
+    async getEntirePostingsByClub(@Param('clubIdx') clubIdx: number, @Res() res){
+        res.send(await this.postingsService.getEntirePostingsByClub(clubIdx));
+    }
+    
 }
