@@ -12,7 +12,7 @@ export class ClubsService {
     async getNewClubs(){
         const queryrunner = this.connection.createQueryRunner();
         const date = new Date();
-        date.setMonth(date.getMonth() + 1);
+        date.setMonth(date.getMonth() - 1);
         const clubs = await queryrunner.manager.find(Club, {
             where:{
                 createdAt: Raw((alias) => `${alias} < :date`, {date: date}),
