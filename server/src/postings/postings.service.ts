@@ -113,7 +113,7 @@ export class PostingsService {
         return new PostingResDto(postings);
     }
 
-    async getAllActivityPostings(){
+    async getAllPostings(boardName: string){
         const queryRunner = this.connection.createQueryRunner();
         const postings = await queryRunner.manager.find(Posting, {
             relations:[
@@ -123,7 +123,7 @@ export class PostingsService {
                 'attachedFiles',
             ],
             where:{
-                clubBoard: { name: "활동게시판" },
+                clubBoard: { name: boardName },
             },
         })
         return new PostingResDto(postings);
