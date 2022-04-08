@@ -112,4 +112,20 @@ export class PostingsService {
         })
         return new PostingResDto(postings);
     }
+
+    async getAllActivityPostings(){
+        const queryRunner = this.connection.createQueryRunner();
+        const postings = await queryRunner.manager.find(Posting, {
+            relations:[
+                'clubBoard',
+                'images',
+                'videos',
+                'attachedFiles',
+            ],
+            where:{
+                clubBoard: { name: "활동게시판" },
+            },
+        })
+        return new PostingResDto(postings);
+    }
 }
