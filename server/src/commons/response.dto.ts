@@ -35,3 +35,15 @@ export class BaseFailResDto extends BaseResponseDto{
         }
     }
 }
+
+export class BaseFailMsgResDto extends BaseResponseDto{
+    constructor(msg: string){
+        super();
+        this.isSuccess = true;
+        this.status = 200;
+        this.msg = msg;
+        this.res = {
+            msg,
+        }
+    }
+}
