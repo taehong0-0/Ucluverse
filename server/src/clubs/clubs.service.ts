@@ -57,7 +57,7 @@ export class ClubsService {
 
     async checkIfClubBoardExists(clubIdx: number, name: string){
         const queryrunner = this.connection.createQueryRunner();
-        const clubBoard = queryrunner.manager.findOne(ClubBoard, {
+        const clubBoard = await queryrunner.manager.findOne(ClubBoard, {
             where:{
                 clubIdx: clubIdx,
                 name: name,

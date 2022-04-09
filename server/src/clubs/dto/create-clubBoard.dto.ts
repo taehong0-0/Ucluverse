@@ -4,5 +4,5 @@ export class CreateClubBoardDto {
     @IsNumber()
     clubIdx: number;
     @IsString()
-    name: string;   
+    name: string;
 }
