@@ -14,7 +14,7 @@ const PostTitle = (props: props): ReactElement => {
     <TitleContainer>
       <div className={type === '공지사항' ? 'notice' : 'post'}>
         {type === '공지사항' ? <span>공지</span> : <span>·</span>}
-        <Link to={`/post/${postId}`}>
+        <Link to={`/club/post?postId=${postId}`}>
           <span>{title}</span>
         </Link>
         <span>{author}</span>

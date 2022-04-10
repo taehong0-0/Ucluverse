@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import ClubBoard from '../../Components/Club/Board/ClubBoard';
 import ClubHeader from '../../Components/Club/Header/ClubHeader';
 import ClubMain from '../../Components/Club/Main/ClubMain';
+import ClubPost from '../../Components/Club/Post/ClubPost';
 import ClubSideBar from '../../Components/Club/SideBar/ClubSideBar';
 import Header from '../../Components/Header/Header';
 
@@ -37,6 +38,7 @@ const Club = (): ReactElement => {
           <Routes>
             <Route path="/" element={<ClubMain />}></Route>
             <Route path="/board" element={<ClubBoard />}></Route>
+            <Route path="/post" element={<ClubPost />}></Route>
           </Routes>
         </div>
       </div>

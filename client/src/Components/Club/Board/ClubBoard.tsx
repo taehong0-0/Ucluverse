@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import PostTitle from '../../Post/PostTitle';
 import { ClubBoardContainer } from './style';
 const posts = [
@@ -40,10 +40,10 @@ const posts = [
   },
 ];
 const ClubBoard = (): ReactElement => {
-  useLocation();
-  const url = new URL(window.location.href);
-  const urlParams = url.searchParams;
+  const url = useLocation();
+  const urlParams = new URLSearchParams(url.search);
   const boardId = urlParams.get('boardId');
+  // todo : boardId로 해당하는 board의 데이터 가져오기
 
   return (
     <ClubBoardContainer>
