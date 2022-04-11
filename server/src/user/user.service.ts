@@ -1,11 +1,13 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginResponseDto } from 'src/auth/dto/login-response.dto';
-import { Connection } from 'typeorm';
+import { Connection, QueryRunner } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { Department } from 'src/departments/entities/department.entity';
+import { ProfilePhoto } from './entities/profilePhoto.entity';
+import { UserResDto } from './dto/user-response.dto';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()
@@ -18,7 +20,7 @@ export class UserService {
 
     async createUser(createUserDto: CreateUserDto) {
         const queryRunner = this.connection.createQueryRunner();
-        const { name, email, department, studentId, phoneNumber, nickname} = createUserDto;
+        const { name, email, department, studentId, phoneNumber, nickname } = createUserDto;
         const user = new User();
         user.name = name;
         user.email = email;
@@ -40,6 +42,7 @@ export class UserService {
             user.departmentIdx = dpt.departmentIdx;
             await queryRunner.manager.save(user);
             await queryRunner.commitTransaction();
+
             const userIdx = (await this.findByEmail(email)).userIdx;
             const { 
                 access, 
@@ -48,8 +51,45 @@ export class UserService {
             const result = new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', user.userIdx, user.email);
             return { access, refresh, result };
         }catch(e){
+            console.log(e);
             await queryRunner.rollbackTransaction();
         }finally{
+            await queryRunner.release();
+        }
+    }
+
+
+    async findUser(userIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        const user = await queryRunner.manager.findOne(User, {
+            where: {
+                userIdx: userIdx,
+            },
+            relations: [
+                'profilePhoto'
+            ]
+        });
+        return new UserResDto(user); 
+    }
+
+
+    async saveProfilePhoto(userIdx: number, files: Array<any>) {
+        const queryRunner = this.connection.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try {
+            const insertProfilePathWithUserIdx = files.map(async (file) => {
+                const profilePhoto = new ProfilePhoto();
+                profilePhoto.path = file.key;
+                profilePhoto.userIdx = userIdx;
+                await queryRunner.manager.save(profilePhoto);
+            });
+            await Promise.all(insertProfilePathWithUserIdx);
+            await queryRunner.commitTransaction();
+        } catch (error) {
+            console.log(error);
+            await queryRunner.rollbackTransaction();
+        } finally {
             await queryRunner.release();
         }
     }

@@ -8,7 +8,13 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { CollegesModule } from './colleges/colleges.module';
 import { DepartmentsModule } from './departments/departments.module';
-
+import { LikesModule } from './likes/likes.module';
+import { CommentsModule } from './comments/comments.module';
+import { QuestionsModule } from './questions/questions.module';
+import { AnswersModule } from './answers/answers.module';
+import { ClubsModule } from './clubs/clubs.module';
+import { PostingsModule } from './postings/postings.module';
+import { PostersModule } from './posters/posters.module';
 
 @Module({
   imports: [
@@ -32,21 +38,17 @@ import { DepartmentsModule } from './departments/departments.module';
         logging: true,
       }),
     }),
-    // TypeOrmModule.forRoot({
-    //   type: 'mysql',
-    //   host: process.env.DATABASE_HOST,
-    //   port: process.env.DATABASE_PORT,
-    //   username: process.env.DATABASE_USERNAME,
-    //   password: process.env.DATABASE_PASSWORD,
-    //   database: process.env.DATABASE_DATABASE,
-    //   entities: [__dirname + '/**/*.entity{.ts,.js}'],
-    //   synchronize: true,
-    //   loggine: true,
-    // }),
     UserModule,
     AuthModule,
     CollegesModule,
     DepartmentsModule,
+    LikesModule,
+    CommentsModule,
+    QuestionsModule,
+    AnswersModule,
+    ClubsModule,
+    PostingsModule,
+    PostersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

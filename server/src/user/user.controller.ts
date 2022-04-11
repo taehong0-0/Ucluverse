@@ -1,5 +1,8 @@
-import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Res, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
+import { AuthService } from 'src/auth/auth.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
 
@@ -7,11 +10,15 @@ import { UserService } from './user.service';
 export class UserController {
     constructor(
         private readonly userService: UserService,
+        private readonly authService: AuthService,
     ){}
 
     @Post('/signup')
-    async signup(@Body() createUserDto: CreateUserDto, @Res() res: Response){
+    @UseInterceptors(FilesInterceptor('files'))
+    async signup(@Body() createUserDto: CreateUserDto, @Res() res: Response, @UploadedFiles() files: Array<Express.Multer.File>){
         const { access, refresh, result } = await this.userService.createUser(createUserDto);
+        console.log(files);
+        await this.userService.saveProfilePhoto(result.userIdx, files);
         res.cookie('Authentication', access.accessToken, access.accessOption);
         res.cookie('Refresh', refresh.refreshToken, refresh.refreshOption);
         res.send(result);
@@ -20,5 +27,11 @@ export class UserController {
     @Post('checkDuplicateNickname')
     async checkDuplicateNickname(@Body('nickname') nickname: string){
         return this.userService.findDuplicateNickname(nickname);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get(':idx')
+    async getUser(@Param('idx') userIdx: number, @Res() res){
+        res.send(await this.userService.findUser(userIdx));
     }
 }

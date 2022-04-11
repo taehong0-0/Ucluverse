@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import Club from './Pages/Club/Club';
 import Login from './Pages/Login/Login';
 import LoginInfo from './Pages/Login/LoginInfo';
 import Main from './Pages/Main/Main';
@@ -33,6 +34,15 @@ const App = () => {
           </LoginRoute>
         }
       />
+      <Route
+        path="/club/*"
+        element={
+          <AuthRoute>
+            <Club />
+          </AuthRoute>
+        }
+      />
+      <Route path="*" element={<Navigate replace to="/" />} />
     </Routes>
   );
 };
