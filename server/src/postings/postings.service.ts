@@ -85,9 +85,12 @@ export class PostingsService {
                 clubBoardIdx: clubBoardIdx,
             },
             relations:[
+                'clubBoard',
                 'images',
                 'videos',
                 'attachedFiles',
+                'comments',
+                'likes',
             ],
             order: {
                 postingIdx: "ASC",
@@ -104,6 +107,8 @@ export class PostingsService {
                 'images',
                 'videos',
                 'attachedFiles',
+                'comments',
+                'likes',
             ],
             where:{
                 clubBoard: { clubIdx: clubIdx },
@@ -121,11 +126,31 @@ export class PostingsService {
                 'images',
                 'videos',
                 'attachedFiles',
+                'comments',
+                'likes',
             ],
             where:{
                 clubBoard: { name: boardName },
             },
         })
         return new PostingResDto(postings);
+    }
+
+    async getPostingByPostingIdx(postingIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        const posting = await queryRunner.manager.findOne(Posting, {
+            where:{
+                postingIdx: postingIdx,
+            },
+            relations:[
+                'clubBoard',
+                'images',
+                'videos',
+                'attachedFiles',
+                'comments',
+                'likes',
+            ]
+        });
+        return new PostingResDto(posting);
     }
 }

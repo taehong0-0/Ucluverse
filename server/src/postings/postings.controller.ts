@@ -52,4 +52,9 @@ export class PostingsController {
     async getAllActivityPostings(@Param('boardName') boardName: string, @Res() res){
         res.send(await this.postingsService.getAllPostings(boardName));
     }
+
+    @Get(':postingIdx')         //postingIdx에 대한 게시글 정보 불러오기
+    async getPostingByPostingIdx(@Param('postingIdx') postingIdx: number, @Res() res){
+        res.send(await this.postingsService.getPostingByPostingIdx(postingIdx));
+    }
 }
