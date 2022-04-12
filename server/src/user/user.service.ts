@@ -3,11 +3,14 @@ import { AuthService } from 'src/auth/auth.service';
 import { LoginResponseDto } from 'src/auth/dto/login-response.dto';
 import { Connection, QueryRunner } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
+import { User, UserClub } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { Department } from 'src/departments/entities/department.entity';
 import { ProfilePhoto } from './entities/profilePhoto.entity';
 import { UserResDto } from './dto/user-response.dto';
+import { SignupClubDto } from './dto/signupClub.dto';
+import { BaseSuccessResDto } from 'src/commons/response.dto';
+import { Club } from 'src/clubs/entities/club.entity';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()
@@ -165,6 +168,76 @@ export class UserService {
             });
             await queryRunner.commitTransaction();
         }catch(e){
+            await queryRunner.rollbackTransaction();
+        }finally{
+            await queryRunner.release();
+        }
+    }
+
+    async signupClub(signupClubDto: SignupClubDto){
+        const {userIdx, clubIdx} = signupClubDto;
+        const userClub = await this.getUserClub(userIdx, clubIdx);
+        if(userClub){
+            return await this.setUserClubStatusWaiting(userClub);
+        }else{
+            return await this.applyClub(userIdx, clubIdx);
+        }
+    }
+
+    async getUserClub(userIdx: number, clubIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        const userClub = await queryRunner.manager.findOne(UserClub, {
+                where: {
+                    userIdx: userIdx,
+                    clubIdx: clubIdx,
+                }
+        });
+        return userClub;
+    }
+
+    async setUserClubStatusWaiting(userClub: UserClub){
+        const queryRunner = this.connection.createQueryRunner();
+        userClub.status = 'waiting';
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try{
+            await queryRunner.manager.save(userClub);
+            await queryRunner.commitTransaction();
+            return new BaseSuccessResDto();
+        }catch(e){
+            console.log(e);
+            await queryRunner.rollbackTransaction();
+        }finally{
+            await queryRunner.release();
+        }
+    }
+
+    async applyClub(userIdx: number, clubIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        const userClub = new UserClub();
+        const club = await queryRunner.manager.findOne(Club, {
+            where: {
+                clubIdx: clubIdx,
+            }
+        });
+        const user = await queryRunner.manager.findOne(User, {
+            where: {
+                userIdx: userIdx,
+            }
+        })
+        userClub.club = club;
+        userClub.user = user;
+        userClub.role = 'applicant';
+        userClub.status = 'waiting';
+        userClub.star = false;
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try{
+            await queryRunner.manager.save(userClub);
+            await queryRunner.commitTransaction();
+            return new BaseSuccessResDto();
+        }catch(e){
+            console.log(e);
             await queryRunner.rollbackTransaction();
         }finally{
             await queryRunner.release();
