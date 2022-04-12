@@ -4,6 +4,7 @@ import { Response } from 'express';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
+import { SignupClubDto } from './dto/signupClub.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -33,5 +34,10 @@ export class UserController {
     @Get(':idx')
     async getUser(@Param('idx') userIdx: number, @Res() res){
         res.send(await this.userService.findUser(userIdx));
+    }
+
+    @Post('club/signup')
+    async signupClub(@Body() signupClubDto: SignupClubDto, @Res() res){
+        res.send(await this.userService.signupClub(signupClubDto))
     }
 }
