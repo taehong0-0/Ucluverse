@@ -8,6 +8,7 @@ import {
   CharacterContainer,
   DropZoneDiv,
   ImageContainer,
+  InfoButtonContainer,
   InputContainer,
   LoginContentContainer,
   LoginDetailSpan,
@@ -17,10 +18,13 @@ import {
 } from './style';
 import { useState } from 'react';
 import CharacterButton from '../Button/CharacterButton';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 const LoginInfoMain = (): ReactElement => {
-  const status = 'notLogin';
-  // 캐릭터 선택
+  const url = useLocation();
+  const urlParams = new URLSearchParams(url.search);
+  const email = urlParams.get('email');
   const [head, setHead] = useState<number>(1);
   const [body, setBody] = useState<number>(1);
   const [accessorie, setAccessorie] = useState<number>(1);
@@ -32,9 +36,11 @@ const LoginInfoMain = (): ReactElement => {
   const nickNameRef = useRef<HTMLInputElement>(null);
   //image DropZone
   const [image, setImage] = useState<string | null>(null);
+  const [file, setFile] = useState<Blob | null>(null);
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file: Blob) => {
       const reader = new FileReader();
+      setFile(file);
       const bloburl = URL.createObjectURL(file);
       setImage(bloburl);
       console.log(image);
@@ -49,7 +55,46 @@ const LoginInfoMain = (): ReactElement => {
     });
   }, []);
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
-
+  const submit = () => {
+    const formdata = new FormData();
+    const name = nameRef.current?.value;
+    const department = departmentRef.current?.value;
+    const studentId = studentIDRef.current?.value;
+    const phoneNumber = phoneRef.current?.value;
+    const nickname = nickNameRef.current?.value;
+    formdata.append('name', name ?? '');
+    formdata.append('department', department ?? '');
+    formdata.append('studentId', studentId ?? '');
+    formdata.append('phoneNumber', phoneNumber ?? '');
+    formdata.append('nickname', nickname ?? '');
+    formdata.append('email', email ?? '');
+    formdata.append('files', file ?? '');
+    validationValue(formdata);
+  };
+  const validationValue = (formdata: FormData) => {
+    if (
+      !nameRef.current?.value ||
+      !departmentRef.current?.value ||
+      !studentIDRef.current?.value ||
+      !phoneRef.current?.value ||
+      !nickNameRef.current?.value
+    ) {
+      console.log('덜입력했다 씨발련아');
+      return;
+    } else {
+      axios
+        .post(
+          'http://ucluverse-lb-285634398.ap-northeast-2.elb.amazonaws.com/user/signup',
+          formdata,
+        )
+        .then((response) => {
+          console.log('response : ', JSON.stringify(response, null, 2));
+        })
+        .catch((error) => {
+          console.log('failed', error);
+        });
+    }
+  };
   return (
     <LoginMainContainer>
       <LoginContentContainer>
@@ -111,6 +156,14 @@ const LoginInfoMain = (): ReactElement => {
             </CharacterContainer>
           </ProfileContainer>
         </LoginInfoContainer>
+        <InfoButtonContainer>
+          <button>
+            <span>취소</span>
+          </button>
+          <button onClick={() => submit()}>
+            <span>확인</span>
+          </button>
+        </InfoButtonContainer>
       </LoginContentContainer>
     </LoginMainContainer>
   );

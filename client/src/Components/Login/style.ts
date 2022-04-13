@@ -57,6 +57,7 @@ export const InputContainer = styled.div`
 
 export const ProfileContainer = styled.div`
   width: 31.5vw;
+  height: 45vh;
   margin-left: 3vw;
   margin-top: 8vw;
 `;
@@ -123,4 +124,43 @@ export const LoginDetailSpan = styled.span`
   letter-spacing: -1.35px;
   color: #a19279;
   opacity: 1;
+`;
+export const InfoButtonContainer = styled.div`
+  margin-top: -10vh;
+  margin-left: 57vw;
+  button {
+    cursor: pointer;
+  }
+  button:first-child {
+    width: 60px;
+    height: 34px;
+    /* UI Properties */
+    background: #ffffff;
+    opacity: 1;
+
+    border: none;
+    span {
+      font: normal normal normal 14px/20px Noto Sans KR;
+      letter-spacing: -1.05px;
+      color: #a6a096;
+      opacity: 1;
+    }
+  }
+  button:last-child {
+    width: 60px;
+    height: 34px;
+    /* UI Properties */
+    background: #a45de2 0% 0% no-repeat padding-box;
+    box-shadow: 2px 2px 6px #00000029;
+    border-radius: 5px;
+    opacity: 1;
+    border: none;
+    margin-left: 23px;
+    span {
+      font: normal normal normal 14px/20px Noto Sans KR;
+      letter-spacing: -1.05px;
+      color: #ffffff;
+      opacity: 1;
+    }
+  }
 `;

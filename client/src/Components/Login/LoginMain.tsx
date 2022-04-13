@@ -1,7 +1,9 @@
+import axios from 'axios';
 import React, { ReactElement } from 'react';
 import { useEffect } from 'react';
 import googleImg from '../../Assets/구글로그인.png';
 import singInImg from '../../Assets/로그인.png';
+import { ToastContainer, toast } from 'react-toastify';
 import {
   LoginButtonContainer,
   LoginContentContainer,
@@ -17,11 +19,20 @@ declare global {
 
 const LoginMain = () => {
   const status = 'notLogin';
+  const notify = () =>
+    toast('아주메일로 로그인 해주세요', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   const gapi = window.gapi;
   const init = () => {
     gapi.load('auth2', () => {
       gapi.auth2.init({
-        hosted_domain: 'ajou.ac.kr',
         client_id:
           '280889310353-qgqus8gdj4ir1t5c4qfghevolbj3d0th.apps.googleusercontent.com',
       });
@@ -41,8 +52,23 @@ const LoginMain = () => {
   const onSignIn = async (googleUser: any) => {
     const profile = googleUser.getBasicProfile();
     const email = profile.getEmail();
-
-    console.log(googleUser);
+    const isAjouMail = email.includes('@ajou.ac.kr');
+    if (isAjouMail) {
+      axios
+        .get(
+          `http://ucluverse-lb-285634398.ap-northeast-2.elb.amazonaws.com/auth/login?email=${email}`,
+        )
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.status === 1) {
+            window.location.href = `/login/info?email=${email}`;
+          } else {
+            window.location.href = '/';
+          }
+        });
+    } else {
+      notify();
+    }
   };
   const onSignInFailure = (t: any) => {
     console.log(t);
