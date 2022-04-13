@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, { ReactElement } from 'react';
 import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import googleImg from '../../Assets/구글로그인.png';
 import singInImg from '../../Assets/로그인.png';
 import {
@@ -41,8 +43,11 @@ const LoginMain = () => {
   const onSignIn = async (googleUser: any) => {
     const profile = googleUser.getBasicProfile();
     const email = profile.getEmail();
-
-    console.log(googleUser);
+    axios.get(`http://localhost:4000/auth/login?email=${email}`).then((res) => {
+      res.data.status === 1
+        ? (window.location.href = `/login/info`)
+        : (window.location.href = `/`);
+    });
   };
   const onSignInFailure = (t: any) => {
     console.log(t);
