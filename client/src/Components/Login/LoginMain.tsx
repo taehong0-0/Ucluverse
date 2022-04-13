@@ -41,7 +41,8 @@ const LoginMain = () => {
   const onSignIn = async (googleUser: any) => {
     const profile = googleUser.getBasicProfile();
     const email = profile.getEmail();
-    console.log(email);
+
+    console.log(googleUser);
   };
   const onSignInFailure = (t: any) => {
     console.log(t);
