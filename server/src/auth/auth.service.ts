@@ -35,8 +35,8 @@ export class AuthService {
         }
     }
 
-    async googleLogin(user) {
-        const result = await this.checkIfUserExists(user.email);
+    async googleLogin(email: string) {
+        const result = await this.checkIfUserExists(email);
         if (result.status == 2) {
             const { 
                 access, 
