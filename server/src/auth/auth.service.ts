@@ -54,6 +54,11 @@ export class AuthService {
         }
     }
 
+    decodeAccessToken(accessToken: string) {
+        const decodedAccessToken: any = this.jwtService.decode(accessToken);
+        return decodedAccessToken;
+    }
+
     async getTokens(userIdx: number) {
         const { accessToken, ...accessOption } = this.getCookieWithJwtAccessToken(userIdx);
         const { refreshToken, ...refreshOption } = this.getCookieWithJwtRefreshToken(userIdx);
