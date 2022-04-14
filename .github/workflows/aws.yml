@@ -47,6 +47,8 @@ env:
   JWT_REFRESH_TOKEN_SECRET: ${{ secrets.JWT_REFRESH_TOKEN_SECRET }}
   JWT_REFRESH_TOKEN_EXPIRATION_TIME: ${{ secrets.JWT_REFRESH_TOKEN_EXPIRATION_TIME }}
   AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   
   AWS_REGION: ap-northeast-2                   # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: ucluverse           # set this to your Amazon ECR repository name
@@ -106,6 +108,8 @@ jobs:
         echo JWT_ACCESS_TOKEN_EXPIRATION_TIME=${{ env.JWT_ACCESS_TOKEN_EXPIRATION_TIME }} >> env/.development.env
         echo JWT_REFRESH_TOKEN_SECRET=${{ env.JWT_REFRESH_TOKEN_SECRET }} >> env/.development.env
         echo JWT_REFRESH_TOKEN_EXPIRATION_TIME=${{ env.JWT_REFRESH_TOKEN_EXPIRATION_TIME }} >> env/.development.env
+        echo AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }} >> env/.development.env
+        echo AWS_SECRET_ACCESS_KEY=${{ env.AWS_SECRET_ACCESS_KEY }} >> env/.development.env
         echo AWS_S3_BUCKET_NAME=${{ env.AWS_S3_BUCKET_NAME }} >> env/.development.env
         echo AWS_REGION=${{ env.AWS_REGION }} >> env/.development.env
         
