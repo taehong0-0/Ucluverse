@@ -8,9 +8,10 @@ import * as bcrypt from 'bcrypt';
 import { Department } from 'src/departments/entities/department.entity';
 import { ProfilePhoto } from './entities/profilePhoto.entity';
 import { UserResDto } from './dto/user-response.dto';
-import { SignupClubDto } from './dto/signupClub.dto';
+import { SignupClubDto } from './dto/signup-club.dto';
 import { BaseSuccessResDto } from 'src/commons/response.dto';
 import { Club } from 'src/clubs/entities/club.entity';
+import { ChangeUserClubStatus } from './dto/change-userClubStatus.dto';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()
@@ -230,6 +231,25 @@ export class UserService {
         userClub.role = 'applicant';
         userClub.status = 'waiting';
         userClub.star = false;
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try{
+            await queryRunner.manager.save(userClub);
+            await queryRunner.commitTransaction();
+            return new BaseSuccessResDto();
+        }catch(e){
+            console.log(e);
+            await queryRunner.rollbackTransaction();
+        }finally{
+            await queryRunner.release();
+        }
+    }
+
+    async changeUserClubStatus(changeUserClubStatus: ChangeUserClubStatus, status: string){
+        const queryRunner = this.connection.createQueryRunner();
+        const {userIdx, clubIdx} = changeUserClubStatus;
+        const userClub = await this.getUserClub(userIdx, clubIdx);
+        userClub.status = status;
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
