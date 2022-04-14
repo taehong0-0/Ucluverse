@@ -64,7 +64,7 @@
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:703448381543:task-definition/ucluverse-task:2",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:703448381543:task-definition/ucluverse-task:4",
   "family": "ucluverse-task",
   "requiresAttributes": [
     {
@@ -120,7 +120,7 @@
     "cpuArchitecture": null
   },
   "cpu": "256",
-  "revision": 2,
+  "revision": 4,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
