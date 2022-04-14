@@ -10,7 +10,8 @@ async function bootstrap() {
       'http://localhost:3000',
     ],
     credentials: true,
-    exposedHeaders: ["set-cookie", "Set-Cookie"],
+    exposedHeaders: ["Set-Cookie"],
+    allowedHeaders: "*",
   });
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe({
