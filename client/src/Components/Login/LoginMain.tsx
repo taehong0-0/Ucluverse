@@ -16,6 +16,7 @@ declare global {
     gapi: any;
   }
 }
+axios.defaults.withCredentials = true;
 
 const LoginMain = () => {
   const status = 'notLogin';
