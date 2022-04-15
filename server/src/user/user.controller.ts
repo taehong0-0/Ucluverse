@@ -3,9 +3,10 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { ChangeUserClubStatus } from './dto/change-userClubStatus.dto';
+import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { SignupClubDto } from './dto/signup-club.dto';
+import { StarClubDto } from './dto/star-club.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -43,13 +44,17 @@ export class UserController {
     }
 
     @Post('userClub/accept')
-    async acceptApplication(@Body() ChangeUserClubStatus: ChangeUserClubStatus, @Res() res){
+    async acceptApplication(@Body() ChangeUserClubStatus: ChangeUserClubStatusDto, @Res() res){
         res.send(await this.userService.changeUserClubStatus(ChangeUserClubStatus, "accepted"));
     }
 
     @Post('userClub/reject')
-    async rejectApplication(@Body() ChangeUserClubStatus: ChangeUserClubStatus, @Res() res){
+    async rejectApplication(@Body() ChangeUserClubStatus: ChangeUserClubStatusDto, @Res() res){
         res.send(await this.userService.changeUserClubStatus(ChangeUserClubStatus, "rejected"));
     }
     
+    @Post('userClub/star')
+    async starClub(@Body() starClubDto: StarClubDto, @Res() res){
+        res.send(await this.userService.starClub(starClubDto));
+    }
 }
