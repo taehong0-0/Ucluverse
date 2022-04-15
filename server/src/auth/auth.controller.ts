@@ -40,7 +40,6 @@ export class AuthController {
         if ( access !== undefined ) {
             res.cookie('Authentication', access.accessToken, access.accessOption);
             res.cookie('Refresh', refresh.refreshToken, refresh.refreshOption);
-            res.header('Access-Control-Allow-Origin', '*');
         }
         res.send(result);
     }
