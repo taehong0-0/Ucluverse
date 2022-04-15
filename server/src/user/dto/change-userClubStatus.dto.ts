@@ -1,6 +1,6 @@
 import { IsNumber } from "class-validator"
 
-export class ChangeUserClubStatus{
+export class ChangeUserClubStatusDto{
     @IsNumber()
     userIdx: number
     @IsNumber()

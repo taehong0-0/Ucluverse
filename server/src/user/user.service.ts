@@ -11,7 +11,8 @@ import { UserResDto } from './dto/user-response.dto';
 import { SignupClubDto } from './dto/signup-club.dto';
 import { BaseSuccessResDto } from 'src/commons/response.dto';
 import { Club } from 'src/clubs/entities/club.entity';
-import { ChangeUserClubStatus } from './dto/change-userClubStatus.dto';
+import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
+import { StarClubDto } from './dto/star-club.dto';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()
@@ -245,11 +246,70 @@ export class UserService {
         }
     }
 
-    async changeUserClubStatus(changeUserClubStatus: ChangeUserClubStatus, status: string){
+    async changeUserClubStatus(changeUserClubStatus: ChangeUserClubStatusDto, status: string){
         const queryRunner = this.connection.createQueryRunner();
         const {userIdx, clubIdx} = changeUserClubStatus;
         const userClub = await this.getUserClub(userIdx, clubIdx);
         userClub.status = status;
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try{
+            await queryRunner.manager.save(userClub);
+            await queryRunner.commitTransaction();
+            return new BaseSuccessResDto();
+        }catch(e){
+            console.log(e);
+            await queryRunner.rollbackTransaction();
+        }finally{
+            await queryRunner.release();
+        }
+    }
+
+    async starClub(starClubDto: StarClubDto){
+        const {userIdx, clubIdx} = starClubDto;
+        const userClub = await this.getUserClub(userIdx, clubIdx);
+        if(userClub){
+            return await this.toggleStar(userClub);
+        }else{
+            return await this.starNewClub(userIdx, clubIdx);
+        }
+    }
+
+    async toggleStar(userClub: UserClub){
+        const queryRunner = this.connection.createQueryRunner();
+        userClub.star ? userClub.star = false : userClub.star = true;
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try{
+            await queryRunner.manager.save(userClub);
+            await queryRunner.commitTransaction();
+            return new BaseSuccessResDto();
+        }catch(e){
+            console.log(e);
+            await queryRunner.rollbackTransaction();
+        }finally{
+            await queryRunner.release();
+        }
+    }
+
+    async starNewClub(userIdx: number, clubIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        const userClub = new UserClub();
+        const club = await queryRunner.manager.findOne(Club, {
+            where: {
+                clubIdx: clubIdx,
+            }
+        });
+        const user = await queryRunner.manager.findOne(User, {
+            where: {
+                userIdx: userIdx,
+            }
+        })
+        userClub.club = club;
+        userClub.user = user;
+        userClub.role = null;
+        userClub.status = null;
+        userClub.star = true;
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
