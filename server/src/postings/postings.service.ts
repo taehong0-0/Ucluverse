@@ -153,4 +153,30 @@ export class PostingsService {
         });
         return new PostingResDto(posting);
     }
+    
+    async deletePosting(postingIdx: number) {
+        const queryRunner = this.connection.createQueryRunner();
+        
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try {
+            const exPosting = await queryRunner.manager.findOne(Posting, {
+                where: {
+                    postingIdx: postingIdx,
+                }
+            });
+            if(!exPosting) {
+                return new BaseFailResDto('해당 게시물이 존재하지 않습니다.');
+            } else {
+                await queryRunner.manager.delete(Posting, postingIdx);
+                await queryRunner.commitTransaction();
+
+                return new BaseSuccessResDto();
+            } 
+        } catch(error) {
+            console.log(error);
+            await queryRunner.rollbackTransaction();
+            return new BaseFailResDto('게시물 삭제에 실패했습니다.');
+        }
+    }
 }
