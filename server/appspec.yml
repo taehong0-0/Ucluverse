@@ -16,7 +16,7 @@ permissions:
 #BeforeInstall, AfterInstall(codeDeploy 수명주기)에 실행될 파일 지정
 hooks:
   BeforeInstall:
-    - location: scripts/before_deploy.sh
+    - location: scripts/before-deploy.sh
       runas: ubuntu
   AfterInstall:
     - location: scripts/after-deploy.sh
