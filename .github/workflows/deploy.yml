@@ -1,0 +1,100 @@
+
+
+name: Ucluverse
+
+on:
+  push:
+    branches:
+      - dev
+
+env:
+  DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+  DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+  DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+  DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+  DATABASE_DATABASE: ${{ secrets.DATABASE_DATABASE }}
+  DATABASE_SYNCHRONIZE: ${{ secrets.DATABASE_SYNCHRONIZE }}
+
+  GOOGLE_CLIENTID: ${{ secrets.GOOGLE_CLIENTID }}
+  GOOGLE_CLIENTSECRET: ${{ secrets.GOOGLE_CLIENTSECRET }}
+
+  JWT_ACCESS_TOKEN_SECRET: ${{ secrets.JWT_ACCESS_TOKEN_SECRET }}
+  JWT_ACCESS_TOKEN_EXPIRATION_TIME: ${{ secrets.JWT_ACCESS_TOKEN_EXPIRATION_TIME }}
+  JWT_REFRESH_TOKEN_SECRET: ${{ secrets.JWT_REFRESH_TOKEN_SECRET }}
+  JWT_REFRESH_TOKEN_EXPIRATION_TIME: ${{ secrets.JWT_REFRESH_TOKEN_EXPIRATION_TIME }}
+  AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  
+  AWS_REGION: ap-northeast-2                   # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: ucluverse           # set this to your Amazon ECR repository name
+  ECS_SERVICE: ucluverse-service                 # set this to your Amazon ECS service name
+  ECS_CLUSTER: ucluverse-cluster                 # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION: ./server/task-definition.json # set this to the path to your Amazon ECS task definition
+                                               # file, e.g. .aws/task-definition.json
+  CONTAINER_NAME: ucluverse-container           # set this to the name of the container in the
+                                               # containerDefinitions section of your task definition
+  
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Install dependencies
+      run: npm i
+  
+    - name: create env
+      run: |
+        cd server
+        mkdir env
+        
+        echo DATABASE_HOST=${{ env.DATABASE_HOST }} > env/.development.env
+        echo DATABASE_PORT=${{ env.DATABASE_PORT }} >> env/.development.env
+        echo DATABASE_USERNAME=${{ env.DATABASE_USERNAME }} >> env/.development.env
+        echo DATABASE_PASSWORD=${{ env.DATABASE_PASSWORD }} >> env/.development.env
+        echo DATABASE_DATABASE=${{ env.DATABASE_DATABASE }} >> env/.development.env
+        echo DATABASE_SYNCHRONIZE=${{ env.DATABASE_SYNCHRONIZE }} >> env/.development.env
+        echo GOOGLE_CLIENTID=${{ env.GOOGLE_CLIENTID }} >> env/.development.env
+        echo GOOGLE_CLIENTSECRET=${{ env.GOOGLE_CLIENTSECRET }} >> env/.development.env
+        echo JWT_ACCESS_TOKEN_SECRET=${{ env.JWT_ACCESS_TOKEN_SECRET }} >> env/.development.env
+        echo JWT_ACCESS_TOKEN_EXPIRATION_TIME=${{ env.JWT_ACCESS_TOKEN_EXPIRATION_TIME }} >> env/.development.env
+        echo JWT_REFRESH_TOKEN_SECRET=${{ env.JWT_REFRESH_TOKEN_SECRET }} >> env/.development.env
+        echo JWT_REFRESH_TOKEN_EXPIRATION_TIME=${{ env.JWT_REFRESH_TOKEN_EXPIRATION_TIME }} >> env/.development.env
+        echo AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }} >> env/.development.env
+        echo AWS_SECRET_ACCESS_KEY=${{ env.AWS_SECRET_ACCESS_KEY }} >> env/.development.env
+        echo AWS_S3_BUCKET_NAME=${{ env.AWS_S3_BUCKET_NAME }} >> env/.development.env
+        echo AWS_REGION=${{ env.AWS_REGION }} >> env/.development.env
+        
+        npm run build
+        zip -qq -r ./ucluverse-server.zip .
+      
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+        
+    - name: Upload to S3 # Upload build file to S3
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        aws s3 cp --region ap-northeast-2 ./ucluverse-server.zip s3://ucluverse-ajou/deploy/ucluverse-server.zip
+    - name: Deploy # Deploy to EC2
+      run: aws deploy create-deployment
+        --ucluverse-deploy-app 
+        --deployment-config-name CodeDeployDefault.AllAtOnce
+        --ucluverse-deploy-group 
+        --s3-location bucket=ucluverse-ajou,key=deploy/ucluverse-server.zip,bundleType=zip
+
+  
