@@ -172,9 +172,9 @@ export class PostingsService {
             if (deletedImages.length > 0) {
                 const selectedDeletedImages = await queryRunner.manager.createQueryBuilder(Image, 'image')
                 .select('image.path')
-                .where('image.imageIdx In(:deletedImages)', { deletedImages: deletedImages})
+                .where('image.imageIdx In(:deletedImages)', { deletedImages: JSON.parse(deletedImages) })
                 .getMany();
-
+                
                 selectedDeletedImages.forEach((image) => {
                     s3.deleteObject({
                         Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
@@ -188,14 +188,14 @@ export class PostingsService {
                     .delete()
                     .from(Image)
                     .where('imageIdx In(:deletedImages)', {
-                        deletedImages: deletedImages,
+                        deletedImages: JSON.parse(deletedImages),
                     })
                     .execute();
             }
             if (deletedAttachedFiles.length > 0) {
                 const selectedDeletedAttachedFiles = await queryRunner.manager.createQueryBuilder(AttachedFile, 'attachedFile')
                 .select('attachedFile.path')
-                .where('attachedFile.attachedFileIdx In(:deletedAttachedFiles)', { deletedAttachedFiles: deletedAttachedFiles})
+                .where('attachedFile.attachedFileIdx In(:deletedAttachedFiles)', { deletedAttachedFiles: JSON.parse(deletedAttachedFiles) })
                 .getMany();
                 selectedDeletedAttachedFiles.forEach((attachedFile) => {
                     s3.deleteObject({
@@ -210,7 +210,7 @@ export class PostingsService {
                     .delete()
                     .from(AttachedFile)
                     .where('attachedFileIdx In(:deletedAttachedFiles)', {
-                        deletedAttachedFiles: deletedAttachedFiles,
+                        deletedAttachedFiles: JSON.parse(deletedAttachedFiles),
                     })
                     .execute();
             }
@@ -219,11 +219,12 @@ export class PostingsService {
         } catch(error) {
             console.log(error);
             await queryRunner.rollbackTransaction();
+            return new BaseFailResDto('게시물 수정에 실패했습니다');
         } finally {
             await queryRunner.release();
         }
     }
-    
+
     async deletePosting(postingIdx: number) {
         const queryRunner = this.connection.createQueryRunner();
         

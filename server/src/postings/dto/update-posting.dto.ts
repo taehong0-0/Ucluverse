@@ -9,9 +9,9 @@ export class UpdatePostingDto {
     @IsString()
     content: string;
     @IsOptional()
-    @IsNumber({}, {each: true})
-    deletedImages: number[];
+    // @IsNumber({}, {each: true})
+    deletedImages: any;
     @IsOptional()
-    @IsNumber({}, {each:true})
-    deletedAttachedFiles: number[];
+    // @IsNumber({}, {each:true})
+    deletedAttachedFiles: any;
 }
