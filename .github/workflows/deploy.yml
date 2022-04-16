@@ -94,9 +94,9 @@ jobs:
         aws s3 cp --region ap-northeast-2 ./server/ucluverse-server.zip s3://ucluverse-ajou/deploy/ucluverse-server.zip
     - name: Deploy # Deploy to EC2
       run: aws deploy create-deployment
-        --ucluverse-deploy-app 
+        --application-name ucluverse-deploy-app 
         --deployment-config-name CodeDeployDefault.AllAtOnce
-        --ucluverse-deploy-group 
+        --deployment-group-name ucluverse-deploy-group 
         --s3-location bucket=ucluverse-ajou,key=deploy/ucluverse-server.zip,bundleType=zip
 
   
