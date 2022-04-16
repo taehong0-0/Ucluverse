@@ -9,7 +9,7 @@ import { Department } from 'src/departments/entities/department.entity';
 import { ProfilePhoto } from './entities/profilePhoto.entity';
 import { UserResDto } from './dto/user-response.dto';
 import { SignupClubDto } from './dto/signup-club.dto';
-import { BaseSuccessResDto } from 'src/commons/response.dto';
+import { BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
 import { Club } from 'src/clubs/entities/club.entity';
 import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
 import { StarClubDto } from './dto/star-club.dto';
@@ -48,16 +48,15 @@ export class UserService {
             await queryRunner.manager.save(user);
             await queryRunner.commitTransaction();
 
-            const userIdx = (await this.findByEmail(email)).userIdx;
-            const { 
-                access, 
-                refresh 
-            } = await this.authService.getTokens(userIdx);
-            const result = new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', user.userIdx, user.email);
-            return { access, refresh, result };
+            return new LoginResponseDto(2, '회원가입을 완료했습니다.', user.userIdx, user.email);;
         }catch(e){
             console.log(e);
             await queryRunner.rollbackTransaction();
+            return {
+                msg: '회원가입을 실패했습니다.',
+                userIdx: user.userIdx,
+                email: null,
+            };
         }finally{
             await queryRunner.release();
         }
@@ -78,22 +77,22 @@ export class UserService {
     }
 
 
-    async saveProfilePhoto(userIdx: number, files: Array<any>) {
+    async saveProfilePhoto(userIdx: number, photo: any) {
         const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try {
-            const insertProfilePathWithUserIdx = files.map(async (file) => {
-                const profilePhoto = new ProfilePhoto();
-                profilePhoto.path = file.key;
-                profilePhoto.userIdx = userIdx;
-                await queryRunner.manager.save(profilePhoto);
-            });
-            await Promise.all(insertProfilePathWithUserIdx);
+            const profilePhoto = new ProfilePhoto();
+            profilePhoto.path = photo.key;
+            profilePhoto.userIdx = userIdx;
+            await queryRunner.manager.save(profilePhoto);
             await queryRunner.commitTransaction();
+
+            return new BaseSuccessResDto();
         } catch (error) {
             console.log(error);
             await queryRunner.rollbackTransaction();
+            return new BaseFailResDto('프로필 사진 저장을 실패했습니다.');
         } finally {
             await queryRunner.release();
         }

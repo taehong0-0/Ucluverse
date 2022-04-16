@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Post, Res, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { Body, Controller, Get, Param, Post, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -17,13 +17,11 @@ export class UserController {
     ){}
 
     @Post('/signup')
-    @UseInterceptors(FilesInterceptor('files'))
-    async signup(@Body() createUserDto: CreateUserDto, @Res() res: Response, @UploadedFiles() files: Array<Express.Multer.File>){
-        const { access, refresh, result } = await this.userService.createUser(createUserDto);
-        console.log(files);
-        await this.userService.saveProfilePhoto(result.userIdx, files);
-        res.cookie('Authentication', access.accessToken, access.accessOption);
-        res.cookie('Refresh', refresh.refreshToken, refresh.refreshOption);
+    @UseInterceptors(FileInterceptor('photo'))
+    async signup(@Body() createUserDto: CreateUserDto, @Res() res: Response, @UploadedFile() photo: Express.Multer.File){
+        const result = await this.userService.createUser(createUserDto);
+        console.log(photo);
+        await this.userService.saveProfilePhoto(result.userIdx, photo);
         res.send(result);
     }
 
