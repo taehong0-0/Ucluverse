@@ -2,7 +2,7 @@ import React, { ReactElement, useRef } from 'react';
 import { AwardContainer, AwardDiv } from './style';
 import awardHeaderImg from '../../../Assets/수상내역.png';
 import Slider from 'react-slick';
-import testImg from '../../../Assets/test3.jpeg';
+import testImg from '../../../Assets/test4.jpeg';
 interface Award {
   img: string;
   title: string;
@@ -70,32 +70,16 @@ const MainAward = (): ReactElement => {
         <span>열심히 활동한 동아리를 볼 수 있어요.</span>
       </div>
       <Slider {...settings}>
-        {/* <div>
-          <AwardDiv url="../../../Assets/test3.jpeg">
-            <span>aa</span>
-            <div>
-              <span>aa</span>
-              <span>dd</span>
-            </div>
-          </AwardDiv>
-        </div>
-        <div>
-          <AwardDiv url="../../../Assets/test3.jpeg">
-            <span>aa</span>
-            <div>
-              <span>aa</span>
-              <span>dd</span>
-            </div>
-          </AwardDiv>
-        </div> */}
         {dummyList.map((award) => {
           return (
             <AwardDiv>
               <img src={testImg} width="304px" height="486px" />
-              <span>{award.clubName}</span>
               <div>
-                <span>{award.title}</span>
-                <span>{award.award}</span>
+                <span>{award.clubName}</span>
+                <div>
+                  <span>{award.title}</span>
+                  <span>{award.award}</span>
+                </div>
               </div>
             </AwardDiv>
           );
