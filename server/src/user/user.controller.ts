@@ -7,6 +7,7 @@ import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { SignupClubDto } from './dto/signup-club.dto';
 import { StarClubDto } from './dto/star-club.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -23,6 +24,12 @@ export class UserController {
         console.log(photo);
         await this.userService.saveProfilePhoto(result.userIdx, photo);
         res.send(result);
+    }
+
+    @Post(':userIdx')
+    @UseInterceptors(FileInterceptor('photo'))
+    async update(@Param('userIdx') userIdx: number, @Body() updateUserDto: UpdateUserDto, @UploadedFile() photo: Express.Multer.File) {
+        return this.userService.update(userIdx, updateUserDto, photo);
     }
 
     @Post('checkDuplicateNickname')
