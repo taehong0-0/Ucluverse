@@ -10,12 +10,19 @@ import {
   LoginDetailSpan,
   LoginMainContainer,
 } from './style';
+import Cookies from 'universal-cookie';
 
 declare global {
   interface Window {
     gapi: any;
   }
 }
+const cookies = new Cookies();
+
+export const setCookie = (name: any, value: any, option: any) => {
+  return cookies.set(name, value, { ...option });
+};
+axios.defaults.withCredentials = true;
 
 const LoginMain = () => {
   const status = 'notLogin';
@@ -50,21 +57,22 @@ const LoginMain = () => {
     });
   };
   const onSignIn = async (googleUser: any) => {
+    console.log(cookies);
     const profile = googleUser.getBasicProfile();
     const email = profile.getEmail();
     const isAjouMail = email.includes('@ajou.ac.kr');
     if (isAjouMail) {
       axios
-        .get(
-          `http://ucluverse-lb-285634398.ap-northeast-2.elb.amazonaws.com/auth/login?email=${email}`,
-        )
+        .get(`http://http://52.79.36.220:4000/auth/login?email=${email}`)
         .then((res) => {
+          setCookie('accesstoken', 'aaaaaaa', { path: '/' });
+
           console.log(res.data);
-          if (res.data.status === 1) {
-            window.location.href = `/login/info?email=${email}`;
-          } else {
-            window.location.href = '/';
-          }
+          // if (res.data.status === 1) {
+          //   window.location.href = `/login/info?email=${email}`;
+          // } else {
+          //   window.location.href = '/';
+          // }
         });
     } else {
       notify();

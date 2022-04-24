@@ -68,7 +68,7 @@ const LoginInfoMain = (): ReactElement => {
     formdata.append('phoneNumber', phoneNumber ?? '');
     formdata.append('nickname', nickname ?? '');
     formdata.append('email', email ?? '');
-    formdata.append('files', file ?? '');
+    formdata.append('photo', file ?? '');
     validationValue(formdata);
   };
   const validationValue = (formdata: FormData) => {
@@ -83,10 +83,7 @@ const LoginInfoMain = (): ReactElement => {
       return;
     } else {
       axios
-        .post(
-          'http://ucluverse-lb-285634398.ap-northeast-2.elb.amazonaws.com/user/signup',
-          formdata,
-        )
+        .post('http://http://52.79.36.220:4000/user/signup', formdata)
         .then((response) => {
           console.log('response : ', JSON.stringify(response, null, 2));
         })
