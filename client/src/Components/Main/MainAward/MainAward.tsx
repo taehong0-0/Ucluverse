@@ -72,7 +72,11 @@ const MainAward = (): ReactElement => {
       <Slider {...settings}>
         {dummyList.map((award) => {
           return (
-            <AwardDiv>
+            <AwardDiv
+              onClick={() => {
+                window.location.href = './club';
+              }}
+            >
               <img src={testImg} width="304px" height="486px" />
               <div>
                 <span>{award.clubName}</span>

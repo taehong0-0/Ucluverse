@@ -46,6 +46,7 @@ export const AwardContainer = styled.div`
   }
 `;
 export const AwardDiv = styled.div`
+  cursor: pointer;
   width: 304px;
   height: 468px;
   z-index: 1;
