@@ -1,4 +1,5 @@
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
@@ -22,6 +23,7 @@ async function bootstrap() {
       enableImplicitConversion: true,
     },
   }));
-  await app.listen(3000);
+  
+  await app.listen(process.env.PORT);
 }
 bootstrap();
