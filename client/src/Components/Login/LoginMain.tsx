@@ -63,9 +63,7 @@ const LoginMain = () => {
     const isAjouMail = email.includes('@ajou.ac.kr');
     if (isAjouMail) {
       axios
-        .get(
-          `http://ucluverse-lb-285634398.ap-northeast-2.elb.amazonaws.com/auth/login?email=${email}`,
-        )
+        .get(`http://http://52.79.36.220:4000/auth/login?email=${email}`)
         .then((res) => {
           setCookie('accesstoken', 'aaaaaaa', { path: '/' });
 
