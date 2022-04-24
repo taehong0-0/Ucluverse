@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { CreatePostingDto } from './dto/create-posting.dto';
+import { UpdatePostingDto } from './dto/update-posting.dto';
 import { PostingsService } from './postings.service';
 
 @Controller('postings')
@@ -56,5 +57,33 @@ export class PostingsController {
     @Get(':postingIdx')         //postingIdx에 대한 게시글 정보 불러오기
     async getPostingByPostingIdx(@Param('postingIdx') postingIdx: number, @Res() res){
         res.send(await this.postingsService.getPostingByPostingIdx(postingIdx));
+    }
+
+    @Post(':postingIdx')
+    @UseInterceptors(FileFieldsInterceptor([
+        { name: 'images', },
+        { name: 'attachedFiles', },
+    ]))
+    async updatePosting(
+        @Param('postingIdx') postingIdx: number, 
+        @Body() updatePostingDto: UpdatePostingDto,
+        @UploadedFiles() files: {
+            images? : Express.Multer.File[],
+            attachedFiles? : Express.Multer.File[],
+        }
+    ) {
+        if (files.images) {
+            await this.postingsService.saveImagesOrAttachedFilesOrVideos(postingIdx, files.images);
+        }
+        if (files.attachedFiles) {
+            await this.postingsService.saveImagesOrAttachedFilesOrVideos(postingIdx, files.attachedFiles);
+        }
+        
+        return this.postingsService.updatePosting(postingIdx, updatePostingDto);
+    }
+    
+    @Delete(':postingIdx')
+    async deletePosting(@Param('postingIdx') postingIdx: number) {
+        return this.postingsService.deletePosting(postingIdx);
     }
 }
