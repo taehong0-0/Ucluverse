@@ -79,7 +79,7 @@ const LoginInfoMain = (): ReactElement => {
       !phoneRef.current?.value ||
       !nickNameRef.current?.value
     ) {
-      console.log('덜입력했다 씨발련아');
+      console.log('덜입력했다');
       return;
     } else {
       axios

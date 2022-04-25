@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { ReactElement } from 'react';
 import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import googleImg from '../../Assets/구글로그인.png';
 import singInImg from '../../Assets/로그인.png';
 import { ToastContainer, toast } from 'react-toastify';
