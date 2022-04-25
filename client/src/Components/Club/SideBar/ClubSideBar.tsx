@@ -5,7 +5,7 @@ import { BoardContainer, SideBarContainer } from './style';
 interface props {
   AboutBoardList: board[];
   CommunicationBoardList: board[];
-  clubId: string | null;
+  clubId: Number;
   setBoardIdx: Dispatch<SetStateAction<Number>>;
 }
 interface board {

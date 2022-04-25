@@ -41,7 +41,7 @@ const posts = [
 ];
 interface props {
   boardIdx: Number;
-  clubId: String | null;
+  clubId: Number;
 }
 const ClubBoard = (props: props): ReactElement => {
   const { boardIdx, clubId } = props;

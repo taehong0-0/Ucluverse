@@ -12,7 +12,6 @@ import MainNewClub from '../../Components/Main/MainNewClub/MainNewClub';
 const Main = (): ReactElement => {
   return (
     <div>
-      <Editor />
       <Header />
       <div>
         <MainHeader />
