@@ -16,8 +16,13 @@ export const TitleContainer = styled.div`
       width: 10vw;
     }
   }
+  & + & {
+    border: none;
+  }
   .notice {
     background: #f7f4fb 0% 0% no-repeat padding-box;
+    border: 1px solid #dddae0;
+    border-width: 1px 0px 1px 0px;
     span {
       font: normal normal bold 18px/24px Noto Sans KR;
       letter-spacing: -1.35px;
@@ -51,6 +56,7 @@ export const TitleContainer = styled.div`
     vertical-align: middle;
     background: #ffffff 0% 0% no-repeat padding-box;
     border: 1px solid #dddae0;
+    border-width: 1px 0px 1px 0px;
     opacity: 1;
     display: flex;
     align-items: center;

@@ -13,6 +13,9 @@ import { BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
 import { Club } from 'src/clubs/entities/club.entity';
 import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
 import { StarClubDto } from './dto/star-club.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { S3 } from 'aws-sdk';
+import { ConfigService } from '@nestjs/config';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()
@@ -20,7 +23,8 @@ export class UserService {
     constructor (
         @Inject(forwardRef(() => AuthService))
         private readonly authService: AuthService,
-        private connection: Connection
+        private connection: Connection,
+        private configService: ConfigService,
     ) {}
 
     async createUser(createUserDto: CreateUserDto) {
@@ -62,6 +66,74 @@ export class UserService {
         }
     }
 
+    async update(userIdx: number, updateUserDto: UpdateUserDto, photo: any) {
+        const queryRunner = this.connection.createQueryRunner();
+        const exDepartment = await queryRunner.manager.findOne(Department, {
+            where: {
+                name: updateUserDto.department,
+            }
+        });
+        const s3 = new S3;
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try {
+            await queryRunner.manager.update(User, userIdx, {
+                name: updateUserDto.name,
+                departmentIdx: exDepartment.departmentIdx,
+                studentId: updateUserDto.studentId,
+                phoneNumber: updateUserDto.phoneNumber,
+                nickname: updateUserDto.nickname,
+            });
+            if (Boolean(updateUserDto.isProfilePhotoChanged)) {
+                //updateDto의 isProfilePhotoChanged에는 1 or 0을 넣으면 된다.
+                // 프로필 사진을 바꿨을 때, 기존에 프로필 사진이 있으면 업데이트.
+                // 기존 프로필 사진이 없으면 생성.
+                // 프로필 사진을 내렸을 때, 기존 프로필 사진을 삭제.
+                const exProfilePhoto = await queryRunner.manager.findOne(ProfilePhoto, {
+                    where: {
+                        userIdx: userIdx,
+                    }
+                });
+                if (photo) {
+                    if (exProfilePhoto) {
+                        await queryRunner.manager.update(ProfilePhoto, exProfilePhoto.profilePhotoIdx, {
+                            path: photo.key
+                        });
+                        s3.deleteObject({
+                            Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
+                            Key: exProfilePhoto.path,
+                        }, (err) => {
+                            if(err) { throw err; } 
+                        });
+                    } else {
+                        const newProfilePhoto = new ProfilePhoto();
+                        newProfilePhoto.path = photo.key;
+                        newProfilePhoto.userIdx = userIdx;
+                        await queryRunner.manager.save(newProfilePhoto);
+                    }
+                } else {
+                    if (exProfilePhoto) {
+                        await queryRunner.manager.delete(ProfilePhoto, exProfilePhoto.profilePhotoIdx);
+                        s3.deleteObject({
+                            Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
+                            Key: exProfilePhoto.path,
+                        }, (err) => {
+                            if(err) { throw err; } 
+                        });
+                    }
+                }  
+            } 
+            await queryRunner.commitTransaction();
+            return new BaseSuccessResDto();
+        } catch(err) {
+            console.log(err);
+            await queryRunner.rollbackTransaction();
+            return new BaseFailResDto('사용자 정보 수정을 실패했습니다.');
+        } finally {
+            await queryRunner.release();
+        }
+        
+    }
 
     async findUser(userIdx: number){
         const queryRunner = this.connection.createQueryRunner();

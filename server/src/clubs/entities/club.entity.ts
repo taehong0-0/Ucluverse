@@ -26,6 +26,9 @@ export class Club extends Common{
     @Column()
     @IsString()
     clubType: string;
+    @Column({ nullable: true })
+    @IsString()
+    logoPath: string;
     @ManyToOne(() => College, college => college.clubs, {
         nullable: true,
     })

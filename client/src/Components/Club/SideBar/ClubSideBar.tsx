@@ -1,17 +1,19 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, SetStateAction } from 'react';
+import { Dispatch } from 'react';
 import { Link } from 'react-router-dom';
 import { BoardContainer, SideBarContainer } from './style';
 interface props {
   AboutBoardList: board[];
   CommunicationBoardList: board[];
-  clubId: string | null;
+  clubId: Number;
+  setBoardIdx: Dispatch<SetStateAction<Number>>;
 }
 interface board {
   name: string;
   boardId: number;
 }
 const ClubSideBar = (props: props): ReactElement => {
-  const { AboutBoardList, CommunicationBoardList, clubId } = props;
+  const { AboutBoardList, CommunicationBoardList, setBoardIdx } = props;
   return (
     <SideBarContainer>
       <button>가입 신청</button>
@@ -20,16 +22,26 @@ const ClubSideBar = (props: props): ReactElement => {
         <div>
           <span>About</span>
           {AboutBoardList.map((board) => (
-            <Link to={`/club/board?clubId=${clubId}&boardId=${board.boardId}`}>
-              <span>{board.name}</span>
+            <Link to="/club/board">
+              <span
+                className="board-name"
+                onClick={() => setBoardIdx(board.boardId)}
+              >
+                {board.name}
+              </span>
             </Link>
           ))}
         </div>
         <div>
           <span>소통공간</span>
           {CommunicationBoardList.map((board) => (
-            <Link to={`/club/board?clubId=${clubId}&boardId=${board.boardId}`}>
-              <span>{board.name}</span>
+            <Link to="/club/board">
+              <span
+                className="board-name"
+                onClick={() => setBoardIdx(board.boardId)}
+              >
+                {board.name}
+              </span>
             </Link>
           ))}
         </div>

@@ -1,7 +1,7 @@
-import React, { ReactElement, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import PostTitle from '../../Post/PostTitle';
-import { ClubBoardContainer } from './style';
+import React, { ReactElement } from 'react';
+import ActivityBoard from './ActivityBoard/ActivityBoard';
+import InfoBoard from './InfoBoard/InfoBoard';
+import PostBoard from './PostBoard/PostBoard';
 const posts = [
   {
     title: '공지사항',
@@ -39,24 +39,25 @@ const posts = [
     postId: 5,
   },
 ];
-const ClubBoard = (): ReactElement => {
-  const url = useLocation();
-  const urlParams = new URLSearchParams(url.search);
-  const boardId = urlParams.get('boardId');
+interface props {
+  boardIdx: Number;
+  clubId: Number;
+}
+const ClubBoard = (props: props): ReactElement => {
+  const { boardIdx, clubId } = props;
   // todo : boardId로 해당하는 board의 데이터 가져오기
+  console.log(boardIdx, clubId);
 
   return (
-    <ClubBoardContainer>
-      {posts.map((post) => (
-        <PostTitle
-          title={post.title}
-          author={post.author}
-          date={post.date}
-          type={post.type}
-          postId={post.postId}
-        ></PostTitle>
-      ))}
-    </ClubBoardContainer>
+    <>
+      {boardIdx === 2 ? (
+        <InfoBoard />
+      ) : boardIdx === 3 ? (
+        <ActivityBoard />
+      ) : (
+        <PostBoard posts={posts} />
+      )}
+    </>
   );
 };
 export default ClubBoard;
