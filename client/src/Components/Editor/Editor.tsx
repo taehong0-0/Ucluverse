@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { CKEditor } from 'ckeditor4-react';
 
-const Editor = () => {
+interface props {
+  setContent: Dispatch<SetStateAction<string>>;
+}
+const Editor = (props: props) => {
+  const { setContent } = props;
+  const config = {
+    height: '400px',
+  };
   return (
     <div>
       <CKEditor
         data="<p>Hello from CKEditor 4!</p>"
         onChange={(event: any) => {
-          console.log(event.editor.getData());
+          setContent(event.editor.getData());
         }}
-        CKEditorEventHandler={(event: 'change', editor: any) => {
-          const data = editor.getData();
-          console.log({ event, editor, data });
-        }}
+        config={config}
+        // style={{ height: '600px' }}
       />
     </div>
   );
