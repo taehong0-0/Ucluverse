@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import { useLocation } from 'react-router-dom';
-import { HeaderContainer, PostContainer } from './style';
+import { PostContainer } from './style';
 import test1 from '../../../Assets/test1.jpeg';
-import PostHeader from './PostHeader';
-import PostMain from './PostMain';
+import PostHeader from './Header/PostHeader';
+import PostMain from './Main/PostMain';
 const ClubPost = (): ReactElement => {
   const url = useLocation();
   const urlParams = new URLSearchParams(url.search);
