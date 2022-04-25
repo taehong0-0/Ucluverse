@@ -1,4 +1,5 @@
 import { IsNumber, IsString } from "class-validator";
+import { Club } from "src/clubs/entities/club.entity";
 import { College } from "src/colleges/entities/college.entity";
 import { User } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -17,5 +18,7 @@ export class Department {
     @JoinColumn({ name: 'collegeIdx', referencedColumnName: 'collegeIdx' })
     college: College;
     @OneToMany(() => User, user => user.department)
-    users: User[]
+    users: User[];
+    @OneToMany(() => Club, club => club.department)
+    clubs: Club[];
 }
