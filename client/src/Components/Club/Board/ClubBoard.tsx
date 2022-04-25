@@ -1,4 +1,9 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, {
+  Dispatch,
+  ReactElement,
+  SetStateAction,
+  useEffect,
+} from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import PostTitle from '../../Post/PostTitle';
 import { ClubBoardContainer } from './style';
@@ -39,11 +44,14 @@ const posts = [
     postId: 5,
   },
 ];
-const ClubBoard = (): ReactElement => {
-  const url = useLocation();
-  const urlParams = new URLSearchParams(url.search);
-  const boardId = urlParams.get('boardId');
+interface props {
+  boardIdx: Number;
+  clubId: String | null;
+}
+const ClubBoard = (props: props): ReactElement => {
+  const { boardIdx, clubId } = props;
   // todo : boardId로 해당하는 board의 데이터 가져오기
+  console.log(boardIdx, clubId);
 
   return (
     <ClubBoardContainer>

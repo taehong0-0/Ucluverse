@@ -49,7 +49,7 @@ export const BoardContainer = styled.div`
     }
     a {
       margin-left: 16px;
-      span {
+      .board-name {
         height: 22px;
         font: normal normal 300 18px/24px Noto Sans KR;
         letter-spacing: -1.35px;
