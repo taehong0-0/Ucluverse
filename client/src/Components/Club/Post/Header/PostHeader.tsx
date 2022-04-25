@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { HeaderContainer } from './style';
-import test1 from '../../../Assets/test1.jpeg';
+import test1 from '../../../../Assets/test1.jpeg';
 
 interface props {
   post: Post;

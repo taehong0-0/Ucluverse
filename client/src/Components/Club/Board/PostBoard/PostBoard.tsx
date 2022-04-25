@@ -1,4 +1,6 @@
-import PostTitle from '../../../Post/PostTitle';
+import { Link } from 'react-router-dom';
+import Button from '../../../Button/Button';
+import PostTitle from '../../Post/Title/PostTitle';
 import { ClubBoardContainer } from './style';
 
 interface props {
@@ -13,6 +15,7 @@ interface post {
 }
 const PostBoard = (props: props) => {
   const { posts } = props;
+
   return (
     <ClubBoardContainer>
       <div className="navigator">
@@ -29,6 +32,9 @@ const PostBoard = (props: props) => {
           postId={post.postId}
         ></PostTitle>
       ))}
+      <Link to="/club/posting">
+        <Button name="글작성" clickEvent={() => {}}></Button>
+      </Link>
     </ClubBoardContainer>
   );
 };

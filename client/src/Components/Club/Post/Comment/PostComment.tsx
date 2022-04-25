@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { CommentContainer } from './style';
 interface props {
   post: Post;
 }
@@ -12,6 +13,6 @@ interface Post {
   comment: any[];
 }
 const PostComment = (): ReactElement => {
-  return <div></div>;
+  return <CommentContainer></CommentContainer>;
 };
 export default PostComment;
