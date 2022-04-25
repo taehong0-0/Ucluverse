@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import { css } from 'styled-components';
 
-export const ClubBoardContainer = styled.div`
+export const BoardStyle = css`
   margin-left: 20px;
   width: 56.3vw;
   border-radius: 0px 0px 5px 5px;

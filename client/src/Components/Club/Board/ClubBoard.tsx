@@ -1,12 +1,7 @@
-import React, {
-  Dispatch,
-  ReactElement,
-  SetStateAction,
-  useEffect,
-} from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import PostTitle from '../../Post/PostTitle';
-import { ClubBoardContainer } from './style';
+import React, { ReactElement } from 'react';
+import ActivityBoard from './ActivityBoard/ActivityBoard';
+import InfoBoard from './InfoBoard/InfoBoard';
+import PostBoard from './PostBoard/PostBoard';
 const posts = [
   {
     title: '공지사항',
@@ -54,17 +49,15 @@ const ClubBoard = (props: props): ReactElement => {
   console.log(boardIdx, clubId);
 
   return (
-    <ClubBoardContainer>
-      {posts.map((post) => (
-        <PostTitle
-          title={post.title}
-          author={post.author}
-          date={post.date}
-          type={post.type}
-          postId={post.postId}
-        ></PostTitle>
-      ))}
-    </ClubBoardContainer>
+    <>
+      {boardIdx === 2 ? (
+        <InfoBoard />
+      ) : boardIdx === 3 ? (
+        <ActivityBoard />
+      ) : (
+        <PostBoard posts={posts} />
+      )}
+    </>
   );
 };
 export default ClubBoard;
