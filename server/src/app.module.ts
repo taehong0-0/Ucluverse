@@ -14,6 +14,10 @@ import { QuestionsModule } from './questions/questions.module';
 import { AnswersModule } from './answers/answers.module';
 import { ClubsModule } from './clubs/clubs.module';
 import { PostingsModule } from './postings/postings.module';
+import { PostersModule } from './posters/posters.module';
+import { HealthCheckController } from './health-check/health-check.controller';
+import { TerminusModule } from '@nestjs/terminus';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -34,9 +38,12 @@ import { PostingsModule } from './postings/postings.module';
         database: config.get('DATABASE_DATABASE'),
         entities: ["dist/**/*.entity{.ts,.js}"],
         synchronize: Boolean(config.get('DATABASE_SYNCHRONIZE')),
+        // synchronize: false,
         logging: true,
       }),
     }),
+    TerminusModule,
+    HttpModule,
     UserModule,
     AuthModule,
     CollegesModule,
@@ -47,8 +54,9 @@ import { PostingsModule } from './postings/postings.module';
     AnswersModule,
     ClubsModule,
     PostingsModule,
+    PostersModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, HealthCheckController],
+  providers: [AppService, HealthCheckController],
 })
 export class AppModule {}

@@ -5,7 +5,7 @@ import { IsBoolean, IsEmail, IsNumber, IsString } from "class-validator";
 import { Club } from "src/clubs/entities/club.entity";
 import { Department } from "src/departments/entities/department.entity";
 import { Posting } from "src/postings/entities/posting.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ProfilePhoto } from "./profilePhoto.entity";
 import { Answer } from "src/answers/entity/answer.entity";
 
@@ -38,7 +38,6 @@ export class User {
     @JoinColumn({ name: 'departmentIdx', referencedColumnName: 'departmentIdx' })
     department: Department;
     @OneToOne(() => ProfilePhoto, profilePhoto => profilePhoto.user)
-    @JoinColumn({ name: 'userIdx', referencedColumnName: 'userIdx' })
     profilePhoto: ProfilePhoto;
     @OneToMany(() => Like, like=>like.user)
     likes: Like[]
@@ -48,6 +47,8 @@ export class User {
     userClubs: UserClub[];
     @OneToMany(() => Posting, posting => posting.user)
     postings: Posting[];
+    @OneToMany(() => Notification, notification => notification.user)
+    notifications: Notification[];
 }
 
 @Entity()
@@ -88,3 +89,33 @@ export class UserClub {
     @OneToMany(() => Answer, answer => answer.userClub)
     answers: Answer[]
 }
+
+@Entity()
+export class Notification {
+    @PrimaryGeneratedColumn()
+    notificationIdx: number;
+    @Column()
+    @IsNumber()
+    userIdx: number;
+    @Column()
+    @IsString()
+    title: string;
+    @Column("text")
+    @IsString()
+    content: string;
+    @Column()
+    @IsNumber()
+    from: number;
+    @Column({
+        default: false,
+    })
+    @IsBoolean()
+    isRead: boolean;
+    @ManyToOne(() => User, user => user.notifications)
+    @JoinColumn({
+        name: 'userIdx',
+        referencedColumnName: 'userIdx',
+    })
+    user: User;
+}
+

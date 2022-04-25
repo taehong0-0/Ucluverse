@@ -6,6 +6,7 @@ export const NewClubContainer = styled.div`
   height: 350px;
   opacity: 1;
   margin-left: 242px;
+  margin-top: -200px;
   .club-img {
     margin-top: -80px;
     width: 304px;

@@ -1,9 +1,13 @@
-import { Body, Controller, Get, Param, Post, Res, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { Body, Controller, Get, Param, Post, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { SignupClubDto } from './dto/signup-club.dto';
+import { StarClubDto } from './dto/star-club.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -14,14 +18,18 @@ export class UserController {
     ){}
 
     @Post('/signup')
-    @UseInterceptors(FilesInterceptor('files'))
-    async signup(@Body() createUserDto: CreateUserDto, @Res() res: Response, @UploadedFiles() files: Array<Express.Multer.File>){
-        const { access, refresh, result } = await this.userService.createUser(createUserDto);
-        console.log(files);
-        await this.userService.saveProfilePhoto(result.userIdx, files);
-        res.cookie('Authentication', access.accessToken, access.accessOption);
-        res.cookie('Refresh', refresh.refreshToken, refresh.refreshOption);
+    @UseInterceptors(FileInterceptor('photo'))
+    async signup(@Body() createUserDto: CreateUserDto, @Res() res: Response, @UploadedFile() photo: Express.Multer.File){
+        const result = await this.userService.createUser(createUserDto);
+        console.log(photo);
+        await this.userService.saveProfilePhoto(result.userIdx, photo);
         res.send(result);
+    }
+
+    @Post(':userIdx')
+    @UseInterceptors(FileInterceptor('photo'))
+    async update(@Param('userIdx') userIdx: number, @Body() updateUserDto: UpdateUserDto, @UploadedFile() photo: Express.Multer.File) {
+        return this.userService.update(userIdx, updateUserDto, photo);
     }
 
     @Post('checkDuplicateNickname')
@@ -33,5 +41,25 @@ export class UserController {
     @Get(':idx')
     async getUser(@Param('idx') userIdx: number, @Res() res){
         res.send(await this.userService.findUser(userIdx));
+    }
+
+    @Post('userClub/signup')
+    async signupClub(@Body() signupClubDto: SignupClubDto, @Res() res){
+        res.send(await this.userService.signupClub(signupClubDto))
+    }
+
+    @Post('userClub/accept')
+    async acceptApplication(@Body() ChangeUserClubStatus: ChangeUserClubStatusDto, @Res() res){
+        res.send(await this.userService.changeUserClubStatus(ChangeUserClubStatus, "accepted"));
+    }
+
+    @Post('userClub/reject')
+    async rejectApplication(@Body() ChangeUserClubStatus: ChangeUserClubStatusDto, @Res() res){
+        res.send(await this.userService.changeUserClubStatus(ChangeUserClubStatus, "rejected"));
+    }
+    
+    @Post('userClub/star')
+    async starClub(@Body() starClubDto: StarClubDto, @Res() res){
+        res.send(await this.userService.starClub(starClubDto));
     }
 }

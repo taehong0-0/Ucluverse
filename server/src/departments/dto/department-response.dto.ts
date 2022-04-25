@@ -5,5 +5,5 @@ export class DepartmentResDto extends BaseSuccessResDto{
         super();
         this.res.departments = departments;
     }
-    college: any;
+    departments: any;
 }
