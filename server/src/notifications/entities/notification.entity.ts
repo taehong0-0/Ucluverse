@@ -1,9 +1,10 @@
 import { IsBoolean, IsNumber, IsString } from "class-validator";
+import { Common } from "src/commons/entity/common.entity";
 import { User } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Notification {
+export class Notification extends Common {
     
     @PrimaryGeneratedColumn()
     @IsNumber()
@@ -19,10 +20,13 @@ export class Notification {
     content: string;
     @Column()
     @IsString()
-    from: string;
+    from: number;
     @Column()
+    @Column({
+        default: false,
+    })
     @IsBoolean()
-    read: boolean;
+    isRead: boolean;
 
     @ManyToOne(() => User, user => user.notifications)
     @JoinColumn({ name: 'userIdx', referencedColumnName: 'userIdx' })
