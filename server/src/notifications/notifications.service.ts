@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Club } from 'src/clubs/entities/club.entity';
+import { BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Connection } from 'typeorm';
 import { CreateNotificationDto } from './dto/create-notification.dto';
@@ -47,9 +49,11 @@ export class NotificationsService {
         try{
             await queryrunner.manager.save(notification);
             await queryrunner.commitTransaction();
+            return new BaseSuccessResDto();
         }catch(e){
             console.log(e);
             await queryrunner.rollbackTransaction();
+            return new BaseFailResDto('알림 생성에 실패했습니다.');
         }finally{
             await queryrunner.release();
         }
