@@ -18,6 +18,7 @@ import { PostersModule } from './posters/posters.module';
 import { HealthCheckController } from './health-check/health-check.controller';
 import { TerminusModule } from '@nestjs/terminus';
 import { HttpModule } from '@nestjs/axios';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { HttpModule } from '@nestjs/axios';
     ClubsModule,
     PostingsModule,
     PostersModule,
+    NotificationsModule,
   ],
   controllers: [AppController, HealthCheckController],
   providers: [AppService, HealthCheckController],
