@@ -29,13 +29,14 @@ export class UserService {
 
     async createUser(createUserDto: CreateUserDto) {
         const queryRunner = this.connection.createQueryRunner();
-        const { name, email, department, studentId, phoneNumber, nickname } = createUserDto;
+        const { name, email, department, studentId, phoneNumber, nickname, profilePhotoPath } = createUserDto;
         const user = new User();
         user.name = name;
         user.email = email;
         user.studentId = studentId;
         user.phoneNumber = phoneNumber;
         user.nickname = nickname;
+
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
@@ -50,6 +51,12 @@ export class UserService {
             user.department = dpt;
             user.departmentIdx = dpt.departmentIdx;
             await queryRunner.manager.save(user);
+            if (profilePhotoPath && profilePhotoPath !== null) {
+                const profilePhoto = new ProfilePhoto();
+                profilePhoto.path = profilePhotoPath;
+                profilePhoto.userIdx = user.userIdx;
+                await queryRunner.manager.save(profilePhoto);
+            }
             await queryRunner.commitTransaction();
 
             return new LoginResponseDto(2, '회원가입을 완료했습니다.', user.userIdx, user.email);;

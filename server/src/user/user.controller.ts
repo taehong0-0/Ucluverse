@@ -18,12 +18,8 @@ export class UserController {
     ){}
 
     @Post('/signup')
-    @UseInterceptors(FileInterceptor('photo'))
-    async signup(@Body() createUserDto: CreateUserDto, @Res() res: Response, @UploadedFile() photo: Express.Multer.File){
-        const result = await this.userService.createUser(createUserDto);
-        console.log(photo);
-        await this.userService.saveProfilePhoto(result.userIdx, photo);
-        res.send(result);
+    async signup(@Body() createUserDto: CreateUserDto) {
+        return await this.userService.createUser(createUserDto);        
     }
 
     @Post(':userIdx')
