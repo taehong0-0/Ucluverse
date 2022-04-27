@@ -23,9 +23,8 @@ export class UserController {
     }
 
     @Post(':userIdx')
-    @UseInterceptors(FileInterceptor('photo'))
-    async update(@Param('userIdx') userIdx: number, @Body() updateUserDto: UpdateUserDto, @UploadedFile() photo: Express.Multer.File) {
-        return this.userService.update(userIdx, updateUserDto, photo);
+    async update(@Param('userIdx') userIdx: number, @Body() updateUserDto: UpdateUserDto) {
+        return this.userService.update(userIdx, updateUserDto);
     }
 
     @Post('checkDuplicateNickname')
