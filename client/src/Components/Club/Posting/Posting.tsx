@@ -35,9 +35,9 @@ const Posting = (props: props) => {
         Key: 'posting/' + 'test',
         Body: RegExp.$1,
       };
-      // const data = await s3.upload(param).promise();
-      // console.log(data.Location);
-      // content.replace(RegExp.$1, data.Location);
+      const data = await s3.upload(param).promise();
+      console.log(data);
+      content.replace(RegExp.$1, data.Location);
     });
     console.log(content);
   };
