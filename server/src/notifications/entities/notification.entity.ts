@@ -19,8 +19,8 @@ export class Notification extends Common {
     @IsString()
     content: string;
     @Column()
-    @IsString()
-    from: number;
+    @IsNumber()
+    clubIdx: number;
     @Column()
     @Column({
         default: false,

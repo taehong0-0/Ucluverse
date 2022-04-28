@@ -8,5 +8,5 @@ export class CreateNotificationDto{
     @IsString()
     content: string;
     @IsNumber()
-    from: number;
+    clubIdx: number;
 }

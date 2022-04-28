@@ -13,6 +13,11 @@ export class NotificationsController {
         res.send(await this.notificationsService.getNotifications(userIdx));
     }
 
+    @Get('info/:notificationIdx')
+    async getNotification(@Param('notificationIdx') notificationIdx: number, @Res() res){
+        res.send(await this.notificationsService.getNotification(notificationIdx));
+    }
+
     @Post()
     async createNotification(@Body() createNotificationDto: CreateNotificationDto, @Res() res){
         res.send(await this.notificationsService.createNotification(createNotificationDto));
