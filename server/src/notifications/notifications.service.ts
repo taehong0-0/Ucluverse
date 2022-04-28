@@ -15,11 +15,10 @@ export class NotificationsService {
 
     async getNotifications(userIdx: number){
         const queryrunner = this.connection.createQueryRunner();
-        const notifications = await queryrunner.manager.find(Notification, {
-            where:{
-                userIdx,
-            }
-        });
+        const notifications = await queryrunner.manager.createQueryBuilder(Notification, 'notification')
+        .leftJoin(Club, "club", "club.clubIdx = notification.from")
+        .where("notification.userIdx = :userIdx", {userIdx})
+        .getMany();
         return new NotificationResDto(notifications);
     }
 
