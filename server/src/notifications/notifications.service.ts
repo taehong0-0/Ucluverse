@@ -16,30 +16,54 @@ export class NotificationsService {
     async getNotifications(userIdx: number){
         const queryrunner = this.connection.createQueryRunner();
         const notifications = await queryrunner.manager.createQueryBuilder(Notification, 'notification')
-        .leftJoinAndMapOne("notification.club", Club, "club", "notification.clubIdx = club.clubIdx")
-        .where("notification.userIdx = :userIdx", {userIdx})
-        .getMany();
+            .leftJoinAndMapOne("notification.club", Club, "club", "notification.clubIdx = club.clubIdx")
+            .where("notification.userIdx = :userIdx", {userIdx})
+            .getMany();
         return new NotificationResDto(notifications);
+    }
+
+    async readAll(userIdx: number){
+        const queryrunner = this.connection.createQueryRunner();
+        await queryrunner.connect();
+        await queryrunner.startTransaction();
+        try {
+            await queryrunner.manager.createQueryBuilder()
+                .update(Notification)
+                .set({
+                    isRead: true,
+                })
+                .where("userIdx = :userIdx", {userIdx})
+                .execute();
+            await queryrunner.commitTransaction();
+            return new BaseSuccessResDto();
+        } catch(e) {
+            console.log(e);
+            await queryrunner.rollbackTransaction();
+            return new BaseFailResDto('알림 모두 읽기에 실패했습니다.');
+        } finally {
+            await queryrunner.release();
+        }
     }
 
     async getNotification(notificationIdx: number){
         const queryrunner = this.connection.createQueryRunner();
         const notification = await queryrunner.manager.createQueryBuilder(Notification, 'notification')
-        .leftJoinAndMapOne("notification.club", Club, "club", "notification.clubIdx = club.clubIdx")
-        .where("notification.notificationIdx = :notificationIdx", {notificationIdx})
-        .getOne();
+            .leftJoinAndMapOne("notification.club",Club, "club", "notification.clubIdx = club.clubIdx")
+            .where("notification.notificationIdx = :notificationIdx", {notificationIdx})
+            .getOne();
         notification.isRead = true;
         await queryrunner.connect();
         await queryrunner.startTransaction();
-        try{
+        
+        try {
             await queryrunner.manager.save(notification);
             await queryrunner.commitTransaction();
             return new NotificationResDto(notification);
-        }catch(e){
+        } catch(e) {
             console.log(e);
             await queryrunner.rollbackTransaction();
             return new BaseFailResDto('알림 생성에 실패했습니다.');
-        }finally{
+        } finally {
             await queryrunner.release();
         }
     }
