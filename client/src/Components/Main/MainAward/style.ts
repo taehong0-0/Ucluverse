@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const AwardContainer = styled.div`
   margin-top: 10vh;
   width: 100vw;
-  height: 1184px;
+  height: 74rem;
   overflow: hidden;
   /* UI Properties */
   background: transparent
@@ -24,45 +24,45 @@ export const AwardContainer = styled.div`
     flex-direction: column;
     align-items: center;
     img {
-      margin-top: 60px;
-      height: 36px;
+      margin-top: 3.75rem;
+      height: 2.25rem;
     }
     span {
-      margin-top: 16px;
-      width: 246px;
-      height: 26px;
+      margin-top: 1rem;
+      width: 17.375rem;
+      height: 1.625rem;
       text-align: center;
-      font: normal normal normal 18px/24px Noto Sans KR;
+      font: normal normal normal 18px/1.5rem Noto Sans KR;
       letter-spacing: -1.35px;
       color: #fffdf9;
       opacity: 1;
     }
   }
   .slick-slider {
-    margin-top: 100px;
+    margin-top: 6.25rem;
     width: 130vw;
-    height: 500px;
+    height: 31.25rem;
     margin-left: -15vw;
   }
 `;
 export const AwardDiv = styled.div`
   cursor: pointer;
-  width: 304px;
-  height: 468px;
+  width: 19rem;
+  height: 29.25rem;
   z-index: 1;
   opacity: 1;
   img {
     background: transparent 0% 0% no-repeat padding-box;
-    box-shadow: 3px 3px 10px #211f1f;
+    box-shadow: 3px 3px 0.625rem #211f1f;
     opacity: 1;
     z-index: 0;
   }
   & > div {
     position: absolute;
-    margin-top: -80px;
+    margin-top: -5rem;
     text-align: center;
-    width: 304px;
-    height: 131px;
+    width: 19rem;
+    height: 8.188rem;
     background: transparent
       linear-gradient(180deg, #0e131100 0%, #151e1bbf 45%, #22342f 100%) 0% 0%
       no-repeat padding-box;
@@ -70,22 +70,22 @@ export const AwardDiv = styled.div`
     opacity: 1;
     z-index: 999;
     & > span:nth-of-type(1) {
-      margin-top: -20px;
+      margin-top: -1.25rem;
       display: inline-block;
-      font: normal normal bold 24px/28px Noto Sans KR;
+      font: normal normal bold 1.5rem/1.75rem Noto Sans KR;
       letter-spacing: -1.8px;
       color: #eed090;
       opacity: 1;
     }
     div {
-      margin-top: 10px;
-      font: normal normal medium 20px/22px Noto Sans KR;
+      margin-top: 0.625rem;
+      font: normal normal medium 1.25rem/1.375rem Noto Sans KR;
       letter-spacing: -1.5px;
       color: #eed090;
       span:first-child {
         display: inline-block;
-        margin-right: 15px;
-        font: normal normal medium 20px/22px Noto Sans KR;
+        margin-right: 0.938rem;
+        font: normal normal medium 1.25rem/1.375rem Noto Sans KR;
         letter-spacing: -1.5px;
         color: #ffffff;
       }

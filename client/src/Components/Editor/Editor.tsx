@@ -7,7 +7,7 @@ interface props {
 const Editor = (props: props) => {
   const { setContent } = props;
   const config = {
-    height: '400px',
+    height: '25rem',
   };
   return (
     <div>
@@ -17,7 +17,7 @@ const Editor = (props: props) => {
           setContent(event.editor.getData());
         }}
         config={config}
-        // style={{ height: '600px' }}
+      // style={{ height: '600px' }}
       />
     </div>
   );

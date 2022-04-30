@@ -4,9 +4,9 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 56.3vw;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-left: 20px;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  margin-left: 1.25rem;
   border-bottom: 1px solid #dddae0;
   opacity: 1;
   & > div:first-child {
@@ -14,26 +14,26 @@ export const HeaderContainer = styled.div`
     flex-direction: column;
     .navigator {
       span:first-child {
-        font: normal normal normal 14px/20px Noto Sans KR;
+        font: normal normal normal 0.875rem/1.25rem Noto Sans KR;
         letter-spacing: -1.05px;
         color: #846116;
         opacity: 1;
       }
       span {
-        margin-right: 10px;
+        margin-right: 0.625rem;
       }
     }
     #title {
-      margin-top: 10px;
+      margin-top: 0.625rem;
       margin-bottom: 5px;
-      font: normal normal bold 24px/28px Noto Sans KR;
+      font: normal normal bold 1.5rem/1.75rem Noto Sans KR;
       letter-spacing: -1.8px;
       color: #0e0e0e;
       opacity: 1;
     }
     #time {
       text-align: left;
-      font: normal normal normal 14px/20px Noto Sans KR;
+      font: normal normal normal 0.875rem/1.25rem Noto Sans KR;
       letter-spacing: -1.05px;
       color: #736f68;
       opacity: 1;
@@ -41,13 +41,13 @@ export const HeaderContainer = styled.div`
   }
   & > div:last-child {
     display: flex;
-    margin-right: 20px;
+    margin-right: 1.25rem;
     div {
       display: flex;
       flex-direction: column;
       justify-content: end;
       align-items: flex-end;
-      margin-right: 10px;
+      margin-right: 0.625rem;
       span {
         text-align: right;
       }

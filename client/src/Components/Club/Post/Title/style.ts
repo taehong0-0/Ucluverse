@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const MainContainer = styled.div``;
 export const TitleContainer = styled.div`
   width: 56.3vw;
-  height: 44px;
+  height: 2.75rem;
   div {
     span {
       display: inline-block;
@@ -24,20 +24,20 @@ export const TitleContainer = styled.div`
     border: 1px solid #dddae0;
     border-width: 1px 0px 1px 0px;
     span {
-      font: normal normal bold 18px/24px Noto Sans KR;
+      font: normal normal bold 18px/1.5rem Noto Sans KR;
       letter-spacing: -1.35px;
       color: #e86c6c;
     }
     & > span:first-child {
-      padding-top: 10px;
+      padding-top: 0.625rem;
       width: 5vw;
-      height: 34px;
-      margin-right: 20px;
-      line-height: 44px;
+      height: 2.125rem;
+      margin-right: 1.25rem;
+      line-height: 2.75rem;
       text-align: center;
       background: #e86c6c 0% 0%;
       border: 1px solid #dddae0;
-      font: normal normal bold 18px/24px Noto Sans KR;
+      font: normal normal bold 18px/1.5rem Noto Sans KR;
       letter-spacing: -1.35px;
       color: #ffffff;
       opacity: 1;
@@ -52,7 +52,7 @@ export const TitleContainer = styled.div`
     }
   }
   .post {
-    height: 44px;
+    height: 2.75rem;
     vertical-align: middle;
     background: #ffffff 0% 0% no-repeat padding-box;
     border: 1px solid #dddae0;
@@ -62,16 +62,16 @@ export const TitleContainer = styled.div`
     align-items: center;
     span {
       display: inline-block;
-      font: normal normal normal 18px/24px Noto Sans KR;
+      font: normal normal normal 18px/1.5rem Noto Sans KR;
       letter-spacing: -1.35px;
       color: #1a1917;
       opacity: 1;
     }
     & > span:first-child {
-      font: normal normal bold 18px/24px Noto Sans KR;
+      font: normal normal bold 18px/1.5rem Noto Sans KR;
       letter-spacing: -1.35px;
-      margin-left: 10px;
-      margin-right: 10px;
+      margin-left: 0.625rem;
+      margin-right: 0.625rem;
       opacity: 1;
     }
     a {

@@ -11,25 +11,25 @@ export const ActivityContainer = styled.div`
   }
   .slick-track {
     .slick-slide {
-      height: 350px;
-      line-height: 350px;
+      height: 21.875rem;
+      line-height: 21.875rem;
       div {
         vertical-align: middle;
       }
     }
     .slick-active {
       img {
-        box-shadow: 3px 3px 10px;
+        box-shadow: 3px 3px 0.625rem;
         background: transparent 0% 0% no-repeat padding-box;
-        box-shadow: 3px 3px 10px #a3a1a6;
+        box-shadow: 3px 3px 0.625rem #a3a1a6;
         border-radius: 5px;
         opacity: 1;
       }
     }
     .slick-current {
       img {
-        width: 500px;
-        height: 300px;
+        width: 31.25rem;
+        height: 18.75rem;
         opacity: 0.45;
       }
     }
@@ -38,23 +38,23 @@ export const ActivityContainer = styled.div`
     margin: 0 auto;
   }
   span:nth-of-type(1) {
-    width: 244px;
-    height: 26px;
+    width: 15.25rem;
+    height: 1.625rem;
     text-align: center;
-    font: normal normal normal 18px/24px Noto Sans KR;
+    font: normal normal normal 18px/1.5rem Noto Sans KR;
     letter-spacing: -1.35px;
     color: #a19279;
     opacity: 1;
-    margin-top: 16px;
-    margin: 16px auto;
+    margin-top: 1rem;
+    margin: 1rem auto;
   }
   a {
     margin: 0 auto;
     span {
       width: 32px;
-      height: 17px;
+      height: 1.063rem;
       text-align: center;
-      font: normal normal 300 12px/16px Noto Sans KR;
+      font: normal normal 300 12px/1rem Noto Sans KR;
       letter-spacing: -0.6px;
       color: #736f68;
       opacity: 1;

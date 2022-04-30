@@ -2,34 +2,34 @@ import styled from 'styled-components';
 
 export const LoginMainContainer = styled.div`
   width: 100vw;
-  height: 976px;
+  height: 61rem;
   background: #f8f0e0 0% 0% no-repeat padding-box;
   opacity: 1;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(1.25rem);
+  -webkit-backdrop-filter: blur(1.25rem);
 `;
 export const LoginContentContainer = styled.div`
-  padding-top: 131px;
+  padding-top: 8.188rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 export const LoginButtonContainer = styled.div`
-  width: 468px;
-  height: 120px;
+  width: 29.25rem;
+  height: 7.5rem;
   background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 3px 3px 10px #00000029;
+  box-shadow: 3px 3px 0.625rem #00000029;
   border-radius: 5px;
   opacity: 1;
-  margin-top: 30px;
+  margin-top: 1.875rem;
   text-align: center;
   vertical-align: middle;
   button {
-    width: 304px;
-    height: 45px;
-    margin-top: 38px;
+    width: 19rem;
+    height: 2.813rem;
+    margin-top: 2.375rem;
     background: none;
-    font-size: 16px;
+    font-size: 1rem;
     border: none;
     cursor: pointer;
   }
@@ -63,7 +63,7 @@ export const ProfileContainer = styled.div`
 `;
 export const DropZoneDiv = styled.div`
   width: 15vw;
-  height: 143px;
+  height: 8.938rem;
   border: 1px dashed var(---grey1-3);
   border: 1px dashed #dddae0;
   border-radius: 5px;
@@ -74,18 +74,18 @@ export const DropZoneDiv = styled.div`
   text-align: center;
   align-items: center;
   img {
-    margin-top: 15px;
+    margin-top: 0.938rem;
   }
   span:nth-child(3) {
     text-align: center;
-    font: normal normal bold 24px/28px Noto Sans KR;
+    font: normal normal bold 1.5rem/1.75rem Noto Sans KR;
     letter-spacing: -1.8px;
     color: #846116;
     opacity: 1;
   }
   span:nth-child(4) {
-    margin-bottom: 15px;
-    font: normal normal normal 14px/20px Noto Sans KR;
+    margin-bottom: 0.938rem;
+    font: normal normal normal 0.875rem/1.25rem Noto Sans KR;
     letter-spacing: -1.05px;
     color: #a19279;
     opacity: 1;
@@ -94,13 +94,13 @@ export const DropZoneDiv = styled.div`
 export const ImageContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  margin-bottom: 30px;
+  margin-bottom: 1.875rem;
 `;
 export const CharacterContainer = styled.div`
   display: flex;
   justify-content: space-around;
   div:first-child {
-    height: 140px;
+    height: 8.75rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -108,19 +108,19 @@ export const CharacterContainer = styled.div`
 `;
 export const LoginInfoContainer = styled.div`
   width: 75vw;
-  height: 588px;
+  height: 36.75rem;
   display: flex;
   background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 3px 3px 10px #00000029;
+  box-shadow: 3px 3px 0.625rem #00000029;
   border-radius: 5px;
   opacity: 1;
-  margin-top: 28px;
+  margin-top: 1.75rem;
 `;
 
 export const LoginDetailSpan = styled.span`
-  width: 244px;
+  width: 15.25rem;
   text-align: center;
-  font: normal normal normal 18px/24px Noto Sans KR;
+  font: normal normal normal 18px/1.5rem Noto Sans KR;
   letter-spacing: -1.35px;
   color: #a19279;
   opacity: 1;
@@ -132,23 +132,23 @@ export const InfoButtonContainer = styled.div`
     cursor: pointer;
   }
   button:first-child {
-    width: 60px;
-    height: 34px;
+    width: 3.75rem;
+    height: 2.125rem;
     /* UI Properties */
     background: #ffffff;
     opacity: 1;
 
     border: none;
     span {
-      font: normal normal normal 14px/20px Noto Sans KR;
+      font: normal normal normal 0.875rem/1.25rem Noto Sans KR;
       letter-spacing: -1.05px;
       color: #a6a096;
       opacity: 1;
     }
   }
   button:last-child {
-    width: 60px;
-    height: 34px;
+    width: 3.75rem;
+    height: 2.125rem;
     /* UI Properties */
     background: #a45de2 0% 0% no-repeat padding-box;
     box-shadow: 2px 2px 6px #00000029;
@@ -157,7 +157,7 @@ export const InfoButtonContainer = styled.div`
     border: none;
     margin-left: 23px;
     span {
-      font: normal normal normal 14px/20px Noto Sans KR;
+      font: normal normal normal 0.875rem/1.25rem Noto Sans KR;
       letter-spacing: -1.05px;
       color: #ffffff;
       opacity: 1;
