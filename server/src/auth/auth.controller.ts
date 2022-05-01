@@ -38,8 +38,20 @@ export class AuthController {
             result
         } = await this.authService.googleLogin(email);
         if ( access !== undefined ) {
-            res.cookie('Authentication', access.accessToken, access.accessOption);
-            res.cookie('Refresh', refresh.refreshToken, refresh.refreshOption);
+            // const { httpOnly, maxAge, secure } = access.accessOption;
+            res.cookie('Authentication', access.accessToken, {
+                httpOnly: access.accessOption.httpOnly,
+                maxAge: access.accessOption.maxAge,
+                secure: access.accessOption.secure,
+                sameSite: "none",
+            });
+            const { httpOnly, maxAge, secure } = refresh.refreshOption;
+            res.cookie('Refresh', refresh.refreshToken, {
+                httpOnly,
+                maxAge,
+                secure,
+                sameSite: "none",
+            });
         }
         res.send(result);
     }
