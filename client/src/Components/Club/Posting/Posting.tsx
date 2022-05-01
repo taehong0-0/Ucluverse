@@ -23,10 +23,8 @@ const Posting = (props: props) => {
     const s3 = new AWS.S3(option);
     const srcRegEx = /<img src=\"([^\"]*?)\" \/>/gi;
     const srcList = content.match(srcRegEx);
-    let idx = 0;
     var result = content;
-    for (let tag of srcList ?? []) {
-      idx++;
+    const promiseList = srcList?.map(async (tag, idx) => {
       tag.match(srcRegEx);
       const srcData = RegExp.$1;
       const base64Data = Buffer.from(
@@ -43,13 +41,14 @@ const Posting = (props: props) => {
         Key: `posting/test/${new Date().toString()}${idx}.${type ?? 'png'}`,
         Body: base64Data,
       };
-      const data = await s3.upload(param).promise();
-      result = result.replace(srcData, data.Location);
-      if (idx === srcList?.length) {
-        //todo : 백엔드로 요청 보내기
-      }
-    }
-    // srcList?.forEach(async (tag, idx) => {});
+      return await s3
+        .upload(param)
+        .promise()
+        .then((data) => {
+          result = result.replace(srcData, data.Location);
+        });
+    });
+    await Promise.all(promiseList ?? []);
   };
   return (
     <PostingContainer>
