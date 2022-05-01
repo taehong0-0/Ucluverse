@@ -64,7 +64,7 @@ const LoginMain = () => {
     const isAjouMail = email.includes('@ajou.ac.kr');
     if (isAjouMail) {
       axios
-        .get(`http://http://52.79.36.220:4000/auth/login?email=${email}`)
+        .get(`${process.env.REACT_APP_SERVER_URL}/auth/login?email=${email}`)
         .then((res) => {
           setCookie('accesstoken', 'aaaaaaa', { path: '/' });
 
@@ -88,7 +88,7 @@ const LoginMain = () => {
   return (
     <LoginMainContainer>
       <LoginContentContainer>
-        <img src={singInImg} style={{ marginBottom: '40px' }}></img>
+        <img src={singInImg} style={{ marginBottom: '2.5rem' }}></img>
         <LoginDetailSpan>유클러버스 회원가입은</LoginDetailSpan>
         <LoginDetailSpan>구글 아이디 연동을 통해 진행됩니다.</LoginDetailSpan>
         <LoginDetailSpan>아주메일로 로그인을 진행해주세요</LoginDetailSpan>

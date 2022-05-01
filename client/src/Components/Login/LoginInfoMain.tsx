@@ -95,7 +95,7 @@ const LoginInfoMain = (): ReactElement => {
   return (
     <LoginMainContainer>
       <LoginContentContainer>
-        <img src={singUpImg} style={{ marginBottom: '40px' }}></img>
+        <img src={singUpImg} style={{ marginBottom: '2.5rem' }}></img>
         <LoginDetailSpan>간단한 정보를 입력해주세요.</LoginDetailSpan>
         <LoginDetailSpan>동아리 신청에 편리하게 쓰인답니다.</LoginDetailSpan>
         <LoginInfoContainer>

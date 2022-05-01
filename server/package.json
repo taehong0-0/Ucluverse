@@ -37,6 +37,7 @@
     "class-validator": "^0.13.2",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.0",
+    "fs": "^0.0.1-security",
     "joi": "^17.6.0",
     "multer-s3": "^2.10.0",
     "mysql2": "^2.3.3",
@@ -46,7 +47,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.3.2"
+    "typeorm": "^0.3.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",

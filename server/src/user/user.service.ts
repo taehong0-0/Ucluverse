@@ -14,7 +14,6 @@ import { Club } from 'src/clubs/entities/club.entity';
 import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
 import { StarClubDto } from './dto/star-club.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { S3 } from 'aws-sdk';
 import { ConfigService } from '@nestjs/config';
 
 // 트랜잭션/에러처리 필요.
@@ -29,13 +28,14 @@ export class UserService {
 
     async createUser(createUserDto: CreateUserDto) {
         const queryRunner = this.connection.createQueryRunner();
-        const { name, email, department, studentId, phoneNumber, nickname } = createUserDto;
+        const { name, email, department, studentId, phoneNumber, nickname, profilePhotoPath } = createUserDto;
         const user = new User();
         user.name = name;
         user.email = email;
         user.studentId = studentId;
         user.phoneNumber = phoneNumber;
         user.nickname = nickname;
+
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
@@ -50,6 +50,12 @@ export class UserService {
             user.department = dpt;
             user.departmentIdx = dpt.departmentIdx;
             await queryRunner.manager.save(user);
+            if (profilePhotoPath && profilePhotoPath !== null) {
+                const profilePhoto = new ProfilePhoto();
+                profilePhoto.path = profilePhotoPath;
+                profilePhoto.userIdx = user.userIdx;
+                await queryRunner.manager.save(profilePhoto);
+            }
             await queryRunner.commitTransaction();
 
             return new LoginResponseDto(2, '회원가입을 완료했습니다.', user.userIdx, user.email);;
@@ -66,63 +72,47 @@ export class UserService {
         }
     }
 
-    async update(userIdx: number, updateUserDto: UpdateUserDto, photo: any) {
+    async update(userIdx: number, updateUserDto: UpdateUserDto) {
         const queryRunner = this.connection.createQueryRunner();
-        const exDepartment = await queryRunner.manager.findOne(Department, {
-            where: {
-                name: updateUserDto.department,
-            }
-        });
-        const s3 = new S3;
+        const { department, profilePhotoPath, ...updateUserInfos } = updateUserDto;
+        
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try {
-            await queryRunner.manager.update(User, userIdx, {
-                name: updateUserDto.name,
-                departmentIdx: exDepartment.departmentIdx,
-                studentId: updateUserDto.studentId,
-                phoneNumber: updateUserDto.phoneNumber,
-                nickname: updateUserDto.nickname,
-            });
-            if (Boolean(updateUserDto.isProfilePhotoChanged)) {
-                //updateDto의 isProfilePhotoChanged에는 1 or 0을 넣으면 된다.
-                // 프로필 사진을 바꿨을 때, 기존에 프로필 사진이 있으면 업데이트.
-                // 기존 프로필 사진이 없으면 생성.
-                // 프로필 사진을 내렸을 때, 기존 프로필 사진을 삭제.
-                const exProfilePhoto = await queryRunner.manager.findOne(ProfilePhoto, {
+            await queryRunner.manager.update(User, userIdx, updateUserInfos);
+            if (department) {
+                const exDepartment = await queryRunner.manager.findOne(Department, {
                     where: {
-                        userIdx: userIdx,
+                        name: department,
                     }
                 });
-                if (photo) {
-                    if (exProfilePhoto) {
-                        await queryRunner.manager.update(ProfilePhoto, exProfilePhoto.profilePhotoIdx, {
-                            path: photo.key
-                        });
-                        s3.deleteObject({
-                            Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
-                            Key: exProfilePhoto.path,
-                        }, (err) => {
-                            if(err) { throw err; } 
+                await queryRunner.manager.update(User, userIdx, {
+                    departmentIdx: exDepartment.departmentIdx
+                });
+            }
+            if (profilePhotoPath || profilePhotoPath === null) {
+                const exProfilePhoto = await queryRunner.manager.findOne(ProfilePhoto, {
+                    where: {
+                        userIdx: userIdx
+                    }
+                });
+                if(exProfilePhoto) {
+                    if (profilePhotoPath === null) {
+                        await queryRunner.manager.delete(ProfilePhoto, {
+                            userIdx: userIdx,
                         });
                     } else {
+                        await queryRunner.manager.update(ProfilePhoto, { userIdx: userIdx }, { path: profilePhotoPath });
+                    }
+                } else {
+                    if (profilePhotoPath !== null) {
                         const newProfilePhoto = new ProfilePhoto();
-                        newProfilePhoto.path = photo.key;
+                        newProfilePhoto.path = profilePhotoPath;
                         newProfilePhoto.userIdx = userIdx;
                         await queryRunner.manager.save(newProfilePhoto);
                     }
-                } else {
-                    if (exProfilePhoto) {
-                        await queryRunner.manager.delete(ProfilePhoto, exProfilePhoto.profilePhotoIdx);
-                        s3.deleteObject({
-                            Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
-                            Key: exProfilePhoto.path,
-                        }, (err) => {
-                            if(err) { throw err; } 
-                        });
-                    }
-                }  
-            } 
+                }            
+            }
             await queryRunner.commitTransaction();
             return new BaseSuccessResDto();
         } catch(err) {
@@ -146,28 +136,6 @@ export class UserService {
             ]
         });
         return new UserResDto(user); 
-    }
-
-
-    async saveProfilePhoto(userIdx: number, photo: any) {
-        const queryRunner = this.connection.createQueryRunner();
-        await queryRunner.connect();
-        await queryRunner.startTransaction();
-        try {
-            const profilePhoto = new ProfilePhoto();
-            profilePhoto.path = photo.key;
-            profilePhoto.userIdx = userIdx;
-            await queryRunner.manager.save(profilePhoto);
-            await queryRunner.commitTransaction();
-
-            return new BaseSuccessResDto();
-        } catch (error) {
-            console.log(error);
-            await queryRunner.rollbackTransaction();
-            return new BaseFailResDto('프로필 사진 저장을 실패했습니다.');
-        } finally {
-            await queryRunner.release();
-        }
     }
 
     async findDuplicateNickname(nickname: string){

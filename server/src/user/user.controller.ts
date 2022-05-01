@@ -18,18 +18,13 @@ export class UserController {
     ){}
 
     @Post('/signup')
-    @UseInterceptors(FileInterceptor('photo'))
-    async signup(@Body() createUserDto: CreateUserDto, @Res() res: Response, @UploadedFile() photo: Express.Multer.File){
-        const result = await this.userService.createUser(createUserDto);
-        console.log(photo);
-        await this.userService.saveProfilePhoto(result.userIdx, photo);
-        res.send(result);
+    async signup(@Body() createUserDto: CreateUserDto) {
+        return await this.userService.createUser(createUserDto);        
     }
 
     @Post(':userIdx')
-    @UseInterceptors(FileInterceptor('photo'))
-    async update(@Param('userIdx') userIdx: number, @Body() updateUserDto: UpdateUserDto, @UploadedFile() photo: Express.Multer.File) {
-        return this.userService.update(userIdx, updateUserDto, photo);
+    async update(@Param('userIdx') userIdx: number, @Body() updateUserDto: UpdateUserDto) {
+        return this.userService.update(userIdx, updateUserDto);
     }
 
     @Post('checkDuplicateNickname')

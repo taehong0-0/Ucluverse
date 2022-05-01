@@ -8,6 +8,7 @@ import { Posting } from "src/postings/entities/posting.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ProfilePhoto } from "./profilePhoto.entity";
 import { Answer } from "src/answers/entity/answer.entity";
+import { Notification } from "src/notifications/entities/notification.entity";
 
 @Entity()
 export class User {
@@ -90,32 +91,5 @@ export class UserClub {
     answers: Answer[]
 }
 
-@Entity()
-export class Notification {
-    @PrimaryGeneratedColumn()
-    notificationIdx: number;
-    @Column()
-    @IsNumber()
-    userIdx: number;
-    @Column()
-    @IsString()
-    title: string;
-    @Column("text")
-    @IsString()
-    content: string;
-    @Column()
-    @IsNumber()
-    from: number;
-    @Column({
-        default: false,
-    })
-    @IsBoolean()
-    isRead: boolean;
-    @ManyToOne(() => User, user => user.notifications)
-    @JoinColumn({
-        name: 'userIdx',
-        referencedColumnName: 'userIdx',
-    })
-    user: User;
-}
+
 
