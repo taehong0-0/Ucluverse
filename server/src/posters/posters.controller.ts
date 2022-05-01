@@ -9,7 +9,6 @@ export class PostersController {
     ){}
 
     @Post(':clubIdx')
-    @UseInterceptors(FileInterceptor('file'))
     async createPoster(
         @Param('clubIdx') clubIdx: number, 
         @UploadedFile() file: Express.Multer.File,
