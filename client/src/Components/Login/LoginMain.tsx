@@ -64,7 +64,7 @@ const LoginMain = () => {
     const isAjouMail = email.includes('@ajou.ac.kr');
     if (isAjouMail) {
       axios
-        .get(`http://http://52.79.36.220:4000/auth/login?email=${email}`)
+        .get(`${process.env.REACT_APP_SERVER_URL}/auth/login?email=${email}`)
         .then((res) => {
           setCookie('accesstoken', 'aaaaaaa', { path: '/' });
 
