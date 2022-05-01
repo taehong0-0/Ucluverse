@@ -3,11 +3,11 @@ import styled from 'styled-components';
 export const ClubMainContainer = styled.div`
   margin-left: 2.8vw;
   & > div:first-child {
-    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
   }
   div {
     width: 55vw;
-    height: 360px;
+    height: 22.5rem;
     /* UI Properties */
     background: transparent
       linear-gradient(

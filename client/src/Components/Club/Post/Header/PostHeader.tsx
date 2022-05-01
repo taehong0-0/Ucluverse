@@ -34,7 +34,7 @@ const PostHeader = (props: props): ReactElement => {
           <span className="normal">회원</span>
           <span>작성자이름이다</span>
         </div>
-        <img src={test1} width="90px" height="90px"></img>
+        <img src={test1} width="5.625rem" height="5.625rem"></img>
       </div>
     </HeaderContainer>
   );

@@ -95,7 +95,7 @@ const LoginInfoMain = (): ReactElement => {
   return (
     <LoginMainContainer>
       <LoginContentContainer>
-        <img src={singUpImg} style={{ marginBottom: '40px' }}></img>
+        <img src={singUpImg} style={{ marginBottom: '2.5rem' }}></img>
         <LoginDetailSpan>간단한 정보를 입력해주세요.</LoginDetailSpan>
         <LoginDetailSpan>동아리 신청에 편리하게 쓰인답니다.</LoginDetailSpan>
         <LoginInfoContainer>
@@ -112,17 +112,17 @@ const LoginInfoMain = (): ReactElement => {
             <ImageContainer>
               <DropZoneDiv {...getRootProps()}>
                 <input {...getInputProps()} />
-                <img src={fileUploadImg} width="30px" height="27px" />
+                <img src={fileUploadImg} width="1.875rem" height="1.688rem" />
                 <span>파일업로드</span>
                 <span>사진을 등록해주세요</span>
               </DropZoneDiv>
               {image ? (
-                <img src={image} width="140px" height="140px"></img>
+                <img src={image} width="8.75rem" height="8.75rem"></img>
               ) : (
                 <div
                   style={{
-                    width: '140px',
-                    height: '140px',
+                    width: '8.75rem',
+                    height: '8.75rem',
                     border: '1px solid black',
                   }}
                 ></div>
@@ -149,7 +149,7 @@ const LoginInfoMain = (): ReactElement => {
                   setNumber={setAccessorie}
                 ></CharacterButton>
               </div>
-              <img src={characterImg} width="140px" height="140px"></img>
+              <img src={characterImg} width="8.75rem" height="8.75rem"></img>
             </CharacterContainer>
           </ProfileContainer>
         </LoginInfoContainer>

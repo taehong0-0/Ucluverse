@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const PostContainer = styled.div`
   .normal {
-    width: 36px;
-    height: 17px;
+    width: 2.25rem;
+    height: 1.063rem;
     text-align: center !important;
     /* UI Properties */
     background: #f7f4fb;

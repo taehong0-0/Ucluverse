@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
 export const BoardStyle = css`
-  margin-left: 20px;
+  margin-left: 1.25rem;
   width: 56.3vw;
   min-height: 70vh;
 
@@ -9,18 +9,18 @@ export const BoardStyle = css`
   border: 1px solid #dddae0;
   height: max-content;
   .navigator {
-    height: 53px;
+    height: 3.313rem;
     span:first-child {
-      margin-left: 10px;
-      line-height: 53px;
-      font: normal normal normal 14px/20px Noto Sans KR;
+      margin-left: 0.625rem;
+      line-height: 3.313rem;
+      font: normal normal normal 0.875rem/1.25rem Noto Sans KR;
       letter-spacing: -1.05px;
       color: #846116;
       opacity: 1;
     }
     span {
-      line-height: 53px;
-      margin-right: 10px;
+      line-height: 3.313rem;
+      margin-right: 0.625rem;
     }
   }
 `;

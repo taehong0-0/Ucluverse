@@ -4,18 +4,18 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 10vw;
-  margin-right: 20px;
+  margin-right: 1.25rem;
   position: relative;
   input {
     width: 30vw;
-    height: 40px;
-    padding-top: 15px;
-    padding-bottom: -10px;
+    height: 2.5rem;
+    padding-top: 0.938rem;
+    padding-bottom: -0.625rem;
     outline: 0;
     border: none;
     border-bottom: 1px solid #846116;
-    margin-bottom: 25px;
-    font-size: 16px;
+    margin-bottom: 1.563rem;
+    font-size: 1rem;
   }
   label {
     font-size: 18px;
@@ -23,7 +23,7 @@ export const InputContainer = styled.div`
     pointer-events: none;
     position: absolute;
     opacity: 1;
-    font: normal normal bold 18px/24px Noto Sans KR;
+    font: normal normal bold 18px/1.5rem Noto Sans KR;
     letter-spacing: -1.35px;
     transform: translate(0, 18px) scale(1);
     transform-origin: top left;
