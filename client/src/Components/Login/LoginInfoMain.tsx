@@ -83,7 +83,7 @@ const LoginInfoMain = (): ReactElement => {
       return;
     } else {
       axios
-        .post('http://http://52.79.36.220:4000/user/signup', formdata)
+        .post(`${process.env.REACT_APP_SERVER_URL}/user/signup`, formdata)
         .then((response) => {
           console.log('response : ', JSON.stringify(response, null, 2));
         })
