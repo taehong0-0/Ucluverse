@@ -94,7 +94,7 @@ const LoginMain = () => {
         <LoginDetailSpan>아주메일로 로그인을 진행해주세요</LoginDetailSpan>
         <LoginButtonContainer>
           <button id="GgCustomLogin">
-            <img src={googleImg} width="19rem" height="2.813rem" />
+            <img src={googleImg} width="304px" height="45px" />
           </button>
         </LoginButtonContainer>
       </LoginContentContainer>
