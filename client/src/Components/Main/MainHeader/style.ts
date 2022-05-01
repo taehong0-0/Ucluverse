@@ -7,6 +7,7 @@ export const MainHeaderDiv = styled.div`
   height: 68vh;
   align-items: center;
   .background {
+    position: absolute;
     width: 100vw;
     height: 68vh;
   }
@@ -29,7 +30,7 @@ export const MainHeaderDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -37.75rem;
+    margin-top: 2rem;
   }
 `;
 
