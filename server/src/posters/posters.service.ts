@@ -25,6 +25,16 @@ export class PostersService {
         return new PosterResDto(posters)
     }
 
+    async getPoster(clubIdx: number){
+        const queryrunner = this.connection.createQueryRunner();
+        const poster = await queryrunner.manager.findOne(Poster, {
+            where:{
+                clubIdx,
+            }
+        });
+        return new PosterResDto(poster)
+    }
+
     async createPoster(createPosterDto: CreatePosterDto){
         const { clubIdx, path, content } = createPosterDto;
         const queryrunner = this.connection.createQueryRunner();

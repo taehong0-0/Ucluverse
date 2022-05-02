@@ -18,4 +18,9 @@ export class PostersController {
     async getAllPosters(@Res() res){
         res.send(await this.postersService.getAllPosters());
     }
+
+    @Get('club/:clubIdx')
+    async getPoster(@Param('clubIdx') clubIdx: number, @Res() res){
+        res.send(await this.postersService.getPoster(clubIdx));
+    }
 }
