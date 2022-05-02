@@ -58,7 +58,6 @@ const LoginMain = () => {
     });
   };
   const onSignIn = async (googleUser: any) => {
-    console.log(cookies);
     const profile = googleUser.getBasicProfile();
     const email = profile.getEmail();
     const isAjouMail = email.includes('@ajou.ac.kr');
@@ -66,9 +65,8 @@ const LoginMain = () => {
       axios
         .get(`${process.env.REACT_APP_SERVER_URL}/auth/login?email=${email}`)
         .then((res) => {
-          setCookie('accesstoken', 'aaaaaaa', { path: '/' });
-
           console.log(res.data);
+          console.log(cookies);
           // if (res.data.status === 1) {
           //   window.location.href = `/login/info?email=${email}`;
           // } else {

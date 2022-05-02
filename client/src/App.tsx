@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Club from './Pages/Club/Club';
+import ClubList from './Pages/Club/ClubList';
 import Login from './Pages/Login/Login';
 import LoginInfo from './Pages/Login/LoginInfo';
 import Main from './Pages/Main/Main';
@@ -39,6 +40,14 @@ const App = () => {
         element={
           <AuthRoute>
             <Club />
+          </AuthRoute>
+        }
+      />
+      <Route
+        path="/clubList/*"
+        element={
+          <AuthRoute>
+            <ClubList />
           </AuthRoute>
         }
       />
