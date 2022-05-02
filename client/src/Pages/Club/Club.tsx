@@ -24,7 +24,7 @@ const CommunicationBoardList = [
 const Club = (): ReactElement => {
   const url = new URL(window.location.href);
   const urlParams = url.searchParams;
-  const clubId = Number(urlParams.get('clubId'));
+  const clubId = Number(urlParams.get('clubIdx'));
   const [boardIdx, setBoardIdx] = useState<Number>(1);
   // 데이터 요청해서 받아오기
   //더미데이터
