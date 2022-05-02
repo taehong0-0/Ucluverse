@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
   display: flex;
-  width: 75vw;
+  width: 60rem;
   height: 6.25rem;
   line-height: 6.25rem;
   margin: 0 auto;

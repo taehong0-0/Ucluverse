@@ -5,6 +5,8 @@ import { Connection } from 'typeorm';
 import { Poster } from './entities/poster.entity';
 import * as AWS from 'aws-sdk'
 import { ConfigService } from '@nestjs/config';
+import { CreatePosterDto } from './dto/create-poster.dto';
+import { PosterResDto } from './dto/posters-response.dto';
 
 @Injectable()
 export class PostersService {
@@ -13,9 +15,37 @@ export class PostersService {
         private readonly configService: ConfigService,
     ){}
     
-    async createPoster(clubIdx: number, file: any){
-        await this.removePoster(clubIdx);
+    async getAllPosters(){
         const queryrunner = this.connection.createQueryRunner();
+        const posters = await queryrunner.manager.find(Poster, {
+            relations:[
+                'club'
+            ]
+        });
+        return new PosterResDto(posters)
+    }
+
+    async getPoster(clubIdx: number){
+        const queryrunner = this.connection.createQueryRunner();
+        const poster = await queryrunner.manager.findOne(Poster, {
+            where:{
+                clubIdx,
+            }
+        });
+        return new PosterResDto(poster)
+    }
+
+    async createPoster(createPosterDto: CreatePosterDto){
+        const { clubIdx, path, content } = createPosterDto;
+        const queryrunner = this.connection.createQueryRunner();
+        const previous = await queryrunner.manager.findOne(Poster, {
+            where:{
+                clubIdx: clubIdx,
+            }
+        })
+        if(previous){
+            return (await this.updatePoster(previous, createPosterDto));
+        }
         const poster = new Poster();
         queryrunner.connect();
         queryrunner.startTransaction();
@@ -25,8 +55,9 @@ export class PostersService {
                     clubIdx: clubIdx,
                 }
             });
-            poster.path = file.key;
+            poster.path = path;
             poster.club = club;
+            poster.content = content;
             await queryrunner.manager.save(poster);
             await queryrunner.commitTransaction();
             return new BaseSuccessResDto();
@@ -38,25 +69,15 @@ export class PostersService {
         }
     }
 
-    async removePoster(clubIdx:number){
+    async updatePoster(poster: Poster, createPosterDto: CreatePosterDto){
+        const {  path, content } = createPosterDto
         const queryrunner = this.connection.createQueryRunner();
+        poster.path = path
+        poster.content = content
         queryrunner.connect();
         queryrunner.startTransaction();
         try{
-            const poster = await queryrunner.manager.findOne(Poster, {
-                where:{
-                    clubIdx: clubIdx,
-                }
-            })
-            const imageURI = poster.path;
-            const s3 = new AWS.S3();
-            s3.deleteObject({
-                Bucket: this.configService.get('AWS_S3_BUCKET_NAME'), // 사용자 버켓 이름
-                Key: imageURI, // 버켓 내 경로
-              }, (err) => {
-                if (err) { throw err; }
-              })
-            await queryrunner.manager.delete(Poster, poster);
+            await queryrunner.manager.save(poster);
             await queryrunner.commitTransaction();
             return new BaseSuccessResDto();
         }catch(e){

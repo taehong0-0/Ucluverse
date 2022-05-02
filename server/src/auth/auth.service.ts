@@ -34,9 +34,9 @@ export class AuthService {
             console.log(6);
             console.log(user);
             if (!user) {
-                return new LoginResponseDto(1, '사용자가 DB에 존재하지 않음.(최초 사용자임.)', null, email);
+                return new LoginResponseDto(1, '사용자가 DB에 존재하지 않음.(최초 사용자임.)', email, null);
             } else {
-                return new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', user.userIdx, email);
+                return new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', email, user);
             }
         }
     }
