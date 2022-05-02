@@ -6,6 +6,7 @@ import { Poster } from './entities/poster.entity';
 import * as AWS from 'aws-sdk'
 import { ConfigService } from '@nestjs/config';
 import { CreatePosterDto } from './dto/create-poster.dto';
+import { PosterResDto } from './dto/posters-response.dto';
 
 @Injectable()
 export class PostersService {
@@ -14,6 +15,16 @@ export class PostersService {
         private readonly configService: ConfigService,
     ){}
     
+    async getAllPosters(){
+        const queryrunner = this.connection.createQueryRunner();
+        const posters = await queryrunner.manager.find(Poster, {
+            relations:[
+                'club'
+            ]
+        });
+        return new PosterResDto(posters)
+    }
+
     async createPoster(createPosterDto: CreatePosterDto){
         const { clubIdx, path, content } = createPosterDto;
         const queryrunner = this.connection.createQueryRunner();

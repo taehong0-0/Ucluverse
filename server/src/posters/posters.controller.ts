@@ -9,10 +9,13 @@ export class PostersController {
         private readonly postersService: PostersService,
     ){}
 
-    @Post(':clubIdx')
-    async createPoster(
-        @Body() createPosterDto: CreatePosterDto,
-        @Res() res){
+    @Post('')
+    async createPoster(@Body() createPosterDto: CreatePosterDto, @Res() res){
             res.send(await this.postersService.createPoster(createPosterDto));
+    }
+
+    @Get('all')
+    async getAllPosters(@Res() res){
+        res.send(await this.postersService.getAllPosters());
     }
 }
