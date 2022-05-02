@@ -14,6 +14,9 @@ export class Poster {
     })
     @IsString()
     path: string;
+    @Column()
+    @IsString()
+    content: string;
     @OneToOne(() => Club, club => club.poster)
     @JoinColumn({
         name: 'clubIdx',

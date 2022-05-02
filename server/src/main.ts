@@ -12,7 +12,6 @@ async function bootstrap() {
       'https://ucluverse.com'
     ],
     credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     exposedHeaders: ["Set-Cookie"],
     allowedHeaders: "*",
   });
