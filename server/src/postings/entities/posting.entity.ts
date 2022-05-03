@@ -32,7 +32,7 @@ export class Posting {
         default: true
     })
     @IsBoolean()
-    public: boolean;
+    isPublic: boolean;
     @ManyToOne(() => ClubBoard, clubBoard => clubBoard.postings)
     @JoinColumn({
         name: 'clubBoardIdx',
