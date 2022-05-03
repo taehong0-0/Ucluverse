@@ -1,4 +1,5 @@
 import { IsNumber, IsOptional, IsString } from "class-validator";
+import { ClubAward } from "src/awards/entity/award.entity";
 import { College } from "src/colleges/entities/college.entity";
 import { Common } from "src/commons/entity/common.entity";
 import { Department } from "src/departments/entities/department.entity";
@@ -89,33 +90,6 @@ export class ClubCategory {
     @IsString()
     name: string;
     @ManyToOne(() => Club, club => club.clubCategories)
-    @JoinColumn({
-        name: 'clubIdx',
-        referencedColumnName: 'clubIdx',
-    })
-    club: Club;
-}
-
-@Entity()
-export class ClubAward {
-    @PrimaryGeneratedColumn()
-    clubAwardIdx: number;
-    @Column()
-    @IsNumber()
-    clubIdx: number;
-    @Column()
-    @IsString()
-    competitionName: string;
-    @Column()
-    @IsString()
-    awardName: string;
-    @Column()
-    @IsString()
-    content: string;
-    @Column()
-    @IsString()
-    path: string;
-    @ManyToOne(() => Club, club => club.clubAwards)
     @JoinColumn({
         name: 'clubIdx',
         referencedColumnName: 'clubIdx',
