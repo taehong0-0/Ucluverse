@@ -1,10 +1,12 @@
 import { IsNumber, IsOptional, IsString } from "class-validator";
+import { Award } from "src/awards/entity/award.entity";
 import { College } from "src/colleges/entities/college.entity";
 import { Common } from "src/commons/entity/common.entity";
 import { Department } from "src/departments/entities/department.entity";
+import { Form } from "src/forms/entity/form.entity";
 import { Poster } from "src/posters/entities/poster.entity";
 import { Posting } from "src/postings/entities/posting.entity";
-import { UserClub } from "src/user/entities/user.entity";
+import { SubmissionFile, UserClub } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -50,8 +52,8 @@ export class Club extends Common{
     clubBoards: ClubBoard[];
     @OneToMany(() => ClubCategory, clubCategory => clubCategory.club)
     clubCategories: ClubCategory[];
-    @OneToMany(() => ClubAward, clubAward => clubAward.club)
-    clubAwards: ClubAward[];
+    @OneToMany(() => Award, award => award.club)
+    awards: Award[];
     @OneToOne(() => Poster, poster => poster.club)
     poster: Poster;
     @OneToOne(() => Form, form => form.club)
@@ -94,50 +96,6 @@ export class ClubCategory {
         referencedColumnName: 'clubIdx',
     })
     club: Club;
-}
-
-@Entity()
-export class ClubAward {
-    @PrimaryGeneratedColumn()
-    clubAwardIdx: number;
-    @Column()
-    @IsNumber()
-    clubIdx: number;
-    @Column()
-    @IsString()
-    competitionName: string;
-    @Column()
-    @IsString()
-    awardName: string;
-    @Column()
-    @IsString()
-    content: string;
-    @Column()
-    @IsString()
-    path: string;
-    @ManyToOne(() => Club, club => club.clubAwards)
-    @JoinColumn({
-        name: 'clubIdx',
-        referencedColumnName: 'clubIdx',
-    })
-    club: Club;
-}
-
-@Entity()
-export class Form{
-    @PrimaryGeneratedColumn()
-    @IsNumber()
-    formIdx: number;
-    @Column()
-    @IsNumber()
-    clubIdx: number;
-    @OneToOne(() => Club, club => club.form)
-    @JoinColumn({
-        referencedColumnName: 'clubIdx',
-    })
-    club: Club;
-    @OneToMany(() => Question, question => question.form)
-    questions: Question[];
 }
 
 @Entity()
