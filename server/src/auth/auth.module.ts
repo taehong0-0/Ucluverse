@@ -6,8 +6,6 @@ import { UserModule } from 'src/user/user.module';
 import { UserService } from 'src/user/user.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-// import { GoogleStrategy } from './google.strategy';
-import { JwtRefreshGuard } from './jwt-refresh.guard';
 import { JwtRefreshStrategy } from './jwt-refresh.strategy';
 import { JwtStrategy } from './jwt.strategy';
 

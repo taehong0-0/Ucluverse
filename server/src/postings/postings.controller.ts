@@ -1,16 +1,21 @@
 import { Body, Controller, Delete, Get, Param, Post, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreatePostingDto } from './dto/create-posting.dto';
 import { UpdatePostingDto } from './dto/update-posting.dto';
 import { PostingsService } from './postings.service';
 
 @Controller('postings')
+@ApiTags('게시물 API')
 export class PostingsController {
     constructor(
         private readonly postingsService: PostingsService,
     ){}
     
     @Post('clubBoard/:clubBoardIdx')
+    @ApiOperation({
+        summary: '게시물 생성(작성) API',
+    })
     async createPosting(
         @Param('clubBoardIdx') clubBoardIdx: number,
         @Body() createPostingDto: CreatePostingDto,
@@ -39,6 +44,9 @@ export class PostingsController {
     }
 
     @Post(':postingIdx')
+    @ApiOperation({
+        summary: '게시물 수정 API'
+    })
     async updatePosting(
         @Param('postingIdx') postingIdx: number, 
         @Body() updatePostingDto: UpdatePostingDto,
