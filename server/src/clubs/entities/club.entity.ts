@@ -53,6 +53,8 @@ export class Club extends Common{
     questions: Question[]
     @OneToMany(() => ClubCategory, clubCategory => clubCategory.club)
     clubCategories: ClubCategory[];
+    @OneToMany(() => ClubAward, clubAward => clubAward.club)
+    clubAwards: ClubAward[];
     @OneToOne(() => Poster, poster => poster.club)
     poster: Poster;
 }
@@ -88,6 +90,33 @@ export class ClubCategory {
     @IsString()
     name: string;
     @ManyToOne(() => Club, club => club.clubCategories)
+    @JoinColumn({
+        name: 'clubIdx',
+        referencedColumnName: 'clubIdx',
+    })
+    club: Club;
+}
+
+@Entity()
+export class ClubAward {
+    @PrimaryGeneratedColumn()
+    clubAwardIdx: number;
+    @Column()
+    @IsNumber()
+    clubIdx: number;
+    @Column()
+    @IsString()
+    competitionName: string;
+    @Column()
+    @IsString()
+    awardName: string;
+    @Column()
+    @IsString()
+    content: string;
+    @Column()
+    @IsString()
+    path: string;
+    @ManyToOne(() => Club, club => club.clubAwards)
     @JoinColumn({
         name: 'clubIdx',
         referencedColumnName: 'clubIdx',
