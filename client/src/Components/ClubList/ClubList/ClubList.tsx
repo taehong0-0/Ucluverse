@@ -33,7 +33,7 @@ const ClubList = (props: props) => {
           return (
             <div
               onClick={() =>
-                (window.location.href = `/club?clubId${club.clubIdx}`)
+                (window.location.href = `/club?clubId=${club.clubIdx}`)
               }
             >
               <img src={club.imgSrc}></img>
@@ -45,7 +45,7 @@ const ClubList = (props: props) => {
           return (
             <div
               onClick={() =>
-                (window.location.href = `/club?clubId${club.clubIdx}`)
+                (window.location.href = `/club?clubId=${club.clubIdx}`)
               }
             >
               <img src={club.imgSrc}></img>
@@ -57,7 +57,7 @@ const ClubList = (props: props) => {
           return (
             <div
               onClick={() =>
-                (window.location.href = `/club?clubId${club.clubIdx}`)
+                (window.location.href = `/club?clubId=${club.clubIdx}`)
               }
             >
               <img src={club.imgSrc}></img>

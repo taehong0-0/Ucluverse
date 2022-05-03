@@ -18,6 +18,7 @@ export const ClubCategoryContainer = styled.div`
     height: 42px;
     overflow: scroll;
     div {
+      cursor: pointer;
       display: inline-block;
       line-height: 42px;
       padding-left: 28px;

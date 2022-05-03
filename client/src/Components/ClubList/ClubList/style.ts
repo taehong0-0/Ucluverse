@@ -7,6 +7,7 @@ export const ClubListContainer = styled.div`
   border-radius: 5px;
   opacity: 1;
   & > div {
+    cursor: pointer;
     margin: 20px;
     margin-left: 40px;
     width: 65rem;
