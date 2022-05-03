@@ -4,7 +4,6 @@ import { Common } from "src/commons/entity/common.entity";
 import { Department } from "src/departments/entities/department.entity";
 import { Poster } from "src/posters/entities/poster.entity";
 import { Posting } from "src/postings/entities/posting.entity";
-import { Question } from "src/questions/entity/question.entity";
 import { UserClub } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -49,14 +48,14 @@ export class Club extends Common{
     userClubs: UserClub[];
     @OneToMany(() => ClubBoard, clubBoard => clubBoard.club)
     clubBoards: ClubBoard[];
-    @OneToMany(() => Question, question => question.club)
-    questions: Question[]
     @OneToMany(() => ClubCategory, clubCategory => clubCategory.club)
     clubCategories: ClubCategory[];
     @OneToMany(() => ClubAward, clubAward => clubAward.club)
     clubAwards: ClubAward[];
     @OneToOne(() => Poster, poster => poster.club)
     poster: Poster;
+    @OneToOne(() => Form, form => form.club)
+    form: Form;
 }
 
 @Entity()
@@ -122,4 +121,39 @@ export class ClubAward {
         referencedColumnName: 'clubIdx',
     })
     club: Club;
+}
+
+@Entity()
+export class Form{
+    @PrimaryGeneratedColumn()
+    @IsNumber()
+    formIdx: number;
+    @Column()
+    @IsNumber()
+    clubIdx: number;
+    @OneToOne(() => Club, club => club.form)
+    @JoinColumn({
+        referencedColumnName: 'clubIdx',
+    })
+    club: Club;
+    @OneToMany(() => Question, question => question.form)
+    questions: Question[];
+}
+
+@Entity()
+export class Question{
+    @PrimaryGeneratedColumn()
+    @IsNumber()
+    questionIdx: number;
+    @Column()
+    @IsNumber()
+    formIdx: number;
+    @Column()
+    @IsString()
+    content: string;
+    @ManyToOne(() => Form, form => form.questions)
+    @JoinColumn({
+        referencedColumnName: 'formIdx',
+    })
+    form: Form;
 }

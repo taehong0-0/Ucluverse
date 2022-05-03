@@ -7,7 +7,6 @@ import { Department } from "src/departments/entities/department.entity";
 import { Posting } from "src/postings/entities/posting.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ProfilePhoto } from "./profilePhoto.entity";
-import { Answer } from "src/answers/entity/answer.entity";
 import { Notification } from "src/notifications/entities/notification.entity";
 
 @Entity()
@@ -87,8 +86,50 @@ export class UserClub {
         referencedColumnName: 'clubIdx',
     })
     club: Club;
-    @OneToMany(() => Answer, answer => answer.userClub)
-    answers: Answer[]
+    @OneToMany(() => Response, response => response.userClub)
+    responses: Response[];
+    @OneToMany(() => SubmissionFile, SubmissionFile => SubmissionFile.userClub)
+    submissionFiles: SubmissionFile[];
+}
+
+@Entity()
+export class Response{
+    @PrimaryGeneratedColumn()
+    responseIdx: number;
+    @Column()
+    @IsNumber()
+    questionIdx: number;
+    @Column()
+    @IsNumber()
+    userClubIdx: number;
+    @Column()
+    @IsString()
+    content: string;
+    @ManyToOne(() => UserClub, userClub => userClub.responses)
+    @JoinColumn({
+        referencedColumnName: 'userClubIdx'
+    })
+    userClub: UserClub;
+}
+
+@Entity()
+export class SubmissionFile{
+    @PrimaryGeneratedColumn()
+    submissionFileIdx: number;
+    @Column()
+    @IsNumber()
+    formIdx: number;
+    @Column()
+    @IsNumber()
+    userClubIdx: number;
+    @Column()
+    @IsString()
+    path: string;
+    @ManyToOne(() => UserClub, userClub => userClub.submissionFiles)
+    @JoinColumn({
+        referencedColumnName: 'userClubIdx'
+    })
+    userClub: UserClub;
 }
 
 
