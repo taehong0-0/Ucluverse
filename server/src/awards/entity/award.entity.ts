@@ -5,7 +5,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "t
 @Entity()
 export class Award {
     @PrimaryGeneratedColumn()
-    clubAwardIdx: number;
+    awardIdx: number;
     @Column()
     @IsNumber()
     clubIdx: number;
@@ -21,7 +21,7 @@ export class Award {
     @Column()
     @IsString()
     path: string;
-    @ManyToOne(() => Club, club => club.clubAwards)
+    @ManyToOne(() => Club, club => club.awards)
     @JoinColumn({
         name: 'clubIdx',
         referencedColumnName: 'clubIdx',

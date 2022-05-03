@@ -8,6 +8,7 @@ import { Posting } from "src/postings/entities/posting.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ProfilePhoto } from "./profilePhoto.entity";
 import { Notification } from "src/notifications/entities/notification.entity";
+import { Form } from "src/forms/entity/form.entity";
 
 @Entity()
 export class User {
@@ -130,6 +131,11 @@ export class SubmissionFile{
         referencedColumnName: 'userClubIdx'
     })
     userClub: UserClub;
+    @ManyToOne(() => Form, form => form.submissionFiles)
+    @JoinColumn({
+        referencedColumnName: 'formIdx'
+    })
+    form: Form;
 }
 
 

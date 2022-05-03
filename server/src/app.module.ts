@@ -10,8 +10,6 @@ import { CollegesModule } from './colleges/colleges.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { LikesModule } from './likes/likes.module';
 import { CommentsModule } from './comments/comments.module';
-import { QuestionsModule } from './questions/questions.module';
-import { AnswersModule } from './answers/answers.module';
 import { ClubsModule } from './clubs/clubs.module';
 import { PostingsModule } from './postings/postings.module';
 import { PostersModule } from './posters/posters.module';
@@ -20,6 +18,7 @@ import { TerminusModule } from '@nestjs/terminus';
 import { HttpModule } from '@nestjs/axios';
 import { NotificationsModule } from './notifications/notifications.module';
 import { AwardsModule } from './awards/awards.module';
+import { FormsModule } from './forms/forms.module';
 
 @Module({
   imports: [
@@ -52,13 +51,12 @@ import { AwardsModule } from './awards/awards.module';
     DepartmentsModule,
     LikesModule,
     CommentsModule,
-    QuestionsModule,
-    AnswersModule,
     ClubsModule,
     PostingsModule,
     PostersModule,
     NotificationsModule,
     AwardsModule,
+    FormsModule,
   ],
   controllers: [AppController, HealthCheckController],
   providers: [AppService, HealthCheckController],
