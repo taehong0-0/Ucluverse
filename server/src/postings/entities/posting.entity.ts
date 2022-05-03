@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsNumber, IsString } from "class-validator";
 import { ClubBoard } from "src/clubs/entities/club.entity";
 import { Comment } from "src/comments/entity/comment.entity";
 import { Like } from "src/likes/entity/likes.entity";
@@ -23,6 +23,16 @@ export class Posting {
     })
     @IsString()
     content: string;
+    @Column({
+        default: true
+    })
+    @IsBoolean()
+    allowComments: boolean;
+    @Column({
+        default: true
+    })
+    @IsBoolean()
+    public: boolean;
     @ManyToOne(() => ClubBoard, clubBoard => clubBoard.postings)
     @JoinColumn({
         name: 'clubBoardIdx',
