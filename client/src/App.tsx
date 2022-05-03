@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Club from './Pages/Club/Club';
@@ -7,6 +8,8 @@ import LoginInfo from './Pages/Login/LoginInfo';
 import Main from './Pages/Main/Main';
 import AuthRoute from './Routes/AuthRoute';
 import LoginRoute from './Routes/LoginRoute';
+
+axios.defaults.withCredentials = true;
 
 const App = () => {
   return (

@@ -1,42 +1,26 @@
 import { Body, Controller, Delete, Get, Param, Post, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreatePostingDto } from './dto/create-posting.dto';
 import { UpdatePostingDto } from './dto/update-posting.dto';
 import { PostingsService } from './postings.service';
 
 @Controller('postings')
+@ApiTags('게시물 API')
 export class PostingsController {
     constructor(
         private readonly postingsService: PostingsService,
     ){}
     
     @Post('clubBoard/:clubBoardIdx')
-    @UseInterceptors(FileFieldsInterceptor([
-        { name: 'images', },
-        { name: 'attachedFiles', },
-        // { name: 'videos', },
-    ]))
+    @ApiOperation({
+        summary: '게시물 생성(작성) API',
+    })
     async createPosting(
         @Param('clubBoardIdx') clubBoardIdx: number,
         @Body() createPostingDto: CreatePostingDto,
-        @UploadedFiles() files: {
-            images? : Express.Multer.File[],
-            attachedFiles? : Express.Multer.File[],
-            // videos? : Express.Multer.File[],
-        }
     ) {
-        const response: any = await this.postingsService.createPosting(clubBoardIdx, createPostingDto);
-        const postingIdx = response.res.postingIdx;
-        if (files.images) {
-            await this.postingsService.saveImagesOrAttachedFilesOrVideos(postingIdx, files.images);
-        }
-        if (files.attachedFiles) {
-            await this.postingsService.saveImagesOrAttachedFilesOrVideos(postingIdx, files.attachedFiles);
-        }
-        // if (files.videos) {
-        //     await this.postingsService.saveImagesOrAttachedFilesOrVideos(files.videos);
-        // }
-        return response;
+        return await this.postingsService.createPosting(clubBoardIdx, createPostingDto);
     }
 
     @Get('clubBoard/:clubBoardIdx')
@@ -60,25 +44,13 @@ export class PostingsController {
     }
 
     @Post(':postingIdx')
-    @UseInterceptors(FileFieldsInterceptor([
-        { name: 'images', },
-        { name: 'attachedFiles', },
-    ]))
+    @ApiOperation({
+        summary: '게시물 수정 API'
+    })
     async updatePosting(
         @Param('postingIdx') postingIdx: number, 
         @Body() updatePostingDto: UpdatePostingDto,
-        @UploadedFiles() files: {
-            images? : Express.Multer.File[],
-            attachedFiles? : Express.Multer.File[],
-        }
     ) {
-        if (files.images) {
-            await this.postingsService.saveImagesOrAttachedFilesOrVideos(postingIdx, files.images);
-        }
-        if (files.attachedFiles) {
-            await this.postingsService.saveImagesOrAttachedFilesOrVideos(postingIdx, files.attachedFiles);
-        }
-        
         return this.postingsService.updatePosting(postingIdx, updatePostingDto);
     }
     

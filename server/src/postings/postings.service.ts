@@ -19,7 +19,7 @@ export class PostingsService {
     
     async createPosting(clubBoardIdx: number, createPostingDto: CreatePostingDto) {
         const queryRunner = this.connection.createQueryRunner();
-        const { userIdx, title, content } = createPostingDto;
+        const { userIdx, title, content, images } = createPostingDto;
         const posting = new Posting();
         posting.title = title;
         posting.content = content;
@@ -39,7 +39,27 @@ export class PostingsService {
             });
             posting.user = user;
             posting.clubBoard = clubBoard;
+            const newImages = images.map((path) => {
+                const image = new Image();
+                image.path = path;
+                return image;
+            });
+            posting.images = newImages;
             await queryRunner.manager.save(posting);
+
+            // const saveImagePaths = async () => {
+            //     for (let path of images) {
+            //         const newImage = new Image();
+            //         newImage.postingIdx = posting.postingIdx;
+            //         newImage.path = path;
+            //         await queryRunner.manager.save(newImage);
+            //     }
+            // };
+
+            // if (images.length >= 1) {
+            //     saveImagePaths();
+            // }
+
             await queryRunner.commitTransaction();
             return new CreatePostingResDto(posting.postingIdx);
         } catch(error) {
@@ -51,37 +71,6 @@ export class PostingsService {
         }
     }
 
-    async saveImagesOrAttachedFilesOrVideos(postingIdx: number, files: Array<any>) {
-        const queryRunner = this.connection.createQueryRunner();
-        await queryRunner.connect();
-        await queryRunner.startTransaction();
-        try {
-            const insertPathOfImagesOrAttachedFilesOrVideos = files.map(async (file) => {
-                if (file.fieldname === 'images') {
-                    const image = new Image();
-                    image.path = file.key;
-                    image.postingIdx = postingIdx;
-                    await queryRunner.manager.save(image);
-                } else if (file.fieldname === 'attachedFiles') {
-                    const attachedFile = new AttachedFile();
-                    attachedFile.path = file.key;
-                    attachedFile.postingIdx = postingIdx;
-                    await queryRunner.manager.save(attachedFile);
-                }
-            });
-            await Promise.all(insertPathOfImagesOrAttachedFilesOrVideos);
-            await queryRunner.commitTransaction();
-            return new BaseSuccessResDto();
-        } catch(error) {
-            console.log(error);
-            await queryRunner.rollbackTransaction();
-            return new BaseFailResDto('경로를 데이터베이스에 저장하는 것에 실패하였습니다');
-        } finally {
-            await queryRunner.release();
-        }
-    }
-
-
     async getPostingsByClubBoard(clubBoardIdx : number){
         const queryrunner = this.connection.createQueryRunner();
         const postings = await queryrunner.manager.find(Posting, {
@@ -91,8 +80,6 @@ export class PostingsService {
             relations:[
                 'clubBoard',
                 'images',
-                'videos',
-                'attachedFiles',
                 'comments',
                 'likes',
             ],
@@ -109,8 +96,6 @@ export class PostingsService {
             relations:[
                 'clubBoard',
                 'images',
-                'videos',
-                'attachedFiles',
                 'comments',
                 'likes',
             ],
@@ -128,8 +113,6 @@ export class PostingsService {
             relations:[
                 'clubBoard',
                 'images',
-                'videos',
-                'attachedFiles',
                 'comments',
                 'likes',
             ],
@@ -149,8 +132,6 @@ export class PostingsService {
             relations:[
                 'clubBoard',
                 'images',
-                'videos',
-                'attachedFiles',
                 'comments',
                 'likes',
             ]
@@ -160,59 +141,38 @@ export class PostingsService {
     
     async updatePosting(postingIdx: number, updatePostingDto: UpdatePostingDto) {
         const queryRunner = this.connection.createQueryRunner();
-        const s3 = new S3();
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try {
-            const { 
-                deletedImages, 
-                deletedAttachedFiles, 
-                ...titleAndContent } = updatePostingDto;
-            await queryRunner.manager.update(Posting, postingIdx, titleAndContent);
-            if (deletedImages.length > 0) {
-                const selectedDeletedImages = await queryRunner.manager.createQueryBuilder(Image, 'image')
-                .select('image.path')
-                .where('image.imageIdx In(:deletedImages)', { deletedImages: JSON.parse(deletedImages) })
-                .getMany();
-                
-                selectedDeletedImages.forEach((image) => {
-                    s3.deleteObject({
-                        Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
-                        Key: image.path,
-                    }, (err) => {
-                        if(err) { throw err; }
-                    });
+            const { images, ...updateInfo } = updatePostingDto;
+            // 기존의 이미지를 전부 찾아오고,
+            const exImages = await queryRunner.manager.find(Image, {
+                where: {
+                    postingIdx: postingIdx,
+                },
+                select: ['path']
+            });
+            const pathsOfExImages = exImages.map(exImages => exImages.path);
+            console.log(pathsOfExImages);
+            // 기존 이미지 - Dto 이미지 => 삭제
+            const pathsOfExImagesToBeDeleted = pathsOfExImages.filter(exImage => !images.includes(exImage));
+            console.log(pathsOfExImagesToBeDeleted);
+            for (let path of pathsOfExImagesToBeDeleted) {
+                await queryRunner.manager.delete(Image, {
+                    path: path
                 });
-
-                await queryRunner.manager.createQueryBuilder()
-                    .delete()
-                    .from(Image)
-                    .where('imageIdx In(:deletedImages)', {
-                        deletedImages: JSON.parse(deletedImages),
-                    })
-                    .execute();
             }
-            if (deletedAttachedFiles.length > 0) {
-                const selectedDeletedAttachedFiles = await queryRunner.manager.createQueryBuilder(AttachedFile, 'attachedFile')
-                .select('attachedFile.path')
-                .where('attachedFile.attachedFileIdx In(:deletedAttachedFiles)', { deletedAttachedFiles: JSON.parse(deletedAttachedFiles) })
-                .getMany();
-                selectedDeletedAttachedFiles.forEach((attachedFile) => {
-                    s3.deleteObject({
-                        Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
-                        Key: attachedFile.path,
-                    }, (err) => {
-                        if(err) { throw err; }
-                    });
-                });
-
-                await queryRunner.manager.createQueryBuilder()
-                    .delete()
-                    .from(AttachedFile)
-                    .where('attachedFileIdx In(:deletedAttachedFiles)', {
-                        deletedAttachedFiles: JSON.parse(deletedAttachedFiles),
-                    })
-                    .execute();
+            // Dto 이미지 - 기존 이미지 => 추가
+            const pathsOfNewImagesToBeSaved = images.filter(image => !pathsOfExImages.includes(image));
+            console.log(pathsOfNewImagesToBeSaved);
+            for (let path of pathsOfNewImagesToBeSaved) {
+                const newImage = new Image();
+                newImage.path = path;
+                newImage.postingIdx = postingIdx;
+                await queryRunner.manager.save(newImage);
+            }
+            if (Object.keys(updateInfo).length >= 1) {
+                await queryRunner.manager.update(Posting, postingIdx, updateInfo);
             }
             await queryRunner.commitTransaction();
             return new BaseSuccessResDto();

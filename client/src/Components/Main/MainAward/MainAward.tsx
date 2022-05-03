@@ -83,6 +83,11 @@ const MainAward = (): ReactElement => {
                 <div>
                   <span>{award.title}</span>
                   <span>{award.award}</span>
+                  <div className={`award-border`}></div>
+                  <span className={`award-detail`}>
+                    sadfas dfasdfasdfasdfasfdasdfasdfsadf
+                    asdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdf
+                  </span>
                 </div>
               </div>
             </AwardDiv>

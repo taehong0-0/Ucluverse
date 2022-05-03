@@ -7,11 +7,13 @@ export const MainHeaderDiv = styled.div`
   height: 68vh;
   align-items: center;
   .background {
+    z-index: 1;
     position: absolute;
     width: 100vw;
     height: 68vh;
   }
   .content {
+    z-index: 999;
     .main-header {
       width: 27vw;
     }

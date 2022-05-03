@@ -1,11 +1,12 @@
 import { IsNumber, IsOptional, IsString } from "class-validator";
+import { Award } from "src/awards/entity/award.entity";
 import { College } from "src/colleges/entities/college.entity";
 import { Common } from "src/commons/entity/common.entity";
 import { Department } from "src/departments/entities/department.entity";
+import { Form } from "src/forms/entity/form.entity";
 import { Poster } from "src/posters/entities/poster.entity";
 import { Posting } from "src/postings/entities/posting.entity";
-import { Question } from "src/questions/entity/question.entity";
-import { UserClub } from "src/user/entities/user.entity";
+import { SubmissionFile, UserClub } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -49,12 +50,14 @@ export class Club extends Common{
     userClubs: UserClub[];
     @OneToMany(() => ClubBoard, clubBoard => clubBoard.club)
     clubBoards: ClubBoard[];
-    @OneToMany(() => Question, question => question.club)
-    questions: Question[]
     @OneToMany(() => ClubCategory, clubCategory => clubCategory.club)
     clubCategories: ClubCategory[];
+    @OneToMany(() => Award, award => award.club)
+    awards: Award[];
     @OneToOne(() => Poster, poster => poster.club)
     poster: Poster;
+    @OneToOne(() => Form, form => form.club)
+    form: Form;
 }
 
 @Entity()
@@ -93,4 +96,22 @@ export class ClubCategory {
         referencedColumnName: 'clubIdx',
     })
     club: Club;
+}
+
+@Entity()
+export class Question{
+    @PrimaryGeneratedColumn()
+    @IsNumber()
+    questionIdx: number;
+    @Column()
+    @IsNumber()
+    formIdx: number;
+    @Column()
+    @IsString()
+    content: string;
+    @ManyToOne(() => Form, form => form.questions)
+    @JoinColumn({
+        referencedColumnName: 'formIdx',
+    })
+    form: Form;
 }
