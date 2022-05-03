@@ -80,8 +80,6 @@ export class PostingsService {
             relations:[
                 'clubBoard',
                 'images',
-                'videos',
-                'attachedFiles',
                 'comments',
                 'likes',
             ],
@@ -98,8 +96,6 @@ export class PostingsService {
             relations:[
                 'clubBoard',
                 'images',
-                'videos',
-                'attachedFiles',
                 'comments',
                 'likes',
             ],
@@ -117,8 +113,6 @@ export class PostingsService {
             relations:[
                 'clubBoard',
                 'images',
-                'videos',
-                'attachedFiles',
                 'comments',
                 'likes',
             ],
@@ -138,8 +132,6 @@ export class PostingsService {
             relations:[
                 'clubBoard',
                 'images',
-                'videos',
-                'attachedFiles',
                 'comments',
                 'likes',
             ]
