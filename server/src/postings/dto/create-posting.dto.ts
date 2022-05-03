@@ -7,4 +7,8 @@ export class CreatePostingDto {
     title: string;
     @IsString()
     content: string;   
+    @IsString({ each: true })
+    images: string[];
+    // @IsString({ each: true })
+    // attachedFiles: string[];
 }

@@ -3,15 +3,15 @@ import { IsArray, IsNumber, IsOptional, IsString } from "class-validator";
 import { CreatePostingDto } from "./create-posting.dto";
 
 export class UpdatePostingDto {
+    @IsOptional()
     @IsString()
     title: string;
     @IsOptional()
     @IsString()
     content: string;
-    @IsOptional()
-    // @IsNumber({}, {each: true})
-    deletedImages: any;
-    @IsOptional()
-    // @IsNumber({}, {each:true})
-    deletedAttachedFiles: any;
+    @IsString({each: true})
+    images: string[];
+    // @IsOptional()
+    // @IsString({ each: true })
+    // deletedAttachedFiles: any;
 }

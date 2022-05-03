@@ -39,7 +39,9 @@ export class Posting {
     likes: Like[];
     @OneToMany(() => Comment, comment => comment.posting)
     comments: Comment[];
-    @OneToMany(() => Image, image => image.posting)
+    @OneToMany(() => Image, image => image.posting, {
+        cascade: true,
+    })
     images: Image[];
     @OneToMany(() => AttachedFile, attachedFile => attachedFile.posting)
     attachedFiles: AttachedFile[];
@@ -59,7 +61,9 @@ export class Image {
     })
     @IsString()
     path: string;
-    @ManyToOne(() => Posting, posting => posting.images)
+    @ManyToOne(() => Posting, posting => posting.images, {
+        onDelete: 'CASCADE',
+    })
     @JoinColumn({
         name: 'postingIdx',
         referencedColumnName: 'postingIdx',
