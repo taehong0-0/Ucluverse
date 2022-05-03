@@ -10,8 +10,6 @@ import { CollegesModule } from './colleges/colleges.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { LikesModule } from './likes/likes.module';
 import { CommentsModule } from './comments/comments.module';
-import { QuestionsModule } from './questions/questions.module';
-import { AnswersModule } from './answers/answers.module';
 import { ClubsModule } from './clubs/clubs.module';
 import { PostingsModule } from './postings/postings.module';
 import { PostersModule } from './posters/posters.module';
@@ -38,8 +36,8 @@ import { NotificationsModule } from './notifications/notifications.module';
         password: config.get('DATABASE_PASSWORD'),
         database: config.get('DATABASE_DATABASE'),
         entities: ["dist/**/*.entity{.ts,.js}"],
-        synchronize: Boolean(config.get('DATABASE_SYNCHRONIZE')),
-        // synchronize: false,
+        // synchronize: Boolean(config.get('DATABASE_SYNCHRONIZE')),
+        synchronize: false,
         logging: true,
       }),
     }),
@@ -51,8 +49,6 @@ import { NotificationsModule } from './notifications/notifications.module';
     DepartmentsModule,
     LikesModule,
     CommentsModule,
-    QuestionsModule,
-    AnswersModule,
     ClubsModule,
     PostingsModule,
     PostersModule,
