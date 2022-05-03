@@ -39,13 +39,15 @@ export class AuthController {
         } = await this.authService.googleLogin(email);
         if ( access !== undefined ) {
             // const { httpOnly, maxAge, secure } = access.accessOption;
+            res.header('Access-Control-Allow-Credentials','true');
             res.cookie('Authentication', access.accessToken, {
                 httpOnly: access.accessOption.httpOnly,
                 maxAge: access.accessOption.maxAge,
                 secure: access.accessOption.secure,
                 sameSite: "none",
             });
-            const { httpOnly, maxAge, secure } = refresh.refreshOption;
+            // httpOnly,
+            const {  maxAge, secure, httpOnly } = refresh.refreshOption;
             res.cookie('Refresh', refresh.refreshToken, {
                 httpOnly,
                 maxAge,

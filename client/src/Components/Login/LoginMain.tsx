@@ -62,15 +62,17 @@ const LoginMain = () => {
     const profile = googleUser.getBasicProfile();
     const email = profile.getEmail();
     const isAjouMail = email.includes('@ajou.ac.kr');
+
     if (isAjouMail) {
       axios
         .get(`${process.env.REACT_APP_SERVER_URL}/auth/login?email=${email}`)
         .then((res) => {
-          console.log(res.data);
           if (res.data.status === 1) {
             window.location.href = `/login/info?email=${email}`;
           } else {
-            setUser(res.data.user);
+            console.log(res.data.user);
+            const { refresh, ...userData } = res.data.user;
+            setUser(userData);
             setTimeout(() => console.log(user), 1000);
             // console.log(user);
             // window.location.href = '/';
