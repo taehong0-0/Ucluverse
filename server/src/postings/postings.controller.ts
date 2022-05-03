@@ -1,5 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Res } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreatePostingDto } from './dto/create-posting.dto';
 import { UpdatePostingDto } from './dto/update-posting.dto';

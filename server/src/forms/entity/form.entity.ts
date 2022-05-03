@@ -1,4 +1,4 @@
-import { IsNumber } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 import { Club, Question } from "src/clubs/entities/club.entity";
 import { SubmissionFile } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
@@ -11,6 +11,11 @@ export class Form{
     @Column()
     @IsNumber()
     clubIdx: number;
+    @Column({
+        type: 'text',
+    })
+    @IsString()
+    notice: string;
     @OneToOne(() => Club, club => club.form)
     @JoinColumn({
         referencedColumnName: 'clubIdx',
