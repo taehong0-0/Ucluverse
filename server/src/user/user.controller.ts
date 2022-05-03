@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Param, Post, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { Response } from 'express';
+import { Body, Controller, Get, Param, Post, Res, UseGuards } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
@@ -11,29 +10,42 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
+@ApiTags('User API')
 export class UserController {
     constructor(
         private readonly userService: UserService,
-        private readonly authService: AuthService,
     ){}
 
     @Post('/signup')
+    @ApiOperation({
+        summary: '회원가입 API',
+        description: '사용자 생성'
+    })
     async signup(@Body() createUserDto: CreateUserDto) {
         return await this.userService.createUser(createUserDto);        
     }
 
     @Post(':userIdx')
+    @ApiOperation({
+        summary: '회원정보 수정 API',
+    })
     async update(@Param('userIdx') userIdx: number, @Body() updateUserDto: UpdateUserDto) {
         return this.userService.update(userIdx, updateUserDto);
     }
 
     @Post('checkDuplicateNickname')
+    @ApiOperation({
+        summary: '닉네임 중복 체크'
+    })
     async checkDuplicateNickname(@Body('nickname') nickname: string){
         return this.userService.findDuplicateNickname(nickname);
     }
 
     @UseGuards(JwtAuthGuard)
     @Get(':idx')
+    @ApiOperation({
+        summary: '유저 아이디를 통해 찾은 유저 정보를 반환'
+    })
     async getUser(@Param('idx') userIdx: number, @Res() res){
         res.send(await this.userService.findUser(userIdx));
     }

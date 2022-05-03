@@ -2,7 +2,6 @@ import { Controller, Get, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
-// import { GoogleAuthGuard } from './google-auth.guard';
 import { JwtRefreshGuard } from './jwt-refresh.guard';
 
 @Controller('auth')
@@ -12,24 +11,6 @@ export class AuthController {
         private readonly userService: UserService,
     ) {}
 
-    // @Get('google')
-    // @UseGuards(GoogleAuthGuard)
-    // async googleAuth(@Req() req) {}
-
-    // @Get('google/callback')
-    // @UseGuards(GoogleAuthGuard)
-    // async googleAuthRedirect(@Req() req, @Res() res: Response) {
-    //     const { 
-    //         access, 
-    //         refresh, 
-    //         result 
-    //     } = await this.authService.googleLogin(req.user);
-    //     if ( access !== undefined ) {
-            // res.cookie('Authentication', access.accessToken, access.accessOption);
-            // res.cookie('Refresh', refresh.refreshToken, refresh.refreshOption);
-    //     }
-    //     res.send(result);
-    // }
     @Get('login')
     async login(@Res() res: Response, @Query('email') email: string) {
         const {
@@ -38,7 +19,6 @@ export class AuthController {
             result
         } = await this.authService.googleLogin(email);
         if ( access !== undefined ) {
-            // const { httpOnly, maxAge, secure } = access.accessOption;
             res.header('Access-Control-Allow-Credentials','true');
             res.cookie('Authentication', access.accessToken, {
                 httpOnly: access.accessOption.httpOnly,
@@ -46,7 +26,6 @@ export class AuthController {
                 secure: access.accessOption.secure,
                 sameSite: "none",
             });
-            // httpOnly,
             const {  maxAge, secure, httpOnly } = refresh.refreshOption;
             res.cookie('Refresh', refresh.refreshToken, {
                 httpOnly,

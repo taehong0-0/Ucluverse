@@ -1,12 +1,17 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNumber, IsString } from "class-validator";
 
 export class CreatePostingDto {
+    @ApiProperty({ description: '유저 아이디(게시물 작성자 아이디)' })
     @IsNumber()
     userIdx: number;
+    @ApiProperty({ description: '게시물 제목' })
     @IsString()
     title: string;
+    @ApiProperty({ description: '게시물 내용' })
     @IsString()
-    content: string;   
+    content: string;
+    @ApiProperty({ description: '사진 저장 경로의 리스트' })   
     @IsString({ each: true })
     images: string[];
     // @IsString({ each: true })

@@ -58,7 +58,7 @@ export class UserService {
             }
             await queryRunner.commitTransaction();
 
-            return new LoginResponseDto(2, '회원가입을 완료했습니다.', email, user);;
+            return new LoginResponseDto(2, '회원가입을 완료했습니다.', email, user);
         }catch(e){
             console.log(e);
             await queryRunner.rollbackTransaction();
