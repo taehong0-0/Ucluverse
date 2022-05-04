@@ -12,7 +12,7 @@ const userState = atom<UserType>({
     email: '',
     BDOList: null,
     isAdmin: false,
-    profileImage: '',
+    profilePhoto: '',
     phoneNumber: '',
   },
 });
