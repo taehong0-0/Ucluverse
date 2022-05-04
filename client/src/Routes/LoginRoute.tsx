@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Route, Navigate } from 'react-router-dom';
 import { useResetRecoilState } from 'recoil';
 import useCheckLogin from '../Hooks/useCheckLogin';
@@ -8,10 +8,10 @@ interface Props {
 }
 
 const LoginRoute = ({ children }: Props): React.ReactElement => {
-  // const user = useResetRecoilState();
-  // useCheckLogin()();
-  const status = 'login';
-  return status !== 'login' ? <Navigate to="/" /> : children;
+  const [status, setStatue] = useState(false);
+  const checkLogin = useCheckLogin();
+  checkLogin().then((res) => setStatue(res));
+  return status ? <Navigate to="/" /> : children;
 };
 
 export default LoginRoute;
