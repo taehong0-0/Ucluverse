@@ -10,10 +10,17 @@ import AuthRoute from './Routes/AuthRoute';
 import LoginRoute from './Routes/LoginRoute';
 import banner from './Assets/띠배너.png';
 import footer from './Assets/Footer.png';
+import useCheckLogin from './Hooks/useCheckLogin';
+import { useRecoilValue } from 'recoil';
+import userState from './Recoil/User';
 
 axios.defaults.withCredentials = true;
 
 const App = () => {
+  const checklogin = useCheckLogin();
+  checklogin();
+  const user = useRecoilValue(userState);
+  console.log(user);
   return (
     <>
       <Routes>
@@ -57,7 +64,7 @@ const App = () => {
       <img
         src={banner}
         style={{ width: '100vw', cursor: 'pointer', marginTop: '130px' }}
-        onClick={() => (window.location.href = '/')}
+        onClick={() => window.location.replace('/')}
       />
       <img src={footer} style={{ width: '100vw' }} />
     </>
