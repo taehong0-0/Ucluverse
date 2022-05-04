@@ -1,6 +1,7 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { BaseFailResDto } from 'src/commons/response.dto';
 import { UserService } from 'src/user/user.service';
 import { LoginResponseDto } from './dto/login-response.dto';
 
@@ -12,6 +13,23 @@ export class AuthService {
         private readonly jwtService: JwtService,
         private readonly configService: ConfigService,
     ) {}
+
+    async isLogin(cookies: any) {
+        if(cookies.Refresh) {
+            const payload: any = this.decodeAccessToken(cookies.Refresh);
+            const userIdx = payload.userIdx;
+            const user = await this.userService.findUser(userIdx);
+            return {
+                status: 1,
+                user: user.res.user,
+            }
+        } else {
+            return {
+                status: 0,
+                user: null,
+            }
+        }
+    }
 
     checkIfDomainIsAjou(email: string): boolean {
         const domain = email.split('@')[1];
