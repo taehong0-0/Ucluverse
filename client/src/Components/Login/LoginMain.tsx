@@ -13,7 +13,7 @@ import {
 } from './style';
 import Cookies from 'universal-cookie';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import userState from '../../Recoil/user';
+import userState from '../../Recoil/User';
 
 declare global {
   interface Window {
@@ -68,14 +68,12 @@ const LoginMain = () => {
         .get(`${process.env.REACT_APP_SERVER_URL}/auth/login?email=${email}`)
         .then((res) => {
           if (res.data.status === 1) {
-            window.location.href = `/login/info?email=${email}`;
+            window.location.replace(`/login/info?email=${email}`);
           } else {
-            console.log(res.data.user);
-            const { refresh, ...userData } = res.data.user;
+            const { currentHashedRefreshToken, ...userData } = res.data.user;
+            console.log(userData);
             setUser(userData);
-            setTimeout(() => console.log(user), 1000);
-            // console.log(user);
-            // window.location.href = '/';
+            window.location.replace('/');
           }
         });
     } else {
