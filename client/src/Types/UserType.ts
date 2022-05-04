@@ -7,6 +7,6 @@ export interface UserType {
   email: string;
   BDOList?: String[] | null;
   isAdmin?: boolean;
-  profileImage?: string;
+  profilePhoto?: string;
   phoneNumber: string;
 }
