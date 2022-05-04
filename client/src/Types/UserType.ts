@@ -1,9 +1,9 @@
 export interface UserType {
-  userIdx: string;
+  userIdx: number;
   name: string;
   departmentIdx: number;
   nickname: string;
-  studentID: number;
+  studentId: number;
   email: string;
   BDOList?: String[] | null;
   isAdmin?: boolean;
