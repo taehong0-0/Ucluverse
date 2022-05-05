@@ -11,7 +11,7 @@ import alarmImg from '../../Assets/알림.png';
 import logoutImg from '../../Assets/logout.png';
 import mypageImg from '../../Assets/내정보.png';
 import { useRecoilValue } from 'recoil';
-import userState from '../../Recoil/User';
+import { userState } from '../../Recoil/User';
 const Header = (): ReactElement => {
   const user = useRecoilValue(userState);
   return (

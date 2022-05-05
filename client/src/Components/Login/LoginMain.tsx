@@ -13,7 +13,7 @@ import {
 } from './style';
 import Cookies from 'universal-cookie';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import userState from '../../Recoil/User';
+import { userState } from '../../Recoil/User';
 
 declare global {
   interface Window {
