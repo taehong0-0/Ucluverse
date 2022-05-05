@@ -144,14 +144,12 @@ const DepartmentBody = () => {
       <ClubCategory
         onClick={clickCollegeCategory}
         selectedCategory={collegeCategory}
-        setCategory={setCollegeCategory}
         categoryList={collegeCategoryList}
       />
       {collegeCategory !== '' && (
         <ClubCategory
           onClick={clickDepartmentCategory}
           selectedCategory={departmentCategory}
-          setCategory={setDepartmentCategory}
           categoryList={departmentCategoryList[collegeCategory]}
         />
       )}

@@ -71,7 +71,6 @@ const ClubBody = () => {
       <img width="304px" height="195px" src={character} />
       <ClubCategory
         onClick={clickCategory}
-        setCategory={setCategory}
         categoryList={categoryList}
         selectedCategory={category}
       />
