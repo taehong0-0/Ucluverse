@@ -3,6 +3,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
 import { JwtRefreshGuard } from './jwt-refresh.guard';
 
 @Controller('auth')
@@ -12,6 +13,11 @@ export class AuthController {
         private readonly authService: AuthService,
         private readonly userService: UserService,
     ) {}
+
+    @Get('isLogin')
+    async isLogin(@Req() req: Request) {
+        return this.authService.isLogin(req.cookies);
+    }
 
     @Get('login')
     @ApiOperation({
