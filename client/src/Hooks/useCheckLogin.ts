@@ -10,7 +10,7 @@ const useCheckLogin = () => {
     if (user.userIdx !== 0) return true;
     else {
       await axios
-        .get(`${process.env.REACT_APP_SERVER_URL}/auth/islogin`)
+        .get(`${process.env.REACT_APP_SERVER_URL}/auth/isLogin`)
         .then((res) => {
           if (res.data.status === 1) {
             const { currentHashedRefreshToken, ...userData } = res.data.user;
