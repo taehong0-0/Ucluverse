@@ -21,3 +21,13 @@ export const HeaderLinkContainer = styled.div`
     }
   }
 `;
+export const UserInfoContainer = styled.div`
+  display: flex;
+  height: 6.25rem;
+  vertical-align: middle;
+  align-items: center;
+  img {
+    cursor: pointer;
+    margin-left: 26px;
+  }
+`;

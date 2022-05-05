@@ -93,7 +93,7 @@ const LoginInfoMain = (): ReactElement => {
           })
           .then((response) => {
             console.log('response : ', JSON.stringify(response, null, 2));
-            window.location.href = '/';
+            window.location.replace('/');
           })
           .catch((error) => {
             console.log('failed', error);
@@ -115,7 +115,7 @@ const LoginInfoMain = (): ReactElement => {
               })
               .then((response) => {
                 console.log('response : ', JSON.stringify(response, null, 2));
-                window.location.href = '/';
+                window.location.replace('/');
               })
               .catch((error) => {
                 console.log('failed', error);
