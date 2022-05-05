@@ -31,7 +31,7 @@ const Club = (): ReactElement => {
   return (
     <div>
       <Header />
-      <div>
+      <div style={{ marginBottom: '130px' }}>
         <ClubHeader title="Do-iT!" hashtags={['코딩', '웹', '개발']} />
         <div style={{ display: 'flex' }}>
           <ClubSideBar

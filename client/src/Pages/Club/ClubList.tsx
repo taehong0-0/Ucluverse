@@ -1,15 +1,17 @@
 import React, { ReactElement } from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
-import ClubBody from '../../Components/ClubList/ClubBody/ClubBody';
+import { Route, Routes } from 'react-router-dom';
+import ClubBody from '../../Components/ClubList/Body/ClubBody';
+import DepartmentBody from '../../Components/ClubList/Body/DepartmentClubBody';
 import Header from '../../Components/Header/Header';
 
 const ClubList = (): ReactElement => {
   return (
     <div>
       <Header />
-      <ClubBody />
+      <Routes>
+        <Route path="/" element={<ClubBody />} />
+        <Route path="/department" element={<DepartmentBody />} />
+      </Routes>
     </div>
   );
 };

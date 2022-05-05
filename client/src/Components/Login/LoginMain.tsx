@@ -12,6 +12,8 @@ import {
   LoginMainContainer,
 } from './style';
 import Cookies from 'universal-cookie';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import userState from '../../Recoil/User';
 
 declare global {
   interface Window {
@@ -26,7 +28,7 @@ export const setCookie = (name: any, value: any, option: any) => {
 axios.defaults.withCredentials = true;
 
 const LoginMain = () => {
-  const status = 'notLogin';
+  const [user, setUser] = useRecoilState(userState);
   const notify = () =>
     toast('아주메일로 로그인 해주세요', {
       position: 'top-right',
@@ -41,8 +43,7 @@ const LoginMain = () => {
   const init = () => {
     gapi.load('auth2', () => {
       gapi.auth2.init({
-        client_id:
-          '280889310353-qgqus8gdj4ir1t5c4qfghevolbj3d0th.apps.googleusercontent.com',
+        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       });
       const options = new gapi.auth2.SigninOptionsBuilder();
       options.setPrompt('select_account');
@@ -61,17 +62,19 @@ const LoginMain = () => {
     const profile = googleUser.getBasicProfile();
     const email = profile.getEmail();
     const isAjouMail = email.includes('@ajou.ac.kr');
+
     if (isAjouMail) {
       axios
         .get(`${process.env.REACT_APP_SERVER_URL}/auth/login?email=${email}`)
         .then((res) => {
-          console.log(res.data);
-          console.log(cookies);
-          // if (res.data.status === 1) {
-          //   window.location.href = `/login/info?email=${email}`;
-          // } else {
-          //   window.location.href = '/';
-          // }
+          if (res.data.status === 1) {
+            window.location.replace(`/login/info?email=${email}`);
+          } else {
+            const { currentHashedRefreshToken, ...userData } = res.data.user;
+            console.log(userData);
+            setUser(userData);
+            window.location.replace('/');
+          }
         });
     } else {
       notify();

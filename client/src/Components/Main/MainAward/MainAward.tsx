@@ -74,7 +74,8 @@ const MainAward = (): ReactElement => {
           return (
             <AwardDiv
               onClick={() => {
-                window.location.href = './club';
+                history.pushState(null, '', '/club');
+                window.location.replace('/club');
               }}
             >
               <img src={testImg} width="304px" height="486px" />
