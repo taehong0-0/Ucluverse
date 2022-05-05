@@ -6,8 +6,11 @@ import MainBoardContainer from '../../Components/Main/MainBoard/MainBoardContain
 import MainGreatClub from '../../Components/Main/MainGreatClub/MainGreatClub';
 import MainHeader from '../../Components/Main/MainHeader/MainHeader';
 import MainNewClub from '../../Components/Main/MainNewClub/MainNewClub';
+import useCheckLogin from '../../Hooks/useCheckLogin';
 
 const Main = (): ReactElement => {
+  const checklogin = useCheckLogin();
+  checklogin();
   return (
     <div>
       <Header />

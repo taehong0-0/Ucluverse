@@ -20,7 +20,7 @@ export const ClubListContainer = styled.div`
 
     display: flex;
     flex-wrap: wrap;
-    overflow: scroll;
+    overflow: auto;
     & > div {
       margin-right: 24px;
       display: flex;
