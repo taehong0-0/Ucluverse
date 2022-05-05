@@ -22,7 +22,7 @@ const Header = (): ReactElement => {
       <HeaderLinkContainer>
         <LinkButton url="/">홈</LinkButton>
         <LinkButton url="/clubList">동아리</LinkButton>
-        <LinkButton url="/">소학회</LinkButton>
+        <LinkButton url="/clubList/department">소학회</LinkButton>
         <LinkButton url="/">그 외 단체</LinkButton>
       </HeaderLinkContainer>
 
