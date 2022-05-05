@@ -19,10 +19,12 @@ export class PostingsService {
     
     async createPosting(clubBoardIdx: number, createPostingDto: CreatePostingDto) {
         const queryRunner = this.connection.createQueryRunner();
-        const { userIdx, title, content, images } = createPostingDto;
+        const { userIdx, title, content, images, allowComments, isPublic } = createPostingDto;
         const posting = new Posting();
         posting.title = title;
         posting.content = content;
+        posting.allowComments = allowComments;
+        posting.isPublic = isPublic;
 
         await queryRunner.connect();
         await queryRunner.startTransaction();
@@ -47,25 +49,12 @@ export class PostingsService {
             posting.images = newImages;
             await queryRunner.manager.save(posting);
 
-            // const saveImagePaths = async () => {
-            //     for (let path of images) {
-            //         const newImage = new Image();
-            //         newImage.postingIdx = posting.postingIdx;
-            //         newImage.path = path;
-            //         await queryRunner.manager.save(newImage);
-            //     }
-            // };
-
-            // if (images.length >= 1) {
-            //     saveImagePaths();
-            // }
-
             await queryRunner.commitTransaction();
             return new CreatePostingResDto(posting.postingIdx);
         } catch(error) {
             console.log(error);
             await queryRunner.rollbackTransaction();
-            return new BaseFailResDto('게시글 생성에 실패하였습니다');
+            return new BaseFailResDto('게시물 생성에 실패하였습니다');
         } finally {
             await queryRunner.release();
         }
@@ -156,7 +145,7 @@ export class PostingsService {
             console.log(pathsOfExImages);
             // 기존 이미지 - Dto 이미지 => 삭제
             const pathsOfExImagesToBeDeleted = pathsOfExImages.filter(exImage => !images.includes(exImage));
-            console.log(pathsOfExImagesToBeDeleted);
+            // console.log(pathsOfExImagesToBeDeleted);
             for (let path of pathsOfExImagesToBeDeleted) {
                 await queryRunner.manager.delete(Image, {
                     path: path
@@ -164,7 +153,7 @@ export class PostingsService {
             }
             // Dto 이미지 - 기존 이미지 => 추가
             const pathsOfNewImagesToBeSaved = images.filter(image => !pathsOfExImages.includes(image));
-            console.log(pathsOfNewImagesToBeSaved);
+            // console.log(pathsOfNewImagesToBeSaved);
             for (let path of pathsOfNewImagesToBeSaved) {
                 const newImage = new Image();
                 newImage.path = path;

@@ -51,21 +51,33 @@ export class UserController {
     }
 
     @Post('userClub/signup')
+    @ApiOperation({
+        summary: '동아리 신청 API'
+    })
     async signupClub(@Body() signupClubDto: SignupClubDto, @Res() res){
         res.send(await this.userService.signupClub(signupClubDto))
     }
 
     @Post('userClub/accept')
+    @ApiOperation({
+        summary: '동아리 신청 수락 API'
+    })
     async acceptApplication(@Body() ChangeUserClubStatus: ChangeUserClubStatusDto, @Res() res){
         res.send(await this.userService.changeUserClubStatus(ChangeUserClubStatus, "accepted"));
     }
 
     @Post('userClub/reject')
+    @ApiOperation({
+        summary: '동아리 신청 거절 API'
+    })
     async rejectApplication(@Body() ChangeUserClubStatus: ChangeUserClubStatusDto, @Res() res){
         res.send(await this.userService.changeUserClubStatus(ChangeUserClubStatus, "rejected"));
     }
     
     @Post('userClub/star')
+    @ApiOperation({
+        summary: '동아리 찜 API'
+    })
     async starClub(@Body() starClubDto: StarClubDto, @Res() res){
         res.send(await this.userService.starClub(starClubDto));
     }

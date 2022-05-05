@@ -4,8 +4,8 @@ import { BaseFailMsgResDto, BaseFailResDto, BaseSuccessResDto } from 'src/common
 import { Connection } from 'typeorm';
 import { Award } from './entity/award.entity';
 import { AwardsResDto } from './entity/awards-response.dto';
-import { CreateAwardDto } from './entity/create-award.dto';
-import { UpdateAwardDto } from './entity/update-award.dto';
+import { CreateAwardDto } from './dto/create-award.dto';
+import { UpdateAwardDto } from './dto/update-award.dto';
 
 @Injectable()
 export class AwardsService {

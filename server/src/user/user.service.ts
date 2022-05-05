@@ -127,14 +127,19 @@ export class UserService {
 
     async findUser(userIdx: number){
         const queryRunner = this.connection.createQueryRunner();
-        const user = await queryRunner.manager.findOne(User, {
-            where: {
-                userIdx: userIdx,
-            },
-            relations: [
-                'profilePhoto'
-            ]
-        });
+        // const user = await queryRunner.manager.findOne(User, {
+        //     where: {
+        //         userIdx: userIdx,
+        //     },
+        //     relations: [
+        //         'profilePhoto'
+        //     ],
+        // });
+        const user = await queryRunner.manager.createQueryBuilder(User, 'user')
+            .leftJoin('user.profilePhoto', 'profilePhoto')
+            .select(['user', 'profilePhoto.path'])
+            .where('user.userIdx=:userIdx', { userIdx })
+            .getOne();
         return new UserResDto(user); 
     }
 
