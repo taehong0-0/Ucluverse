@@ -5,13 +5,14 @@ interface props {
   onClick: (category: string) => void;
   categoryList: string[];
   selectedCategory: string;
+  categoryName: string;
 }
 
 const ClubCategory = (props: props) => {
-  const { onClick, categoryList, selectedCategory } = props;
+  const { onClick, categoryName, categoryList, selectedCategory } = props;
   return (
     <ClubCategoryContainer>
-      <span>종류</span>
+      <span>{categoryName}</span>
       <div>
         {categoryList.map((category) => {
           return (

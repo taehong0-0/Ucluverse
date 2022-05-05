@@ -70,6 +70,7 @@ const ClubBody = () => {
       <span>아주대학교 소학회를 모아봤어요!</span>
       <img width="304px" height="195px" src={character} />
       <ClubCategory
+        categoryName="종류"
         onClick={clickCategory}
         categoryList={categoryList}
         selectedCategory={category}

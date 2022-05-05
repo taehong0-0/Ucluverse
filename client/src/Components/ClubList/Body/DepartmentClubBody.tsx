@@ -142,12 +142,14 @@ const DepartmentBody = () => {
       <span>아주대학교 소학회를 모아봤어요!</span>
       <img width="304px" height="195px" src={character} />
       <ClubCategory
+        categoryName="단과"
         onClick={clickCollegeCategory}
         selectedCategory={collegeCategory}
         categoryList={collegeCategoryList}
       />
       {collegeCategory !== '' && (
         <ClubCategory
+          categoryName="학과"
           onClick={clickDepartmentCategory}
           selectedCategory={departmentCategory}
           categoryList={departmentCategoryList[collegeCategory]}
