@@ -14,25 +14,27 @@ const MainGreatClub = (): ReactElement => {
       <span>동아리 활동이 현재 매우 활발한 동아리에요.</span>
       <span>사람들과 교류를 쉽게 할 수 있을 거에요!</span>
       <ImgContainer>
-        <div>
-          <Link to="login">
+        <div className="overflow-container">
+          <div>
+            <Link to="login">
+              <img src={test1} />
+            </Link>
+          </div>
+          <div>
+            <img src={test2} />
+          </div>
+          <div>
+            <img src={test3} />
+          </div>
+          <div>
+            <img src={test4} />
+          </div>
+          <div>
+            <img src={test5} />
+          </div>
+          <div>
             <img src={test1} />
-          </Link>
-        </div>
-        <div>
-          <img src={test2} />
-        </div>
-        <div>
-          <img src={test3} />
-        </div>
-        <div>
-          <img src={test4} />
-        </div>
-        <div>
-          <img src={test5} />
-        </div>
-        <div>
-          <img src={test1} />
+          </div>
         </div>
       </ImgContainer>
       <Link to="/">

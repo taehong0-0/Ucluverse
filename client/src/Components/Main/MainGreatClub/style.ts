@@ -42,36 +42,45 @@ export const ClubContainer = styled.div`
 `;
 
 export const ImgContainer = styled.div`
+  width: 75rem;
   overflow: scroll;
-  display: flex;
-  align-items: baseline;
   margin-top: 3.75rem;
   height: 22.5rem;
-  div {
-    width: 19rem;
-    height: 15.625rem;
-    margin-right: 1.5rem;
-    box-shadow: 2px 2px 6px var(---grey1-3);
-    background: transparent 0% 0% no-repeat padding-box;
-    box-shadow: 2px 2px 6px #dddae0;
-    border-radius: 5px;
-    opacity: 1;
-    img {
+  .overflow-container {
+    display: inline-flex;
+    /* width: 150rem; */
+    align-items: baseline;
+    & > div {
+      display: inline-block;
+      cursor: pointer;
       width: 19rem;
       height: 15.625rem;
+      margin-right: 1.5rem;
+      overflow: hidden;
+      background: transparent 0% 0% no-repeat padding-box;
+      box-shadow: 2px 2px 6px #dddae0;
+      border-radius: 5px;
+      opacity: 1;
+      img {
+        transition: all 0.2s linear;
+        width: 19rem;
+        height: 15.625rem;
+      }
     }
-  }
-  div:first-child {
-    width: 24.125rem;
-    height: 18.75rem;
-    box-shadow: 3px 3px 0.625rem var(---grey1-3);
-    background: transparent 0% 0% no-repeat padding-box;
-    box-shadow: 3px 3px 0.625rem #dddae0;
-    border-radius: 5px;
-    opacity: 1;
-    img {
+    div:hover img {
+      transform: scale(1.1);
+    }
+    div:first-child {
       width: 24.125rem;
       height: 18.75rem;
+      background: transparent 0% 0% no-repeat padding-box;
+      box-shadow: 3px 3px 0.625rem #dddae0;
+      border-radius: 5px;
+      opacity: 1;
+      img {
+        width: 24.125rem;
+        height: 18.75rem;
+      }
     }
   }
   &::-webkit-scrollbar {
