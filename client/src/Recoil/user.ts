@@ -3,6 +3,7 @@ import { UserType } from '../Types/UserType';
 
 const userState = atom<UserType>({
   key: 'userState',
+
   default: {
     userIdx: 0,
     name: '',
