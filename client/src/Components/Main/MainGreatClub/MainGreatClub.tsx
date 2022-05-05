@@ -18,28 +18,43 @@ const MainGreatClub = (): ReactElement => {
           <div>
             <Link to="login">
               <img src={test1} />
+              <button>
+                <span>+</span>
+              </button>
             </Link>
           </div>
           <div>
             <img src={test2} />
+            <button>
+              <span>+</span>
+            </button>
           </div>
           <div>
             <img src={test3} />
+            <button>
+              <span>+</span>
+            </button>
           </div>
           <div>
             <img src={test4} />
+            <button>
+              <span>+</span>
+            </button>
           </div>
           <div>
             <img src={test5} />
+            <button>
+              <span>+</span>
+            </button>
           </div>
           <div>
             <img src={test1} />
+            <button>
+              <span>+</span>
+            </button>
           </div>
         </div>
       </ImgContainer>
-      <Link to="/">
-        <span>→ 자세히 보기</span>
-      </Link>
     </ClubContainer>
   );
 };
