@@ -1,6 +1,7 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { BaseFailResDto } from 'src/commons/response.dto';
 import { UserService } from 'src/user/user.service';
 import { LoginResponseDto } from './dto/login-response.dto';
 
@@ -12,6 +13,23 @@ export class AuthService {
         private readonly jwtService: JwtService,
         private readonly configService: ConfigService,
     ) {}
+
+    async isLogin(cookies: any) {
+        if(cookies.Refresh) {
+            const payload: any = this.decodeAccessToken(cookies.Refresh);
+            const userIdx = payload.userIdx;
+            const user = await this.userService.findUser(userIdx);
+            return {
+                status: 1,
+                user: user.res.user,
+            }
+        } else {
+            return {
+                status: 0,
+                user: null,
+            }
+        }
+    }
 
     checkIfDomainIsAjou(email: string): boolean {
         const domain = email.split('@')[1];
@@ -34,9 +52,9 @@ export class AuthService {
             console.log(6);
             console.log(user);
             if (!user) {
-                return new LoginResponseDto(1, '사용자가 DB에 존재하지 않음.(최초 사용자임.)', null, email);
+                return new LoginResponseDto(1, '사용자가 DB에 존재하지 않음.(최초 사용자임.)', email, null);
             } else {
-                return new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', user.userIdx, email);
+                return new LoginResponseDto(2, '사용자가 DB에 존재함.(등록된 사용자임.)', email, user);
             }
         }
     }
@@ -93,6 +111,7 @@ export class AuthService {
             accessToken: token,
             httpOnly: true,
             maxAge: this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME') * 1000,
+            secure: true,
         };
     }
 
@@ -107,6 +126,7 @@ export class AuthService {
             refreshToken: token,
             httpOnly: true,
             maxAge: this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME') * 1000,
+            secure: true,
         };
     }
 

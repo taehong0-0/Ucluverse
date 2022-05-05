@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { BaseFailMsgResDto, BaseSuccessResDto } from 'src/commons/response.dto';
+import { User } from 'src/user/entities/user.entity';
 import { Connection, Raw } from 'typeorm';
 import { ClubResDto } from './dto/club-respones.dto';
 import { CreateClubBoardDto } from './dto/create-clubBoard.dto';
 import { Club, ClubBoard } from './entities/club.entity';
+import * as XLSX from 'xlsx'
 
 @Injectable()
 export class ClubsService {
@@ -68,5 +70,22 @@ export class ClubsService {
         }else{
             return true;
         }
+    }
+
+    async makeExcel(clubIdx: number){
+        const queryrunner = this.connection.createQueryRunner();
+        const users = await queryrunner.manager.find(User, {
+            where:{
+                userClubs: {
+                    clubIdx: clubIdx,
+                    status: 'accepted'
+                }
+            }
+        });
+        const wb = XLSX.utils.book_new();
+        const newWorkSheet = XLSX.utils.json_to_sheet(users);
+        XLSX.utils.book_append_sheet(wb, newWorkSheet, 'Users');
+        const wbout = XLSX.write(wb, {bookType: "xlsx", type: "base64"});
+        return wbout;
     }
 }

@@ -74,7 +74,8 @@ const MainAward = (): ReactElement => {
           return (
             <AwardDiv
               onClick={() => {
-                window.location.href = './club';
+                history.pushState(null, '', '/club');
+                window.location.replace('/club');
               }}
             >
               <img src={testImg} width="304px" height="486px" />
@@ -83,6 +84,11 @@ const MainAward = (): ReactElement => {
                 <div>
                   <span>{award.title}</span>
                   <span>{award.award}</span>
+                  <div className={`award-border`}></div>
+                  <span className={`award-detail`}>
+                    sadfas dfasdfasdfasdfasfdasdfasdfsadf
+                    asdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdf
+                  </span>
                 </div>
               </div>
             </AwardDiv>

@@ -12,6 +12,8 @@ import {
   LoginMainContainer,
 } from './style';
 import Cookies from 'universal-cookie';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { userState } from '../../Recoil/User';
 
 declare global {
   interface Window {
@@ -26,7 +28,7 @@ export const setCookie = (name: any, value: any, option: any) => {
 axios.defaults.withCredentials = true;
 
 const LoginMain = () => {
-  const status = 'notLogin';
+  const [user, setUser] = useRecoilState(userState);
   const notify = () =>
     toast('아주메일로 로그인 해주세요', {
       position: 'top-right',
@@ -41,8 +43,7 @@ const LoginMain = () => {
   const init = () => {
     gapi.load('auth2', () => {
       gapi.auth2.init({
-        client_id:
-          '280889310353-qgqus8gdj4ir1t5c4qfghevolbj3d0th.apps.googleusercontent.com',
+        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       });
       const options = new gapi.auth2.SigninOptionsBuilder();
       options.setPrompt('select_account');
@@ -58,22 +59,22 @@ const LoginMain = () => {
     });
   };
   const onSignIn = async (googleUser: any) => {
-    console.log(cookies);
     const profile = googleUser.getBasicProfile();
     const email = profile.getEmail();
     const isAjouMail = email.includes('@ajou.ac.kr');
+
     if (isAjouMail) {
       axios
-        .get(`http://http://52.79.36.220:4000/auth/login?email=${email}`)
+        .get(`${process.env.REACT_APP_SERVER_URL}/auth/login?email=${email}`)
         .then((res) => {
-          setCookie('accesstoken', 'aaaaaaa', { path: '/' });
-
-          console.log(res.data);
-          // if (res.data.status === 1) {
-          //   window.location.href = `/login/info?email=${email}`;
-          // } else {
-          //   window.location.href = '/';
-          // }
+          if (res.data.status === 1) {
+            window.location.replace(`/login/info?email=${email}`);
+          } else {
+            const { currentHashedRefreshToken, ...userData } = res.data.user;
+            console.log(userData);
+            setUser(userData);
+            window.location.replace('/');
+          }
         });
     } else {
       notify();
@@ -88,7 +89,7 @@ const LoginMain = () => {
   return (
     <LoginMainContainer>
       <LoginContentContainer>
-        <img src={singInImg} style={{ marginBottom: '40px' }}></img>
+        <img src={singInImg} style={{ marginBottom: '2.5rem' }}></img>
         <LoginDetailSpan>유클러버스 회원가입은</LoginDetailSpan>
         <LoginDetailSpan>구글 아이디 연동을 통해 진행됩니다.</LoginDetailSpan>
         <LoginDetailSpan>아주메일로 로그인을 진행해주세요</LoginDetailSpan>

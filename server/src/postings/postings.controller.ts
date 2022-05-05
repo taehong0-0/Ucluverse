@@ -1,88 +1,75 @@
-import { Body, Controller, Delete, Get, Param, Post, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreatePostingDto } from './dto/create-posting.dto';
 import { UpdatePostingDto } from './dto/update-posting.dto';
 import { PostingsService } from './postings.service';
 
 @Controller('postings')
+@ApiTags('게시물 API')
 export class PostingsController {
     constructor(
         private readonly postingsService: PostingsService,
     ){}
     
     @Post('clubBoard/:clubBoardIdx')
-    @UseInterceptors(FileFieldsInterceptor([
-        { name: 'images', },
-        { name: 'attachedFiles', },
-        // { name: 'videos', },
-    ]))
+    @ApiOperation({
+        summary: '게시물 생성(작성) API',
+    })
     async createPosting(
         @Param('clubBoardIdx') clubBoardIdx: number,
         @Body() createPostingDto: CreatePostingDto,
-        @UploadedFiles() files: {
-            images? : Express.Multer.File[],
-            attachedFiles? : Express.Multer.File[],
-            // videos? : Express.Multer.File[],
-        }
     ) {
-        const response: any = await this.postingsService.createPosting(clubBoardIdx, createPostingDto);
-        const postingIdx = response.res.postingIdx;
-        if (files.images) {
-            await this.postingsService.saveImagesOrAttachedFilesOrVideos(postingIdx, files.images);
-        }
-        if (files.attachedFiles) {
-            await this.postingsService.saveImagesOrAttachedFilesOrVideos(postingIdx, files.attachedFiles);
-        }
-        // if (files.videos) {
-        //     await this.postingsService.saveImagesOrAttachedFilesOrVideos(files.videos);
-        // }
-        return response;
+        return await this.postingsService.createPosting(clubBoardIdx, createPostingDto);
     }
 
     @Get('clubBoard/:clubBoardIdx')
+    @ApiOperation({
+        summary: '동아리 인덱스에 대한 게시물 불러오기 API',
+    })
     async getPostingsByClubBoard(@Param('clubBoardIdx') clubBoardIdx: number, @Res() res){
         res.send(await this.postingsService.getPostingsByClubBoard(clubBoardIdx));
     }
 
-    @Get('entire/club/:clubIdx')         //동아리 페이지 전체 게시판의 게시물 불러오기
+    @Get('club/entire/:clubIdx')
+    @ApiOperation({
+        summary: '동아리 페이지 전체 게시물 불러오기 API',
+    })         
     async getEntirePostingsByClub(@Param('clubIdx') clubIdx: number, @Res() res){
         res.send(await this.postingsService.getEntirePostingsByClub(clubIdx));
     }
     
-    @Get('main/:boardName')         //메인 페이지 게시판 게시물 불러오기
+    @Get('main/:boardName')
+    @ApiOperation({
+        summary: '메인 페이지 게시판 이름에 대한 게시물 불러오기 API',
+    })         
     async getAllActivityPostings(@Param('boardName') boardName: string, @Res() res){
         res.send(await this.postingsService.getAllPostings(boardName));
     }
 
-    @Get(':postingIdx')         //postingIdx에 대한 게시글 정보 불러오기
+    @Get(':postingIdx')
+    @ApiOperation({
+        summary: 'postingIdx에 대한 게시글 정보 불러오기 API',
+    })         
     async getPostingByPostingIdx(@Param('postingIdx') postingIdx: number, @Res() res){
         res.send(await this.postingsService.getPostingByPostingIdx(postingIdx));
     }
 
-    @Post(':postingIdx')
-    @UseInterceptors(FileFieldsInterceptor([
-        { name: 'images', },
-        { name: 'attachedFiles', },
-    ]))
+    @Patch(':postingIdx')
+    @ApiOperation({
+        summary: '게시물 수정 API'
+    })
     async updatePosting(
         @Param('postingIdx') postingIdx: number, 
         @Body() updatePostingDto: UpdatePostingDto,
-        @UploadedFiles() files: {
-            images? : Express.Multer.File[],
-            attachedFiles? : Express.Multer.File[],
-        }
     ) {
-        if (files.images) {
-            await this.postingsService.saveImagesOrAttachedFilesOrVideos(postingIdx, files.images);
-        }
-        if (files.attachedFiles) {
-            await this.postingsService.saveImagesOrAttachedFilesOrVideos(postingIdx, files.attachedFiles);
-        }
-        
         return this.postingsService.updatePosting(postingIdx, updatePostingDto);
     }
     
     @Delete(':postingIdx')
+    @ApiOperation({
+        summary: '게시물 삭제 API'
+    })
     async deletePosting(@Param('postingIdx') postingIdx: number) {
         return this.postingsService.deletePosting(postingIdx);
     }

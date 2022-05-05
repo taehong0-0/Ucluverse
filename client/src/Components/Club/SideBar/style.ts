@@ -8,22 +8,22 @@ export const SideBarContainer = styled.div`
   overflow: hidden;
   button {
     width: 17.3vw;
-    height: 53px;
+    height: 3.313rem;
     /* UI Properties */
     background: var(---secondary-0) 0% 0% no-repeat padding-box;
     background: #846116 0% 0% no-repeat padding-box;
     opacity: 1;
-    font: normal normal bold 24px/28px Noto Sans KR;
+    font: normal normal bold 1.5rem/1.75rem Noto Sans KR;
     color: #ffffff;
     cursor: pointer;
     border: none;
   }
   & > span:nth-of-type(1) {
-    margin-left: 10px;
-    margin-top: 16px;
-    margin-bottom: 14px;
+    margin-left: 0.625rem;
+    margin-top: 1rem;
+    margin-bottom: 0.875rem;
     vertical-align: middle;
-    font: normal normal bold 18px/24px Noto Sans KR;
+    font: normal normal bold 18px/1.5rem Noto Sans KR;
     letter-spacing: -1.35px;
     color: #1a1917;
   }
@@ -36,22 +36,22 @@ export const BoardContainer = styled.div`
   border-bottom: 2px solid #ffb925;
   border-top: 2px solid #ffb925;
   div {
-    margin-left: 10px;
+    margin-left: 0.625rem;
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
-    padding-bottom: 10px;
+    margin-top: 0.625rem;
+    padding-bottom: 0.625rem;
     width: 17.3vw;
     & > span {
-      font: normal normal bold 18px/24px Noto Sans KR;
+      font: normal normal bold 18px/1.5rem Noto Sans KR;
       letter-spacing: -1.35px;
       color: #1a1917;
     }
     a {
-      margin-left: 16px;
+      margin-left: 1rem;
       .board-name {
-        height: 22px;
-        font: normal normal 300 18px/24px Noto Sans KR;
+        height: 1.375rem;
+        font: normal normal 300 18px/1.5rem Noto Sans KR;
         letter-spacing: -1.35px;
         color: #0e0e0e;
       }
@@ -59,7 +59,7 @@ export const BoardContainer = styled.div`
   }
   & > div:first-child {
     margin-left: 0px;
-    padding-left: 10px;
+    padding-left: 0.625rem;
     border-bottom: 1px solid #a19279;
   }
   a:link {

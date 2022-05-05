@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const LinkButtonContainer = styled.button`
   overflow: auto;
   background: none;
-  font-size: 16px;
+  font-size: 1rem;
   border: none;
   cursor: pointer;
 `;
@@ -11,8 +11,8 @@ export const LinkButtonContainer = styled.button`
 export const CharacterButtonContainer = styled.button`
   display: flex;
   justify-content: space-between;
-  width: 222px;
-  height: 34px;
+  width: 13.875rem;
+  height: 2.125rem;
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #846116;
   border-radius: 5px;
@@ -23,5 +23,23 @@ export const CharacterButtonContainer = styled.button`
     background: none;
     border: none;
     cursor: pointer;
+  }
+`;
+export const ButtonContainer = styled.button`
+  width: 3.75rem;
+  height: 2.125rem;
+  /* UI Properties */
+  background: #a45de2 0% 0% no-repeat padding-box;
+  box-shadow: 2px 2px 6px #00000029;
+  border-radius: 5px;
+  border: none;
+  opacity: 1;
+  text-align: center;
+  line-height: 2.125rem;
+  span {
+    font: normal normal normal 0.875rem/1.25rem Noto Sans KR;
+    letter-spacing: -1.05px;
+    color: #ffffff;
+    opacity: 1;
   }
 `;

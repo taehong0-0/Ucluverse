@@ -1,36 +1,28 @@
 import { Controller, Get, Query, Req, Res, UseGuards } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
-// import { GoogleAuthGuard } from './google-auth.guard';
+import { JwtAuthGuard } from './jwt-auth.guard';
 import { JwtRefreshGuard } from './jwt-refresh.guard';
 
 @Controller('auth')
+@ApiTags('인증 API')
 export class AuthController {
     constructor(
         private readonly authService: AuthService,
         private readonly userService: UserService,
     ) {}
 
-    // @Get('google')
-    // @UseGuards(GoogleAuthGuard)
-    // async googleAuth(@Req() req) {}
+    @Get('isLogin')
+    async isLogin(@Req() req: Request) {
+        return this.authService.isLogin(req.cookies);
+    }
 
-    // @Get('google/callback')
-    // @UseGuards(GoogleAuthGuard)
-    // async googleAuthRedirect(@Req() req, @Res() res: Response) {
-    //     const { 
-    //         access, 
-    //         refresh, 
-    //         result 
-    //     } = await this.authService.googleLogin(req.user);
-    //     if ( access !== undefined ) {
-            // res.cookie('Authentication', access.accessToken, access.accessOption);
-            // res.cookie('Refresh', refresh.refreshToken, refresh.refreshOption);
-    //     }
-    //     res.send(result);
-    // }
     @Get('login')
+    @ApiOperation({
+        summary: '로그인 API',
+    })
     async login(@Res() res: Response, @Query('email') email: string) {
         const {
             access,
@@ -38,13 +30,28 @@ export class AuthController {
             result
         } = await this.authService.googleLogin(email);
         if ( access !== undefined ) {
-            res.cookie('Authentication', access.accessToken, access.accessOption);
-            res.cookie('Refresh', refresh.refreshToken, refresh.refreshOption);
+            res.header('Access-Control-Allow-Credentials','true');
+            res.cookie('Authentication', access.accessToken, {
+                httpOnly: access.accessOption.httpOnly,
+                maxAge: access.accessOption.maxAge,
+                secure: access.accessOption.secure,
+                sameSite: "none",
+            });
+            const {  maxAge, secure, httpOnly } = refresh.refreshOption;
+            res.cookie('Refresh', refresh.refreshToken, {
+                httpOnly,
+                maxAge,
+                secure,
+                sameSite: "none",
+            });
         }
         res.send(result);
     }
 
     @Get('refresh')
+    @ApiOperation({
+        summary: '액세스 토큰 재발급 API',
+    })
     @UseGuards(JwtRefreshGuard)
     refreshAccessToken(@Req() req: Request, @Res() res: Response) {
         const { userIdx } = this.authService.decodeAccessToken(req.cookies.Authentication);
@@ -56,6 +63,9 @@ export class AuthController {
     }
 
     @Get('logout')
+    @ApiOperation({
+        summary: '로그아웃 API',
+    })
     @UseGuards(JwtRefreshGuard)
     logout(@Req() req: Request, @Res() res: Response) {
         const { userIdx } = this.authService.decodeAccessToken(req.cookies.Authentication);

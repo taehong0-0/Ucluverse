@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsNumber, IsString } from "class-validator";
 import { ClubBoard } from "src/clubs/entities/club.entity";
 import { Comment } from "src/comments/entity/comment.entity";
 import { Like } from "src/likes/entity/likes.entity";
@@ -23,6 +23,16 @@ export class Posting {
     })
     @IsString()
     content: string;
+    @Column({
+        default: true
+    })
+    @IsBoolean()
+    allowComments: boolean;
+    @Column({
+        default: true
+    })
+    @IsBoolean()
+    isPublic: boolean;
     @ManyToOne(() => ClubBoard, clubBoard => clubBoard.postings)
     @JoinColumn({
         name: 'clubBoardIdx',
@@ -39,7 +49,9 @@ export class Posting {
     likes: Like[];
     @OneToMany(() => Comment, comment => comment.posting)
     comments: Comment[];
-    @OneToMany(() => Image, image => image.posting)
+    @OneToMany(() => Image, image => image.posting, {
+        cascade: true,
+    })
     images: Image[];
     @OneToMany(() => AttachedFile, attachedFile => attachedFile.posting)
     attachedFiles: AttachedFile[];
@@ -59,7 +71,9 @@ export class Image {
     })
     @IsString()
     path: string;
-    @ManyToOne(() => Posting, posting => posting.images)
+    @ManyToOne(() => Posting, posting => posting.images, {
+        onDelete: 'CASCADE',
+    })
     @JoinColumn({
         name: 'postingIdx',
         referencedColumnName: 'postingIdx',

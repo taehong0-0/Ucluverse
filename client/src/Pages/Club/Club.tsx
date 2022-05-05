@@ -6,6 +6,7 @@ import ClubBoard from '../../Components/Club/Board/ClubBoard';
 import ClubHeader from '../../Components/Club/Header/ClubHeader';
 import ClubMain from '../../Components/Club/Main/ClubMain';
 import ClubPost from '../../Components/Club/Post/ClubPost';
+import Posting from '../../Components/Club/Posting/Posting';
 import ClubSideBar from '../../Components/Club/SideBar/ClubSideBar';
 import Header from '../../Components/Header/Header';
 
@@ -23,14 +24,14 @@ const CommunicationBoardList = [
 const Club = (): ReactElement => {
   const url = new URL(window.location.href);
   const urlParams = url.searchParams;
-  const clubId = urlParams.get('clubId');
+  const clubId = Number(urlParams.get('clubIdx'));
   const [boardIdx, setBoardIdx] = useState<Number>(1);
   // 데이터 요청해서 받아오기
   //더미데이터
   return (
     <div>
       <Header />
-      <div>
+      <div style={{ marginBottom: '130px' }}>
         <ClubHeader title="Do-iT!" hashtags={['코딩', '웹', '개발']} />
         <div style={{ display: 'flex' }}>
           <ClubSideBar
@@ -46,6 +47,10 @@ const Club = (): ReactElement => {
               element={<ClubBoard boardIdx={boardIdx} clubId={clubId} />}
             ></Route>
             <Route path="/post" element={<ClubPost />}></Route>
+            <Route
+              path="/posting"
+              element={<Posting clubId={clubId} boardIdx={boardIdx} />}
+            ></Route>
           </Routes>
         </div>
       </div>
