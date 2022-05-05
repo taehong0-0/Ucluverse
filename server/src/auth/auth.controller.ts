@@ -1,10 +1,12 @@
 import { Controller, Get, Query, Req, Res, UseGuards } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 import { JwtRefreshGuard } from './jwt-refresh.guard';
 
 @Controller('auth')
+@ApiTags('인증 API')
 export class AuthController {
     constructor(
         private readonly authService: AuthService,
@@ -12,6 +14,9 @@ export class AuthController {
     ) {}
 
     @Get('login')
+    @ApiOperation({
+        summary: '로그인 API',
+    })
     async login(@Res() res: Response, @Query('email') email: string) {
         const {
             access,
@@ -38,6 +43,9 @@ export class AuthController {
     }
 
     @Get('refresh')
+    @ApiOperation({
+        summary: '액세스 토큰 재발급 API',
+    })
     @UseGuards(JwtRefreshGuard)
     refreshAccessToken(@Req() req: Request, @Res() res: Response) {
         const { userIdx } = this.authService.decodeAccessToken(req.cookies.Authentication);
@@ -49,6 +57,9 @@ export class AuthController {
     }
 
     @Get('logout')
+    @ApiOperation({
+        summary: '로그아웃 API',
+    })
     @UseGuards(JwtRefreshGuard)
     logout(@Req() req: Request, @Res() res: Response) {
         const { userIdx } = this.authService.decodeAccessToken(req.cookies.Authentication);
