@@ -13,6 +13,7 @@ const useCheckLogin = () => {
         .get(`${process.env.REACT_APP_SERVER_URL}/auth/isLogin`)
         .then((res) => {
           if (res.data.status === 1) {
+            console.log(res.data.user);
             const { currentHashedRefreshToken, ...userData } = res.data.user;
             setUser(userData);
             setStatus(true);

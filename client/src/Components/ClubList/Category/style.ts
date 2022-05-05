@@ -36,6 +36,9 @@ export const ClubCategoryContainer = styled.div`
         opacity: 1;
       }
     }
+    .selected {
+      background: #0f0f0f 0% 0% no-repeat padding-box;
+    }
 
     &::-webkit-scrollbar {
       display: none;

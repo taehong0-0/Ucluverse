@@ -74,6 +74,7 @@ const MainAward = (): ReactElement => {
           return (
             <AwardDiv
               onClick={() => {
+                history.pushState(null, '', '/club');
                 window.location.replace('/club');
               }}
             >

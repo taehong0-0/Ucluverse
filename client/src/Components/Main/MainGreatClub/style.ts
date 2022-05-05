@@ -4,6 +4,7 @@ export const ClubContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 15.125rem;
+  margin-bottom: 130px;
   .title {
     width: 13.625rem;
     height: 2.25rem;

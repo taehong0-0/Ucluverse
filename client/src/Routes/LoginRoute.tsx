@@ -8,9 +8,9 @@ interface Props {
 }
 
 const LoginRoute = ({ children }: Props): React.ReactElement => {
-  const [status, setStatue] = useState(false);
+  const [status, setStatus] = useState(false);
   const checkLogin = useCheckLogin();
-  checkLogin().then((res) => setStatue(res));
+  checkLogin().then((res) => setStatus(res));
   return status ? <Navigate to="/" /> : children;
 };
 
