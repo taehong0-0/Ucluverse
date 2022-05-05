@@ -32,9 +32,10 @@ const ClubList = (props: props) => {
         {clubShowList?.map((club) => {
           return (
             <div
-              onClick={() =>
-                window.location.replace(`/club?clubId=${club.clubIdx})`)
-              }
+              onClick={() => {
+                history.pushState(null, '', `/club?clubId=${club.clubIdx}`);
+                window.location.replace(`/club?clubId=${club.clubIdx}`);
+              }}
             >
               <img src={club.imgSrc}></img>
               <span>{club.clubName}</span>
@@ -44,9 +45,10 @@ const ClubList = (props: props) => {
         {clubShowList?.map((club) => {
           return (
             <div
-              onClick={() =>
-                window.location.replace(`/club?clubId=${club.clubIdx})`)
-              }
+              onClick={() => {
+                history.pushState(null, '', `/club?clubId=${club.clubIdx}`);
+                window.location.replace(`/club?clubId=${club.clubIdx}`);
+              }}
             >
               <img src={club.imgSrc}></img>
               <span>{club.clubName}</span>
@@ -56,9 +58,10 @@ const ClubList = (props: props) => {
         {clubShowList?.map((club) => {
           return (
             <div
-              onClick={() =>
-                window.location.replace(`/club?clubId=${club.clubIdx})`)
-              }
+              onClick={() => {
+                history.pushState(null, '', `/club?clubId=${club.clubIdx}`);
+                window.location.replace(`/club?clubId=${club.clubIdx}`);
+              }}
             >
               <img src={club.imgSrc}></img>
               <span>{club.clubName}</span>

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import ClubBody from '../../Components/ClubList/ClubBody/ClubBody';
 import Header from '../../Components/Header/Header';
 
-const ClubList = (): ReactElement => {
+const DepartmentClubList = (): ReactElement => {
   return (
     <div>
       <Header />
@@ -10,4 +10,4 @@ const ClubList = (): ReactElement => {
     </div>
   );
 };
-export default ClubList;
+export default DepartmentClubList;

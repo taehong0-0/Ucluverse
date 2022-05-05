@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ClubCategory from '../ClubCategory/ClubCategory';
 import ClubList from '../ClubList/ClubList';
 import { ClubBodyContainer } from './style';
+import character from '../../../Assets/Character-hello.png';
 
 interface club {
   clubIdx: number;
@@ -51,6 +52,8 @@ const ClubBody = () => {
   ];
   return (
     <ClubBodyContainer>
+      <span>아주대학교 소학회를 모아봤어요!</span>
+      <img width="304px" height="195px" src={character} />
       <ClubCategory setCategory={setCategory} />
       <ClubList category={category} clubList={clubList} />
     </ClubBodyContainer>

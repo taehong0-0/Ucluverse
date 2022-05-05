@@ -3,9 +3,14 @@ import styled from 'styled-components';
 export const ClubListContainer = styled.div`
   width: 70rem;
   height: 29rem;
-  background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 5px;
   opacity: 1;
+  span {
+    font: normal normal normal 18px/24px Noto Sans KR;
+    letter-spacing: -1.35px;
+    color: #ffffff;
+    opacity: 1;
+  }
   & > div {
     cursor: pointer;
     margin: 20px;
@@ -35,7 +40,7 @@ export const ClubListContainer = styled.div`
       margin-right: 20px;
       width: 3px;
       height: 3px;
-      background: #6d00b9 0% 0% no-repeat padding-box;
+      background: #fff 0% 0% no-repeat padding-box;
       border-radius: 1.25rem;
       opacity: 1;
     }
