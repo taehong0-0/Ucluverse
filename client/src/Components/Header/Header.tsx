@@ -12,6 +12,7 @@ import logoutImg from '../../Assets/logout.png';
 import mypageImg from '../../Assets/내정보.png';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../Recoil/User';
+import axios from 'axios';
 const Header = (): ReactElement => {
   const user = useRecoilValue(userState);
   return (
@@ -45,7 +46,7 @@ const Header = (): ReactElement => {
             width="24px"
             height="21px"
             onClick={() => {
-              //todo : logout api 요청
+              axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/logout`);
             }}
           />
           <LinkButton url="/">
