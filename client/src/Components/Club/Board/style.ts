@@ -10,6 +10,7 @@ export const BoardStyle = css`
   height: max-content;
   .navigator {
     height: 3.313rem;
+    border-bottom: 1px solid #dddae0;
     span:first-child {
       margin-left: 0.625rem;
       line-height: 3.313rem;
