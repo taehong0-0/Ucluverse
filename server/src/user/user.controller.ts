@@ -50,6 +50,14 @@ export class UserController {
         res.send(await this.userService.findUser(userIdx));
     }
 
+    @Get('userClub/isSignedUp/:userIdx/:clubIdx')
+    @ApiOperation({
+        summary: '유저 아이디와 동아리 아이디를 통해 해당 유저가 이미 동아리에 가입했는지 확인'
+    })
+    async isSignedUp(@Param('userIdx') userIdx: number, @Param('clubIdx') clubIdx: number, @Res() res){
+        res.send(await this.userService.checkIsSignedUp(userIdx, clubIdx));
+    }
+
     @Post('userClub/signup')
     @ApiOperation({
         summary: '동아리 신청 API'
