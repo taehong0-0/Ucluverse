@@ -9,8 +9,7 @@ import MainNewClub from '../../Components/Main/MainNewClub/MainNewClub';
 import useCheckLogin from '../../Hooks/useCheckLogin';
 
 const Main = (): ReactElement => {
-  const checklogin = useCheckLogin();
-  checklogin();
+  useCheckLogin();
   return (
     <div>
       <Header />

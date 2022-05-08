@@ -16,7 +16,7 @@ export class AuthController {
 
     @Get('isLogin')
     async isLogin(@Req() req: Request) {
-        return this.authService.isLogin(req.cookies);
+        return await this.authService.isLogin(req.cookies);
     }
 
     @Get('login')
@@ -30,12 +30,12 @@ export class AuthController {
             result
         } = await this.authService.googleLogin(email);
         if ( access !== undefined ) {
-            res.header('Access-Control-Allow-Credentials','true');
             res.cookie('Authentication', access.accessToken, {
                 httpOnly: access.accessOption.httpOnly,
                 maxAge: access.accessOption.maxAge,
                 secure: access.accessOption.secure,
                 sameSite: "none",
+                domain: ".ucluverse.com"
             });
             const {  maxAge, secure, httpOnly } = refresh.refreshOption;
             res.cookie('Refresh', refresh.refreshToken, {
@@ -43,8 +43,10 @@ export class AuthController {
                 maxAge,
                 secure,
                 sameSite: "none",
+                domain: ".ucluverse.com"
             });
         }
+        
         res.send(result);
     }
 
@@ -70,11 +72,22 @@ export class AuthController {
     logout(@Req() req: Request, @Res() res: Response) {
         const { userIdx } = this.authService.decodeAccessToken(req.cookies.Authentication);
         this.userService.removeRefreshToken(userIdx);
-        res.clearCookie('Authentication');
-        res.clearCookie('Refresh');
+        res.clearCookie('Authentication',{
+            domain: ".ucluverse.com"
+        });
+        res.clearCookie('Refresh',{
+            domain: ".ucluverse.com"
+        });
         res.send({
             msg: 'logout',
         });
     }
     
+    @Get('deleteRefresh')
+    deleteRefresh(@Res() res: Response){
+        res.clearCookie('Refresh',{
+            domain: ".ucluverse.com"
+        });
+        res.send();
+    }
 }
