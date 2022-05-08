@@ -4,6 +4,10 @@ import singUpImg from '../../Assets/회원가입.png';
 import fileUploadImg from '../../Assets/파일 업로드.png';
 import characterImg from '../../Assets/캐릭터.svg';
 import { useDropzone } from 'react-dropzone';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import fs from 'fs';
 import {
   CharacterContainer,
@@ -23,7 +27,8 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import AWS from 'aws-sdk';
 import { toast } from 'react-toastify';
-
+import { departmentList } from '../../Util/constant';
+import { makeStyles, Theme } from '@mui/material';
 const LoginInfoMain = (): ReactElement => {
   const url = useLocation();
   const urlParams = new URLSearchParams(url.search);
@@ -34,10 +39,10 @@ const LoginInfoMain = (): ReactElement => {
   // 정보 입력
   const nameRef = useRef<HTMLInputElement>(null);
   const studentIDRef = useRef<HTMLInputElement>(null);
-  const departmentRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const nickNameRef = useRef<HTMLInputElement>(null);
   //image DropZone
+  const [department, setDepartment] = useState<string>('');
   const [image, setImage] = useState<string | null>(null);
   const [file, setFile] = useState<Blob | null>(null);
   const onDrop = useCallback((acceptedFiles) => {
@@ -56,10 +61,13 @@ const LoginInfoMain = (): ReactElement => {
     });
   }, []);
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const handleChange = (event: SelectChangeEvent) => {
+    setDepartment(event.target.value);
+  };
   const submit = async () => {
     if (
       !nameRef.current?.value ||
-      !departmentRef.current?.value ||
+      department === '' ||
       !studentIDRef.current?.value ||
       !phoneRef.current?.value ||
       !nickNameRef.current?.value
@@ -92,7 +100,7 @@ const LoginInfoMain = (): ReactElement => {
         axios
           .post(`${process.env.REACT_APP_SERVER_URL}/user/signup`, {
             name: nameRef.current.value,
-            department: departmentRef.current.value,
+            department: department,
             email,
             studentId: studentIDRef.current.value,
             phoneNumber: phoneRef.current.value,
@@ -113,7 +121,7 @@ const LoginInfoMain = (): ReactElement => {
             axios
               .post(`${process.env.REACT_APP_SERVER_URL}/user/signup`, {
                 name: nameRef.current?.value,
-                department: departmentRef.current?.value,
+                department: department,
                 email,
                 studentId: studentIDRef.current?.value,
                 phoneNumber: phoneRef.current?.value,
@@ -143,7 +151,24 @@ const LoginInfoMain = (): ReactElement => {
               <FloatInput type="large" inputRef={nameRef} name="이름" />
               <FloatInput type="large" inputRef={studentIDRef} name="학번" />
             </div>
-            <FloatInput type="large" inputRef={departmentRef} name="학과" />
+            <FormControl
+              variant="standard"
+              sx={{ m: 1, minWidth: 120 }}
+              id="select-box"
+            >
+              <InputLabel id="input-label">학과</InputLabel>
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="select"
+                value={department}
+                onChange={handleChange}
+                label="학과"
+              >
+                {departmentList.map((department) => (
+                  <MenuItem value={department}>{department}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <FloatInput type="large" inputRef={phoneRef} name="전화번호" />
             <FloatInput type="large" inputRef={nickNameRef} name="닉네임" />
           </InputContainer>
