@@ -15,6 +15,7 @@ import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
 import { StarClubDto } from './dto/star-club.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ConfigService } from '@nestjs/config';
+import { IsSignedUpResDto } from './dto/isSignedUp-res.dto';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()
@@ -398,6 +399,28 @@ export class UserService {
             console.log(e);
             await queryRunner.rollbackTransaction();
         }finally{
+            await queryRunner.release();
+        }
+    }
+
+    async checkIsSignedUp(userIdx: number, clubIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        try {
+            const isSignedUp = await queryRunner.manager.findOne(UserClub, {
+                where: {
+                    userIdx: userIdx,
+                    clubIdx: clubIdx,
+                    status: 'accepted',
+                }
+            });
+            if(isSignedUp){
+                return new IsSignedUpResDto(true);
+            } else {
+                return new IsSignedUpResDto(false);
+            }
+        } catch (e) {
+            console.log(e);
+        } finally {
             await queryRunner.release();
         }
     }
