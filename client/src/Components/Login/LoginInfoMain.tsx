@@ -22,6 +22,7 @@ import CharacterButton from '../Button/CharacterButton';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import AWS from 'aws-sdk';
+import { toast } from 'react-toastify';
 
 const LoginInfoMain = (): ReactElement => {
   const url = useLocation();
@@ -45,13 +46,11 @@ const LoginInfoMain = (): ReactElement => {
       setFile(file);
       const bloburl = URL.createObjectURL(file);
       setImage(bloburl);
-      console.log(image);
       reader.onabort = () => console.log('file reading was aborted');
       reader.onerror = () => console.log('file reading has failed');
       reader.onload = () => {
         // Do whatever you want with the file contents
         const binaryStr = reader.result;
-        console.log(binaryStr);
       };
       reader.readAsArrayBuffer(file);
     });
@@ -65,7 +64,15 @@ const LoginInfoMain = (): ReactElement => {
       !phoneRef.current?.value ||
       !nickNameRef.current?.value
     ) {
-      console.log('덜입력했다');
+      toast('모든 정보를 입력해주세요', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       return;
     } else {
       const option = {
