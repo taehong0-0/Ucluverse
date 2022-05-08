@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreatePostingDto } from './dto/create-posting.dto';
@@ -55,7 +55,7 @@ export class PostingsController {
         res.send(await this.postingsService.getPostingByPostingIdx(postingIdx));
     }
 
-    @Patch(':postingIdx')
+    @Put(':postingIdx')
     @ApiOperation({
         summary: '게시물 수정 API'
     })
