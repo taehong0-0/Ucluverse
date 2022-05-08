@@ -40,6 +40,41 @@ export const InputContainer = styled.div`
   border-right: 0.5px solid #a19279;
   margin-left: 6vw;
   margin-top: 8vw;
+  background-color: #fff;
+  #select-box {
+    width: 30vw;
+    left: -7px;
+    margin-bottom: 30px;
+    .Mui-focused {
+      border: none;
+    }
+    #select {
+      background: none;
+      border: none;
+    }
+    #select:hover {
+      /* border-bottom: 1px solid #9239df; */
+      .input {
+        border: none;
+      }
+    }
+    li {
+      background-color: black;
+    }
+    #input-label {
+      border: none;
+      width: 500px;
+      color: #0e0e0e;
+      pointer-events: none;
+      position: absolute;
+      opacity: 1;
+      font: normal normal bold 18px/1.5rem Noto Sans KR;
+      letter-spacing: -1.35px;
+    }
+    #input-label:focus {
+      background-color: black;
+    }
+  }
   div:first-child {
     display: flex;
     div:first-child {
