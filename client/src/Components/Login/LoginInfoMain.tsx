@@ -133,12 +133,12 @@ const LoginInfoMain = (): ReactElement => {
         <LoginInfoContainer>
           <InputContainer>
             <div>
-              <FloatInput inputRef={nameRef} name="이름" />
-              <FloatInput inputRef={studentIDRef} name="학번" />
+              <FloatInput type="large" inputRef={nameRef} name="이름" />
+              <FloatInput type="large" inputRef={studentIDRef} name="학번" />
             </div>
-            <FloatInput inputRef={departmentRef} name="학과" />
-            <FloatInput inputRef={phoneRef} name="전화번호" />
-            <FloatInput inputRef={nickNameRef} name="닉네임" />
+            <FloatInput type="large" inputRef={departmentRef} name="학과" />
+            <FloatInput type="large" inputRef={phoneRef} name="전화번호" />
+            <FloatInput type="large" inputRef={nickNameRef} name="닉네임" />
           </InputContainer>
           <ProfileContainer>
             <ImageContainer>

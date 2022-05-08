@@ -52,7 +52,7 @@ const Posting = (props: props) => {
   };
   return (
     <PostingContainer>
-      <FloatInput inputRef={titleRef} name="제목" />
+      <FloatInput inputRef={titleRef} name="제목" type="large" />
       <Editor setContent={setContent} />
       <Button name="작성" clickEvent={submit}></Button>
     </PostingContainer>
