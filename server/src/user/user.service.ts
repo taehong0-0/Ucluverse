@@ -127,20 +127,18 @@ export class UserService {
 
     async findUser(userIdx: number){
         const queryRunner = this.connection.createQueryRunner();
-        // const user = await queryRunner.manager.findOne(User, {
-        //     where: {
-        //         userIdx: userIdx,
-        //     },
-        //     relations: [
-        //         'profilePhoto'
-        //     ],
-        // });
-        const user = await queryRunner.manager.createQueryBuilder(User, 'user')
+        try {
+            const user = await queryRunner.manager.createQueryBuilder(User, 'user')
             .leftJoin('user.profilePhoto', 'profilePhoto')
             .select(['user', 'profilePhoto.path'])
             .where('user.userIdx=:userIdx', { userIdx })
             .getOne();
-        return new UserResDto(user); 
+            return new UserResDto(user); 
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
     }
 
     async findDuplicateNickname(nickname: string){
@@ -159,25 +157,36 @@ export class UserService {
 
     async findByEmail(email: string): Promise<User> | null {
         const queryRunner = this.connection.createQueryRunner();
-
-        const user = await queryRunner.manager.findOne(User, {
-            where: {
-                email: email,
+        try {
+            const user = await queryRunner.manager.findOne(User, {
+                where: {
+                    email: email,
+                }
+            });
+            if (!user) {
+                return null;
             }
-        });
-        if (!user) {
-            return null;
+            return user;
+        } catch(error) {
+            console.log(error);
+        } finally {
+            await queryRunner.release();
         }
-        return user;
     }
 
     async setCurrentRefreshToken(refreshToken: string, userIdx: number) {
         const queryRunner = this.connection.createQueryRunner();
+        const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try {
-            const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
-            await queryRunner.manager.update(User, userIdx, { currentHashedRefreshToken: hashedRefreshToken });
+            const user = await queryRunner.manager.findOne(User, {
+                where: {
+                    userIdx,
+                }
+            });
+            user.currentHashedRefreshToken = hashedRefreshToken;
+            await queryRunner.manager.save(user);
             await queryRunner.commitTransaction();
         } catch(e) {
             console.log(e);
@@ -189,29 +198,40 @@ export class UserService {
 
     async getUserIfRefreshTokenMatches(refreshToken: string, userIdx: number) {
         const queryRunner = this.connection.createQueryRunner();
-        const user = await queryRunner.manager.findOne(User, {
+        try{
+            const user = await queryRunner.manager.findOne(User, {
                 where: {
                     userIdx: userIdx,
                 }
-        });
-        const ifRefreshTokenMatches = await bcrypt.compare(
-            refreshToken, user.currentHashedRefreshToken
+            });
+            const ifRefreshTokenMatches = await bcrypt.compare(
+                refreshToken, user.currentHashedRefreshToken
             );
-        if (ifRefreshTokenMatches) {
-            return user;
-        } else {
-            return null;
+            if (ifRefreshTokenMatches) {
+                return user;
+            } else {
+                return null;
+            }
+        } catch(error) {
+            console.log(error);
+        } finally{
+            await queryRunner.release();
         }
     }
 
     async removeRefreshToken(userIdx: number) {
         const queryRunner = this.connection.createQueryRunner();
+        
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
-            await queryRunner.manager.update(User, userIdx, {
-                currentHashedRefreshToken: null,
+            const user = await queryRunner.manager.findOne(User, {
+                where:{
+                    userIdx,
+                }
             });
+            user.currentHashedRefreshToken = null;
+            await queryRunner.manager.save(user);
             await queryRunner.commitTransaction();
         }catch(e){
             await queryRunner.rollbackTransaction();
