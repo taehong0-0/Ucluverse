@@ -61,71 +61,95 @@ export class PostingsService {
     }
 
     async getPostingsByClubBoard(clubBoardIdx : number){
-        const queryrunner = this.connection.createQueryRunner();
-        const postings = await queryrunner.manager.find(Posting, {
-            where: {
-                clubBoardIdx: clubBoardIdx,
-            },
-            relations:[
-                'clubBoard',
-                'images',
-                'comments',
-                'likes',
-            ],
-            order: {
-                postingIdx: "ASC",
-            }
-        });
-        return new PostingResDto(postings);
+        const queryRunner = this.connection.createQueryRunner();
+        try {
+            const postings = await queryRunner.manager.find(Posting, {
+                where: {
+                    clubBoardIdx: clubBoardIdx,
+                },
+                relations:[
+                    'clubBoard',
+                    'images',
+                    'comments',
+                    'likes',
+                ],
+                order: {
+                    postingIdx: "ASC",
+                }
+            });
+            return new PostingResDto(postings);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
     }
 
     async getEntirePostingsByClub(clubIdx: number){
         const queryRunner = this.connection.createQueryRunner();
-        const postings = await queryRunner.manager.find(Posting, {
-            relations:[
-                'clubBoard',
-                'images',
-                'comments',
-                'likes',
-            ],
-            where:{
-                clubBoard: { clubIdx: clubIdx },
-
-            },
-        })
-        return new PostingResDto(postings);
+        try {
+            const postings = await queryRunner.manager.find(Posting, {
+                relations:[
+                    'clubBoard',
+                    'images',
+                    'comments',
+                    'likes',
+                ],
+                where:{
+                    clubBoard: { clubIdx: clubIdx },
+    
+                },
+            })
+            return new PostingResDto(postings);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
     }
 
     async getAllPostings(boardName: string){
         const queryRunner = this.connection.createQueryRunner();
-        const postings = await queryRunner.manager.find(Posting, {
-            relations:[
-                'clubBoard',
-                'images',
-                'comments',
-                'likes',
-            ],
-            where:{
-                clubBoard: { name: boardName },
-            },
-        })
-        return new PostingResDto(postings);
+        try {
+            const postings = await queryRunner.manager.find(Posting, {
+                relations:[
+                    'clubBoard',
+                    'images',
+                    'comments',
+                    'likes',
+                ],
+                where:{
+                    clubBoard: { name: boardName },
+                },
+            })
+            return new PostingResDto(postings);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
     }
 
     async getPostingByPostingIdx(postingIdx: number){
         const queryRunner = this.connection.createQueryRunner();
-        const posting = await queryRunner.manager.findOne(Posting, {
-            where:{
-                postingIdx: postingIdx,
-            },
-            relations:[
-                'clubBoard',
-                'images',
-                'comments',
-                'likes',
-            ]
-        });
-        return new PostingResDto(posting);
+        try {
+            const posting = await queryRunner.manager.findOne(Posting, {
+                where:{
+                    postingIdx: postingIdx,
+                },
+                relations:[
+                    'clubBoard',
+                    'images',
+                    'comments',
+                    'likes',
+                ]
+            });
+            return new PostingResDto(posting);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
     }
     
     async updatePosting(postingIdx: number, updatePostingDto: UpdatePostingDto) {
