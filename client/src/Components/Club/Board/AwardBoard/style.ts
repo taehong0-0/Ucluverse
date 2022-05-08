@@ -5,12 +5,21 @@ export const AwardBoardContainer = styled.div`
   & > div:first-child {
     ${BoardStyle}
   }
+  .modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+  }
   .modal {
     position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
     top: 10rem;
+    left: 25rem;
     width: 680px;
     height: 500px;
     /* UI Properties */

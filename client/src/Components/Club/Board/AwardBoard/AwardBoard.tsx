@@ -92,9 +92,19 @@ const AwardBoard = () => {
     }
   };
   useEffect(() => {
+    if (isOpen) {
+      document.body.style.cssText = `
+    position: fixed; 
+    top: -${window.scrollY}px;
+    overflow-y: scroll;
+    width: 100%;`;
+    }
     window.addEventListener('click', handleModalClose);
     return () => {
       window.removeEventListener('click', handleModalClose);
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = '';
+      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
     };
   }, [isOpen]);
   return (
@@ -108,48 +118,50 @@ const AwardBoard = () => {
       </div>
       <Button name="등록" clickEvent={() => setIsOpen(true)} />
       {isOpen && (
-        <div className="modal" ref={modalRef}>
-          <span>수상 내역 등록</span>
-          <div>
+        <div className="modal-background">
+          <div className="modal" ref={modalRef}>
+            <span>수상 내역 등록</span>
             <div>
-              <FloatInput
-                inputRef={awardTitleRef}
-                name="대회"
-                type="midium"
-              ></FloatInput>
-              <FloatInput
-                inputRef={awardNameRef}
-                name="상"
-                type="midium"
-              ></FloatInput>
-              <span>사진</span>
-              <DropZoneDiv {...getRootProps()}>
-                <input {...getInputProps()} />
-                {!image ? (
-                  <img src={fileUploadImg} width="30px" height="27px" />
-                ) : (
-                  <img
-                    src={image}
-                    style={{
-                      width: '16.5rem',
-                      height: '8.938rem',
-                      marginBottom: '15px',
-                      borderRadius: '5px',
-                    }}
-                  />
-                )}
-              </DropZoneDiv>
+              <div>
+                <FloatInput
+                  inputRef={awardTitleRef}
+                  name="대회"
+                  type="midium"
+                ></FloatInput>
+                <FloatInput
+                  inputRef={awardNameRef}
+                  name="상"
+                  type="midium"
+                ></FloatInput>
+                <span>사진</span>
+                <DropZoneDiv {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  {!image ? (
+                    <img src={fileUploadImg} width="30px" height="27px" />
+                  ) : (
+                    <img
+                      src={image}
+                      style={{
+                        width: '16.5rem',
+                        height: '8.938rem',
+                        marginBottom: '15px',
+                        borderRadius: '5px',
+                      }}
+                    />
+                  )}
+                </DropZoneDiv>
+              </div>
+              <div>
+                <span>내용</span>
+                <textarea ref={awardContentRef}></textarea>
+              </div>
             </div>
             <div>
-              <span>내용</span>
-              <textarea ref={awardContentRef}></textarea>
+              <Button clickEvent={() => submit()} name="확인" />
+              <button onClick={() => setIsOpen(false)}>
+                <span>취소</span>
+              </button>
             </div>
-          </div>
-          <div>
-            <Button clickEvent={() => submit()} name="확인" />
-            <button onClick={() => setIsOpen(false)}>
-              <span>취소</span>
-            </button>
           </div>
         </div>
       )}
