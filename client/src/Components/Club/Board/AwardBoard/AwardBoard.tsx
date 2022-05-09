@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 import { useEffect, useState } from 'react';
 import Button from '../../../Button/Button';
 import FloatInput from '../../../Input/Input';
-import { AwardBoardContainer } from './style';
+import { AwardBoardContainer, AwardListContainer } from './style';
 import { useDropzone } from 'react-dropzone';
 import fileUploadImg from '../../../../Assets/파일 업로드.png';
 import { DropZoneDiv } from './style';
@@ -115,6 +115,17 @@ const AwardBoard = () => {
           <span>{'>'}</span>
           <span>게시판 이름</span>
         </div>
+        <AwardListContainer>
+          <div>
+            <img />
+            <div>
+              <span>상이름</span>
+              <span>
+                <pre>내용입니다.</pre>
+              </span>
+            </div>
+          </div>
+        </AwardListContainer>
       </div>
       <Button name="등록" clickEvent={() => setIsOpen(true)} />
       {isOpen && (

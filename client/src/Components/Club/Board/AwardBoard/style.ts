@@ -116,3 +116,39 @@ export const DropZoneDiv = styled.div`
     margin-top: 0.938rem;
   }
 `;
+export const AwardListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  & > div {
+    width: 40rem;
+    margin-left: 54px;
+    margin-top: 25px;
+    display: flex;
+    img {
+      width: 222px;
+      height: 200px;
+      /* UI Properties */
+      background: transparent 0% 0% no-repeat padding-box;
+      box-shadow: 3px 3px 10px #211f1f;
+      border-radius: 5px;
+      opacity: 1;
+    }
+    div {
+      margin-left: 40px;
+      span:first-child {
+        text-align: left;
+        font: normal normal bold 24px/28px Noto Sans KR;
+        letter-spacing: -1.8px;
+        color: #0e0e0e;
+        opacity: 1;
+      }
+      span:last-child {
+        text-align: left;
+        font: normal normal normal 14px/20px Noto Sans KR;
+        letter-spacing: -1.05px;
+        color: #1a1917;
+        opacity: 1;
+      }
+    }
+  }
+`;
