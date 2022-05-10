@@ -16,7 +16,7 @@ export class AuthService {
 
     async isLogin(cookies: any) {
         if(cookies.Refresh) {
-            const payload: any = this.decodeAccessToken(cookies.Refresh);
+            const payload: any = this.decodeToken(cookies.Refresh);
             const userIdx = payload.userIdx;
             const user = await this.userService.findUser(userIdx);
 
@@ -73,7 +73,7 @@ export class AuthService {
         }
     }
 
-    decodeAccessToken(accessToken: string) {
+    decodeToken(accessToken: string) {
         const decodedAccessToken: any = this.jwtService.decode(accessToken);
         return decodedAccessToken;
     }
