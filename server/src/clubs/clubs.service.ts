@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { BaseFailMsgResDto, BaseSuccessResDto } from 'src/commons/response.dto';
+import { BaseFailMsgResDto, BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Connection, QueryResult, Raw } from 'typeorm';
-import { ClubResDto } from './dto/club-respones.dto';
+import { CentralClubResDto, ClubResDto } from './dto/club-respones.dto';
 import { CreateClubBoardDto } from './dto/create-clubBoard.dto';
-import { Club, ClubBoard } from './entities/club.entity';
+import { Club, ClubBoard, ClubCategory } from './entities/club.entity';
 import * as XLSX from 'xlsx'
 
 @Injectable()
@@ -20,7 +20,7 @@ export class ClubsService {
             date.setMonth(date.getMonth() - 1);
             const clubs = await queryRunner.manager.find(Club, {
                 where:{
-                    createdAt: Raw((alias) => `${alias} < :date`, {date: date}),
+                    createdAt: Raw((alias) => `${alias} > :date`, {date: date}),
                 },
                 relations:[
                     'poster',
@@ -29,6 +29,37 @@ export class ClubsService {
             return new ClubResDto(clubs);
         } catch(e) {
             console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
+    }
+
+    async getCentralClubs() {
+        const queryRunner = this.connection.createQueryRunner();
+        try {            
+            const centralClubs = await queryRunner.manager
+                .createQueryBuilder(Club, 'club')
+                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath'])
+                .addSelect('ccs.name')
+                .addSelect(['cbs.clubBoardIdx', 'cbs.name'])
+                .leftJoin('club.clubCategories' , 'ccs')
+                .leftJoin('club.clubBoards', 'cbs')
+                .where('club.clubType = :clubType', { clubType: '중앙동아리' })
+                .getMany();
+            
+            centralClubs.forEach(centralClub => {
+                if (centralClub.clubCategories.length >= 0) {
+                    const temp = []
+                    centralClub.clubCategories.forEach(clubCategory => {
+                        temp.push(clubCategory.name);
+                    });
+                    centralClub.clubCategories = temp;
+                }
+            });
+            return new CentralClubResDto(centralClubs);
+        } catch(e) {
+            console.log(e);
+            return new BaseFailResDto('중앙동아리 목록 가져오기를 실패했습니다.');
         } finally {
             await queryRunner.release();
         }
