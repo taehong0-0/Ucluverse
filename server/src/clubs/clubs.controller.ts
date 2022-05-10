@@ -26,6 +26,14 @@ export class ClubsController {
         return this.clubsService.getCentralClubs();
     }
 
+    @Get('department')
+    @ApiOperation({
+        summary: '(과소속)소학회 목록 불러오기 API',
+    })
+    async getDepartmentClubs() {
+        return this.clubsService.getDepartmentClubs();
+    }
+
     @Post('clubBoard')
     @ApiOperation({
         summary: '동아리 게시판 생성 API',

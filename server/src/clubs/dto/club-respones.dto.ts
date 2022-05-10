@@ -10,13 +10,13 @@ export class ClubResDto extends BaseSuccessResDto{
     clubs: any;
 }
 
-export class CentralClubResDto extends BaseSuccessResDto {
-    constructor(centralClubs: any) {
+export class ClubsWithCategoriesAndClubBoardsResDto extends BaseSuccessResDto {
+    constructor(clubs: any) {
         super();
-        this.res.centralClubs = centralClubs;
+        this.res.clubs = clubs;
     }
     @ApiProperty({
         description: '(중앙)동아리 정보',
     })
-    centralClubs: any;
+    clubs: any;
 }
