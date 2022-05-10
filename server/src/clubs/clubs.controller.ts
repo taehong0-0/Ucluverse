@@ -18,6 +18,14 @@ export class ClubsController {
         return res.send(await this.clubsService.getNewClubs());
     }
 
+    @Get('central')
+    @ApiOperation({
+        summary: '(중앙)동아리 목록 불러오기 API',
+    })
+    async getCentralClubs() {
+        return this.clubsService.getCentralClubs();
+    }
+
     @Post('clubBoard')
     @ApiOperation({
         summary: '동아리 게시판 생성 API',
