@@ -153,7 +153,7 @@ export const LoginInfoContainer = styled.div`
 `;
 
 export const LoginDetailSpan = styled.span`
-  width: 15.25rem;
+  width: 17.25rem;
   text-align: center;
   font: normal normal normal 18px/1.5rem Noto Sans KR;
   letter-spacing: -1.35px;
