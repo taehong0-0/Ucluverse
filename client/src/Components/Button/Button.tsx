@@ -9,7 +9,12 @@ interface props {
 const Button = (props: props) => {
   const { clickEvent, name } = props;
   return (
-    <ButtonContainer onClick={() => clickEvent()}>
+    <ButtonContainer
+      onClick={(e) => {
+        clickEvent();
+        e.stopPropagation();
+      }}
+    >
       <span>{name}</span>
     </ButtonContainer>
   );

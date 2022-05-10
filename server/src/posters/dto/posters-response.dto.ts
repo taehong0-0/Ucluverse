@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { BaseSuccessResDto } from "src/commons/response.dto";
 
 export class PosterResDto extends BaseSuccessResDto{
@@ -5,5 +6,6 @@ export class PosterResDto extends BaseSuccessResDto{
         super();
         this.res.posters = posters;
     }
+    @ApiProperty({ description: '포스터 정보' })
     posters: any;
 }

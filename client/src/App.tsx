@@ -10,6 +10,7 @@ import AuthRoute from './Routes/AuthRoute';
 import LoginRoute from './Routes/LoginRoute';
 import banner from './Assets/띠배너.png';
 import footer from './Assets/Footer.png';
+import { ToastContainer } from 'react-toastify';
 
 axios.defaults.withCredentials = true;
 
@@ -17,6 +18,7 @@ const App = () => {
   return (
     <>
       <Suspense fallback={<span>로딩중</span>}>
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route

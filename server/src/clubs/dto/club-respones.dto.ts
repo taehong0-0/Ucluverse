@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { BaseSuccessResDto } from "src/commons/response.dto";
 
 export class ClubResDto extends BaseSuccessResDto{
@@ -5,5 +6,6 @@ export class ClubResDto extends BaseSuccessResDto{
         super();
         this.res.clubs = clubs;
     }
+    @ApiProperty({ description: '동아리 정보' })
     clubs: any;
 }

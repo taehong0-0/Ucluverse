@@ -18,20 +18,22 @@ const PostBoard = (props: props) => {
 
   return (
     <ClubBoardContainer>
-      <div className="navigator">
-        <span>Home</span>
-        <span>{'>'}</span>
-        <span>게시판 이름</span>
+      <div>
+        <div className="navigator">
+          <span>Home</span>
+          <span>{'>'}</span>
+          <span>게시판 이름</span>
+        </div>
+        {posts.map((post) => (
+          <PostTitle
+            title={post.title}
+            author={post.author}
+            date={post.date}
+            type={post.type}
+            postId={post.postId}
+          ></PostTitle>
+        ))}
       </div>
-      {posts.map((post) => (
-        <PostTitle
-          title={post.title}
-          author={post.author}
-          date={post.date}
-          type={post.type}
-          postId={post.postId}
-        ></PostTitle>
-      ))}
       <Link to="/club/posting">
         <Button name="글작성" clickEvent={() => {}}></Button>
       </Link>
