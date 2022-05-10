@@ -134,7 +134,7 @@ export const ImageContainer = styled.div`
 export const CharacterContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  div:first-child {
+  div:last-child {
     height: 8.75rem;
     display: flex;
     flex-direction: column;
