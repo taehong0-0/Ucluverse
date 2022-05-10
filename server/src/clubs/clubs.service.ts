@@ -20,7 +20,7 @@ export class ClubsService {
             date.setMonth(date.getMonth() - 1);
             const clubs = await queryRunner.manager.find(Club, {
                 where:{
-                    createdAt: Raw((alias) => `${alias} < :date`, {date: date}),
+                    createdAt: Raw((alias) => `${alias} > :date`, {date: date}),
                 },
                 relations:[
                     'poster',
