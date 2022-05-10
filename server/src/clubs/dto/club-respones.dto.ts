@@ -16,7 +16,7 @@ export class ClubsWithCategoriesAndClubBoardsResDto extends BaseSuccessResDto {
         this.res.clubs = clubs;
     }
     @ApiProperty({
-        description: '(중앙)동아리 정보',
+        description: '카테고리와 게시판 정보를 포함한 동아리 정보',
     })
     clubs: any;
 }
