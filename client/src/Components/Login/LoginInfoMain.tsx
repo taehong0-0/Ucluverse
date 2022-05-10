@@ -174,12 +174,6 @@ const LoginInfoMain = (): ReactElement => {
           </InputContainer>
           <ProfileContainer>
             <ImageContainer>
-              <DropZoneDiv {...getRootProps()}>
-                <input {...getInputProps()} />
-                <img src={fileUploadImg} width="30px" height="27px" />
-                <span>파일업로드</span>
-                <span>사진을 등록해주세요</span>
-              </DropZoneDiv>
               {image ? (
                 <img src={image} width="140px" height="140px"></img>
               ) : (
@@ -191,8 +185,15 @@ const LoginInfoMain = (): ReactElement => {
                   }}
                 ></div>
               )}
+              <DropZoneDiv {...getRootProps()}>
+                <input {...getInputProps()} />
+                <img src={fileUploadImg} width="30px" height="27px" />
+                <span>파일업로드</span>
+                <span>사진을 등록해주세요</span>
+              </DropZoneDiv>
             </ImageContainer>
             <CharacterContainer>
+              <img src={characterImg} width="140px" height="140px"></img>
               <div>
                 <CharacterButton
                   content="머리"
@@ -213,7 +214,6 @@ const LoginInfoMain = (): ReactElement => {
                   setNumber={setAccessorie}
                 ></CharacterButton>
               </div>
-              <img src={characterImg} width="140px" height="140px"></img>
             </CharacterContainer>
           </ProfileContainer>
         </LoginInfoContainer>

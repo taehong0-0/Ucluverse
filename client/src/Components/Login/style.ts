@@ -134,7 +134,7 @@ export const ImageContainer = styled.div`
 export const CharacterContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  div:first-child {
+  div:last-child {
     height: 8.75rem;
     display: flex;
     flex-direction: column;
@@ -153,7 +153,7 @@ export const LoginInfoContainer = styled.div`
 `;
 
 export const LoginDetailSpan = styled.span`
-  width: 15.25rem;
+  width: 17.25rem;
   text-align: center;
   font: normal normal normal 18px/1.5rem Noto Sans KR;
   letter-spacing: -1.35px;
