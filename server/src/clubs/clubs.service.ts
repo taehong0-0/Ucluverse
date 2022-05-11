@@ -13,6 +13,45 @@ export class ClubsService {
         private connection: Connection,
     ){}
 
+    async getClubInfoByClubIdx(clubIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        try {            
+            const club = await queryRunner.manager
+                .createQueryBuilder(Club, 'club')
+                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath', 'club.introductionPath', 'club.introductionDesc'])
+                .addSelect('ccs.name')
+                .addSelect(['cbs.clubBoardIdx', 'cbs.name'])
+                .leftJoin('club.clubCategories' , 'ccs')
+                .leftJoin('club.clubBoards', 'cbs')
+                .where('club.clubIdx = :clubIdx', { clubIdx })
+                .getOne();
+            
+            if (club.clubCategories.length >= 0) {
+                const temp = []
+                club.clubCategories.forEach(clubCategory => {
+                    temp.push(clubCategory.name);
+                });
+                club.clubCategories = temp;
+            }
+            const temp = []
+            const prop = {}
+            club.clubBoards.forEach(clubBoard => {
+                const keyname = '';
+                const key = clubBoard.name;
+                const value = clubBoard.clubBoardIdx;
+                prop[keyname + key] = value;
+            });
+            temp.push(prop);
+            club.clubBoards = temp;
+            return new ClubsWithCategoriesAndClubBoardsResDto(club);
+        } catch(e) {
+            console.log(e);
+            return new BaseFailResDto('동아리 인덱스에 해당하는 동아리 정보 가져오기를 실패했습니다.');
+        } finally {
+            await queryRunner.release();
+        }
+    }
+
     async getNewClubs() {
         const queryRunner = this.connection.createQueryRunner();
         try {
@@ -39,7 +78,7 @@ export class ClubsService {
         try {            
             const centralClubs = await queryRunner.manager
                 .createQueryBuilder(Club, 'club')
-                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath'])
+                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath', 'club.introductionPath', 'club.introductionDesc'])
                 .addSelect('ccs.name')
                 .addSelect(['cbs.clubBoardIdx', 'cbs.name'])
                 .leftJoin('club.clubCategories' , 'ccs')
@@ -55,7 +94,17 @@ export class ClubsService {
                     });
                     centralClub.clubCategories = temp;
                 }
-            });
+                const temp = []
+                const prop = {}
+                centralClub.clubBoards.forEach(clubBoard => {
+                    const keyname = '';
+                    const key = clubBoard.name;
+                    const value = clubBoard.clubBoardIdx;
+                    prop[keyname + key] = value;
+                });
+                temp.push(prop);
+                centralClub.clubBoards = temp;
+                });
             return new ClubsWithCategoriesAndClubBoardsResDto(centralClubs);
         } catch(e) {
             console.log(e);
@@ -70,7 +119,7 @@ export class ClubsService {
         try {
             const departmentClubs = await queryRunner.manager
                 .createQueryBuilder(Club, 'club')
-                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath'])
+                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath', 'club.introductionPath', 'club.introductionDesc'])
                 .addSelect('ccs.name')
                 .addSelect(['cbs.clubBoardIdx', 'cbs.name'])
                 .leftJoin('club.clubCategories' , 'ccs')
@@ -86,6 +135,17 @@ export class ClubsService {
                     });
                     departmentClubs.clubCategories = temp;
                 }
+                const temp = []
+                const prop = {}
+                departmentClubs.clubBoards.forEach(clubBoard => {
+                    const keyname = '';
+                    const key = clubBoard.name;
+                    const value = clubBoard.clubBoardIdx;
+                    prop[keyname + key] = value;
+                });
+                temp.push(prop);
+                departmentClubs.clubBoards = temp;
+                
             });
             return new ClubsWithCategoriesAndClubBoardsResDto(departmentClubs);
         } catch(e) {
