@@ -1,53 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ClubCategory from '../Category/ClubCategory';
 import ClubList from '../ClubList/ClubList';
 import { ClubBodyContainer } from './style';
 import character from '../../../Assets/Character-hello.png';
+import { ClubType } from '../../../Types/ClubType';
+import axios from 'axios';
 
-interface club {
-  clubIdx: number;
-  clubName: string;
-  category: string;
-  imgSrc: string;
-}
-const clubList: any[] = [
-  {
-    clubIdx: 1,
-    clubName: 'Do-iT!',
-    category: '학술언론',
-    imgSrc: '',
-  },
-  {
-    clubIdx: 2,
-    clubName: '유클러버스',
-    category: '학술언론',
-    imgSrc: '',
-  },
-  {
-    clubIdx: 3,
-    clubName: '화이팅',
-    category: '체육',
-    imgSrc: '',
-  },
-  {
-    clubIdx: 4,
-    clubName: '꽁',
-    category: '학술언론',
-    imgSrc: '',
-  },
-  {
-    clubIdx: 5,
-    clubName: '에이핀',
-    category: '체육',
-    imgSrc: '',
-  },
-  {
-    clubIdx: 6,
-    clubName: '에이핀',
-    category: '학술언론',
-    imgSrc: '',
-  },
-];
 const categoryList = [
   '전체',
   '체육',
@@ -62,6 +20,22 @@ const categoryList = [
 ];
 const ClubBody = () => {
   const [category, setCategory] = useState<string>('전체');
+  const [clubList, setClubList] = useState<ClubType[]>([]);
+  const [departmentClubList, setDepartmentClubList] = useState<ClubType[]>([]);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/clubs/central`)
+      .then((res) => {
+        setClubList(res.data.res.clubs);
+        console.log(res.data.res.clubs);
+      });
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/clubs/department`)
+      .then((res) => {
+        setDepartmentClubList(res.data);
+        console.log(res.data.res);
+      });
+  }, []);
   const clickCategory = (category: string) => {
     setCategory(category);
   };
@@ -79,7 +53,9 @@ const ClubBody = () => {
         clubList={
           category === '전체'
             ? clubList
-            : clubList.filter((club) => club.category === category)
+            : clubList.filter((club) =>
+                club.clubCategories.includes(category + '분과'),
+              )
         }
       />
     </ClubBodyContainer>
