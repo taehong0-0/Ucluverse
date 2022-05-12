@@ -10,6 +10,14 @@ export class ClubsController {
         private readonly clubsService: ClubsService,
     ){}
 
+    @Get('club/:clubIdx')
+    @ApiOperation({
+        summary: '생성된지 한달 이내 동아리들 불러오기 API',
+    })
+    async getClubInfoByClubIdx(@Param('clubIdx') clubIdx : number, @Res() res){
+        return res.send(await this.clubsService.getClubInfoByClubIdx(clubIdx));
+    }
+
     @Get('newClubs')
     @ApiOperation({
         summary: '생성된지 한달 이내 동아리들 불러오기 API',
@@ -24,6 +32,14 @@ export class ClubsController {
     })
     async getCentralClubs() {
         return this.clubsService.getCentralClubs();
+    }
+
+    @Get('department')
+    @ApiOperation({
+        summary: '(과소속)소학회 목록 불러오기 API',
+    })
+    async getDepartmentClubs() {
+        return this.clubsService.getDepartmentClubs();
     }
 
     @Post('clubBoard')

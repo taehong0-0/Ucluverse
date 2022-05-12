@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BaseFailMsgResDto, BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Connection, QueryResult, Raw } from 'typeorm';
-import { CentralClubResDto, ClubResDto } from './dto/club-respones.dto';
+import { ClubsWithCategoriesAndClubBoardsResDto, ClubResDto } from './dto/club-respones.dto';
 import { CreateClubBoardDto } from './dto/create-clubBoard.dto';
 import { Club, ClubBoard, ClubCategory } from './entities/club.entity';
 import * as XLSX from 'xlsx'
@@ -12,6 +12,45 @@ export class ClubsService {
     constructor(
         private connection: Connection,
     ){}
+
+    async getClubInfoByClubIdx(clubIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        try {            
+            const club = await queryRunner.manager
+                .createQueryBuilder(Club, 'club')
+                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath', 'club.introductionPath', 'club.introductionDesc'])
+                .addSelect('ccs.name')
+                .addSelect(['cbs.clubBoardIdx', 'cbs.name'])
+                .leftJoin('club.clubCategories' , 'ccs')
+                .leftJoin('club.clubBoards', 'cbs')
+                .where('club.clubIdx = :clubIdx', { clubIdx })
+                .getOne();
+            
+            if (club.clubCategories.length >= 0) {
+                const temp = []
+                club.clubCategories.forEach(clubCategory => {
+                    temp.push(clubCategory.name);
+                });
+                club.clubCategories = temp;
+            }
+            const temp = []
+            const prop = {}
+            club.clubBoards.forEach(clubBoard => {
+                const keyname = '';
+                const key = clubBoard.name;
+                const value = clubBoard.clubBoardIdx;
+                prop[keyname + key] = value;
+            });
+            temp.push(prop);
+            club.clubBoards = temp;
+            return new ClubsWithCategoriesAndClubBoardsResDto(club);
+        } catch(e) {
+            console.log(e);
+            return new BaseFailResDto('동아리 인덱스에 해당하는 동아리 정보 가져오기를 실패했습니다.');
+        } finally {
+            await queryRunner.release();
+        }
+    }
 
     async getNewClubs() {
         const queryRunner = this.connection.createQueryRunner();
@@ -39,7 +78,7 @@ export class ClubsService {
         try {            
             const centralClubs = await queryRunner.manager
                 .createQueryBuilder(Club, 'club')
-                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath'])
+                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath', 'club.introductionPath', 'club.introductionDesc'])
                 .addSelect('ccs.name')
                 .addSelect(['cbs.clubBoardIdx', 'cbs.name'])
                 .leftJoin('club.clubCategories' , 'ccs')
@@ -55,11 +94,63 @@ export class ClubsService {
                     });
                     centralClub.clubCategories = temp;
                 }
-            });
-            return new CentralClubResDto(centralClubs);
+                const temp = []
+                const prop = {}
+                centralClub.clubBoards.forEach(clubBoard => {
+                    const keyname = '';
+                    const key = clubBoard.name;
+                    const value = clubBoard.clubBoardIdx;
+                    prop[keyname + key] = value;
+                });
+                temp.push(prop);
+                centralClub.clubBoards = temp;
+                });
+            return new ClubsWithCategoriesAndClubBoardsResDto(centralClubs);
         } catch(e) {
             console.log(e);
             return new BaseFailResDto('중앙동아리 목록 가져오기를 실패했습니다.');
+        } finally {
+            await queryRunner.release();
+        }
+    }
+
+    async getDepartmentClubs() {
+        const queryRunner = this.connection.createQueryRunner();
+        try {
+            const departmentClubs = await queryRunner.manager
+                .createQueryBuilder(Club, 'club')
+                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath', 'club.introductionPath', 'club.introductionDesc'])
+                .addSelect('ccs.name')
+                .addSelect(['cbs.clubBoardIdx', 'cbs.name'])
+                .leftJoin('club.clubCategories' , 'ccs')
+                .leftJoin('club.clubBoards', 'cbs')
+                .where('club.clubType = :clubType', { clubType: '과소학회' })
+                .getMany();
+            
+                departmentClubs.forEach(departmentClubs => {
+                if (departmentClubs.clubCategories.length >= 0) {
+                    const temp = []
+                    departmentClubs.clubCategories.forEach(clubCategory => {
+                        temp.push(clubCategory.name);
+                    });
+                    departmentClubs.clubCategories = temp;
+                }
+                const temp = []
+                const prop = {}
+                departmentClubs.clubBoards.forEach(clubBoard => {
+                    const keyname = '';
+                    const key = clubBoard.name;
+                    const value = clubBoard.clubBoardIdx;
+                    prop[keyname + key] = value;
+                });
+                temp.push(prop);
+                departmentClubs.clubBoards = temp;
+                
+            });
+            return new ClubsWithCategoriesAndClubBoardsResDto(departmentClubs);
+        } catch(e) {
+            console.log(e);
+            return new BaseFailResDto('과소속 소학회 목록 가져오기를 실패했습니다.');
         } finally {
             await queryRunner.release();
         }
