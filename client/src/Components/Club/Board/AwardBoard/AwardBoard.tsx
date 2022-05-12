@@ -9,8 +9,13 @@ import { DropZoneDiv } from './style';
 import axios from 'axios';
 import AWS from 'aws-sdk';
 import { toast } from 'react-toastify';
+import { AwardPostType } from '../../../../Types/PostType';
 
-const AwardBoard = () => {
+interface Props {
+  boardIdx: number;
+}
+const AwardBoard = (props: Props) => {
+  const { boardIdx } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const awardNameRef = useRef<HTMLInputElement>(null);
@@ -18,6 +23,7 @@ const AwardBoard = () => {
   const awardContentRef = useRef<HTMLTextAreaElement>(null);
   const [image, setImage] = useState<string | null>(null);
   const [file, setFile] = useState<Blob | null>(null);
+  const [awardPosts, setAwardPosts] = useState<AwardPostType[]>([]);
   const option = {
     accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
@@ -91,6 +97,14 @@ const AwardBoard = () => {
       setImage(null);
     }
   };
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/awards/${boardIdx}`)
+      .then((res) => {
+        console.log(res);
+        // setAwardPosts(res.data.res)
+      });
+  }, []);
   useEffect(() => {
     if (isOpen) {
       document.body.style.cssText = `

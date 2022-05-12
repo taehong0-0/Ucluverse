@@ -7,9 +7,6 @@ import Button from '../../../Button/Button';
 import PostTitle from '../../Post/Title/PostTitle';
 import { ClubBoardContainer } from './style';
 
-interface props {
-  boardIdx: number;
-}
 const posts = [
   {
     title: '공지사항',
@@ -47,8 +44,12 @@ const posts = [
     postId: 5,
   },
 ];
+interface props {
+  boardIdx: number;
+  clubId: number;
+}
 const PostBoard = (props: props) => {
-  const { boardIdx } = props;
+  const { boardIdx, clubId } = props;
   const [postList, setPostList] = useState<PostTitleType[]>([]);
   useEffect(() => {
     // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
@@ -73,7 +74,7 @@ const PostBoard = (props: props) => {
           ></PostTitle>
         ))}
       </div>
-      <Link to="/club/posting">
+      <Link to={`/club/${clubId}/posting`}>
         <Button name="글작성" clickEvent={() => {}}></Button>
       </Link>
     </ClubBoardContainer>
