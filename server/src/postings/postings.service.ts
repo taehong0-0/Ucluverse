@@ -63,21 +63,27 @@ export class PostingsService {
     async getPostingsByClubBoard(clubBoardIdx : number){
         const queryRunner = this.connection.createQueryRunner();
         try {
-            const postings = await queryRunner.manager.find(Posting, {
-                where: {
-                    clubBoardIdx: clubBoardIdx,
-                },
-                relations:[
-                    'clubBoard',
-                    'images',
-                    'comments',
-                    'likes',
-                ],
-                order: {
-                    postingIdx: "ASC",
-                }
-            });
-            return new PostingResDto(postings);
+            const postings = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
+            .select(['posting.postingIdx','posting.title'])
+            .addSelect('clubBoard.name')
+            .addSelect('user.name')
+            .addSelect('images.path')
+            .leftJoin('posting.user', 'user')
+            .leftJoin('posting.clubBoard', 'clubBoard')
+            .leftJoin('posting.images', 'images')
+            .where('posting.clubBoardIdx = :clubBoardIdx', { clubBoardIdx })
+            .getMany()
+            const responses = [];
+            postings.forEach(posting => {
+                const response = {};
+                response['posingIdx'] = posting.postingIdx;
+                response['title'] = posting.title;
+                response['author'] = posting.user.name;
+                response['type'] = posting.clubBoard.name;
+                response['path'] = posting.images[0].path;
+                responses.push(response);
+            })
+            return new PostingResDto(responses);
         } catch(e) {
             console.log(e);
         } finally {
@@ -88,19 +94,27 @@ export class PostingsService {
     async getEntirePostingsByClub(clubIdx: number){
         const queryRunner = this.connection.createQueryRunner();
         try {
-            const postings = await queryRunner.manager.find(Posting, {
-                relations:[
-                    'clubBoard',
-                    'images',
-                    'comments',
-                    'likes',
-                ],
-                where:{
-                    clubBoard: { clubIdx: clubIdx },
-    
-                },
+            const postings = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
+            .select(['posting.postingIdx','posting.title'])
+            .addSelect('clubBoard.name')
+            .addSelect('user.name')
+            .addSelect('images.path')
+            .leftJoin('posting.user', 'user')
+            .leftJoin('posting.clubBoard', 'clubBoard')
+            .leftJoin('posting.images', 'images')
+            .where('clubBoard.clubIdx = :clubIdx', { clubIdx })
+            .getMany()
+            const responses = [];
+            postings.forEach(posting => {
+                const response = {};
+                response['posingIdx'] = posting.postingIdx;
+                response['title'] = posting.title;
+                response['author'] = posting.user.name;
+                response['type'] = posting.clubBoard.name;
+                response['path'] = posting.images[0].path;
+                responses.push(response);
             })
-            return new PostingResDto(postings);
+            return new PostingResDto(responses);
         } catch(e) {
             console.log(e);
         } finally {
