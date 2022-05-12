@@ -38,7 +38,7 @@ const App = () => {
             }
           />
           <Route
-            path="/club/*"
+            path="/club/:id/*"
             element={
               <AuthRoute>
                 <Club />
