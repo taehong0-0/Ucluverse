@@ -11,7 +11,8 @@ export interface PostTitleType {
   title: string;
   author: string;
   type: string;
-  date: string;
+  path: string | null;
+  createdAt: string;
   postId: number;
 }
 
