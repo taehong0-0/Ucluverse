@@ -4,6 +4,8 @@ import ClubCategory from '../Category/ClubCategory';
 import ClubList from '../ClubList/ClubList';
 import { ClubBodyContainer } from './style';
 import { ClubType } from '../../../Types/ClubType';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 interface departmentCategoryType {
   [index: string]: string[];
@@ -122,7 +124,16 @@ const clubList: any[] = [
 const DepartmentBody = () => {
   const [collegeCategory, setCollegeCategory] = useState<string>('');
   const [departmentCategory, setDepartmentCategory] = useState<string>('');
+  const [departmentClubList, setDepartmentClubList] = useState<ClubType[]>([]);
 
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/clubs/department`)
+      .then((res) => {
+        setDepartmentClubList(res.data);
+        console.log(res.data.res);
+      });
+  }, []);
   const clickCollegeCategory = (category: string) => {
     if (collegeCategory === category) {
       setCollegeCategory('');

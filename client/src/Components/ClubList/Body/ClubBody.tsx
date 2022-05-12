@@ -21,19 +21,12 @@ const categoryList = [
 const ClubBody = () => {
   const [category, setCategory] = useState<string>('전체');
   const [clubList, setClubList] = useState<ClubType[]>([]);
-  const [departmentClubList, setDepartmentClubList] = useState<ClubType[]>([]);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/clubs/central`)
       .then((res) => {
         setClubList(res.data.res.clubs);
         console.log(res.data.res.clubs);
-      });
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/clubs/department`)
-      .then((res) => {
-        setDepartmentClubList(res.data);
-        console.log(res.data.res);
       });
   }, []);
   const clickCategory = (category: string) => {
