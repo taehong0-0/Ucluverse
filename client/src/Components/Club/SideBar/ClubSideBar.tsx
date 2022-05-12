@@ -5,16 +5,19 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { useContext } from 'react';
 import { Dispatch } from 'react';
 import { Link } from 'react-router-dom';
+import { ClubContext } from '../../../Pages/Club/Club';
+import { BoardType } from '../../../Types/PostType';
 import Button from '../../Button/Button';
 import FloatInput from '../../Input/Input';
 import { BoardContainer, SideBarContainer } from './style';
 interface props {
-  AboutBoardList: board[];
-  CommunicationBoardList: board[];
-  clubId: Number;
-  setBoardIdx: Dispatch<SetStateAction<Number>>;
+  AboutBoardList: BoardType[];
+  CommunicationBoardList: BoardType[];
+  clubId: number;
+  setBoardIdx: Dispatch<SetStateAction<number>>;
 }
 const questions = [
   '이름',
@@ -31,12 +34,9 @@ ddddddd
 ddddddddddd\r\n
 ddddddd
 dddddd`;
-interface board {
-  name: string;
-  boardId: number;
-}
+
 const ClubSideBar = (props: props): ReactElement => {
-  const { AboutBoardList, CommunicationBoardList, setBoardIdx } = props;
+  const { AboutBoardList, CommunicationBoardList, setBoardIdx, clubId } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement[]>([]);
@@ -70,10 +70,10 @@ const ClubSideBar = (props: props): ReactElement => {
         <div>
           <span>About</span>
           {AboutBoardList.map((board) => (
-            <Link to="/club/board">
+            <Link to={`/club/${clubId}/board`}>
               <span
                 className="board-name"
-                onClick={() => setBoardIdx(board.boardId)}
+                onClick={() => setBoardIdx(board.boardIdx)}
               >
                 {board.name}
               </span>
@@ -83,10 +83,10 @@ const ClubSideBar = (props: props): ReactElement => {
         <div>
           <span>소통공간</span>
           {CommunicationBoardList.map((board) => (
-            <Link to="/club/board">
+            <Link to={`/club/${clubId}/board`}>
               <span
                 className="board-name"
-                onClick={() => setBoardIdx(board.boardId)}
+                onClick={() => setBoardIdx(board.boardIdx)}
               >
                 {board.name}
               </span>
