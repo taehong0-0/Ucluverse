@@ -9,6 +9,9 @@ export const HeaderContainer = styled.div`
   vertical-align: middle;
   align-items: center;
   justify-content: space-between;
+  button {
+    padding : 0;
+  }
 
   @media (max-width : 960px) {
     width : 30rem;
@@ -16,6 +19,7 @@ export const HeaderContainer = styled.div`
 `;
 export const HeaderLinkContainer = styled.div`
   width: 303px;
+  margin-left : 1.15rem;
   display: flex;
   justify-content: space-between;
   button {
@@ -28,7 +32,7 @@ export const HeaderLinkContainer = styled.div`
 
   @media (max-width : 960px) {
     width : 100%;
-    margin : 0 2.813rem;
+    margin : 0 2rem 0 2.813rem;
   }
 `;
 export const UserInfoContainer = styled.div`
