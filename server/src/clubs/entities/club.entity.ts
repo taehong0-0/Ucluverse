@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNumber, IsOptional, IsString } from "class-validator";
 import { Award } from "src/awards/entity/award.entity";
 import { College } from "src/colleges/entities/college.entity";
@@ -8,6 +9,8 @@ import { Poster } from "src/posters/entities/poster.entity";
 import { Posting } from "src/postings/entities/posting.entity";
 import { SubmissionFile, UserClub } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+
+
 
 @Entity()
 export class Club extends Common{
