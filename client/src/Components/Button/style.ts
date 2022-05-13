@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 
 export const LinkButtonContainer = styled.button`
-  overflow: auto;
   background: none;
-  font-size: 1rem;
+  white-space : nowrap;
   border: none;
+  font: normal normal bold 14px Noto Sans KR;
   cursor: pointer;
+
+  @media (max-width : 960px) {
+    font-size : 14px;
+  }
 `;
 
 export const CharacterButtonContainer = styled.button`
