@@ -47,9 +47,10 @@ const posts = [
 interface props {
   boardIdx: number;
   clubId: number;
+  boardName: string;
 }
 const PostBoard = (props: props) => {
-  const { boardIdx, clubId } = props;
+  const { boardIdx, clubId, boardName } = props;
   const [postList, setPostList] = useState<PostTitleType[]>([]);
   useEffect(() => {
     // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
@@ -62,7 +63,7 @@ const PostBoard = (props: props) => {
         <div className="navigator">
           <span>Home</span>
           <span>{'>'}</span>
-          <span>게시판 이름</span>
+          <span>{boardName}</span>
         </div>
         {posts.map((post) => (
           <PostTitle
@@ -74,9 +75,17 @@ const PostBoard = (props: props) => {
           ></PostTitle>
         ))}
       </div>
-      <Link to={`/club/${clubId}/posting`}>
-        <Button name="글작성" clickEvent={() => {}}></Button>
-      </Link>
+      <Button
+        name="글작성"
+        clickEvent={() => {
+          window.history.pushState(
+            { boardIdx, boardName },
+            '',
+            `/club/${clubId}/posting`,
+          );
+          window.location.href = `/club/${clubId}/posting`;
+        }}
+      ></Button>
     </ClubBoardContainer>
   );
 };

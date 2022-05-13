@@ -20,7 +20,6 @@ const ClubBoard = (props: props): ReactElement => {
     setBoardName(
       boards.filter((board) => board.boardIdx === boardIdx)[0]?.name,
     );
-    setBoardName('활동게시판');
   }, [boardIdx]);
   return (
     <>
@@ -31,7 +30,7 @@ const ClubBoard = (props: props): ReactElement => {
       ) : boardName === '활동게시판' ? (
         <ActivityBoard boardIdx={boardIdx} clubId={clubId} />
       ) : (
-        <PostBoard boardIdx={boardIdx} clubId={clubId} />
+        <PostBoard boardIdx={boardIdx} clubId={clubId} boardName={boardName} />
       )}
     </>
   );
