@@ -76,11 +76,19 @@ export class PostingsService {
             const responses = [];
             postings.forEach(posting => {
                 const response = {};
+                const imageArr = [];
                 response['posingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
                 response['author'] = posting.user.name;
                 response['type'] = posting.clubBoard.name;
-                response['path'] = posting.images[0].path;
+                if(posting.images !== undefined){
+                    posting.images.forEach(image => {
+                        imageArr.push(image.path);
+                    })
+                    response['path'] = imageArr[0];
+                }else{
+                    response['path'] = '';
+                }
                 responses.push(response);
             })
             return new PostingResDto(responses);
@@ -107,11 +115,19 @@ export class PostingsService {
             const responses = [];
             postings.forEach(posting => {
                 const response = {};
+                const imageArr = [];
                 response['posingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
                 response['author'] = posting.user.name;
                 response['type'] = posting.clubBoard.name;
-                response['path'] = posting.images[0].path;
+                if(posting.images !== undefined){
+                    posting.images.forEach(image => {
+                        imageArr.push(image.path);
+                    })
+                    response['path'] = imageArr[0];
+                }else{
+                    response['path'] = '';
+                }
                 responses.push(response);
             })
             return new PostingResDto(responses);

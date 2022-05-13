@@ -127,24 +127,24 @@ export class ClubsService {
                 .where('club.clubType = :clubType', { clubType: '과소학회' })
                 .getMany();
             
-                departmentClubs.forEach(departmentClubs => {
-                if (departmentClubs.clubCategories.length >= 0) {
+            departmentClubs.forEach(departmentClub => {
+                if (departmentClub.clubCategories.length >= 0) {
                     const temp = []
-                    departmentClubs.clubCategories.forEach(clubCategory => {
+                    departmentClub.clubCategories.forEach(clubCategory => {
                         temp.push(clubCategory.name);
                     });
-                    departmentClubs.clubCategories = temp;
+                    departmentClub.clubCategories = temp;
                 }
                 const temp = []
                 const prop = {}
-                departmentClubs.clubBoards.forEach(clubBoard => {
+                departmentClub.clubBoards.forEach(clubBoard => {
                     const keyname = '';
                     const key = clubBoard.name;
                     const value = clubBoard.clubBoardIdx;
                     prop[keyname + key] = value;
                 });
                 temp.push(prop);
-                departmentClubs.clubBoards = temp;
+                departmentClub.clubBoards = temp;
                 
             });
             return new ClubsWithCategoriesAndClubBoardsResDto(departmentClubs);
