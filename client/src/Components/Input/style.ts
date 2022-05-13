@@ -1,13 +1,22 @@
-import styled from 'styled-components';
-
-export const InputContainer = styled.div`
+import styled, { css } from 'styled-components';
+interface props {
+  type: string;
+}
+const largeStyle = css`
+  width: 30vw;
+`;
+const midiumStyle = css`
+  width: 16.5rem;
+`;
+export const InputContainer = styled.div<props>`
   display: flex;
   flex-direction: column;
   width: 10vw;
   margin-right: 1.25rem;
   position: relative;
   input {
-    width: 30vw;
+    ${(props) => props.type === 'large' && largeStyle};
+    ${(props) => props.type === 'midium' && midiumStyle}
     height: 2.5rem;
     padding-top: 0.938rem;
     padding-bottom: -0.625rem;

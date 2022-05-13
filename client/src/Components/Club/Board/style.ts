@@ -2,7 +2,8 @@ import { css } from 'styled-components';
 
 export const BoardStyle = css`
   margin-left: 1.25rem;
-  width: 56.3vw;
+  /* width: 56.3vw; */
+  width: 50.7rem;
   min-height: 70vh;
 
   border-radius: 0px 0px 5px 5px;
@@ -10,6 +11,7 @@ export const BoardStyle = css`
   height: max-content;
   .navigator {
     height: 3.313rem;
+    border-bottom: 1px solid #dddae0;
     span:first-child {
       margin-left: 0.625rem;
       line-height: 3.313rem;

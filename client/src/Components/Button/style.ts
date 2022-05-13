@@ -38,6 +38,7 @@ export const ButtonContainer = styled.button`
   border-radius: 5px;
   border: none;
   opacity: 1;
+  cursor: pointer;
   text-align: center;
   line-height: 2.125rem;
   span {

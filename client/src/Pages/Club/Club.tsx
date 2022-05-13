@@ -15,6 +15,7 @@ const AboutBoardList = [
   { name: '공지사항', boardId: 1 },
   { name: '동아리 소개', boardId: 2 },
   { name: '활동게시판', boardId: 3 },
+  { name: '수상게시판', boardId: 6 },
 ];
 const CommunicationBoardList = [
   { name: '자유 게시판', boardId: 4 },
