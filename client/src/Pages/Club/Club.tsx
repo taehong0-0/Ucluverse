@@ -102,10 +102,7 @@ const Club = (): ReactElement => {
                   />
                 }
               ></Route>
-              <Route
-                path="/posting"
-                element={<Posting clubId={clubId} boardIdx={boardIdx} />}
-              ></Route>
+              <Route path="/posting" element={<Posting />}></Route>
             </Routes>
           </div>
         </div>
