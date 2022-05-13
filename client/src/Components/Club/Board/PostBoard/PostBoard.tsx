@@ -53,10 +53,14 @@ const PostBoard = (props: props) => {
   const { boardIdx, clubId, boardName } = props;
   const [postList, setPostList] = useState<PostTitleType[]>([]);
   useEffect(() => {
-    // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
-    //   setPostList(res.data);
-    // });
-  }, []);
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`)
+      .then((res) => {
+        console.log(res);
+        console.log(boardIdx);
+        setPostList(res.data);
+      });
+  }, [boardIdx]);
   return (
     <ClubBoardContainer>
       <div>
@@ -75,17 +79,19 @@ const PostBoard = (props: props) => {
           ></PostTitle>
         ))}
       </div>
-      <Button
-        name="글작성"
-        clickEvent={() => {
-          window.history.pushState(
-            { boardIdx, boardName },
-            '',
-            `/club/${clubId}/posting`,
-          );
-          window.location.href = `/club/${clubId}/posting`;
-        }}
-      ></Button>
+      {boardName !== '전체게시판' && (
+        <Button
+          name="글작성"
+          clickEvent={() => {
+            window.history.pushState(
+              { boardIdx, boardName },
+              '',
+              `/club/${clubId}/posting`,
+            );
+            window.location.href = `/club/${clubId}/posting`;
+          }}
+        ></Button>
+      )}
     </ClubBoardContainer>
   );
 };

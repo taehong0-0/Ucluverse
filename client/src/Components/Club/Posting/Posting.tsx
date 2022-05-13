@@ -29,6 +29,7 @@ const Posting = () => {
     const srcRegEx = /<img src=\"([^\"]*?)\" \/>/gi;
     const srcList = content.match(srcRegEx);
     var result = content;
+    var images;
     const promiseList = srcList?.map(async (tag, idx) => {
       tag.match(srcRegEx);
       const srcData = RegExp.$1;
@@ -55,17 +56,19 @@ const Posting = () => {
         });
     });
     await Promise.all(promiseList ?? []);
-    await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`,
-      {
-        userIdx: user.userIdx,
-        title: titleRef.current.value,
-        content: content,
-        images: imageList,
-        allowComments: true,
-        isPublic: true,
-      },
-    );
+    await axios
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`,
+        {
+          userIdx: user.userIdx,
+          title: titleRef.current.value,
+          content: result,
+          images: imageList,
+          allowComments: true,
+          isPublic: true,
+        },
+      )
+      .then((res) => console.log(res));
   };
   return (
     <PostingContainer>

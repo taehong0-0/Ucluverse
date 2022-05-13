@@ -8,7 +8,9 @@ import React, {
 import { useContext } from 'react';
 import { Dispatch } from 'react';
 import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { ClubContext } from '../../../Pages/Club/Club';
+import { userState } from '../../../Recoil/User';
 import { BoardType } from '../../../Types/PostType';
 import Button from '../../Button/Button';
 import FloatInput from '../../Input/Input';
@@ -38,6 +40,7 @@ dddddd`;
 const ClubSideBar = (props: props): ReactElement => {
   const { AboutBoardList, CommunicationBoardList, setBoardIdx, clubId } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const user = useRecoilValue(userState);
   const modalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement[]>([]);
   const handleModalClose = (e: MouseEvent) => {
