@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const MainBoardDiv = styled.div`
-  width: 19rem;
-  height: 13.5rem;
+  width : 280px;
+  height: 191px;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 3px 3px 0.625rem #dddae0;
   opacity: 1;
@@ -34,15 +34,17 @@ export const MainBoardDiv = styled.div`
       text-decoration: none;
     }
     a {
-      margin-top: 6px;
       height: 1.25rem;
     }
+    a:nth-child(n+2) {
+        padding-top: 6px;
+      }
   }
 `;
 
 export const MainBoardContainerDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 75vw;
+  width: 60rem;
   margin: 5rem auto;
 `;
