@@ -10,6 +10,7 @@ import AuthRoute from './Routes/AuthRoute';
 import LoginRoute from './Routes/LoginRoute';
 import banner from './Assets/띠배너.png';
 import footer from './Assets/Footer.png';
+import './styles/App.css'; // 초기값 css
 
 axios.defaults.withCredentials = true;
 
@@ -22,25 +23,25 @@ const App = () => {
           <Route
             path="/login"
             element={
-              <LoginRoute>
+             // <LoginRoute>
                 <Login />
-              </LoginRoute>
+             // </LoginRoute>
             }
           />
           <Route
             path="login/info"
             element={
-              <LoginRoute>
+             // <LoginRoute>
                 <LoginInfo />
-              </LoginRoute>
+             // </LoginRoute>
             }
           />
           <Route
             path="/club/*"
             element={
-              <AuthRoute>
+            //  <AuthRoute>
                 <Club />
-              </AuthRoute>
+           //   </AuthRoute>
             }
           />
           <Route path="*" element={<Navigate replace to="/" />} />
@@ -48,9 +49,9 @@ const App = () => {
           <Route
             path="/clubList/*"
             element={
-              <AuthRoute>
+           //   <AuthRoute>
                 <ClubList />
-              </AuthRoute>
+            //  </AuthRoute>
             }
           />
           <Route path="*" element={<Navigate replace to="/" />} />
