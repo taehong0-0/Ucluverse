@@ -81,6 +81,7 @@ const Club = (): ReactElement => {
           <ClubHeader
             title={club?.name ?? ''}
             hashtags={club?.clubCategories ?? []}
+            clubId={clubId}
           />
           <div style={{ display: 'flex' }}>
             <ClubSideBar
