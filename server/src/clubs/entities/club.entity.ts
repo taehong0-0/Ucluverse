@@ -10,8 +10,6 @@ import { Posting } from "src/postings/entities/posting.entity";
 import { SubmissionFile, UserClub } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
-
-
 @Entity()
 export class Club extends Common{
     @PrimaryGeneratedColumn()
