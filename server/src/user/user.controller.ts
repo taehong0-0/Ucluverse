@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Post, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Res, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
+import { CreateAnswerDto } from './dto/create-answer.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { SignupClubDto } from './dto/signup-club.dto';
 import { StarClubDto } from './dto/star-club.dto';
@@ -89,4 +90,15 @@ export class UserController {
     async starClub(@Body() starClubDto: StarClubDto, @Res() res){
         res.send(await this.userService.starClub(starClubDto));
     }
+
+    @Post('userClub/answer')
+    async createAnswer(@Body() createAnswerDto: CreateAnswerDto, @Res() res){
+        res.send(await this.userService.createAnswer(createAnswerDto));
+    }
+
+    @Delete('userClub/answer/:answerIdx')
+    async deleteAnswer(@Param('answerIdx') answerIdx: number, @Res() res){
+        res.send(await this.userService.deleteAnswer(answerIdx));
+    }
+
 }

@@ -6,6 +6,7 @@ import { ClubsWithCategoriesAndClubBoardsResDto, ClubResDto } from './dto/club-r
 import { CreateClubBoardDto } from './dto/create-clubBoard.dto';
 import { Club, ClubBoard, ClubCategory } from './entities/club.entity';
 import * as XLSX from 'xlsx'
+import { UserResDto } from 'src/user/dto/user-response.dto';
 
 @Injectable()
 export class ClubsService {
@@ -225,6 +226,44 @@ export class ClubsService {
             XLSX.utils.book_append_sheet(wb, newWorkSheet, 'Users');
             const wbout = XLSX.write(wb, {bookType: "xlsx", type: "base64"});
             return wbout;
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
+    }
+
+    async getClubUsers(clubIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        try {
+            const users = await queryRunner.manager
+                .createQueryBuilder(User, 'user')
+                .select(['user.name', 'user.studentId'])
+                .addSelect('department.name')
+                .addSelect(['userClubs.role'])
+                .leftJoin('user.userClubs' , 'userClubs')
+                .leftJoin('user.department', 'department')
+                .where('userClubs.clubIdx = :clubIdx and userClubs.status = "accepted"', { clubIdx })
+                .getMany();
+
+            const responses = [];
+            users.forEach(user => {
+                const response = {};
+                const roleArr = [];
+                response['name'] = user.name;
+                response['studentId'] = user.studentId;
+                response['department'] = user.department.name;
+                if(user.userClubs !== undefined){
+                    user.userClubs.forEach(userClub => {
+                        roleArr.push(userClub.role);
+                    })
+                    response['role'] = roleArr[0];
+                }else{
+                    response['role'] = '';                    
+                }
+                responses.push(response);
+            })
+            return new UserResDto(responses);
         } catch(e) {
             console.log(e);
         } finally {

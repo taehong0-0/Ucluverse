@@ -13,6 +13,7 @@ export class Form{
     clubIdx: number;
     @OneToOne(() => Club, club => club.form)
     @JoinColumn({
+        name: 'clubIdx',
         referencedColumnName: 'clubIdx',
     })
     club: Club;
