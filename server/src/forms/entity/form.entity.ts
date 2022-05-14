@@ -29,7 +29,9 @@ export class Form{
         referencedColumnName: 'clubIdx',
     })
     club: Club;
-    @OneToMany(() => Question, question => question.form)
+    @OneToMany(() => Question, question => question.form, {
+        cascade: true,
+    })
     questions: Question[];
     @OneToMany(() => SubmissionFile, submissionFile => submissionFile.form)
     submissionFiles: SubmissionFile[];
@@ -53,7 +55,9 @@ export class Question{
     @Column()
     @IsString()
     content: string;
-    @ManyToOne(() => Form, form => form.questions)
+    @ManyToOne(() => Form, form => form.questions, {
+        onDelete: 'CASCADE',
+    })
     @JoinColumn({
         name: 'formIdx',
         referencedColumnName: 'formIdx',

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
 import { Connection } from 'typeorm';
 import { CreateFormDto } from './dto/create-form.dto';
+import { FormResDto } from './dto/response-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
 import { Form, Question } from './entity/form.entity';
 
@@ -18,11 +19,12 @@ export class FormsService {
         try {
             const { clubIdx, notice, questions } = createFormDto;
             const form = new Form(clubIdx, notice);
+            form.questions = [];
+            questions.forEach(question => {
+                const newQuestion: Question = new Question(form, question);
+                form.questions.push(newQuestion);
+            })
             await queryRunner.manager.save(form);
-            const insertQuestions = questions.map(async (question) => {
-               await queryRunner.manager.save(new Question(form, question));
-            });
-            await Promise.all(insertQuestions);
             await queryRunner.commitTransaction();
             return new BaseSuccessResDto();
         } catch(e) {
@@ -35,7 +37,22 @@ export class FormsService {
     }
 
     async getForm(clubIdx: number) {
+        const queryRunner = this.connection.createQueryRunner();
 
+        try {
+            const form = await queryRunner.manager.createQueryBuilder(Form, 'form')
+                .select('form')
+                .addSelect('questions')
+                .leftJoin('form.questions', 'questions')
+                .where('form.clubIdx = :clubIdx', { clubIdx })
+                .getOneOrFail();
+            return new FormResDto(form);
+        } catch(e) {
+            console.log(e);
+            return new BaseFailResDto('신청 양식을 찾을 수 없습니다.');
+        } finally {
+            await queryRunner.release();
+        }
     }
 
     async updateForm(updateFormDto: UpdateFormDto) {
@@ -43,6 +60,6 @@ export class FormsService {
     }
 
     async deleteForm(clubIdx: number) {
-
+        
     }
 }
