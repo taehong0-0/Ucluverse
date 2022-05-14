@@ -1,10 +1,17 @@
 import { IsNumber, IsString } from "class-validator";
-import { Club, Question } from "src/clubs/entities/club.entity";
+import { Club } from "src/clubs/entities/club.entity";
 import { SubmissionFile } from "src/user/entities/user.entity";
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Form{
+    constructor(
+        clubIdx: number,
+        notice: string,
+    ) {
+        this.clubIdx = clubIdx;
+        this.notice = notice;
+    }
     @PrimaryGeneratedColumn()
     @IsNumber()
     formIdx: number;
@@ -18,6 +25,7 @@ export class Form{
     notice: string;
     @OneToOne(() => Club, club => club.form)
     @JoinColumn({
+        name: 'clubIdx',
         referencedColumnName: 'clubIdx',
     })
     club: Club;
@@ -25,4 +33,30 @@ export class Form{
     questions: Question[];
     @OneToMany(() => SubmissionFile, submissionFile => submissionFile.form)
     submissionFiles: SubmissionFile[];
+}
+
+@Entity()
+export class Question{
+    constructor(
+        form: Form,
+        content: string,
+    ) {
+        this.form = form;
+        this.content = content;
+    }
+    @PrimaryGeneratedColumn()
+    @IsNumber()
+    questionIdx: number;
+    @Column()
+    @IsNumber()
+    formIdx: number;
+    @Column()
+    @IsString()
+    content: string;
+    @ManyToOne(() => Form, form => form.questions)
+    @JoinColumn({
+        name: 'formIdx',
+        referencedColumnName: 'formIdx',
+    })
+    form: Form;
 }

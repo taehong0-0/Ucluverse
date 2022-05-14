@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { CreateFormDto } from './dto/create-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
@@ -16,6 +16,11 @@ export class FormsController {
     })
     async createForm(@Body() createFormDto: CreateFormDto) {
         return this.formsService.createForm(createFormDto);
+    }
+
+    @Get('/:clubIdx')
+    async getForm(@Param('clubIdx') clubIdx: number) {
+        return this.formsService.getForm(clubIdx);
     }
 
     @Patch('')

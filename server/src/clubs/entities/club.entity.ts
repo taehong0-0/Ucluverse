@@ -104,21 +104,3 @@ export class ClubCategory {
     })
     club: Club;
 }
-
-@Entity()
-export class Question{
-    @PrimaryGeneratedColumn()
-    @IsNumber()
-    questionIdx: number;
-    @Column()
-    @IsNumber()
-    formIdx: number;
-    @Column()
-    @IsString()
-    content: string;
-    @ManyToOne(() => Form, form => form.questions)
-    @JoinColumn({
-        referencedColumnName: 'formIdx',
-    })
-    form: Form;
-}
