@@ -15,16 +15,16 @@ export class DepartmentsService {
     ){}
 
     async create(CreateDepartmentsDto: CreateDepartmentsDto){
-        const queryrunner = this.connection.createQueryRunner();
         const {name, collegeIdx} = CreateDepartmentsDto;
-        const department = new Department();
-        department.name = name;
-        department.collegeIdx = collegeIdx;
-        const college = await this.collegeService.findCollegeByIdx(collegeIdx);
-        department.college = college;
+        const queryrunner = this.connection.createQueryRunner();
         await queryrunner.connect();
         await queryrunner.startTransaction();
         try{
+            const department = new Department();
+            department.name = name;
+            department.collegeIdx = collegeIdx;
+            const college = await this.collegeService.findCollegeByIdx(collegeIdx);
+            department.college = college;
             await queryrunner.manager.save(department);
             await queryrunner.commitTransaction();
             return new BaseSuccessResDto();
@@ -38,35 +38,47 @@ export class DepartmentsService {
 
     async findAll(){
         const queryRunner = this.connection.createQueryRunner();
-        const departments = await queryRunner.manager.find(Department);
-        return new DepartmentResDto(departments);
+        try {
+            const departments = await queryRunner.manager.find(Department);
+            return new DepartmentResDto(departments);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
     }
 
     async findOne(departmentIdx: number){
         const queryRunner = this.connection.createQueryRunner();
-        const department = await queryRunner.manager.findOne(Department, {
-            where: {
-                departmentIdx: departmentIdx,
-            }
-        });
-        return new DepartmentResDto(department);
+        try {
+            const department = await queryRunner.manager.findOne(Department, {
+                where: {
+                    departmentIdx: departmentIdx,
+                }
+            });
+            return new DepartmentResDto(department);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
     }
     
     async update(departmentIdx: number, updateDepartmentsDto: UpdateDepartmentsDto){
-        const queryRunner = this.connection.createQueryRunner();
         const { name, collegeIdx } = updateDepartmentsDto;
-        const department = await queryRunner.manager.findOne(Department, {
-            where: {
-                departmentIdx: departmentIdx,
-            }
-        })
-        department.name = name;
-        department.collegeIdx = collegeIdx;
-        const college = await this.collegeService.findCollegeByIdx(collegeIdx);
-        department.college = college;
+        const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
+            const department = await queryRunner.manager.findOne(Department, {
+                where: {
+                    departmentIdx: departmentIdx,
+                }
+            })
+            department.name = name;
+            department.collegeIdx = collegeIdx;
+            const college = await this.collegeService.findCollegeByIdx(collegeIdx);
+            department.college = college;
             await queryRunner.manager.save(department);
             await queryRunner.commitTransaction();
             return new BaseSuccessResDto();

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import ActivityBoard from './ActivityBoard/ActivityBoard';
+import AwardBoard from './AwardBoard/AwardBoard';
 import InfoBoard from './InfoBoard/InfoBoard';
 import PostBoard from './PostBoard/PostBoard';
 const posts = [
@@ -52,6 +53,8 @@ const ClubBoard = (props: props): ReactElement => {
     <>
       {boardIdx === 2 ? (
         <InfoBoard />
+      ) : boardIdx === 6 ? (
+        <AwardBoard />
       ) : boardIdx === 3 ? (
         <ActivityBoard />
       ) : (

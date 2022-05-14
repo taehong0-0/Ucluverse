@@ -1,8 +1,11 @@
+import { ApiProperty } from "@nestjs/swagger"
 import { IsNumber } from "class-validator"
 
 export class ChangeUserClubStatusDto{
+    @ApiProperty({ description: '유저 인덱스' })
     @IsNumber()
-    userIdx: number
+    userIdx: number;
+    @ApiProperty({ description: '동아리 인덱스' })
     @IsNumber()
-    clubIdx: number
+    clubIdx: number;
 }

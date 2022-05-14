@@ -50,22 +50,42 @@ export class UserController {
         res.send(await this.userService.findUser(userIdx));
     }
 
+    @Get('userClub/isSignedUp/:userIdx/:clubIdx')
+    @ApiOperation({
+        summary: '유저 아이디와 동아리 아이디를 통해 해당 유저가 이미 동아리에 가입했는지 확인'
+    })
+    async isSignedUp(@Param('userIdx') userIdx: number, @Param('clubIdx') clubIdx: number, @Res() res){
+        res.send(await this.userService.checkIsSignedUp(userIdx, clubIdx));
+    }
+
     @Post('userClub/signup')
+    @ApiOperation({
+        summary: '동아리 신청 API'
+    })
     async signupClub(@Body() signupClubDto: SignupClubDto, @Res() res){
         res.send(await this.userService.signupClub(signupClubDto))
     }
 
     @Post('userClub/accept')
+    @ApiOperation({
+        summary: '동아리 신청 수락 API'
+    })
     async acceptApplication(@Body() ChangeUserClubStatus: ChangeUserClubStatusDto, @Res() res){
         res.send(await this.userService.changeUserClubStatus(ChangeUserClubStatus, "accepted"));
     }
 
     @Post('userClub/reject')
+    @ApiOperation({
+        summary: '동아리 신청 거절 API'
+    })
     async rejectApplication(@Body() ChangeUserClubStatus: ChangeUserClubStatusDto, @Res() res){
         res.send(await this.userService.changeUserClubStatus(ChangeUserClubStatus, "rejected"));
     }
     
     @Post('userClub/star')
+    @ApiOperation({
+        summary: '동아리 찜 API'
+    })
     async starClub(@Body() starClubDto: StarClubDto, @Res() res){
         res.send(await this.userService.starClub(starClubDto));
     }

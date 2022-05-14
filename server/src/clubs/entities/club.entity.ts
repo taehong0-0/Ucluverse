@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNumber, IsOptional, IsString } from "class-validator";
 import { Award } from "src/awards/entity/award.entity";
 import { College } from "src/colleges/entities/college.entity";
@@ -30,6 +31,12 @@ export class Club extends Common{
     @Column({ nullable: true })
     @IsString()
     logoPath: string;
+    @Column({ nullable: true })
+    @IsString()
+    introductionPath: string;
+    @Column({ nullable: true })
+    @IsString()
+    introductionDesc: string;
     @ManyToOne(() => College, college => college.clubs, {
         nullable: true,
     })

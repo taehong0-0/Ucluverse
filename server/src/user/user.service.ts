@@ -15,6 +15,7 @@ import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
 import { StarClubDto } from './dto/star-club.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ConfigService } from '@nestjs/config';
+import { IsSignedUpResDto } from './dto/isSignedUp-res.dto';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()
@@ -115,8 +116,8 @@ export class UserService {
             }
             await queryRunner.commitTransaction();
             return new BaseSuccessResDto();
-        } catch(err) {
-            console.log(err);
+        } catch(e) {
+            console.log(e);
             await queryRunner.rollbackTransaction();
             return new BaseFailResDto('사용자 정보 수정을 실패했습니다.');
         } finally {
@@ -127,52 +128,74 @@ export class UserService {
 
     async findUser(userIdx: number){
         const queryRunner = this.connection.createQueryRunner();
-        const user = await queryRunner.manager.findOne(User, {
-            where: {
-                userIdx: userIdx,
-            },
-            relations: [
-                'profilePhoto'
-            ]
-        });
-        return new UserResDto(user); 
+        try {
+            const user = await queryRunner.manager.createQueryBuilder(User, 'user')
+            .leftJoin('user.profilePhoto', 'profilePhoto')
+            .select(['user', 'profilePhoto.path'])
+            .where('user.userIdx=:userIdx', { userIdx })
+            .getOne();
+            return new UserResDto(user); 
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
     }
 
     async findDuplicateNickname(nickname: string){
         const queryRunner = this.connection.createQueryRunner();
 
-        const user = await queryRunner.manager.findOne(User, {
-            where:{
-                nickname: nickname,
+        try {
+            const user = await queryRunner.manager.findOne(User, {
+                where:{
+                    nickname: nickname,
+                }
+            })
+            if(!user){
+                return false;
             }
-        })
-        if(!user){
-            return false;
+            return true;
+        } catch(error) {
+            console.log(error)
+        } finally {
+            await queryRunner.release();
         }
-        return true;
     }
 
     async findByEmail(email: string): Promise<User> | null {
         const queryRunner = this.connection.createQueryRunner();
-
-        const user = await queryRunner.manager.findOne(User, {
-            where: {
-                email: email,
+        
+        try {
+            const user = await queryRunner.manager.findOne(User, {
+                where: {
+                    email: email,
+                }
+            });
+            if (!user) {
+                return null;
             }
-        });
-        if (!user) {
-            return null;
+            return user;
+        } catch(error) {
+            console.log(error);
+        } finally {
+            await queryRunner.release();
         }
-        return user;
     }
 
     async setCurrentRefreshToken(refreshToken: string, userIdx: number) {
         const queryRunner = this.connection.createQueryRunner();
+        const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
         await queryRunner.connect();
         await queryRunner.startTransaction();
+    
         try {
-            const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
-            await queryRunner.manager.update(User, userIdx, { currentHashedRefreshToken: hashedRefreshToken });
+            const user = await queryRunner.manager.findOne(User, {
+                where: {
+                    userIdx,
+                }
+            });
+            user.currentHashedRefreshToken = hashedRefreshToken;
+            await queryRunner.manager.save(user);
             await queryRunner.commitTransaction();
         } catch(e) {
             console.log(e);
@@ -184,18 +207,25 @@ export class UserService {
 
     async getUserIfRefreshTokenMatches(refreshToken: string, userIdx: number) {
         const queryRunner = this.connection.createQueryRunner();
-        const user = await queryRunner.manager.findOne(User, {
+
+        try{
+            const user = await queryRunner.manager.findOne(User, {
                 where: {
                     userIdx: userIdx,
                 }
-        });
-        const ifRefreshTokenMatches = await bcrypt.compare(
-            refreshToken, user.currentHashedRefreshToken
+            });
+            const ifRefreshTokenMatches = await bcrypt.compare(
+                refreshToken, user.currentHashedRefreshToken
             );
-        if (ifRefreshTokenMatches) {
-            return user;
-        } else {
-            return null;
+            if (ifRefreshTokenMatches) {
+                return user;
+            } else {
+                return null;
+            }
+        } catch(error) {
+            console.log(error);
+        } finally{
+            await queryRunner.release();
         }
     }
 
@@ -204,9 +234,13 @@ export class UserService {
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
-            await queryRunner.manager.update(User, userIdx, {
-                currentHashedRefreshToken: null,
+            const user = await queryRunner.manager.findOne(User, {
+                where:{
+                    userIdx,
+                }
             });
+            user.currentHashedRefreshToken = null;
+            await queryRunner.manager.save(user);
             await queryRunner.commitTransaction();
         }catch(e){
             await queryRunner.rollbackTransaction();
@@ -227,13 +261,19 @@ export class UserService {
 
     async getUserClub(userIdx: number, clubIdx: number){
         const queryRunner = this.connection.createQueryRunner();
-        const userClub = await queryRunner.manager.findOne(UserClub, {
+        try {
+            const userClub = await queryRunner.manager.findOne(UserClub, {
                 where: {
                     userIdx: userIdx,
                     clubIdx: clubIdx,
                 }
-        });
-        return userClub;
+            });
+            return userClub;
+        } catch (e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
     }
 
     async setUserClubStatusWaiting(userClub: UserClub){
@@ -255,25 +295,25 @@ export class UserService {
 
     async applyClub(userIdx: number, clubIdx: number){
         const queryRunner = this.connection.createQueryRunner();
-        const userClub = new UserClub();
-        const club = await queryRunner.manager.findOne(Club, {
-            where: {
-                clubIdx: clubIdx,
-            }
-        });
-        const user = await queryRunner.manager.findOne(User, {
-            where: {
-                userIdx: userIdx,
-            }
-        })
-        userClub.club = club;
-        userClub.user = user;
-        userClub.role = 'applicant';
-        userClub.status = 'waiting';
-        userClub.star = false;
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
+            const userClub = new UserClub();
+            const club = await queryRunner.manager.findOne(Club, {
+                where: {
+                    clubIdx: clubIdx,
+                }
+            });
+            const user = await queryRunner.manager.findOne(User, {
+                where: {
+                    userIdx: userIdx,
+                }
+            })
+            userClub.club = club;
+            userClub.user = user;
+            userClub.role = 'applicant';
+            userClub.status = 'waiting';
+            userClub.star = false;
             await queryRunner.manager.save(userClub);
             await queryRunner.commitTransaction();
             return new BaseSuccessResDto();
@@ -286,10 +326,10 @@ export class UserService {
     }
 
     async changeUserClubStatus(changeUserClubStatus: ChangeUserClubStatusDto, status: string){
-        const queryRunner = this.connection.createQueryRunner();
         const {userIdx, clubIdx} = changeUserClubStatus;
         const userClub = await this.getUserClub(userIdx, clubIdx);
         userClub.status = status;
+        const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
@@ -333,25 +373,25 @@ export class UserService {
 
     async starNewClub(userIdx: number, clubIdx: number){
         const queryRunner = this.connection.createQueryRunner();
-        const userClub = new UserClub();
-        const club = await queryRunner.manager.findOne(Club, {
-            where: {
-                clubIdx: clubIdx,
-            }
-        });
-        const user = await queryRunner.manager.findOne(User, {
-            where: {
-                userIdx: userIdx,
-            }
-        })
-        userClub.club = club;
-        userClub.user = user;
-        userClub.role = null;
-        userClub.status = null;
-        userClub.star = true;
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
+            const userClub = new UserClub();
+            const club = await queryRunner.manager.findOne(Club, {
+                where: {
+                    clubIdx: clubIdx,
+                }
+            });
+            const user = await queryRunner.manager.findOne(User, {
+                where: {
+                    userIdx: userIdx,
+                }
+            })
+            userClub.club = club;
+            userClub.user = user;
+            userClub.role = null;
+            userClub.status = null;
+            userClub.star = true;
             await queryRunner.manager.save(userClub);
             await queryRunner.commitTransaction();
             return new BaseSuccessResDto();
@@ -359,6 +399,28 @@ export class UserService {
             console.log(e);
             await queryRunner.rollbackTransaction();
         }finally{
+            await queryRunner.release();
+        }
+    }
+
+    async checkIsSignedUp(userIdx: number, clubIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        try {
+            const isSignedUp = await queryRunner.manager.findOne(UserClub, {
+                where: {
+                    userIdx: userIdx,
+                    clubIdx: clubIdx,
+                    status: 'accepted',
+                }
+            });
+            if(isSignedUp){
+                return new IsSignedUpResDto(true);
+            } else {
+                return new IsSignedUpResDto(false);
+            }
+        } catch (e) {
+            console.log(e);
+        } finally {
             await queryRunner.release();
         }
     }

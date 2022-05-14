@@ -1,11 +1,12 @@
 export interface UserType {
-  userID: string;
+  userIdx: number;
   name: string;
-  nickName: string | null;
-  studentID: number | null;
-  email: string | null;
-  BDOList: String[] | null;
-  isAdmin: boolean;
-  profileImage: string | null;
-  phoneNumber: string | null;
+  departmentIdx: number;
+  nickname: string;
+  studentId: number;
+  email: string;
+  BDOList?: String[] | null;
+  isAdmin?: boolean;
+  profilePhoto?: string;
+  phoneNumber: string;
 }

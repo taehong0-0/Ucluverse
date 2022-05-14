@@ -10,8 +10,7 @@ export class LikesService {
         private readonly connection: Connection,
     ){}
     async createLike(createLikeDto: CreateLikeDto) {
-        const queryRunner = this.connection.createQueryRunner();
-        
+        const queryRunner = this.connection.createQueryRunner();        
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try {

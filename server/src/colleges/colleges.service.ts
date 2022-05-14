@@ -13,13 +13,13 @@ export class CollegeService {
     ){}
     
     async create(CreateCollegeDto: CreateCollegeDto){
-        const queryrunner = this.connection.createQueryRunner();
         const {name} = CreateCollegeDto;
-        const college = new College();
-        college.name = name;
+        const queryrunner = this.connection.createQueryRunner();
         await queryrunner.connect();
         await queryrunner.startTransaction();
         try{
+            const college = new College();
+            college.name = name;
             await queryrunner.manager.save(college);
             await queryrunner.commitTransaction();
             return new BaseSuccessResDto();
@@ -33,8 +33,14 @@ export class CollegeService {
 
     async findAll(){
         const queryRunner = this.connection.createQueryRunner();
-        const colleges = await queryRunner.manager.find(College);
-        return new CollegeResDto(colleges);
+        try {
+            const colleges = await queryRunner.manager.find(College);
+            return new CollegeResDto(colleges);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
     }
 
     async findOne(collegeIdx: number){
@@ -44,26 +50,32 @@ export class CollegeService {
 
     async findCollegeByIdx(collegeIdx: number){
         const queryRunner = this.connection.createQueryRunner();
-        const college = await queryRunner.manager.findOne(College, {
-            where: {
-                collegeIdx: collegeIdx,
-            }
-        });
-        return college;
+        try{
+            const college = await queryRunner.manager.findOne(College, {
+                where: {
+                    collegeIdx: collegeIdx,
+                }
+            });
+            return college;
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
     }
     
     async update(collegeIdx: number, updateCollegeDto: UpdateCollegeDto){
-        const queryRunner = this.connection.createQueryRunner();
         const { name } = updateCollegeDto;
-        const college = await queryRunner.manager.findOne(College, {
-            where: {
-                collegeIdx: collegeIdx,
-            }
-        })
-        college.name = name;
+        const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try{
+            const college = await queryRunner.manager.findOne(College, {
+                where: {
+                    collegeIdx: collegeIdx,
+                }
+            })
+            college.name = name;
             await queryRunner.manager.save(college);
             await queryRunner.commitTransaction();
             return new BaseSuccessResDto();
