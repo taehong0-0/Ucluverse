@@ -1,12 +1,13 @@
 import { IsBoolean, IsNumber, IsString } from "class-validator";
 import { ClubBoard } from "src/clubs/entities/club.entity";
 import { Comment } from "src/comments/entity/comment.entity";
+import { Common } from "src/commons/entity/common.entity";
 import { Like } from "src/likes/entity/likes.entity";
 import { User } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Posting {
+export class Posting extends Common {
     @PrimaryGeneratedColumn()
     postingIdx: number;
     @Column()

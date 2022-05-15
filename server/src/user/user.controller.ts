@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Res, UseGuards } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
@@ -55,6 +55,9 @@ export class UserController {
     @ApiOperation({
         summary: '유저 아이디와 동아리 아이디를 통해 해당 유저가 이미 동아리에 가입했는지 확인'
     })
+    @ApiOkResponse({
+        type: Boolean,
+    })
     async isSignedUp(@Param('userIdx') userIdx: number, @Param('clubIdx') clubIdx: number, @Res() res){
         res.send(await this.userService.checkIsSignedUp(userIdx, clubIdx));
     }
@@ -62,6 +65,9 @@ export class UserController {
     @Post('userClub/signup')
     @ApiOperation({
         summary: '동아리 신청 API'
+    })
+    @ApiOkResponse({
+        type: Boolean,
     })
     async signupClub(@Body() signupClubDto: SignupClubDto, @Res() res){
         res.send(await this.userService.signupClub(signupClubDto))
@@ -71,6 +77,9 @@ export class UserController {
     @ApiOperation({
         summary: '동아리 신청 수락 API'
     })
+    @ApiOkResponse({
+        type: Boolean,
+    })
     async acceptApplication(@Body() ChangeUserClubStatus: ChangeUserClubStatusDto, @Res() res){
         res.send(await this.userService.changeUserClubStatus(ChangeUserClubStatus, "accepted"));
     }
@@ -78,6 +87,9 @@ export class UserController {
     @Post('userClub/reject')
     @ApiOperation({
         summary: '동아리 신청 거절 API'
+    })
+    @ApiOkResponse({
+        type: Boolean,
     })
     async rejectApplication(@Body() ChangeUserClubStatus: ChangeUserClubStatusDto, @Res() res){
         res.send(await this.userService.changeUserClubStatus(ChangeUserClubStatus, "rejected"));
@@ -87,16 +99,33 @@ export class UserController {
     @ApiOperation({
         summary: '동아리 찜 API'
     })
+    @ApiOkResponse({
+        type: Boolean,
+    })
     async starClub(@Body() starClubDto: StarClubDto, @Res() res){
         res.send(await this.userService.starClub(starClubDto));
     }
 
+    @Get('userClub/applied/:clubIdx')
+    async getAppliedUsers(@Param('clubIdx') clubIdx: number, @Res() res){
+        res.send(await this.userService.getAppliedUsers(clubIdx));
+    } 
+
     @Post('userClub/answer')
+    @ApiOperation({
+        summary: '동아리 신청 폼 질문에 대한 응답 생성 API'
+    })
+    @ApiOkResponse({
+        type: Boolean,
+    })
     async createAnswer(@Body() createAnswerDto: CreateAnswerDto, @Res() res){
         res.send(await this.userService.createAnswer(createAnswerDto));
     }
 
     @Delete('userClub/answer/:answerIdx')
+    @ApiOkResponse({
+        type: Boolean,
+    })
     async deleteAnswer(@Param('answerIdx') answerIdx: number, @Res() res){
         res.send(await this.userService.deleteAnswer(answerIdx));
     }
