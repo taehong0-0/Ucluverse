@@ -10,6 +10,7 @@ import axios from 'axios';
 import AWS from 'aws-sdk';
 import { toast } from 'react-toastify';
 import { AwardPostType } from '../../../../Types/PostType';
+import DropZone from '../../../DropZone/DropZone';
 
 interface Props {
   boardIdx: number;
@@ -159,7 +160,22 @@ const AwardBoard = (props: Props) => {
                   type="midium"
                 ></FloatInput>
                 <span>사진</span>
-                <DropZoneDiv {...getRootProps()}>
+                <DropZone setFile={setFile} setImage={setImage}>
+                  {!image ? (
+                    <img src={fileUploadImg} width="30px" height="27px" />
+                  ) : (
+                    <img
+                      src={image}
+                      style={{
+                        width: '16.5rem',
+                        height: '8.938rem',
+                        marginBottom: '15px',
+                        borderRadius: '5px',
+                      }}
+                    />
+                  )}
+                </DropZone>
+                {/* <DropZoneDiv {...getRootProps()}>
                   <input {...getInputProps()} />
                   {!image ? (
                     <img src={fileUploadImg} width="30px" height="27px" />
@@ -174,7 +190,7 @@ const AwardBoard = (props: Props) => {
                       }}
                     />
                   )}
-                </DropZoneDiv>
+                </DropZoneDiv> */}
               </div>
               <div>
                 <span>내용</span>
