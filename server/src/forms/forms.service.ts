@@ -60,6 +60,25 @@ export class FormsService {
     }
 
     async deleteForm(clubIdx: number) {
-        
+        const queryRunner = this.connection.createQueryRunner();
+
+        await queryRunner.startTransaction();
+        try {
+            const exForm = await queryRunner.manager.findOneByOrFail(Form, {
+                clubIdx: clubIdx,
+            });
+            await queryRunner.manager.delete(Form, {
+                clubIdx: clubIdx,
+            });
+            
+            await queryRunner.commitTransaction();
+            return new BaseSuccessResDto();
+        } catch(e) {
+            console.log(e);
+            await queryRunner.rollbackTransaction();
+            return new BaseFailResDto('신청 양식을 삭제하는 데 실패했습니다');
+        } finally {
+            await queryRunner.release();
+        }
     }
 }

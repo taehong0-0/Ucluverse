@@ -19,6 +19,9 @@ export class FormsController {
     }
 
     @Get('/:clubIdx')
+    @ApiOperation({
+        summary: '신청 폼 불러오기 API',
+    })
     async getForm(@Param('clubIdx') clubIdx: number) {
         return this.formsService.getForm(clubIdx);
     }
