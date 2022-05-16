@@ -7,7 +7,6 @@ import LoginMain from '../../Components/Login/LoginMain';
 const Login = (): ReactElement => {
   return (
     <div>
-      <ToastContainer />
       <Header />
       <LoginMain />
     </div>

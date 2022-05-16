@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ClubListContainer } from './style';
 
 interface props {
@@ -13,41 +14,12 @@ const ClubList = (props: props) => {
       <div>
         {clubList?.map((club) => {
           return (
-            <div
-              onClick={() => {
-                history.pushState(null, '', `/club?clubId=${club.clubIdx}`);
-                window.location.replace(`/club?clubId=${club.clubIdx}`);
-              }}
-            >
-              <img src={club.imgSrc}></img>
-              <span>{club.clubName}</span>
-            </div>
-          );
-        })}
-        {clubList?.map((club) => {
-          return (
-            <div
-              onClick={() => {
-                history.pushState(null, '', `/club?clubId=${club.clubIdx}`);
-                window.location.replace(`/club?clubId=${club.clubIdx}`);
-              }}
-            >
-              <img src={club.imgSrc}></img>
-              <span>{club.clubName}</span>
-            </div>
-          );
-        })}
-        {clubList?.map((club) => {
-          return (
-            <div
-              onClick={() => {
-                history.pushState(null, '', `/club?clubId=${club.clubIdx}`);
-                window.location.replace(`/club?clubId=${club.clubIdx}`);
-              }}
-            >
-              <img src={club.imgSrc}></img>
-              <span>{club.clubName}</span>
-            </div>
+            <Link to={`/club/${club.clubIdx}`}>
+              <div>
+                <img src={club.imgSrc}></img>
+                <span>{club.name}</span>
+              </div>
+            </Link>
           );
         })}
       </div>

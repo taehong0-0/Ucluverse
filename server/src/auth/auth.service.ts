@@ -16,9 +16,10 @@ export class AuthService {
 
     async isLogin(cookies: any) {
         if(cookies.Refresh) {
-            const payload: any = this.decodeAccessToken(cookies.Refresh);
+            const payload: any = this.decodeToken(cookies.Refresh);
             const userIdx = payload.userIdx;
             const user = await this.userService.findUser(userIdx);
+
             return {
                 status: 1,
                 user: user.res.user,
@@ -33,7 +34,6 @@ export class AuthService {
 
     checkIfDomainIsAjou(email: string): boolean {
         const domain = email.split('@')[1];
-        console.log(3);
         if (domain !== 'ajou.ac.kr') {
             return false;
         }
@@ -41,16 +41,11 @@ export class AuthService {
     }
 
     async checkIfUserExists(email: string): Promise<any> {
-        console.log(2);
         const checkDomain: boolean = this.checkIfDomainIsAjou(email);
-        console.log(4);
         if (!checkDomain) {
             return new LoginResponseDto(0, '아주대 도메인 아님', null, null);
         } else {
-            console.log(5);
             const user = await this.userService.findByEmail(email);
-            console.log(6);
-            console.log(user);
             if (!user) {
                 return new LoginResponseDto(1, '사용자가 DB에 존재하지 않음.(최초 사용자임.)', email, null);
             } else {
@@ -60,17 +55,16 @@ export class AuthService {
     }
 
     async googleLogin(email: string) {
-        console.log(1);
         const result = await this.checkIfUserExists(email);
         if (result.status == 2) {
             const { 
-                access, 
+                access,
                 refresh,
-            } = await this.getTokens(result.userIdx);
+            } = await this.getTokens(result.user.userIdx);
             return { 
                 access, 
-                refresh, 
-                result 
+                refresh,
+                result
             };
         } else {
             return { 
@@ -79,7 +73,7 @@ export class AuthService {
         }
     }
 
-    decodeAccessToken(accessToken: string) {
+    decodeToken(accessToken: string) {
         const decodedAccessToken: any = this.jwtService.decode(accessToken);
         return decodedAccessToken;
     }

@@ -1,4 +1,9 @@
-import React, { MouseEventHandler, ReactElement, useRef } from 'react';
+import React, {
+  MouseEventHandler,
+  ReactElement,
+  useEffect,
+  useRef,
+} from 'react';
 import { Link } from 'react-router-dom';
 import { ActivityContainer } from './style';
 import leftArrowImg from '../../../Assets/left-arrow.png';
@@ -10,13 +15,9 @@ import test3 from '../../../Assets/test3.jpeg';
 import test4 from '../../../Assets/test4.jpeg';
 import test5 from '../../../Assets/test5.jpeg';
 import Slider from 'react-slick';
-interface props {
-  datas: data[];
-}
-interface data {
-  src: string;
-  postNum: number;
-}
+import { ActivityPostType } from '../../../Types/PostType';
+import { useState } from 'react';
+
 interface buttonProps {
   className?: string;
   style?: object;
@@ -52,6 +53,12 @@ const NextArrow = (props: buttonProps) => {
   );
 };
 const MainActivity = (): ReactElement => {
+  const [activityList, setActivityList] = useState<ActivityPostType[]>([]);
+  useEffect(() => {
+    // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
+    //   setActivityList(res.data);
+    // });
+  }, []);
   const settings = {
     dots: true,
     infinite: true,

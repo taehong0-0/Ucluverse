@@ -3,6 +3,9 @@ import { useState } from 'react';
 import ClubCategory from '../Category/ClubCategory';
 import ClubList from '../ClubList/ClubList';
 import { ClubBodyContainer } from './style';
+import { ClubType } from '../../../Types/ClubType';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 interface departmentCategoryType {
   [index: string]: string[];
@@ -13,7 +16,6 @@ interface departmentCategoryType {
   경영대학: string[];
   인문대학: string[];
   사회과학대학: string[];
-
   간호대학: string[];
   약학대학: string[];
 }
@@ -122,6 +124,16 @@ const clubList: any[] = [
 const DepartmentBody = () => {
   const [collegeCategory, setCollegeCategory] = useState<string>('');
   const [departmentCategory, setDepartmentCategory] = useState<string>('');
+  const [departmentClubList, setDepartmentClubList] = useState<ClubType[]>([]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/clubs/department`)
+      .then((res) => {
+        setDepartmentClubList(res.data);
+        console.log(res.data.res);
+      });
+  }, []);
   const clickCollegeCategory = (category: string) => {
     if (collegeCategory === category) {
       setCollegeCategory('');
@@ -158,9 +170,7 @@ const DepartmentBody = () => {
       {collegeCategory !== '' && departmentCategory !== '' && (
         <ClubList
           clubList={clubList.filter(
-            (club) =>
-              club.college === collegeCategory &&
-              club.department === departmentCategory,
+            (club) => club.department === departmentCategory,
           )}
         />
       )}

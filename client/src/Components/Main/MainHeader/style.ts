@@ -15,7 +15,8 @@ export const MainHeaderDiv = styled.div`
   .content {
     z-index: 999;
     .main-header {
-      width: 27vw;
+      //width : 27vw;
+      width: 350px;
     }
     span {
       top: 14.688rem;
@@ -38,7 +39,8 @@ export const MainHeaderDiv = styled.div`
 
 export const SearchBarDiv = styled.div`
   display: flex;
-  width: 36vw;
+  /* width: 36vw; */
+  width : 468px;
   height: 2.813rem;
   margin-top: 2.813rem;
   opacity: 1;
@@ -48,7 +50,9 @@ export const SearchBarDiv = styled.div`
   opacity: 1;
   overflow: hidden;
   input {
-    width: 33vw;
+    width: 405px;
+    font: normal normal normal 14px Noto Sans KR;
+    letter-spacing : -0.75px;
     height: 2.813rem;
     border: none;
     text-indent: 1.25rem;
@@ -58,7 +62,7 @@ export const SearchBarDiv = styled.div`
   }
   button {
     cursor: pointer;
-    width: 5vw;
+    width : 63px;
     background-color: #a45de2;
     border: none;
     img {

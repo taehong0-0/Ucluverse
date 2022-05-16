@@ -10,6 +10,9 @@ import AuthRoute from './Routes/AuthRoute';
 import LoginRoute from './Routes/LoginRoute';
 import banner from './Assets/띠배너.png';
 import footer from './Assets/Footer.png';
+import { ToastContainer } from 'react-toastify';
+import ClubAdmin from './Pages/Admin/ClubAdmin';
+import './styles/App.css'; // 초기값 css
 
 axios.defaults.withCredentials = true;
 
@@ -17,39 +20,47 @@ const App = () => {
   return (
     <>
       <Suspense fallback={<span>로딩중</span>}>
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route
             path="/login"
             element={
-              <LoginRoute>
-                <Login />
-              </LoginRoute>
+              // <LoginRoute>
+              <Login />
+              // </LoginRoute>
             }
           />
           <Route
             path="login/info"
             element={
-              <LoginRoute>
-                <LoginInfo />
-              </LoginRoute>
+              // <LoginRoute>
+              <LoginInfo />
+              // </LoginRoute>
             }
           />
           <Route
-            path="/club/*"
+            path="/club/:id/*"
             element={
-              <AuthRoute>
-                <Club />
-              </AuthRoute>
+              //  <AuthRoute>
+              <Club />
+              //   </AuthRoute>
             }
           />
           <Route path="*" element={<Navigate replace to="/" />} />
-
           <Route
             path="/clubList/*"
             element={
+              //   <AuthRoute>
+              <ClubList />
+              //  </AuthRoute>
+            }
+          />
+          <Route
+            path="/admin/:id"
+            element={
               <AuthRoute>
-                <ClubList />
+                <ClubAdmin />
               </AuthRoute>
             }
           />
@@ -57,13 +68,13 @@ const App = () => {
         </Routes>
         <img
           src={banner}
-          style={{ width: '100vw', cursor: 'pointer' }}
+          style={{ width: '100%', cursor: 'pointer' }}
           onClick={() => {
             history.pushState(null, '', '/');
             window.location.replace('/');
           }}
         />
-        <img src={footer} style={{ width: '100vw' }} />
+        <img src={footer} style={{ width: '100%' }} />
       </Suspense>
     </>
   );
