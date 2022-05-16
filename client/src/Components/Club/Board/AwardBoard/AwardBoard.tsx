@@ -13,10 +13,10 @@ import { AwardPostType } from '../../../../Types/PostType';
 import DropZone from '../../../DropZone/DropZone';
 
 interface Props {
-  boardIdx: number;
+  clubId: number;
 }
 const AwardBoard = (props: Props) => {
-  const { boardIdx } = props;
+  const { clubId } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const awardNameRef = useRef<HTMLInputElement>(null);
@@ -100,7 +100,7 @@ const AwardBoard = (props: Props) => {
   };
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/awards/${boardIdx}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/awards/club/${clubId}`)
       .then((res) => {
         console.log(res);
         // setAwardPosts(res.data.res)
