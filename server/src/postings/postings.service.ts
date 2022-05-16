@@ -103,15 +103,15 @@ export class PostingsService {
         const queryRunner = this.connection.createQueryRunner();
         try {
             const postings = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
-            .select(['posting.postingIdx','posting.title'])
-            .addSelect('clubBoard.name')
-            .addSelect('user.name')
-            .addSelect('images.path')
-            .leftJoin('posting.user', 'user')
-            .leftJoin('posting.clubBoard', 'clubBoard')
-            .leftJoin('posting.images', 'images')
-            .where('clubBoard.clubIdx = :clubIdx', { clubIdx })
-            .getMany()
+                .select(['posting.postingIdx','posting.title'])
+                .addSelect('clubBoard.name')
+                .addSelect('user.name')
+                .addSelect('images.path')
+                .leftJoin('posting.user', 'user')
+                .leftJoin('posting.clubBoard', 'clubBoard')
+                .leftJoin('posting.images', 'images')
+                .where('clubBoard.clubIdx = :clubIdx', { clubIdx })
+                .getMany()
             const responses = [];
             postings.forEach(posting => {
                 const response = {};
@@ -141,18 +141,36 @@ export class PostingsService {
     async getAllPostings(boardName: string){
         const queryRunner = this.connection.createQueryRunner();
         try {
-            const postings = await queryRunner.manager.find(Posting, {
-                relations:[
-                    'clubBoard',
-                    'images',
-                    'comments',
-                    'likes',
-                ],
-                where:{
-                    clubBoard: { name: boardName },
-                },
-            })
-            return new PostingResDto(postings);
+            const postings = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
+                .select(['posting.postingIdx','posting.title'])
+                .addSelect('clubBoard.name')
+                .addSelect('user.name')
+                .addSelect('images.path')
+                .leftJoin('posting.user', 'user')
+                .leftJoin('posting.clubBoard', 'clubBoard')
+                .leftJoin('posting.images', 'images')
+                .where('clubBoard.name = :boardName', { boardName })
+                .getMany()
+            const responses = [];
+            postings.forEach(posting => {
+                const response = {};
+                const imageArr = [];
+                response['posingIdx'] = posting.postingIdx;
+                response['title'] = posting.title;
+                response['author'] = posting.user.name;
+                response['type'] = posting.clubBoard.name;
+                
+                posting.images.forEach(image => {
+                    imageArr.push(image.path);            
+                });
+                if(imageArr.length > 0){
+                    response['path'] = imageArr[0];
+                } else {
+                    response['path'] = '';
+                }
+                responses.push(response);
+            });
+            return new PostingResDto(responses);
         } catch(e) {
             console.log(e);
         } finally {
