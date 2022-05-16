@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { ClubContainer, ImgContainer } from './style';
 import titleImg from '../../../Assets/활동 우수 동아리.png';
 import test1 from '../../../Assets/test1.jpeg';
@@ -7,7 +7,16 @@ import test3 from '../../../Assets/test3.jpeg';
 import test4 from '../../../Assets/test4.jpeg';
 import test5 from '../../../Assets/test5.jpeg';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { ClubType } from '../../../Types/ClubType';
 const MainGreatClub = (): ReactElement => {
+  const [greatList, setGreateList] = useState<ClubType[]>([]);
+  useEffect(() => {
+    // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
+    //   setGreateList(res.data);
+    // });
+  }, []);
+
   return (
     <ClubContainer>
       <img src={titleImg} className="title" />

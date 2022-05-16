@@ -4,6 +4,10 @@ import { MainBoardContainerDiv } from './style';
 import noticeImg from '../../../Assets/공지사항.png';
 import FAQImg from '../../../Assets/FAQ.png';
 import popularImg from '../../../Assets/인기게시판.png';
+import { useState } from 'react';
+import { PostTitleType } from '../../../Types/PostType';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 //테스트용 더미데이터
 const posts = [
@@ -16,6 +20,16 @@ const posts = [
 
 const MainBoardContainer = (): ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [noticeList, setNoticeList] = useState<PostTitleType[]>([]);
+  const [FAQList, setFAQList] = useState<PostTitleType[]>([]);
+  useEffect(() => {
+    // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
+    //   setNoticeList(res.data);
+    // });
+    // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
+    //   setFAQList(res.data);
+    // });
+  }, []);
   return (
     <MainBoardContainerDiv>
       <MainBoard imgURL={popularImg} posts={posts} />

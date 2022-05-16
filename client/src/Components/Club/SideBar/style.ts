@@ -163,7 +163,9 @@ export const BoardContainer = styled.div`
     }
     a {
       margin-left: 1rem;
+      display: table;
       .board-name {
+        display: table-row;
         height: 1.375rem;
         font: normal normal 300 18px/1.5rem Noto Sans KR;
         letter-spacing: -1.35px;

@@ -1,16 +1,17 @@
-import React, { ReactElement, useRef } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { AwardContainer, AwardDiv } from './style';
 import awardHeaderImg from '../../../Assets/수상내역.png';
 import Slider from 'react-slick';
 import testImg from '../../../Assets/test4.jpeg';
-interface Award {
-  img: string;
-  title: string;
-  award: string;
-  clubName: string;
-}
+import { AwardPostType } from '../../../Types/PostType';
 
 const MainAward = (): ReactElement => {
+  const [awardList, setAwardList] = useState<AwardPostType[]>([]);
+  useEffect(() => {
+    // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
+    //   setAwardList(res.data);
+    // });
+  }, []);
   const settings = {
     dots: false,
     infinite: true,
