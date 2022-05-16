@@ -163,18 +163,61 @@ export class PostingsService {
     async getPostingByPostingIdx(postingIdx: number){
         const queryRunner = this.connection.createQueryRunner();
         try {
-            const posting = await queryRunner.manager.findOne(Posting, {
-                where:{
-                    postingIdx: postingIdx,
-                },
-                relations:[
-                    'clubBoard',
-                    'images',
-                    'comments',
-                    'likes',
-                ]
-            });
-            return new PostingResDto(posting);
+            const posting = await queryRunner.manager
+                .createQueryBuilder(Posting, 'posting')
+                .select(['posting.postingIdx','posting.title', 'posting.content','posting.createdAt','posting.allowComments','posting.isPublic'])
+                .addSelect(['images.imageIdx', 'images.path'])
+                .addSelect(['attachedFiles.attachedFileIdx','attachedFiles.path'])
+                .addSelect(['comments.commentIdx','comments.userIdx','comments.content'])
+                .addSelect(['likes.likeIdx','likes.userIdx'])
+                .leftJoin('posting.attachedFiles' , 'attachedFiles')
+                .leftJoin('posting.images' , 'images')
+                .leftJoin('posting.comments', 'comments')
+                .leftJoin('posting.likes', 'likes')
+                .where('posting.postingIdx = :postingIdx', { postingIdx })
+                .getOne();
+
+                const response = {};
+                const imageArr = [];
+                const attachedFileArr = [];
+                const likeArr = [];
+                const commentArr = [];
+                posting.images.forEach(image => {
+                    const imageRes = {};
+                    imageRes['imageIdx'] = image.imageIdx;
+                    imageRes['imagePath'] = image.path;
+                    imageArr.push(imageRes);
+                });
+                posting.attachedFiles.forEach(attachedFile => {
+                    const attachedFileRes = {};
+                    attachedFileRes['attachedFileIdx'] = attachedFile.attachedFileIdx;
+                    attachedFileRes['attachedFilePath'] = attachedFile.path;
+                    attachedFileArr.push(attachedFileRes);
+                });
+                posting.likes.forEach(like => {
+                    const likeRes = {};
+                    likeRes['likeIdx'] = like.likeIdx;
+                    likeRes['userIdx'] = like.userIdx;
+                    likeArr.push(likeRes);
+                });
+                posting.comments.forEach(comment => {
+                    const commentRes = {};
+                    commentRes['commentIdx'] = comment.commentIdx;
+                    commentRes['userIdx'] = comment.userIdx;
+                    commentRes['content'] = comment.content;
+                    commentArr.push(commentRes);
+                });
+                response['postingIdx'] = posting.postingIdx;
+                response['title'] = posting.title;
+                response['content'] = posting.content;
+                response['createdAt'] = posting.createdAt;
+                response['allowComments'] = posting.allowComments;
+                response['isPublic'] = posting.isPublic;
+                response['images'] = imageArr;
+                response['attachedFiles'] = attachedFileArr;
+                response['likes'] = likeArr;
+                response['comments'] = commentArr;
+            return new PostingResDto(response);
         } catch(e) {
             console.log(e);
         } finally {

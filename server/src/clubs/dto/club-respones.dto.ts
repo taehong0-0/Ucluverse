@@ -12,10 +12,6 @@ export class ClubResDto extends BaseSuccessResDto{
     clubs: any;
 }
 
-
-class test {
-
-}
 export class ClubsWithCategoriesAndClubBoardsResDto extends BaseSuccessResDto {
     constructor(clubs: any) {
         super();
