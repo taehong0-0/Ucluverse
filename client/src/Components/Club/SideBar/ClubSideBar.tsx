@@ -97,6 +97,11 @@ const ClubSideBar = (props: props): ReactElement => {
           ))}
         </div>
       </BoardContainer>
+      {!user.BDOList?.includes(clubId) && (
+        <Link to={`/admin/${clubId}`}>
+          <button>어드민페이지</button>
+        </Link>
+      )}
       {isOpen && (
         <div className="modal-background">
           <div className="modal" ref={modalRef}>
