@@ -9,16 +9,30 @@ export const HeaderContainer = styled.div`
   vertical-align: middle;
   align-items: center;
   justify-content: space-between;
+  button {
+    padding : 0;
+  }
+
+  @media (max-width : 960px) {
+    width : 30rem;
+  }
 `;
 export const HeaderLinkContainer = styled.div`
-  width: 28vw;
+  width: 303px;
+  margin-left : 1.15rem;
   display: flex;
   justify-content: space-between;
   button {
-    margin-right: 2.813rem;
+    padding : 0;
+    /* margin-right: 60px;
     &:last-child {
       margin-right: 0px;
-    }
+    } */
+  }
+
+  @media (max-width : 960px) {
+    width : 100%;
+    margin : 0 2rem 0 2.813rem;
   }
 `;
 export const UserInfoContainer = styled.div`

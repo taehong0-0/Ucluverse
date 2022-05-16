@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNumber, IsOptional, IsString } from "class-validator";
 import { Award } from "src/awards/entity/award.entity";
 import { College } from "src/colleges/entities/college.entity";
@@ -6,7 +7,7 @@ import { Department } from "src/departments/entities/department.entity";
 import { Form } from "src/forms/entity/form.entity";
 import { Poster } from "src/posters/entities/poster.entity";
 import { Posting } from "src/postings/entities/posting.entity";
-import { SubmissionFile, UserClub } from "src/user/entities/user.entity";
+import { Answer, SubmissionFile, UserClub } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -30,6 +31,12 @@ export class Club extends Common{
     @Column({ nullable: true })
     @IsString()
     logoPath: string;
+    @Column({ nullable: true })
+    @IsString()
+    introductionPath: string;
+    @Column({ nullable: true })
+    @IsString()
+    introductionDesc: string;
     @ManyToOne(() => College, college => college.clubs, {
         nullable: true,
     })
@@ -111,7 +118,10 @@ export class Question{
     content: string;
     @ManyToOne(() => Form, form => form.questions)
     @JoinColumn({
+        name: 'formIdx',
         referencedColumnName: 'formIdx',
     })
     form: Form;
+    @OneToMany(() => Answer, answer => answer.question)
+    answers: Answer[];
 }

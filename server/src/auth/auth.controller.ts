@@ -56,7 +56,7 @@ export class AuthController {
     })
     @UseGuards(JwtRefreshGuard)
     refreshAccessToken(@Req() req: Request, @Res() res: Response) {
-        const { userIdx } = this.authService.decodeAccessToken(req.cookies.Authentication);
+        const { userIdx } = this.authService.decodeToken(req.cookies.Authentication);
         const { accessToken, ...accessOption } = this.authService.getCookieWithJwtAccessToken(userIdx); 
         res.cookie('Authentication', accessToken, accessOption);
         res.send({
@@ -70,7 +70,7 @@ export class AuthController {
     })
     @UseGuards(JwtRefreshGuard)
     logout(@Req() req: Request, @Res() res: Response) {
-        const { userIdx } = this.authService.decodeAccessToken(req.cookies.Authentication);
+        const { userIdx } = this.authService.decodeToken(req.cookies.Refresh);
         this.userService.removeRefreshToken(userIdx);
         res.clearCookie('Authentication',{
             domain: ".ucluverse.com"
