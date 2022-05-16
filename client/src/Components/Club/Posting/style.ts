@@ -3,7 +3,7 @@ import { BoardStyle } from '../Board/style';
 
 export const PostingContainer = styled.div`
   ${BoardStyle}
-  div:first-child {
+  &>div:nth-of-type(2) {
     margin-left: 1.25rem;
   }
   button {

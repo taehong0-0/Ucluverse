@@ -21,16 +21,19 @@ export const ClubListContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
-    & > div {
-      margin-right: 24px;
-      display: flex;
-      flex-direction: column;
-      img {
-        width: 226px;
-        height: 150px;
-        border-radius: 5px;
+    a {
+      div {
+        margin-right: 24px;
+        display: flex;
+        flex-direction: column;
+        img {
+          width: 226px;
+          height: 150px;
+          border-radius: 5px;
+        }
       }
     }
+
     &::-webkit-scrollbar {
       width: 3px;
       height: 3px;
@@ -43,6 +46,18 @@ export const ClubListContainer = styled.div`
       background: #fff 0% 0% no-repeat padding-box;
       border-radius: 1.25rem;
       opacity: 1;
+    }
+    a:link {
+      text-decoration: none;
+    }
+    a:visited {
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+    a:active {
+      text-decoration: none;
     }
   }
 `;

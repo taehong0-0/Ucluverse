@@ -1,28 +1,73 @@
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { PostTitleType } from '../../../../Types/PostType';
 import Button from '../../../Button/Button';
 import PostTitle from '../../Post/Title/PostTitle';
 import { ClubBoardContainer } from './style';
 
+const posts = [
+  {
+    title: '공지사항',
+    author: '작성자다',
+    type: '공지사항',
+    date: '04.12',
+    postId: 1,
+  },
+  {
+    title: '일반 포스트다',
+    author: '작성자다',
+    type: '일반 포스트다',
+    date: '04.12',
+    postId: 2,
+  },
+  {
+    title: '일반 포스트다',
+    author: '작성자다',
+    type: '일반 포스트다',
+    date: '04.12',
+    postId: 3,
+  },
+  {
+    title: '일반 포스트다',
+    author: '작성자다',
+    type: '일반 포스트다',
+    date: '04.12',
+    postId: 4,
+  },
+  {
+    title: '일반 포스트다',
+    author: '작성자다',
+    type: '일반 포스트다',
+    date: '04.12',
+    postId: 5,
+  },
+];
 interface props {
-  posts: post[];
-}
-interface post {
-  title: string;
-  author: string;
-  type: string;
-  date: string;
-  postId: number;
+  boardIdx: number;
+  clubId: number;
+  boardName: string;
 }
 const PostBoard = (props: props) => {
-  const { posts } = props;
-
+  const { boardIdx, clubId, boardName } = props;
+  const [postList, setPostList] = useState<PostTitleType[]>([]);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`)
+      .then((res) => {
+        console.log(res);
+        console.log(boardIdx);
+        setPostList(res.data);
+      });
+  }, [boardIdx]);
   return (
     <ClubBoardContainer>
       <div>
         <div className="navigator">
           <span>Home</span>
           <span>{'>'}</span>
-          <span>게시판 이름</span>
+          <span>{boardName}</span>
         </div>
         {posts.map((post) => (
           <PostTitle
@@ -34,9 +79,19 @@ const PostBoard = (props: props) => {
           ></PostTitle>
         ))}
       </div>
-      <Link to="/club/posting">
-        <Button name="글작성" clickEvent={() => {}}></Button>
-      </Link>
+      {boardName !== '전체게시판' && (
+        <Button
+          name="글작성"
+          clickEvent={() => {
+            window.history.pushState(
+              { boardIdx, boardName },
+              '',
+              `/club/${clubId}/posting`,
+            );
+            window.location.href = `/club/${clubId}/posting`;
+          }}
+        ></Button>
+      )}
     </ClubBoardContainer>
   );
 };

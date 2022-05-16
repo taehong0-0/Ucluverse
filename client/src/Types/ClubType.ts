@@ -1,29 +1,13 @@
-export interface Club {
+export interface ClubType {
   clubIdx: number;
   name: string;
-  categoryList: string[];
-  collegeIdx: number | null;
-  departmentIdx: number | null;
+  clubCategories: string[];
+  department: string | null;
   clubType: string;
-  logoPath: string;
+  logoPath: string | null;
   boardList: Board[];
+  introductionPath: string;
+  introductionDesc: string;
 }
 
-export interface Board {
-  clubBoardIdx: number;
-  boardName: string;
-}
-
-export interface ClubAward {
-  clubName: string;
-  clubIdx: number;
-  competitionName: string;
-  awardName: string;
-  path: string;
-  content: string;
-}
-
-export interface ClubInfoWithPhoto {
-  clubIdx: number;
-  path: string;
-}
+type Board = { [key in string]: number };
