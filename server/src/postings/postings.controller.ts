@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreatePostingDto } from './dto/create-posting.dto';
@@ -39,11 +39,11 @@ export class PostingsController {
         res.send(await this.postingsService.getEntirePostingsByClub(clubIdx));
     }
     
-    @Get('main/:boardName')
+    @Get('main')
     @ApiOperation({
         summary: '메인 페이지 게시판 이름에 대한 게시물 불러오기 API',
     })         
-    async getAllActivityPostings(@Param('boardName') boardName: string, @Res() res){
+    async getAllPostings(@Query('boardName') boardName: string, @Res() res){
         res.send(await this.postingsService.getAllPostings(boardName));
     }
 
