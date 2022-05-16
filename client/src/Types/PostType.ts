@@ -27,7 +27,7 @@ export interface ActivityPostType {
 export interface PostType {
   title: string;
   author: string;
-  data: string;
+  createAt: string;
   posdId: number;
   content: string;
   isLike: boolean;

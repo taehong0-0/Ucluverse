@@ -4,7 +4,7 @@ export interface ClubType {
   clubCategories: string[];
   department: string | null;
   clubType: string;
-  logoPath: string;
+  logoPath: string | null;
   boardList: Board[];
   introductionPath: string;
   introductionDesc: string;
