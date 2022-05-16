@@ -11,6 +11,7 @@ import LoginRoute from './Routes/LoginRoute';
 import banner from './Assets/띠배너.png';
 import footer from './Assets/Footer.png';
 import { ToastContainer } from 'react-toastify';
+import ClubAdmin from './Pages/Admin/ClubAdmin';
 
 axios.defaults.withCredentials = true;
 
@@ -46,7 +47,6 @@ const App = () => {
             }
           />
           <Route path="*" element={<Navigate replace to="/" />} />
-
           <Route
             path="/clubList/*"
             element={
@@ -55,17 +55,25 @@ const App = () => {
               </AuthRoute>
             }
           />
+          <Route
+            path="/admin/:id"
+            element={
+              <AuthRoute>
+                <ClubAdmin />
+              </AuthRoute>
+            }
+          />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
         <img
           src={banner}
-          style={{ width: '100vw', cursor: 'pointer' }}
+          style={{ width: '100%', cursor: 'pointer' }}
           onClick={() => {
             history.pushState(null, '', '/');
             window.location.replace('/');
           }}
         />
-        <img src={footer} style={{ width: '100vw' }} />
+        <img src={footer} style={{ width: '100%' }} />
       </Suspense>
     </>
   );
