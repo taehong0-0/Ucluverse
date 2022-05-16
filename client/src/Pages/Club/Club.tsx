@@ -19,10 +19,10 @@ const AboutList = [
   '전체 게시판',
   '공지사항',
   '동아리 소개',
-  '활동게시판',
-  '수상게시판',
+  '활동 게시판',
+  '수상 게시판',
 ];
-const CommunicationList = ['자유게시판', 'QNA 게시판'];
+const CommunicationList = ['자유 게시판', 'QNA 게시판'];
 const AboutBoardList = [
   { name: '전체 게시글', boardId: 0 },
   { name: '공지사항', boardId: 1 },

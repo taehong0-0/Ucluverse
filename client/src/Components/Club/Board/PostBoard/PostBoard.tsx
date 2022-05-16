@@ -53,13 +53,27 @@ const PostBoard = (props: props) => {
   const { boardIdx, clubId, boardName } = props;
   const [postList, setPostList] = useState<PostTitleType[]>([]);
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`)
-      .then((res) => {
-        console.log(res);
-        console.log(boardIdx);
-        setPostList(res.data);
-      });
+    if (boardName === '전체 게시판') {
+      axios
+        .get(
+          `${process.env.REACT_APP_SERVER_URL}/postings/club/entire/${boardIdx}`,
+        )
+        .then((res) => {
+          console.log(res);
+          console.log(boardIdx);
+          setPostList(res.data);
+        });
+    } else {
+      axios
+        .get(
+          `${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`,
+        )
+        .then((res) => {
+          console.log(res);
+          console.log(boardIdx);
+          setPostList(res.data);
+        });
+    }
   }, [boardIdx]);
   return (
     <ClubBoardContainer>
