@@ -142,8 +142,8 @@ export class PostingsService {
         const queryRunner = this.connection.createQueryRunner();
         try {
             const postings = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
-                .select(['posting.postingIdx','posting.title'])
-                .addSelect('clubBoard.name')
+                .select(['posting.postingIdx','posting.title', 'posting.createdAt', 'posting.updatedAt'])
+                .addSelect(['clubBoard.name', 'clubBoard.clubIdx'])
                 .addSelect('user.name')
                 .addSelect('images.path')
                 .leftJoin('posting.user', 'user')
@@ -157,8 +157,11 @@ export class PostingsService {
                 const imageArr = [];
                 response['posingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
+                response['clubIdx'] = posting.clubBoard.clubIdx;
                 response['author'] = posting.user.name;
                 response['type'] = posting.clubBoard.name;
+                response['updatedAt'] = posting.updatedAt;
+                response['createdAt'] = posting.createdAt;
                 
                 posting.images.forEach(image => {
                     imageArr.push(image.path);            
