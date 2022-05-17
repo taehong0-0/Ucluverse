@@ -6,7 +6,7 @@ import { BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Connection, In } from 'typeorm';
 import { CreatePostingDto } from './dto/create-posting.dto';
-import { CreatePostingResDto, PostingResDto } from './dto/postings-response.dto';
+import { CreatePostingResDto, PostingResDto, PostingCountResDto } from './dto/postings-response.dto';
 import { UpdatePostingDto } from './dto/update-posting.dto';
 import { AttachedFile, Image, Posting } from './entities/posting.entity';
 
@@ -315,6 +315,24 @@ export class PostingsService {
             console.log(error);
             await queryRunner.rollbackTransaction();
             return new BaseFailResDto('게시물 삭제에 실패했습니다.');
+        } finally {
+            await queryRunner.release();
+        }
+    }
+
+    async getCountOfClubBoard(clubBoardIdx: number) {
+        const queryRunner = this.connection.createQueryRunner();
+
+        try {
+            const postingCount: number = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
+            .select('posting.postingIdx')
+            .where('posting.clubBoardIdx = :clubBoardIdx', { clubBoardIdx: clubBoardIdx })
+            .getCount();
+
+            return new PostingCountResDto(postingCount);
+        } catch(e) {
+            console.log(e);
+            return new BaseFailResDto('동아리 게시판의 총 게시물 수를 가져오는 데 실패했습니다.');
         } finally {
             await queryRunner.release();
         }

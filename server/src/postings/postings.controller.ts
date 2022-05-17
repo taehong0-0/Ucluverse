@@ -1,8 +1,9 @@
 
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreatePostingDto } from './dto/create-posting.dto';
+import { PostingCountResDto } from './dto/postings-response.dto';
 import { UpdatePostingDto } from './dto/update-posting.dto';
 import { PostingsService } from './postings.service';
 
@@ -73,5 +74,16 @@ export class PostingsController {
     })
     async deletePosting(@Param('postingIdx') postingIdx: number) {
         return this.postingsService.deletePosting(postingIdx);
+    }
+
+    @Get('clubBoard/:clubBoardIdx/count')
+    @ApiOperation({
+        summary: '동아리 게시판의 게시물 총 개수 반환 API',
+    })
+    @ApiOkResponse({
+        type: PostingCountResDto,
+    })
+    async getCountOfClubBoard(@Param('clubBoardIdx') clubBoardIdx: number) {
+        return this.postingsService.getCountOfClubBoard(clubBoardIdx);
     }
 }
