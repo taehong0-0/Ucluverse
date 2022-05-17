@@ -25,7 +25,7 @@ export class PostingsController {
 
     @Get('clubBoard/:clubBoardIdx')
     @ApiOperation({
-        summary: '동아리 인덱스에 대한 게시물 불러오기 API',
+        summary: '동아리 게시판 인덱스에 대한 게시물 리스트 불러오기 API',
     })
     async getPostingsByClubBoard(@Param('clubBoardIdx') clubBoardIdx: number, @Res() res){
         res.send(await this.postingsService.getPostingsByClubBoard(clubBoardIdx));
@@ -33,7 +33,7 @@ export class PostingsController {
 
     @Get('club/entire/:clubIdx')
     @ApiOperation({
-        summary: '동아리 페이지 전체 게시물 불러오기 API',
+        summary: '동아리 페이지 전체 게시물 리스트 불러오기 API',
     })         
     async getEntirePostingsByClub(@Param('clubIdx') clubIdx: number, @Res() res){
         res.send(await this.postingsService.getEntirePostingsByClub(clubIdx));
@@ -41,7 +41,7 @@ export class PostingsController {
     
     @Get('main')
     @ApiOperation({
-        summary: '메인 페이지 게시판 이름에 대한 게시물 불러오기 API',
+        summary: '메인 페이지 게시판 이름에 대한 게시물 리스트 불러오기 API',
     })         
     async getAllPostings(@Query('boardName') boardName: string, @Res() res){
         res.send(await this.postingsService.getAllPostings(boardName));

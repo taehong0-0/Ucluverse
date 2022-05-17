@@ -6,7 +6,7 @@ import { BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Connection, In } from 'typeorm';
 import { CreatePostingDto } from './dto/create-posting.dto';
-import { CreatePostingResDto, PostingResDto } from './dto/postings-response.dto';
+import { CreatePostingResDto, PostingResDto, PostingsListResDto } from './dto/postings-response.dto';
 import { UpdatePostingDto } from './dto/update-posting.dto';
 import { AttachedFile, Image, Posting } from './entities/posting.entity';
 
@@ -64,8 +64,8 @@ export class PostingsService {
         const queryRunner = this.connection.createQueryRunner();
         try {
             const postings = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
-            .select(['posting.postingIdx','posting.title'])
-            .addSelect('clubBoard.name')
+            .select(['posting.postingIdx','posting.title', 'posting.createdAt', 'posting.updatedAt'])
+            .addSelect(['clubBoard.name', 'clubBoard.clubIdx'])
             .addSelect('user.name')
             .addSelect('images.path')
             .leftJoin('posting.user', 'user')
@@ -79,8 +79,11 @@ export class PostingsService {
                 const imageArr = [];
                 response['posingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
+                response['clubIdx'] = posting.clubBoard.clubIdx;
                 response['author'] = posting.user.name;
                 response['type'] = posting.clubBoard.name;
+                response['updatedAt'] = posting.updatedAt;
+                response['createdAt'] = posting.createdAt;
                 if(posting.images !== undefined){
                     posting.images.forEach(image => {
                         imageArr.push(image.path);
@@ -91,7 +94,7 @@ export class PostingsService {
                 }
                 responses.push(response);
             })
-            return new PostingResDto(responses);
+            return new PostingsListResDto(responses);
         } catch(e) {
             console.log(e);
         } finally {
@@ -103,8 +106,8 @@ export class PostingsService {
         const queryRunner = this.connection.createQueryRunner();
         try {
             const postings = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
-                .select(['posting.postingIdx','posting.title'])
-                .addSelect('clubBoard.name')
+                .select(['posting.postingIdx','posting.title', 'posting.createdAt', 'posting.updatedAt'])
+                .addSelect(['clubBoard.name', 'clubBoard.clubIdx'])
                 .addSelect('user.name')
                 .addSelect('images.path')
                 .leftJoin('posting.user', 'user')
@@ -118,8 +121,11 @@ export class PostingsService {
                 const imageArr = [];
                 response['posingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
+                response['clubIdx'] = posting.clubBoard.clubIdx;
                 response['author'] = posting.user.name;
                 response['type'] = posting.clubBoard.name;
+                response['updatedAt'] = posting.updatedAt;
+                response['createdAt'] = posting.createdAt;
                 if(posting.images !== undefined){
                     posting.images.forEach(image => {
                         imageArr.push(image.path);
@@ -130,7 +136,7 @@ export class PostingsService {
                 }
                 responses.push(response);
             })
-            return new PostingResDto(responses);
+            return new PostingsListResDto(responses);
         } catch(e) {
             console.log(e);
         } finally {
@@ -173,7 +179,7 @@ export class PostingsService {
                 }
                 responses.push(response);
             });
-            return new PostingResDto(responses);
+            return new PostingsListResDto(responses);
         } catch(e) {
             console.log(e);
         } finally {
