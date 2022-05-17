@@ -1,10 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateFormDto } from './dto/create-form.dto';
+import { FormResDto } from './dto/response-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
 import { FormsService } from './forms.service';
 
 @Controller('forms')
+@ApiTags('신청 양식 API')
 export class FormsController {
     constructor(
         private readonly formsService: FormsService,
@@ -21,6 +23,9 @@ export class FormsController {
     @Get('/:clubIdx')
     @ApiOperation({
         summary: '신청 폼 불러오기 API',
+    })
+    @ApiOkResponse({
+        type: FormResDto,
     })
     async getForm(@Param('clubIdx') clubIdx: number) {
         return this.formsService.getForm(clubIdx);

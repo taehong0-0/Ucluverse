@@ -10,13 +10,14 @@ import { ProfilePhoto } from './entities/profilePhoto.entity';
 import { UserResDto } from './dto/user-response.dto';
 import { SignupClubDto } from './dto/signup-club.dto';
 import { BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
-import { Club, Question } from 'src/clubs/entities/club.entity';
+import { Club } from 'src/clubs/entities/club.entity';
 import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
 import { StarClubDto } from './dto/star-club.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ConfigService } from '@nestjs/config';
 import { IsSignedUpResDto } from './dto/isSignedUp-res.dto';
 import { CreateAnswerDto } from './dto/create-answer.dto';
+import { Question } from 'src/forms/entity/form.entity';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()

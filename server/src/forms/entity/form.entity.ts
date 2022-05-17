@@ -1,6 +1,6 @@
 import { IsNumber, IsString } from "class-validator";
 import { Club } from "src/clubs/entities/club.entity";
-import { SubmissionFile } from "src/user/entities/user.entity";
+import { Answer, SubmissionFile } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -63,4 +63,6 @@ export class Question{
         referencedColumnName: 'formIdx',
     })
     form: Form;
+    @OneToMany(() => Answer, answer => answer.question)
+    answers: Answer[];
 }
