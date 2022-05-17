@@ -6,10 +6,8 @@ export const ClubBoardContainer = styled.div`
     ${BoardStyle}
   }
 
-  a:last-child {
-    button {
-      margin-top: 1.25rem;
-      margin-left: 48rem;
-    }
+  button {
+    margin-top: 1.25rem;
+    margin-left: 48rem;
   }
 `;

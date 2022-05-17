@@ -9,8 +9,14 @@ import { DropZoneDiv } from './style';
 import axios from 'axios';
 import AWS from 'aws-sdk';
 import { toast } from 'react-toastify';
+import { AwardPostType } from '../../../../Types/PostType';
+import DropZone from '../../../DropZone/DropZone';
 
-const AwardBoard = () => {
+interface Props {
+  clubId: number;
+}
+const AwardBoard = (props: Props) => {
+  const { clubId } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const awardNameRef = useRef<HTMLInputElement>(null);
@@ -18,6 +24,7 @@ const AwardBoard = () => {
   const awardContentRef = useRef<HTMLTextAreaElement>(null);
   const [image, setImage] = useState<string | null>(null);
   const [file, setFile] = useState<Blob | null>(null);
+  const [awardPosts, setAwardPosts] = useState<AwardPostType[]>([]);
   const option = {
     accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
@@ -92,6 +99,14 @@ const AwardBoard = () => {
     }
   };
   useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/awards/club/${clubId}`)
+      .then((res) => {
+        console.log(res);
+        // setAwardPosts(res.data.res)
+      });
+  }, []);
+  useEffect(() => {
     if (isOpen) {
       document.body.style.cssText = `
     position: fixed; 
@@ -145,7 +160,22 @@ const AwardBoard = () => {
                   type="midium"
                 ></FloatInput>
                 <span>사진</span>
-                <DropZoneDiv {...getRootProps()}>
+                <DropZone setFile={setFile} setImage={setImage}>
+                  {!image ? (
+                    <img src={fileUploadImg} width="30px" height="27px" />
+                  ) : (
+                    <img
+                      src={image}
+                      style={{
+                        width: '16.5rem',
+                        height: '8.938rem',
+                        marginBottom: '15px',
+                        borderRadius: '5px',
+                      }}
+                    />
+                  )}
+                </DropZone>
+                {/* <DropZoneDiv {...getRootProps()}>
                   <input {...getInputProps()} />
                   {!image ? (
                     <img src={fileUploadImg} width="30px" height="27px" />
@@ -160,7 +190,7 @@ const AwardBoard = () => {
                       }}
                     />
                   )}
-                </DropZoneDiv>
+                </DropZoneDiv> */}
               </div>
               <div>
                 <span>내용</span>

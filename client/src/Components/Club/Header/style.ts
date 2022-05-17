@@ -6,12 +6,14 @@ export const ClubHeaderContainer = styled.div`
   margin-top: 1.875rem;
   display: flex;
   flex-direction: column;
-  span {
+  a {
     text-align: center;
-    font: normal normal bold 2.25rem/2.5rem Noto Sans KR;
-    letter-spacing: -2.7px;
-    color: #1a1917;
-    opacity: 1;
+    span {
+      font: normal normal bold 2.25rem/2.5rem Noto Sans KR;
+      letter-spacing: -2.7px;
+      color: #1a1917;
+      opacity: 1;
+    }
   }
   div {
     margin: 0 auto;
@@ -33,5 +35,17 @@ export const ClubHeaderContainer = styled.div`
       color: #9239df;
       opacity: 1;
     }
+  }
+  a:link {
+    text-decoration: none;
+  }
+  a:visited {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  a:active {
+    text-decoration: none;
   }
 `;

@@ -5,6 +5,22 @@ export const AwardBoardContainer = styled.div`
   & > div:first-child {
     ${BoardStyle}
   }
+  #dropzone {
+    width: 16.5rem;
+    height: 8.938rem;
+    border: 1px dashed var(---grey1-3);
+    border: 1px dashed #dddae0;
+    border-radius: 5px;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    img {
+      margin-top: 0.938rem;
+    }
+  }
   .modal-background {
     position: fixed;
     top: 0;

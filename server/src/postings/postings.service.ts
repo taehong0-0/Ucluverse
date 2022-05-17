@@ -103,15 +103,15 @@ export class PostingsService {
         const queryRunner = this.connection.createQueryRunner();
         try {
             const postings = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
-            .select(['posting.postingIdx','posting.title'])
-            .addSelect('clubBoard.name')
-            .addSelect('user.name')
-            .addSelect('images.path')
-            .leftJoin('posting.user', 'user')
-            .leftJoin('posting.clubBoard', 'clubBoard')
-            .leftJoin('posting.images', 'images')
-            .where('clubBoard.clubIdx = :clubIdx', { clubIdx })
-            .getMany()
+                .select(['posting.postingIdx','posting.title'])
+                .addSelect('clubBoard.name')
+                .addSelect('user.name')
+                .addSelect('images.path')
+                .leftJoin('posting.user', 'user')
+                .leftJoin('posting.clubBoard', 'clubBoard')
+                .leftJoin('posting.images', 'images')
+                .where('clubBoard.clubIdx = :clubIdx', { clubIdx })
+                .getMany()
             const responses = [];
             postings.forEach(posting => {
                 const response = {};
@@ -141,18 +141,39 @@ export class PostingsService {
     async getAllPostings(boardName: string){
         const queryRunner = this.connection.createQueryRunner();
         try {
-            const postings = await queryRunner.manager.find(Posting, {
-                relations:[
-                    'clubBoard',
-                    'images',
-                    'comments',
-                    'likes',
-                ],
-                where:{
-                    clubBoard: { name: boardName },
-                },
-            })
-            return new PostingResDto(postings);
+            const postings = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
+                .select(['posting.postingIdx','posting.title', 'posting.createdAt', 'posting.updatedAt'])
+                .addSelect(['clubBoard.name', 'clubBoard.clubIdx'])
+                .addSelect('user.name')
+                .addSelect('images.path')
+                .leftJoin('posting.user', 'user')
+                .leftJoin('posting.clubBoard', 'clubBoard')
+                .leftJoin('posting.images', 'images')
+                .where('clubBoard.name = :boardName', { boardName })
+                .getMany()
+            const responses = [];
+            postings.forEach(posting => {
+                const response = {};
+                const imageArr = [];
+                response['posingIdx'] = posting.postingIdx;
+                response['title'] = posting.title;
+                response['clubIdx'] = posting.clubBoard.clubIdx;
+                response['author'] = posting.user.name;
+                response['type'] = posting.clubBoard.name;
+                response['updatedAt'] = posting.updatedAt;
+                response['createdAt'] = posting.createdAt;
+                
+                posting.images.forEach(image => {
+                    imageArr.push(image.path);            
+                });
+                if(imageArr.length > 0){
+                    response['path'] = imageArr[0];
+                } else {
+                    response['path'] = '';
+                }
+                responses.push(response);
+            });
+            return new PostingResDto(responses);
         } catch(e) {
             console.log(e);
         } finally {
@@ -163,18 +184,61 @@ export class PostingsService {
     async getPostingByPostingIdx(postingIdx: number){
         const queryRunner = this.connection.createQueryRunner();
         try {
-            const posting = await queryRunner.manager.findOne(Posting, {
-                where:{
-                    postingIdx: postingIdx,
-                },
-                relations:[
-                    'clubBoard',
-                    'images',
-                    'comments',
-                    'likes',
-                ]
-            });
-            return new PostingResDto(posting);
+            const posting = await queryRunner.manager
+                .createQueryBuilder(Posting, 'posting')
+                .select(['posting.postingIdx','posting.title', 'posting.content','posting.createdAt','posting.allowComments','posting.isPublic'])
+                .addSelect(['images.imageIdx', 'images.path'])
+                .addSelect(['attachedFiles.attachedFileIdx','attachedFiles.path'])
+                .addSelect(['comments.commentIdx','comments.userIdx','comments.content'])
+                .addSelect(['likes.likeIdx','likes.userIdx'])
+                .leftJoin('posting.attachedFiles' , 'attachedFiles')
+                .leftJoin('posting.images' , 'images')
+                .leftJoin('posting.comments', 'comments')
+                .leftJoin('posting.likes', 'likes')
+                .where('posting.postingIdx = :postingIdx', { postingIdx })
+                .getOne();
+
+                const response = {};
+                const imageArr = [];
+                const attachedFileArr = [];
+                const likeArr = [];
+                const commentArr = [];
+                posting.images.forEach(image => {
+                    const imageRes = {};
+                    imageRes['imageIdx'] = image.imageIdx;
+                    imageRes['imagePath'] = image.path;
+                    imageArr.push(imageRes);
+                });
+                posting.attachedFiles.forEach(attachedFile => {
+                    const attachedFileRes = {};
+                    attachedFileRes['attachedFileIdx'] = attachedFile.attachedFileIdx;
+                    attachedFileRes['attachedFilePath'] = attachedFile.path;
+                    attachedFileArr.push(attachedFileRes);
+                });
+                posting.likes.forEach(like => {
+                    const likeRes = {};
+                    likeRes['likeIdx'] = like.likeIdx;
+                    likeRes['userIdx'] = like.userIdx;
+                    likeArr.push(likeRes);
+                });
+                posting.comments.forEach(comment => {
+                    const commentRes = {};
+                    commentRes['commentIdx'] = comment.commentIdx;
+                    commentRes['userIdx'] = comment.userIdx;
+                    commentRes['content'] = comment.content;
+                    commentArr.push(commentRes);
+                });
+                response['postingIdx'] = posting.postingIdx;
+                response['title'] = posting.title;
+                response['content'] = posting.content;
+                response['createdAt'] = posting.createdAt;
+                response['allowComments'] = posting.allowComments;
+                response['isPublic'] = posting.isPublic;
+                response['images'] = imageArr;
+                response['attachedFiles'] = attachedFileArr;
+                response['likes'] = likeArr;
+                response['comments'] = commentArr;
+            return new PostingResDto(response);
         } catch(e) {
             console.log(e);
         } finally {

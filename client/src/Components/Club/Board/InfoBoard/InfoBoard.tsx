@@ -1,7 +1,11 @@
 import { InfoBoardContainer } from './style';
 import test3 from '../../../../Assets/test3.jpeg';
+import { useContext } from 'react';
+import { ClubContext } from '../../../../Pages/Club/Club';
 
 const InfoBoard = () => {
+  const contextValue = useContext(ClubContext);
+  const club = contextValue?.club;
   return (
     <InfoBoardContainer>
       <div className="navigator">
@@ -9,9 +13,9 @@ const InfoBoard = () => {
         <span>{'>'}</span>
         <span>동아리 소개</span>
       </div>
-      <img src={test3} />
-      <span>동아리 이름</span>
-      <span>동아리 소개</span>
+      <img src={club?.introductionPath} />
+      <span>{club?.name}</span>
+      <span>{club?.introductionDesc}</span>
     </InfoBoardContainer>
   );
 };

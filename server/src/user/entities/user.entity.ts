@@ -2,7 +2,7 @@ import { Exclude } from "class-transformer";
 import { Comment } from "src/comments/entity/comment.entity";
 import { Like } from "src/likes/entity/likes.entity";
 import { IsBoolean, IsEmail, IsNumber, IsString } from "class-validator";
-import { Club } from "src/clubs/entities/club.entity";
+import { Club, Question } from "src/clubs/entities/club.entity";
 import { Department } from "src/departments/entities/department.entity";
 import { Posting } from "src/postings/entities/posting.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
@@ -87,16 +87,16 @@ export class UserClub {
         referencedColumnName: 'clubIdx',
     })
     club: Club;
-    @OneToMany(() => Response, response => response.userClub)
-    responses: Response[];
+    @OneToMany(() => Answer, answer => answer.userClub)
+    answers: Answer[];
     @OneToMany(() => SubmissionFile, SubmissionFile => SubmissionFile.userClub)
     submissionFiles: SubmissionFile[];
 }
 
 @Entity()
-export class Response{
+export class Answer{
     @PrimaryGeneratedColumn()
-    responseIdx: number;
+    answerIdx: number;
     @Column()
     @IsNumber()
     questionIdx: number;
@@ -106,11 +106,18 @@ export class Response{
     @Column()
     @IsString()
     content: string;
-    @ManyToOne(() => UserClub, userClub => userClub.responses)
+    @ManyToOne(() => UserClub, userClub => userClub.answers)
     @JoinColumn({
+        name: 'userClubIdx',
         referencedColumnName: 'userClubIdx'
     })
     userClub: UserClub;
+    @ManyToOne(() => Question, question => question.answers)
+    @JoinColumn({
+        name: 'questionIdx',
+        referencedColumnName: 'questionIdx'
+    })
+    question: Question;
 }
 
 @Entity()
@@ -128,11 +135,13 @@ export class SubmissionFile{
     path: string;
     @ManyToOne(() => UserClub, userClub => userClub.submissionFiles)
     @JoinColumn({
+        name: 'userClubIdx',
         referencedColumnName: 'userClubIdx'
     })
     userClub: UserClub;
     @ManyToOne(() => Form, form => form.submissionFiles)
     @JoinColumn({
+        name: 'formIdx',
         referencedColumnName: 'formIdx'
     })
     form: Form;
