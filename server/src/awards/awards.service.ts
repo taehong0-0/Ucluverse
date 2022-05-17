@@ -59,7 +59,7 @@ export class AwardsService {
                     response['awardName'] = award.awardName;
                     response['path'] = award.path;
                     responses.push(response);
-                })
+                });
             return new AwardsResDto(responses);
         } catch(e) {
             console.log(e);
@@ -71,12 +71,22 @@ export class AwardsService {
     async getAward(awardIdx: number){
         const queryRunner = this.connection.createQueryRunner();
         try {
-            const award = await queryRunner.manager.findOne(Award, {
-                where: {
-                    awardIdx,
-                }
-            });
-            return new AwardsResDto(award);
+            const award = await queryRunner.manager.createQueryBuilder(Award, 'award')
+                .select(['award.awardIdx','award.competitionName','award.awardName','award.content','award.path','award.clubIdx'])
+                .addSelect('club.name')
+                .leftJoin('award.club', 'club')
+                .where('award.awardIdx = :awardIdx', { awardIdx })
+                .getOne()
+
+                const response = {};
+                response['awardIdx'] = award.awardIdx;
+                response['clubIdx'] = award.clubIdx;
+                response['clubName'] = award.club.name;
+                response['awardTitle'] = award.competitionName;
+                response['awardName'] = award.awardName;
+                response['path'] = award.path;
+
+            return new AwardsResDto(response);
         } catch(e) {
             console.log(e);
         } finally {
