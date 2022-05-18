@@ -13,10 +13,28 @@ import footer from './Assets/Footer.png';
 import { ToastContainer } from 'react-toastify';
 import ClubAdmin from './Pages/Admin/ClubAdmin';
 import './styles/App.css'; // 초기값 css
+import { useEffect } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { ClubListState, DepartmentListState } from './Recoil/Club';
 
 axios.defaults.withCredentials = true;
 
 const App = () => {
+  const setClubList = useSetRecoilState(ClubListState);
+  const setDepartmentList = useSetRecoilState(DepartmentListState);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/clubs/department`)
+      .then((res) => {
+        setDepartmentList(res.data.res.clubs);
+      });
+
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/clubs/central`)
+      .then((res) => {
+        setClubList(res.data.res.clubs);
+      });
+  }, []);
   return (
     <>
       <Suspense fallback={<span>로딩중</span>}>

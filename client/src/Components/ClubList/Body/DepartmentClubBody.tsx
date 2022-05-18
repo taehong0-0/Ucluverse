@@ -6,6 +6,8 @@ import { ClubBodyContainer } from './style';
 import { ClubType } from '../../../Types/ClubType';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useRecoilValue } from 'recoil';
+import { DepartmentListState } from '../../../Recoil/Club';
 
 interface departmentCategoryType {
   [index: string]: string[];
@@ -44,30 +46,11 @@ const departmentCategoryList: departmentCategoryType = {
     '융합시스템공학과',
   ],
   정보통신대학: ['전자공학과'],
-  소프트웨어융합대학: [
-    '미디어학과',
-    '소프트웨어학과',
-    '국방디지털융합학과',
-    '사이버보안학과',
-    '인공지능융합학과',
-  ],
+  소프트웨어융합대학: ['미디어학과', '소프트웨어학과', '국방디지털융합학과', '사이버보안학과', '인공지능융합학과'],
   자연과학대학: ['수학과', '화학과', '물리학과', '생명과학과'],
   경영대학: ['경영학과', '금융공학과', 'e-비지니스학과', '글로벌경영학과'],
-  인문대학: [
-    '국어국문학과',
-    '사학과',
-    '영어영문학과',
-    '문화콘텐츠학과',
-    '불어불문학과',
-  ],
-  사회과학대학: [
-    '경제학과',
-    '사회학과',
-    '행정학과',
-    '정치외교학과',
-    '심리학과',
-    '스포츠레저학과',
-  ],
+  인문대학: ['국어국문학과', '사학과', '영어영문학과', '문화콘텐츠학과', '불어불문학과'],
+  사회과학대학: ['경제학과', '사회학과', '행정학과', '정치외교학과', '심리학과', '스포츠레저학과'],
   간호대학: ['간호학과'],
   약학대학: ['약학과'],
 };
@@ -124,16 +107,14 @@ const clubList: any[] = [
 const DepartmentBody = () => {
   const [collegeCategory, setCollegeCategory] = useState<string>('');
   const [departmentCategory, setDepartmentCategory] = useState<string>('');
-  const [departmentClubList, setDepartmentClubList] = useState<ClubType[]>([]);
+  // const [departmentClubList, setDepartmentClubList] = useState<ClubType[]>([]);
+  const departmentClubList = useRecoilValue(DepartmentListState);
 
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/clubs/department`)
-      .then((res) => {
-        setDepartmentClubList(res.data);
-        console.log(res.data.res);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/department`).then((res) => {
+  //     setDepartmentClubList(res.data);
+  //   });
+  // }, []);
   const clickCollegeCategory = (category: string) => {
     if (collegeCategory === category) {
       setCollegeCategory('');
@@ -168,11 +149,7 @@ const DepartmentBody = () => {
         />
       )}
       {collegeCategory !== '' && departmentCategory !== '' && (
-        <ClubList
-          clubList={clubList.filter(
-            (club) => club.department === departmentCategory,
-          )}
-        />
+        <ClubList clubList={clubList.filter((club) => club.department === departmentCategory)} />
       )}
     </ClubBodyContainer>
   );
