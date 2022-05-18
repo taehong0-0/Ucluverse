@@ -2,13 +2,13 @@ import { Exclude } from "class-transformer";
 import { Comment } from "src/comments/entity/comment.entity";
 import { Like } from "src/likes/entity/likes.entity";
 import { IsBoolean, IsEmail, IsNumber, IsString } from "class-validator";
-import { Club, Question } from "src/clubs/entities/club.entity";
+import { Club } from "src/clubs/entities/club.entity";
 import { Department } from "src/departments/entities/department.entity";
 import { Posting } from "src/postings/entities/posting.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ProfilePhoto } from "./profilePhoto.entity";
 import { Notification } from "src/notifications/entities/notification.entity";
-import { Form } from "src/forms/entity/form.entity";
+import { Form, Question } from "src/forms/entity/form.entity";
 
 @Entity()
 export class User {
@@ -112,7 +112,9 @@ export class Answer{
         referencedColumnName: 'userClubIdx'
     })
     userClub: UserClub;
-    @ManyToOne(() => Question, question => question.answers)
+    @ManyToOne(() => Question, question => question.answers, {
+        onDelete: 'CASCADE',
+    })
     @JoinColumn({
         name: 'questionIdx',
         referencedColumnName: 'questionIdx'

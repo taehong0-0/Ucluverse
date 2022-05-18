@@ -24,11 +24,11 @@ const ClubBoard = (props: props): ReactElement => {
   }, [boardIdx]);
   return (
     <>
-      {boardName === '소개게시판' ? (
+      {boardName === '동아리 소개' ? (
         <InfoBoard />
-      ) : boardName === '수상게시판' ? (
-        <AwardBoard boardIdx={boardIdx} />
-      ) : boardName === '활동게시판' ? (
+      ) : boardName === '수상 게시판' ? (
+        <AwardBoard clubId={clubId} />
+      ) : boardName === '활동 게시판' ? (
         <ActivityBoard boardIdx={boardIdx} clubId={clubId} />
       ) : (
         <PostBoard boardIdx={boardIdx} clubId={clubId} boardName={boardName} />
