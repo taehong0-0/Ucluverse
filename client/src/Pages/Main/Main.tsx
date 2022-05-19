@@ -9,7 +9,7 @@ import MainNewClub from '../../Components/Main/MainNewClub/MainNewClub';
 import useCheckLogin from '../../Hooks/useCheckLogin';
 
 const Main = (): ReactElement => {
-  //useCheckLogin();
+  useCheckLogin();
   //design test
   return (
     <div>
