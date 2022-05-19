@@ -1,17 +1,21 @@
 import styled from 'styled-components';
 
 export const InfoContainer = styled.div`
-  width: 100%;
-  height: 579px;
-  /* UI Properties */
-  background: transparent linear-gradient(180deg, #a45de2 0%, #9239df 100%) 0% 0% no-repeat padding-box;
-  opacity: 1;
   display: flex;
+  width: 100%;
+  height: 730px;
+  /* UI Properties */
+  opacity: 1;
+  & > img {
+    z-index: 1;
+    width: 100%;
+    position: absolute;
+  }
 `;
 
 export const InfoDetail = styled.div`
+  z-index: 10;
   width: 50%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,7 +49,7 @@ export const InfoDetail = styled.div`
     }
   }
   & > div:first-child {
-    margin-top: 55px;
+    margin-top: 100px;
     margin-bottom: 25px;
     span:first-child {
       display: inline-block;
@@ -67,7 +71,30 @@ export const InfoDetail = styled.div`
     }
   }
 `;
-export const CharacterDetail = styled.div`
+export const InfoRightContainer = styled.div`
   width: 50%;
-  text-align: center;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
+
+export const ImageDetail = styled.div`
+  display: flex;
+  margin-top: 100px;
+  margin-bottom: 60px;
+  & > div {
+    width: 175px;
+    height: 225px;
+    /* UI Properties */
+    background: #d4bce9 0% 0% no-repeat padding-box;
+    box-shadow: 3px 3px 10px #00000029;
+    border-radius: 5px;
+    opacity: 1;
+  }
+  & > div:first-child {
+    margin-right: 18px;
+  }
+`;
+
+export const InfoButtonContainer = styled.div``;

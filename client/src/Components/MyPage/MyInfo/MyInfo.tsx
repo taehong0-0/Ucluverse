@@ -2,10 +2,9 @@ import axios from 'axios';
 import React, { ReactElement, useState } from 'react';
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import { DepartmentListState } from '../../../Recoil/Club';
 import { userState } from '../../../Recoil/User';
-import { departmentList } from '../../../Util/constant';
-import { CharacterDetail, InfoContainer, InfoDetail } from './style';
+import { InfoRightContainer, InfoContainer, InfoDetail, ImageDetail, InfoButtonContainer } from './style';
+import backGround from '../../../Assets/MainBG.svg';
 
 const MyInfo = (): ReactElement => {
   const user = useRecoilValue(userState);
@@ -17,6 +16,7 @@ const MyInfo = (): ReactElement => {
   }, []);
   return (
     <InfoContainer>
+      <img src={backGround} />
       <InfoDetail>
         <div>
           <span>{user.nickname} 님</span>
@@ -38,9 +38,15 @@ const MyInfo = (): ReactElement => {
           <span>{user.phoneNumber}</span>
         </div>
       </InfoDetail>
-      <CharacterDetail>
-        <span>캐릭터</span>
-      </CharacterDetail>
+      <InfoRightContainer>
+        <ImageDetail>
+          <div>{user.profilePhoto ? <img src={user.profilePhoto} /> : <span>이미지를 등록해주세요.</span>}</div>
+          <div>aa</div>
+        </ImageDetail>
+        <InfoButtonContainer>
+          <button>정보수정</button>
+        </InfoButtonContainer>
+      </InfoRightContainer>
     </InfoContainer>
   );
 };
