@@ -5,6 +5,8 @@ import { ClubBodyContainer } from './style';
 import character from '../../../Assets/Character-hello.png';
 import { ClubType } from '../../../Types/ClubType';
 import axios from 'axios';
+import { useRecoilValue } from 'recoil';
+import { ClubListState } from '../../../Recoil/Club';
 
 const categoryList = [
   '전체',
@@ -20,15 +22,13 @@ const categoryList = [
 ];
 const ClubBody = () => {
   const [category, setCategory] = useState<string>('전체');
-  const [clubList, setClubList] = useState<ClubType[]>([]);
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/clubs/central`)
-      .then((res) => {
-        setClubList(res.data.res.clubs);
-        console.log(res.data.res.clubs);
-      });
-  }, []);
+  // const [clubList, setClubList] = useState<ClubType[]>([]);
+  const clubList = useRecoilValue(ClubListState);
+  // useEffect(() => {
+  //   axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/central`).then((res) => {
+  //     setClubList(res.data.res.clubs);
+  //   });
+  // }, []);
   const clickCategory = (category: string) => {
     setCategory(category);
   };
@@ -44,11 +44,7 @@ const ClubBody = () => {
       />
       <ClubList
         clubList={
-          category === '전체'
-            ? clubList
-            : clubList.filter((club) =>
-                club.clubCategories.includes(category + '분과'),
-              )
+          category === '전체' ? clubList : clubList.filter((club) => club.clubCategories.includes(category + '분과'))
         }
       />
     </ClubBodyContainer>
