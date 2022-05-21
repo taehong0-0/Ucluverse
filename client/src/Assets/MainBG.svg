@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1310.5" height="680.001" viewBox="0 0 1310.5 680.001">
+  <defs>
+    <filter id="배경3" x="351.5" y="397.323" width="959" height="282.678" filterUnits="userSpaceOnUse">
+      <feOffset dx="3" dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#703ee0" flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="배경2" x="0" y="360.001" width="1310.5" height="282.678" filterUnits="userSpaceOnUse">
+      <feOffset dx="3" dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur-2"/>
+      <feFlood flood-color="#5020dc" flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#a45de2"/>
+      <stop offset="1" stop-color="#9239df"/>
+    </linearGradient>
+  </defs>
+  <g id="MainBG" transform="translate(12.5 -95.999)">
+    <g transform="matrix(1, 0, 0, 1, -12.5, 96)" filter="url(#배경3)">
+      <path id="배경3-2" data-name="배경3" d="M5794,7095.938s79.684-13.3,261.179,9.534,297.847,84.282,464.8,81.8S6723,7095.537,6723,7095.537l-.847-160.871H5794Z" transform="translate(-5430.5 -6525.34)" fill="#ddd0e8"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, -12.5, 96)" filter="url(#배경2)">
+      <path id="배경2-2" data-name="배경2" d="M7074.5,7065.666s-109.833,16.973-360,39.806-410.542,84.282-640.667,81.8S5794,7095.537,5794,7095.537l1.167-160.871H7074.5Z" transform="translate(-5782 -6562.67)" fill="#b488db"/>
+    </g>
+    <path id="배경1" d="M-5434-6110.728c-250.167-23.086-360-9.64-360-9.64V-6625h1280v369.4h-.465l.966,134.828s-49.708,90.241-279.833,92.751c-4.551.05-9.044.074-13.542.074C-5029.807-6027.952-5188.781-6088.1-5434-6110.728Z" transform="translate(5794.001 6721)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>
