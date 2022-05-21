@@ -62,6 +62,18 @@ export class UserController {
         res.send(await this.userService.checkIsSignedUp(userIdx, clubIdx));
     }
 
+    @Post('userClub/changeRole/:userClubIdx')
+    @ApiOperation({
+        summary: '동아리 회원 역할 변경 API'
+    })
+    @ApiOkResponse({
+        type: Boolean,
+    })
+    async changeRole(@Param('userClubIdx') userClubIdx: number, @Res() res){
+        res.send(await this.userService.changeRole(userClubIdx));
+    }
+
+
     @Post('userClub/signup')
     @ApiOperation({
         summary: '동아리 신청 API'
@@ -106,10 +118,20 @@ export class UserController {
         res.send(await this.userService.starClub(starClubDto));
     }
 
-    @Get('userClub/applied/:clubIdx')
+    @Get('userClub/applied/users/:clubIdx')
     async getAppliedUsers(@Param('clubIdx') clubIdx: number, @Res() res){
         res.send(await this.userService.getAppliedUsers(clubIdx));
     } 
+
+    @Get('userClub/accepted/clubs/:userIdx')
+    async getAcceptedClubs(@Param('userIdx') userIdx: number, @Res() res){
+        res.send(await this.userService.getAcceptedClubs(userIdx));
+    }
+
+    @Get('userClub/stared/clubs/:userIdx')
+    async getStaredClubs(@Param('userIdx') userIdx: number, @Res() res){
+        res.send(await this.userService.getStaredClubs(userIdx));
+    }
 
     @Post('userClub/answer')
     @ApiOperation({
