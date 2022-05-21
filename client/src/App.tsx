@@ -16,6 +16,7 @@ import './styles/App.css'; // 초기값 css
 import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { ClubListState, DepartmentListState } from './Recoil/Club';
+import MyPage from './Pages/MyPage/MyPage';
 
 axios.defaults.withCredentials = true;
 
@@ -75,6 +76,14 @@ const App = () => {
             element={
               <AuthRoute>
                 <ClubAdmin />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/mypage"
+            element={
+              <AuthRoute>
+                <MyPage />
               </AuthRoute>
             }
           />

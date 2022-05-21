@@ -18,6 +18,7 @@ import { ConfigService } from '@nestjs/config';
 import { IsSignedUpResDto } from './dto/isSignedUp-res.dto';
 import { CreateAnswerDto } from './dto/create-answer.dto';
 import { Question } from 'src/forms/entity/form.entity';
+import { ClubResDto } from 'src/clubs/dto/club-respones.dto';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()
@@ -553,6 +554,52 @@ export class UserService {
         }catch(e){
             console.log(e);
         }finally{
+            await queryRunner.release();
+        }
+    }
+
+    async getAcceptedClubs(userIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        try{
+            const clubs = await queryRunner.manager.find(Club, {
+                relations: [
+                    'userClubs',
+                ],
+                where: {
+                    userClubs: {
+                        userIdx,
+                        status : "accepted",
+                    },
+                }
+            });
+            console.log(clubs);
+            return new ClubResDto(clubs);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
+    }
+
+    async getStaredClubs(userIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        try{
+            const clubs = await queryRunner.manager.find(Club, {
+                relations: [
+                    'userClubs',
+                ],
+                where: {
+                    userClubs: {
+                        userIdx,
+                        star: true,
+                    },
+                }
+            });
+            console.log(clubs);
+            return new ClubResDto(clubs);
+        } catch(e) {
+            console.log(e);
+        } finally {
             await queryRunner.release();
         }
     }

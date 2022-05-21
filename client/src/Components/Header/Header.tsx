@@ -1,10 +1,6 @@
 import React, { ReactElement } from 'react';
 import LinkButton from '../Button/LinkButton';
-import {
-  HeaderContainer,
-  HeaderLinkContainer,
-  UserInfoContainer,
-} from './style';
+import { HeaderContainer, HeaderLinkContainer, UserInfoContainer } from './style';
 import logoImg from '../../Assets/로고.png';
 import profileImg from '../../Assets/profile.svg';
 import alarmImg from '../../Assets/알림.png';
@@ -49,7 +45,7 @@ const Header = (): ReactElement => {
               axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/logout`);
             }}
           />
-          <LinkButton url="/">
+          <LinkButton url="/mypage">
             <img src={mypageImg} width="36px" height="36px" />
           </LinkButton>
         </UserInfoContainer>
