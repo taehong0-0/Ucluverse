@@ -15,13 +15,7 @@ import Header from '../../Components/Header/Header';
 import { ClubType } from '../../Types/ClubType';
 import { ActivityPostType, BoardType } from '../../Types/PostType';
 
-const AboutList = [
-  '전체 게시판',
-  '공지사항',
-  '동아리 소개',
-  '활동 게시판',
-  '수상 게시판',
-];
+const AboutList = ['전체 게시판', '공지사항', '동아리 소개', '활동 게시판', '수상 게시판'];
 const CommunicationList = ['자유 게시판', 'QNA 게시판'];
 const AboutBoardList = [
   { name: '전체 게시글', boardId: 0 },
@@ -46,29 +40,22 @@ const Club = (): ReactElement => {
   const [club, setClub] = useState<ClubType | null>(null);
   const [activityList, setActivityList] = useState<ActivityPostType[]>([]);
   const [AboutBoards, setAboutBoards] = useState<BoardType[]>([]);
-  const [CommunicationBoards, setCommunicationBoards] = useState<BoardType[]>(
-    [],
-  );
+  const [CommunicationBoards, setCommunicationBoards] = useState<BoardType[]>([]);
   // 데이터 요청해서 받아오기
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/clubs/club/${clubId}`)
-      .then((res) => {
-        setClub(res.data.res.clubs);
-        const clubBoards = res.data.res.clubs.clubBoards[0];
-        AboutList.map((boardName) => {
-          setAboutBoards((AboutBoards) => [
-            ...AboutBoards,
-            { name: boardName, boardIdx: clubBoards[boardName] },
-          ]);
-        });
-        CommunicationList.map((boardName) => {
-          setCommunicationBoards((CommunicationBoards) => [
-            ...CommunicationBoards,
-            { name: boardName, boardIdx: clubBoards[boardName] },
-          ]);
-        });
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/club/${clubId}`).then((res) => {
+      setClub(res.data.res.clubs);
+      const clubBoards = res.data.res.clubs.clubBoards[0];
+      AboutList.map((boardName) => {
+        setAboutBoards((AboutBoards) => [...AboutBoards, { name: boardName, boardIdx: clubBoards[boardName] }]);
       });
+      CommunicationList.map((boardName) => {
+        setCommunicationBoards((CommunicationBoards) => [
+          ...CommunicationBoards,
+          { name: boardName, boardIdx: clubBoards[boardName] },
+        ]);
+      });
+    });
     // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
     //   setActivityList(res.data);
     // });
@@ -78,11 +65,7 @@ const Club = (): ReactElement => {
       <ClubContext.Provider value={{ club, activityList }}>
         <Header />
         <div style={{ marginBottom: '130px' }}>
-          <ClubHeader
-            title={club?.name ?? ''}
-            hashtags={club?.clubCategories ?? []}
-            clubId={clubId}
-          />
+          <ClubHeader title={club?.name ?? ''} hashtags={club?.clubCategories ?? []} clubId={clubId} />
           <div style={{ display: 'flex' }}>
             <ClubSideBar
               clubId={clubId}
@@ -96,14 +79,10 @@ const Club = (): ReactElement => {
               <Route
                 path="/board"
                 element={
-                  <ClubBoard
-                    boardIdx={boardIdx}
-                    clubId={clubId}
-                    boards={[...AboutBoards, ...CommunicationBoards]}
-                  />
+                  <ClubBoard boardIdx={boardIdx} clubId={clubId} boards={[...AboutBoards, ...CommunicationBoards]} />
                 }
               ></Route>
-              <Route path="/posting" element={<Posting />}></Route>
+              <Route path="/posting" element={<Posting clubId={clubId} />}></Route>
             </Routes>
           </div>
         </div>
