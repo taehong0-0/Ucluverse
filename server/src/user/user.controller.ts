@@ -8,6 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { SignupClubDto } from './dto/signup-club.dto';
 import { StarClubDto } from './dto/star-club.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -119,16 +120,25 @@ export class UserController {
     }
 
     @Get('userClub/applied/users/:clubIdx')
+    @ApiOperation({
+        summary: '동아리 지원한 유저 리스트 API'
+    })
     async getAppliedUsers(@Param('clubIdx') clubIdx: number, @Res() res){
         res.send(await this.userService.getAppliedUsers(clubIdx));
     } 
 
     @Get('userClub/accepted/clubs/:userIdx')
+    @ApiOperation({
+        summary: '유저가 가입한 동아리 리스트 API'
+    })
     async getAcceptedClubs(@Param('userIdx') userIdx: number, @Res() res){
         res.send(await this.userService.getAcceptedClubs(userIdx));
     }
 
     @Get('userClub/stared/clubs/:userIdx')
+    @ApiOperation({
+        summary: '유저가 찜한 동아리 리스트 API'
+    })
     async getStaredClubs(@Param('userIdx') userIdx: number, @Res() res){
         res.send(await this.userService.getStaredClubs(userIdx));
     }
