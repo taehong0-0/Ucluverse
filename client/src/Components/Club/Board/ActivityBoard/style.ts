@@ -4,15 +4,14 @@ import { BoardStyle } from '../style';
 export const ActivityBoardContainer = styled.div`
   & > div:first-child {
     ${BoardStyle}
+  }
+  .activity-list {
     display: flex;
     flex-wrap: wrap;
   }
-
-  a:last-child {
-    button {
-      margin-top: 1.25rem;
-      margin-left: 48rem;
-    }
+  button {
+    margin-top: 1.25rem;
+    margin-left: 48rem;
   }
 `;
 

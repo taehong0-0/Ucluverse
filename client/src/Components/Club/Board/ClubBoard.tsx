@@ -17,10 +17,7 @@ const ClubBoard = (props: props): ReactElement => {
   const [boardName, setBoardName] = useState<string>('');
 
   useEffect(() => {
-    setBoardName(
-      boards.filter((board) => board.boardIdx === boardIdx)[0]?.name ??
-        '전체게시판',
-    );
+    setBoardName(boards.filter((board) => board.boardIdx === boardIdx)[0]?.name ?? '전체게시판');
   }, [boardIdx]);
   return (
     <>
