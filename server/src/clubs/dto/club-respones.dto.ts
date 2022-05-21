@@ -12,6 +12,26 @@ export class ClubResDto extends BaseSuccessResDto{
     clubs: any;
 }
 
+export class ClubBasicInfoResDto extends BaseSuccessResDto{
+    constructor(club: any){
+        super();
+        this.res.club = club;
+    }
+    @ApiProperty({ 
+        description: '동아리 admin 페이지 기본 설정 페이지 정보',
+        example: {
+            "introductionPath": null,
+            "introductionDesc": null,
+            "categories": [
+                "체육분과",
+                "운동",
+                "스쿼시"
+            ],
+        }
+    })
+    club: any;
+}
+
 export class ClubsWithCategoriesAndClubBoardsResDto extends BaseSuccessResDto {
     constructor(clubs: any) {
         super();
