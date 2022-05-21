@@ -139,7 +139,11 @@ export class UserService {
             .getOne();
 
             const result = await this.getStarredClubs(userIdx);
-            user['starredClubs'] = result.res.clubs;
+            const starredClubIdxs = []
+            result.res.clubs.forEach(club => {
+                starredClubIdxs.push(club.clubIdx);
+            })
+            user['starredClubs'] = starredClubIdxs;
             return new UserResDto(user); 
         } catch(e) {
             console.log(e);
@@ -620,7 +624,6 @@ export class UserService {
                     },
                 }
             });
-            console.log(clubs);
             return new ClubResDto(clubs);
         } catch(e) {
             console.log(e);
