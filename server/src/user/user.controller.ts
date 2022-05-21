@@ -62,6 +62,18 @@ export class UserController {
         res.send(await this.userService.checkIsSignedUp(userIdx, clubIdx));
     }
 
+    @Post('userClub/changeRole/:userClubIdx')
+    @ApiOperation({
+        summary: '동아리 회원 역할 변경 API'
+    })
+    @ApiOkResponse({
+        type: Boolean,
+    })
+    async changeRole(@Param('userClubIdx') userClubIdx: number, @Res() res){
+        res.send(await this.userService.changeRole(userClubIdx));
+    }
+
+
     @Post('userClub/signup')
     @ApiOperation({
         summary: '동아리 신청 API'
