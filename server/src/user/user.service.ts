@@ -328,6 +328,28 @@ export class UserService {
         }
     }
 
+    async changeRole(userClubIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try{
+            const userClub = await queryRunner.manager.findOne(UserClub, {
+                where: {
+                    userClubIdx,
+                }
+            });
+            userClub.role === "member" ? userClub.role = "manager" : userClub.role = "member";
+            await queryRunner.manager.save(userClub);
+            await queryRunner.commitTransaction();
+            return new BaseSuccessResDto();
+        }catch(e){
+            console.log(e);
+            await queryRunner.rollbackTransaction();
+        }finally{
+            await queryRunner.release();
+        }
+    }
+
     async changeUserClubStatus(changeUserClubStatus: ChangeUserClubStatusDto, status: string){
         const {userIdx, clubIdx} = changeUserClubStatus;
         const userClub = await this.getUserClub(userIdx, clubIdx);

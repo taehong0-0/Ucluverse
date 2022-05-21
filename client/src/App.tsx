@@ -16,6 +16,7 @@ import './styles/App.css'; // 초기값 css
 import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { ClubListState, DepartmentListState } from './Recoil/Club';
+import MyPage from './Pages/MyPage/MyPage';
 
 axios.defaults.withCredentials = true;
 
@@ -23,17 +24,13 @@ const App = () => {
   const setClubList = useSetRecoilState(ClubListState);
   const setDepartmentList = useSetRecoilState(DepartmentListState);
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/clubs/department`)
-      .then((res) => {
-        setDepartmentList(res.data.res.clubs);
-      });
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/department`).then((res) => {
+      setDepartmentList(res.data.res.clubs);
+    });
 
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/clubs/central`)
-      .then((res) => {
-        setClubList(res.data.res.clubs);
-      });
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/central`).then((res) => {
+      setClubList(res.data.res.clubs);
+    });
   }, []);
   return (
     <>
@@ -44,34 +41,34 @@ const App = () => {
           <Route
             path="/login"
             element={
-              // <LoginRoute>
-              <Login />
-              // </LoginRoute>
+              <LoginRoute>
+                <Login />
+              </LoginRoute>
             }
           />
           <Route
             path="login/info"
             element={
-              // <LoginRoute>
-              <LoginInfo />
-              // </LoginRoute>
+              <LoginRoute>
+                <LoginInfo />
+              </LoginRoute>
             }
           />
           <Route
             path="/club/:id/*"
             element={
-              //  <AuthRoute>
-              <Club />
-              //   </AuthRoute>
+              <AuthRoute>
+                <Club />
+              </AuthRoute>
             }
           />
           <Route path="*" element={<Navigate replace to="/" />} />
           <Route
             path="/clubList/*"
             element={
-              //   <AuthRoute>
-              <ClubList />
-              //  </AuthRoute>
+              <AuthRoute>
+                <ClubList />
+              </AuthRoute>
             }
           />
           <Route
@@ -79,6 +76,14 @@ const App = () => {
             element={
               <AuthRoute>
                 <ClubAdmin />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/mypage"
+            element={
+              <AuthRoute>
+                <MyPage />
               </AuthRoute>
             }
           />
