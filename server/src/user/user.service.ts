@@ -137,6 +137,9 @@ export class UserService {
             .select(['user', 'profilePhoto.path'])
             .where('user.userIdx=:userIdx', { userIdx })
             .getOne();
+
+            const result = await this.getStarredClubs(userIdx);
+            user['starredClubs'] = result.res.clubs;
             return new UserResDto(user); 
         } catch(e) {
             console.log(e);
@@ -603,7 +606,7 @@ export class UserService {
         }
     }
 
-    async getStaredClubs(userIdx: number){
+    async getStarredClubs(userIdx: number){
         const queryRunner = this.connection.createQueryRunner();
         try{
             const clubs = await queryRunner.manager.find(Club, {
