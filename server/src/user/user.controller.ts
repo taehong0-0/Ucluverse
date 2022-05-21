@@ -43,7 +43,6 @@ export class UserController {
         return this.userService.findDuplicateNickname(nickname);
     }
 
-    @UseGuards(JwtAuthGuard)
     @Get(':idx')
     @ApiOperation({
         summary: '유저 아이디를 통해 찾은 유저 정보를 반환'
@@ -139,8 +138,8 @@ export class UserController {
     @ApiOperation({
         summary: '유저가 찜한 동아리 리스트 API'
     })
-    async getStaredClubs(@Param('userIdx') userIdx: number, @Res() res){
-        res.send(await this.userService.getStaredClubs(userIdx));
+    async getStarredClubs(@Param('userIdx') userIdx: number, @Res() res){
+        res.send(await this.userService.getStarredClubs(userIdx));
     }
 
     @Post('userClub/answer')

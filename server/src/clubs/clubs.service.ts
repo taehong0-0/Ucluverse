@@ -2,11 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { BaseFailMsgResDto, BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Connection, QueryResult, Raw } from 'typeorm';
-import { ClubsWithCategoriesAndClubBoardsResDto, ClubResDto } from './dto/club-respones.dto';
+import { ClubsWithCategoriesAndClubBoardsResDto, ClubResDto, ClubBasicInfoResDto } from './dto/club-respones.dto';
 import { CreateClubBoardDto } from './dto/create-clubBoard.dto';
 import { Club, ClubBoard, ClubCategory } from './entities/club.entity';
 import * as XLSX from 'xlsx'
 import { UserResDto } from 'src/user/dto/user-response.dto';
+import { PatchClubInfoDto } from './dto/patch-clubInfo.dto';
 
 @Injectable()
 export class ClubsService {
@@ -157,6 +158,33 @@ export class ClubsService {
         }
     }
 
+    async getBasicClubInfo(clubIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        try {
+            const club = await queryRunner.manager.findOne(Club, {
+                where:{
+                    clubIdx
+                },
+                relations:[
+                    'clubCategories',
+                ]
+            });
+            const response = {};
+            const categoryArr = [];
+            club.clubCategories.forEach(ClubCategory => {
+                categoryArr.push(ClubCategory.name);
+            });
+            response['introductionDesc'] = club.introductionDesc;
+            response['introductionPath'] = club.introductionPath;
+            response['categories'] = categoryArr;
+            return new ClubBasicInfoResDto(response);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
+    }
+
     async createClubBoard(createClubBoardDto: CreateClubBoardDto) {
         const {name, clubIdx} = createClubBoardDto;
         const result = await this.checkIfClubBoardExists(clubIdx, name);
@@ -178,6 +206,52 @@ export class ClubsService {
             clubBoard.club = club;
 
             await queryRunner.manager.save(clubBoard);
+            await queryRunner.commitTransaction();
+            return new BaseSuccessResDto();
+        }catch(e){
+            console.log(e);
+            await queryRunner.rollbackTransaction();
+        }finally{
+            await queryRunner.release()
+        }
+    }
+
+    async patchClubInfo(patchClubInfoDto: PatchClubInfoDto, clubIdx: number){
+        const { introductionDesc, introductionPath, categories} = patchClubInfoDto;
+        const queryRunner = this.connection.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try{
+            const club = await queryRunner.manager.findOne(Club, {
+                where:{
+                    clubIdx: clubIdx,
+                }
+            })
+            const exCategories = await queryRunner.manager.find(ClubCategory, {
+                where: {
+                    clubIdx,
+                },
+                select: ['name']
+            });
+            const exCategoryNames = exCategories.map(exCategories => exCategories.name);
+            const categoryNamesToBeDeleted = exCategoryNames.filter(exCategory => !categories.includes(exCategory));
+
+            for (let name of categoryNamesToBeDeleted) {
+                await queryRunner.manager.delete(ClubCategory, {
+                    name,
+                });
+            }
+            const nameOfNewCategoriesToBeSaved = categories.filter(category => !exCategoryNames.includes(category));
+
+            for (let name of nameOfNewCategoriesToBeSaved) {
+                const newClubCategory = new ClubCategory();
+                newClubCategory.name = name;
+                newClubCategory.clubIdx = clubIdx;
+                await queryRunner.manager.save(newClubCategory);
+            }
+            club.introductionPath = introductionPath;
+            club.introductionDesc = introductionDesc;
+            await queryRunner.manager.save(club);
             await queryRunner.commitTransaction();
             return new BaseSuccessResDto();
         }catch(e){

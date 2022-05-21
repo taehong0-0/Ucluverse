@@ -29,6 +29,7 @@ export class AwardsService {
                 response['clubName'] = award.club.name;
                 response['awardTitle'] = award.competitionName;
                 response['awardName'] = award.awardName;
+                response['content'] = award.content;
                 response['path'] = award.path;
                 responses.push(response);
             })
@@ -57,6 +58,7 @@ export class AwardsService {
                     response['clubName'] = award.club.name;
                     response['awardTitle'] = award.competitionName;
                     response['awardName'] = award.awardName;
+                    response['content'] = award.content;
                     response['path'] = award.path;
                     responses.push(response);
                 });
@@ -84,6 +86,7 @@ export class AwardsService {
                 response['clubName'] = award.club.name;
                 response['awardTitle'] = award.competitionName;
                 response['awardName'] = award.awardName;
+                response['content'] = award.content;
                 response['path'] = award.path;
 
             return new AwardsResDto(response);
