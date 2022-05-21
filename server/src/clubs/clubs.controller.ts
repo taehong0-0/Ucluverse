@@ -58,6 +58,17 @@ export class ClubsController {
         return this.clubsService.getDepartmentClubs();
     }
 
+    @Get('clubInfo/:clubIdx')
+    @ApiOperation({
+        summary: '(과소속)소학회 목록 불러오기 API',
+    })
+    @ApiOkResponse({
+        type: ClubsWithCategoriesAndClubBoardsResDto,
+    })
+    async getBasicClubInfo(@Param('clubIdx') clubIdx: number, @Res() res){
+        return res.send(await this.clubsService.getBasicClubInfo(clubIdx));
+    }
+
     @Post('clubBoard')
     @ApiOperation({
         summary: '동아리 게시판 생성 API',
