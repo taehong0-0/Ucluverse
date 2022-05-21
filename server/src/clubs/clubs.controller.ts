@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Header, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Header, Param, Patch, Post, Res } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ClubsService } from './clubs.service';
 import { ClubsWithCategoriesAndClubBoardsResDto } from './dto/club-respones.dto';
 import { CreateClubBoardDto } from './dto/create-clubBoard.dto';
+import { PatchClubInfoDto } from './dto/patch-clubInfo.dto';
 
 @Controller('clubs')
 @ApiTags('동아리 API')
@@ -63,6 +64,14 @@ export class ClubsController {
     })
     async createClubBoard(@Body() createClubBoardDto: CreateClubBoardDto, @Res() res){
         return res.send(await this.clubsService.createClubBoard(createClubBoardDto));
+    }
+
+    @Patch(':clubIdx')
+    @ApiOperation({
+        summary: '동아리 기본 정보 수정 API',
+    })
+    async patchClubInfo(@Param('clubIdx') clubIdx: number, @Body() patchClubInfoDto: PatchClubInfoDto, @Res() res){
+        return res.send(await this.clubsService.patchClubInfo(patchClubInfoDto, clubIdx));
     }
 
     @Get('makeExcel/:clubIdx')
