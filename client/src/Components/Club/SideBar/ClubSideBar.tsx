@@ -1,10 +1,4 @@
-import React, {
-  ReactElement,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ReactElement, SetStateAction, useEffect, useRef, useState } from 'react';
 import { useContext } from 'react';
 import { Dispatch } from 'react';
 import { Link } from 'react-router-dom';
@@ -20,15 +14,9 @@ interface props {
   CommunicationBoardList: BoardType[];
   clubId: number;
   setBoardIdx: Dispatch<SetStateAction<number>>;
+  setBoardName: Dispatch<SetStateAction<string>>;
 }
-const questions = [
-  '이름',
-  '학번',
-  '관심있는 과목',
-  '개발경험',
-  '개발실력',
-  '개발언어',
-];
+const questions = ['이름', '학번', '관심있는 과목', '개발경험', '개발실력', '개발언어'];
 const notice = `ddddd\r\n
 ddddddd
 ddddddddddd\r\n
@@ -38,7 +26,7 @@ ddddddd
 dddddd`;
 
 const ClubSideBar = (props: props): ReactElement => {
-  const { AboutBoardList, CommunicationBoardList, setBoardIdx, clubId } = props;
+  const { AboutBoardList, CommunicationBoardList, setBoardIdx, setBoardName, clubId } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const user = useRecoilValue(userState);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -76,7 +64,10 @@ const ClubSideBar = (props: props): ReactElement => {
             <Link to={`/club/${clubId}/board`}>
               <span
                 className="board-name"
-                onClick={() => setBoardIdx(board.boardIdx)}
+                onClick={() => {
+                  setBoardIdx(board.boardIdx);
+                  setBoardName(board.name);
+                }}
               >
                 {board.name}
               </span>
@@ -89,7 +80,10 @@ const ClubSideBar = (props: props): ReactElement => {
             <Link to={`/club/${clubId}/board`}>
               <span
                 className="board-name"
-                onClick={() => setBoardIdx(board.boardIdx)}
+                onClick={() => {
+                  setBoardIdx(board.boardIdx);
+                  setBoardName(board.name);
+                }}
               >
                 {board.name}
               </span>
@@ -119,9 +113,7 @@ const ClubSideBar = (props: props): ReactElement => {
                   return (
                     <FloatInput
                       name={question}
-                      inputRef={(el: HTMLInputElement) =>
-                        (inputRef.current[idx] = el)
-                      }
+                      inputRef={(el: HTMLInputElement) => (inputRef.current[idx] = el)}
                       type="midium"
                     />
                   );

@@ -65,12 +65,7 @@ const AwardBoard = (props: Props) => {
   }, []);
 
   const submit = async () => {
-    if (
-      !awardNameRef.current?.value ||
-      !awardTitleRef.current?.value ||
-      !awardContentRef.current?.value ||
-      !image
-    ) {
+    if (!awardNameRef.current?.value || !awardTitleRef.current?.value || !awardContentRef.current?.value || !image) {
       console.log(11);
       notify();
       return;
@@ -99,12 +94,10 @@ const AwardBoard = (props: Props) => {
     }
   };
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/awards/club/${clubId}`)
-      .then((res) => {
-        console.log(res);
-        // setAwardPosts(res.data.res)
-      });
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/awards/club/${clubId}`).then((res) => {
+      console.log(res);
+      // setAwardPosts(res.data.res)
+    });
   }, []);
   useEffect(() => {
     if (isOpen) {
@@ -128,7 +121,7 @@ const AwardBoard = (props: Props) => {
         <div className="navigator">
           <span>Home</span>
           <span>{'>'}</span>
-          <span>게시판 이름</span>
+          <span>수상 게시판</span>
         </div>
         <AwardListContainer>
           <div>
@@ -149,16 +142,8 @@ const AwardBoard = (props: Props) => {
             <span>수상 내역 등록</span>
             <div>
               <div>
-                <FloatInput
-                  inputRef={awardTitleRef}
-                  name="대회"
-                  type="midium"
-                ></FloatInput>
-                <FloatInput
-                  inputRef={awardNameRef}
-                  name="상"
-                  type="midium"
-                ></FloatInput>
+                <FloatInput inputRef={awardTitleRef} name="대회" type="midium"></FloatInput>
+                <FloatInput inputRef={awardNameRef} name="상" type="midium"></FloatInput>
                 <span>사진</span>
                 <DropZone setFile={setFile} setImage={setImage}>
                   {!image ? (
@@ -175,22 +160,6 @@ const AwardBoard = (props: Props) => {
                     />
                   )}
                 </DropZone>
-                {/* <DropZoneDiv {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  {!image ? (
-                    <img src={fileUploadImg} width="30px" height="27px" />
-                  ) : (
-                    <img
-                      src={image}
-                      style={{
-                        width: '16.5rem',
-                        height: '8.938rem',
-                        marginBottom: '15px',
-                        borderRadius: '5px',
-                      }}
-                    />
-                  )}
-                </DropZoneDiv> */}
               </div>
               <div>
                 <span>내용</span>
