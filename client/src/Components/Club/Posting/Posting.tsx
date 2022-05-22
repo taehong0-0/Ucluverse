@@ -10,14 +10,22 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '../../../Recoil/User';
 import { useContext } from 'react';
 import { ClubContext } from '../../../Pages/Club/Club';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { send } from 'node:process';
 
-const Posting = () => {
+interface Props {
+  clubId: number;
+}
+const Posting = (props: Props) => {
+  const { clubId } = props;
   const user = useRecoilValue(userState);
   const { boardIdx, boardName } = window.history.state;
   const titleRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState<string>('');
   const [imageList, setImageList] = useState<string[]>([]);
+
+  var result = content;
   const submit = async () => {
     if (!titleRef.current || content === '') return;
     const option = {
@@ -28,15 +36,12 @@ const Posting = () => {
     const s3 = new AWS.S3(option);
     const srcRegEx = /<img src=\"([^\"]*?)\" \/>/gi;
     const srcList = content.match(srcRegEx);
-    var result = content;
+    // var result = content;
     var images;
     const promiseList = srcList?.map(async (tag, idx) => {
       tag.match(srcRegEx);
       const srcData = RegExp.$1;
-      const base64Data = Buffer.from(
-        srcData.replace(/^data:image\/\w+;base64,/, ''),
-        'base64',
-      );
+      const base64Data = Buffer.from(srcData.replace(/^data:image\/\w+;base64,/, ''), 'base64');
       const type = srcData.split(';')[0].split('/')[1];
 
       const param = {
@@ -47,29 +52,38 @@ const Posting = () => {
         Key: `posting/test/${new Date().toString()}${idx}.${type ?? 'png'}`,
         Body: base64Data,
       };
-      return await s3
+      return s3
         .upload(param)
         .promise()
         .then((data) => {
+          console.log(data.Location);
           result = result.replace(srcData, data.Location);
-          setImageList((imageList) => [...imageList, data.Location]);
+          return data.Location;
         });
     });
-    await Promise.all(promiseList ?? []);
-    await axios
-      .post(
-        `${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`,
-        {
-          userIdx: user.userIdx,
-          title: titleRef.current.value,
-          content: result,
-          images: imageList,
-          allowComments: true,
-          isPublic: true,
-        },
-      )
-      .then((res) => console.log(res));
+    console.log(promiseList);
+    const res = await Promise.all(promiseList ?? []);
+    setImageList(res);
   };
+
+  const send = () => {
+    if (!titleRef.current || content === '') return;
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`, {
+        userIdx: user.userIdx,
+        title: titleRef.current.value,
+        content: result,
+        images: imageList,
+        allowComments: true,
+        isPublic: true,
+      })
+      .then((res) => {
+        window.location.href = `/club/${clubId}/board`;
+      });
+  };
+  useEffect(() => {
+    send();
+  }, [imageList]);
   return (
     <PostingContainer>
       <div className="navigator">

@@ -44,7 +44,7 @@ export const TitleContainer = styled.div`
     }
     a {
       span {
-        width: 35vw;
+        width: 33vw;
       }
     }
     & > span:nth-of-type(2) {
@@ -76,7 +76,7 @@ export const TitleContainer = styled.div`
     }
     a {
       span {
-        width: 40vw;
+        width: 38vw;
       }
     }
   }

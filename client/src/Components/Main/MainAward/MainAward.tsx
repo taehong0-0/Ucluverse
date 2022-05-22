@@ -4,66 +4,25 @@ import awardHeaderImg from '../../../Assets/수상내역.png';
 import Slider from 'react-slick';
 import testImg from '../../../Assets/test4.jpeg';
 import { AwardPostType } from '../../../Types/PostType';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const MainAward = (): ReactElement => {
   const [awardList, setAwardList] = useState<AwardPostType[]>([]);
   useEffect(() => {
-    // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
-    //   setAwardList(res.data);
-    // });
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/awards/all`).then((res) => {
+      setAwardList(res.data.res.awards);
+    });
   }, []);
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: awardList.length > 5 ? true : false,
     autoplay: true,
     speed: 500,
+    centerMode: awardList.length > 5 ? true : false,
     slidesToShow: 5,
     slidesToScroll: 1,
   };
-  const dummyList = [
-    {
-      url: '../../../Assets/test5.jpeg',
-      clubName: '동아리이름',
-      title: '캡스톤경진대회',
-      award: '금상',
-    },
-    {
-      url: '../../../Assets/test5.jpeg',
-      clubName: '동아리이름',
-      title: '캡스톤경진대회',
-      award: '금상',
-    },
-    {
-      url: '../../../Assets/test5.jpeg',
-      clubName: '동아리이름',
-      title: '캡스톤경진대회',
-      award: '금상',
-    },
-    {
-      url: '../../../Assets/test4.jpeg',
-      clubName: '동아리이름',
-      title: '캡스톤경진대회',
-      award: '금상',
-    },
-    {
-      url: '../../../Assets/test3.jpeg',
-      clubName: '동아리이름',
-      title: '캡스톤경진대회',
-      award: '금상',
-    },
-    {
-      url: '../../../Assets/test2.jpeg',
-      clubName: '동아리이름',
-      title: '캡스톤경진대회',
-      award: '금상',
-    },
-    {
-      url: '../../../Assets/test1.jpeg',
-      clubName: '동아리이름',
-      title: '캡스톤경진대회',
-      award: '금상',
-    },
-  ];
   return (
     <AwardContainer>
       <div>
@@ -71,28 +30,22 @@ const MainAward = (): ReactElement => {
         <span>열심히 활동한 동아리를 볼 수 있어요.</span>
       </div>
       <Slider {...settings}>
-        {dummyList.map((award) => {
+        {awardList.map((award) => {
           return (
-            <AwardDiv
-              onClick={() => {
-                history.pushState(null, '', '/club');
-                window.location.replace('/club');
-              }}
-            >
-              <img src={testImg} width="304px" height="486px" />
-              <div>
-                <span>{award.clubName}</span>
+            <Link to={`club/${award.clubIdx}`}>
+              <AwardDiv>
+                <img src={award.path} width="304px" height="486px" />
                 <div>
-                  <span>{award.title}</span>
-                  <span>{award.award}</span>
-                  <div className={`award-border`}></div>
-                  <span className={`award-detail`}>
-                    sadfas dfasdfasdfasdfasfdasdfasdfsadf
-                    asdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdfsadfasdfasdfasdfasdfasfdasdfasdf
-                  </span>
+                  <span>{award.clubName}</span>
+                  <div>
+                    <span>{award.awardTitle}</span>
+                    <span>{award.awardName}</span>
+                    <div className={`award-border`}></div>
+                    <span className={`award-detail`}>{award.awardContent}</span>
+                  </div>
                 </div>
-              </div>
-            </AwardDiv>
+              </AwardDiv>
+            </Link>
           );
         })}
       </Slider>

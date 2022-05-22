@@ -77,6 +77,7 @@ export const AwardBoardContainer = styled.div`
           letter-spacing: -1.35px;
           color: #1a1917;
           opacity: 1;
+          margin-bottom: 30px;
         }
         textarea {
           margin-top: 30px;
@@ -135,6 +136,9 @@ export const DropZoneDiv = styled.div`
 export const AwardListContainer = styled.div`
   display: flex;
   flex-direction: column;
+  overflow: auto;
+
+  height: 33.5rem;
   & > div {
     width: 40rem;
     margin-left: 54px;
@@ -159,6 +163,8 @@ export const AwardListContainer = styled.div`
         opacity: 1;
       }
       span:last-child {
+        display: block;
+        margin-top: 10px;
         text-align: left;
         font: normal normal normal 14px/20px Noto Sans KR;
         letter-spacing: -1.05px;
