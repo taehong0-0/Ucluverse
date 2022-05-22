@@ -34,7 +34,7 @@ const MainAward = (): ReactElement => {
           return (
             <Link to={`club/${award.clubIdx}`}>
               <AwardDiv>
-                <img src={testImg} width="304px" height="486px" />
+                <img src={award.path} width="304px" height="486px" />
                 <div>
                   <span>{award.clubName}</span>
                   <div>
