@@ -17,15 +17,24 @@ const PostBoard = (props: props) => {
   const [postList, setPostList] = useState<PostTitleType[]>([]);
   useEffect(() => {
     if (boardName === '전체 게시판') {
-      axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/club/entire/${boardIdx}`).then((res) => {
-        setPostList(res.data.res.postings);
+      axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/club/entire/${clubId}`).then((res) => {
+        setPostList(res.data.res.postings.sort(sortFunc) ?? []);
       });
     } else {
       axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`).then((res) => {
         setPostList(res.data.res.postings);
       });
     }
-  }, [boardIdx]);
+  }, [boardName]);
+  const sortFunc = (a: PostTitleType, b: PostTitleType) => {
+    if (a.type === '공지사항' && b.type === '공지사항') {
+      return 0;
+    } else if (a.type === '공지사항') {
+      return -1;
+    } else {
+      return 1;
+    }
+  };
   return (
     <ClubBoardContainer>
       <div>
@@ -36,11 +45,13 @@ const PostBoard = (props: props) => {
         </div>
         {postList.map((post) => (
           <PostTitle
+            key={post.createdAt}
             title={post.title}
             author={post.author}
             date={post.createdAt}
             type={post.type}
-            postId={post.postId}
+            postId={post.postingIdx}
+            clubId={clubId}
           ></PostTitle>
         ))}
       </div>
