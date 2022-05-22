@@ -39,7 +39,7 @@ export const HeaderContainer = styled.div`
       opacity: 1;
     }
   }
-  & > div:last-child {
+  .info {
     display: flex;
     margin-right: 1.25rem;
     div {
@@ -51,6 +51,11 @@ export const HeaderContainer = styled.div`
       span {
         text-align: right;
       }
+    }
+    div:last-child {
+      width: 90px;
+      height: 90px;
+      border: 1px solid black;
     }
   }
 `;

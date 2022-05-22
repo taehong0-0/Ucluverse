@@ -6,6 +6,12 @@ interface props {
 }
 
 const PostMain = (props: props): ReactElement => {
-  return <PostMainContainer></PostMainContainer>;
+  const { post } = props;
+
+  return (
+    <PostMainContainer>
+      <span dangerouslySetInnerHTML={{ __html: post?.content ?? '' }} />
+    </PostMainContainer>
+  );
 };
 export default PostMain;
