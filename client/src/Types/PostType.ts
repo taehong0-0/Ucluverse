@@ -1,4 +1,4 @@
-import { UserType } from 'aws-sdk/clients/workdocs';
+import { UserType } from './UserType';
 
 export interface AwardPostType {
   clubIdx: number;
@@ -29,7 +29,7 @@ export interface ActivityPostType {
 export interface PostType {
   postingIdx: number;
   title: string;
-  author: string;
+  author: UserType;
   createAt: string;
   content: string;
   isLike: boolean;
