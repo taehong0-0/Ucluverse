@@ -190,7 +190,7 @@ export class PostingsService {
         }
     }
 
-    async getPostingByPostingIdx(postingIdx: number){
+    async getPostingByPostingIdx(postingIdx: number, userIdx: number){
         const queryRunner = this.connection.createQueryRunner();
         try {
             const posting = await queryRunner.manager
@@ -200,6 +200,10 @@ export class PostingsService {
                 .addSelect(['attachedFiles.attachedFileIdx','attachedFiles.path'])
                 .addSelect(['comments.commentIdx','comments.userIdx','comments.content'])
                 .addSelect(['likes.likeIdx','likes.userIdx'])
+                .addSelect(['user.name'])
+                .addSelect(['clubBoard.name'])
+                .leftJoin('posting.clubBoard', 'clubBoard')
+                .leftJoin('posting.user', 'user')
                 .leftJoin('posting.attachedFiles' , 'attachedFiles')
                 .leftJoin('posting.images' , 'images')
                 .leftJoin('posting.comments', 'comments')
@@ -224,7 +228,11 @@ export class PostingsService {
                     attachedFileRes['attachedFilePath'] = attachedFile.path;
                     attachedFileArr.push(attachedFileRes);
                 });
+                response['isLike'] = false;
                 posting.likes.forEach(like => {
+                    if(like.userIdx === userIdx){
+                        response['isLike'] = true;
+                    }
                     const likeRes = {};
                     likeRes['likeIdx'] = like.likeIdx;
                     likeRes['userIdx'] = like.userIdx;
@@ -239,13 +247,15 @@ export class PostingsService {
                 });
                 response['postingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
+                response['author'] = posting.user.name;
                 response['content'] = posting.content;
                 response['createdAt'] = posting.createdAt;
+                response['likesNum'] = likeArr.length;
+                response['boardName'] = posting.clubBoard.name;
                 response['allowComments'] = posting.allowComments;
                 response['isPublic'] = posting.isPublic;
                 response['images'] = imageArr;
                 response['attachedFiles'] = attachedFileArr;
-                response['likes'] = likeArr;
                 response['comments'] = commentArr;
             return new PostingResDto(response);
         } catch(e) {
