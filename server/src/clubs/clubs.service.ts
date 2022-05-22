@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { BaseFailMsgResDto, BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
-import { User } from 'src/user/entities/user.entity';
+import { User, UserClub } from 'src/user/entities/user.entity';
 import { Connection, QueryResult, Raw } from 'typeorm';
 import { ClubsWithCategoriesAndClubBoardsResDto, ClubResDto, ClubBasicInfoResDto } from './dto/club-respones.dto';
 import { CreateClubBoardDto } from './dto/create-clubBoard.dto';
@@ -20,7 +20,7 @@ export class ClubsService {
         try {            
             const club = await queryRunner.manager
                 .createQueryBuilder(Club, 'club')
-                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath', 'club.introductionPath', 'club.introductionDesc'])
+                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath', 'club.introductionDesc'])
                 .addSelect('ccs.name')
                 .addSelect(['cbs.clubBoardIdx', 'cbs.name'])
                 .leftJoin('club.clubCategories' , 'ccs')
@@ -80,7 +80,7 @@ export class ClubsService {
         try {            
             const centralClubs = await queryRunner.manager
                 .createQueryBuilder(Club, 'club')
-                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath', 'club.introductionPath', 'club.introductionDesc'])
+                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath', 'club.introductionDesc'])
                 .addSelect('ccs.name')
                 .addSelect(['cbs.clubBoardIdx', 'cbs.name'])
                 .leftJoin('club.clubCategories' , 'ccs')
@@ -121,7 +121,7 @@ export class ClubsService {
         try {
             const departmentClubs = await queryRunner.manager
                 .createQueryBuilder(Club, 'club')
-                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath', 'club.introductionPath', 'club.introductionDesc'])
+                .select(['club.clubIdx', 'club.name', 'club.collegeIdx', 'club.departmentIdx', 'club.clubType', 'club.logoPath', 'club.introductionDesc'])
                 .addSelect('ccs.name')
                 .addSelect(['cbs.clubBoardIdx', 'cbs.name'])
                 .leftJoin('club.clubCategories' , 'ccs')
@@ -175,7 +175,7 @@ export class ClubsService {
                 categoryArr.push(ClubCategory.name);
             });
             response['introductionDesc'] = club.introductionDesc;
-            response['introductionPath'] = club.introductionPath;
+            response['logoPath'] = club.logoPath;
             response['categories'] = categoryArr;
             return new ClubBasicInfoResDto(response);
         } catch(e) {
@@ -217,7 +217,7 @@ export class ClubsService {
     }
 
     async patchClubInfo(patchClubInfoDto: PatchClubInfoDto, clubIdx: number){
-        const { introductionDesc, introductionPath, categories} = patchClubInfoDto;
+        const { introductionDesc, logoPath, categories} = patchClubInfoDto;
         const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
@@ -249,7 +249,7 @@ export class ClubsService {
                 newClubCategory.clubIdx = clubIdx;
                 await queryRunner.manager.save(newClubCategory);
             }
-            club.introductionPath = introductionPath;
+            club.logoPath = logoPath;
             club.introductionDesc = introductionDesc;
             await queryRunner.manager.save(club);
             await queryRunner.commitTransaction();
@@ -310,34 +310,22 @@ export class ClubsService {
     async getClubUsers(clubIdx: number){
         const queryRunner = this.connection.createQueryRunner();
         try {
-            const users = await queryRunner.manager
-                .createQueryBuilder(User, 'user')
-                .select(['user.name', 'user.studentId'])
-                .addSelect('department.name')
-                .addSelect(['userClubs.role'])
-                .leftJoin('user.userClubs' , 'userClubs')
-                .leftJoin('user.department', 'department')
-                .where('userClubs.clubIdx = :clubIdx and userClubs.status = "accepted"', { clubIdx })
-                .getMany();
-
-            const responses = [];
-            users.forEach(user => {
-                const response = {};
-                const roleArr = [];
-                response['name'] = user.name;
-                response['studentId'] = user.studentId;
-                response['department'] = user.department.name;
-                if(user.userClubs !== undefined){
-                    user.userClubs.forEach(userClub => {
-                        roleArr.push(userClub.role);
-                    })
-                    response['role'] = roleArr[0];
-                }else{
-                    response['role'] = '';                    
-                }
-                responses.push(response);
+            const users = await queryRunner.manager.find(User, {
+                relations: [
+                    'userClubs',
+                ],
+                where: {
+                    userClubs: {
+                        clubIdx,
+                    }
+                },
+                select: ['userIdx', 'name', 'departmentIdx', 'studentId', 'email', 'phoneNumber', 'nickname', 'userClubs']
+            });
+            users.map(user => {
+                user['userClub'] = user.userClubs[0]
+                delete user.userClubs;
             })
-            return new UserResDto(responses);
+            return new UserResDto(users);
         } catch(e) {
             console.log(e);
         } finally {
