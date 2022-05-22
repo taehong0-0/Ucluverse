@@ -36,7 +36,7 @@ const ClubHeader = (props: props): ReactElement => {
       {like ? <FavoriteIcon id="like" onClick={onClick} /> : <FavoriteBorderIcon id="like" onClick={onClick} />}
       <div>
         {hashtags.map((hashtag) => (
-          <span>#{hashtag}</span>
+          <span key={hashtag}>#{hashtag}</span>
         ))}
       </div>
     </ClubHeaderContainer>

@@ -67,16 +67,19 @@ const Posting = (props: Props) => {
   };
 
   const send = () => {
-    console.log(imageList);
     if (!titleRef.current || content === '') return;
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`, {
-      userIdx: user.userIdx,
-      title: titleRef.current.value,
-      content: result,
-      images: imageList,
-      allowComments: true,
-      isPublic: true,
-    });
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`, {
+        userIdx: user.userIdx,
+        title: titleRef.current.value,
+        content: result,
+        images: imageList,
+        allowComments: true,
+        isPublic: true,
+      })
+      .then((res) => {
+        window.location.href = `/club/${clubId}/board`;
+      });
   };
   useEffect(() => {
     send();
@@ -90,9 +93,7 @@ const Posting = (props: Props) => {
       </div>
       <FloatInput inputRef={titleRef} name="제목" type="large" />
       <Editor setContent={setContent} />
-      <Link to={`/club/${clubId}`}>
-        <Button name="작성" clickEvent={submit}></Button>
-      </Link>
+      <Button name="작성" clickEvent={submit}></Button>
     </PostingContainer>
   );
 };
