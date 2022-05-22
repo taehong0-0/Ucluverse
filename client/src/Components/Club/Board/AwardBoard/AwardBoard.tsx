@@ -48,45 +48,35 @@ const AwardBoard = (props: Props) => {
       draggable: true,
       progress: undefined,
     });
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file: Blob) => {
-      const reader = new FileReader();
-      setFile(file);
-      const bloburl = URL.createObjectURL(file);
-      setImage(bloburl);
-      reader.onabort = () => console.log('file reading was aborted');
-      reader.onerror = () => console.log('file reading has failed');
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const binaryStr = reader.result;
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  }, []);
 
   const submit = async () => {
-    if (!awardNameRef.current?.value || !awardTitleRef.current?.value || !awardContentRef.current?.value || !image) {
-      console.log(11);
+    if (
+      !(awardNameRef.current && awardNameRef.current.value !== '') ||
+      !(awardTitleRef.current && awardTitleRef.current.value !== '') ||
+      !(awardContentRef.current && awardContentRef.current.value !== '') ||
+      !image
+    ) {
       notify();
       return;
+    } else {
+      await s3
+        .upload(param)
+        .promise()
+        .then((data) => {
+          axios
+            .post(`${process.env.REACT_APP_SERVER_URL}/awards`, {
+              clubIdx: clubId,
+              competitionName: awardTitleRef.current?.value,
+              awardName: awardNameRef.current?.value,
+              content: awardContentRef.current?.value,
+              path: data.Location,
+            })
+            .then(() => {
+              setIsOpen(false);
+            });
+        });
     }
-    await s3
-      .upload(param)
-      .promise()
-      .then((data) => {
-        console.log(data.Location);
-        // axios
-        //   .post(`${process.env.REACT_APP_SERVER_URL}/user/signup`, {})
-        //   .then((response) => {
-        //     console.log('response : ', JSON.stringify(response, null, 2));
-        //     window.location.replace('/');
-        //   })
-        //   .catch((error) => {
-        //     console.log('failed', error);
-        //   });
-      });
   };
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
   const handleModalClose = (e: MouseEvent) => {
     if (isOpen && !modalRef.current?.contains(e.target as Node)) {
       setIsOpen(false);
@@ -96,9 +86,9 @@ const AwardBoard = (props: Props) => {
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/awards/club/${clubId}`).then((res) => {
       console.log(res);
-      // setAwardPosts(res.data.res)
+      setAwardPosts(res.data.res.awards);
     });
-  }, []);
+  }, [isOpen]);
   useEffect(() => {
     if (isOpen) {
       document.body.style.cssText = `
@@ -124,15 +114,17 @@ const AwardBoard = (props: Props) => {
           <span>수상 게시판</span>
         </div>
         <AwardListContainer>
-          <div>
-            <img />
+          {awardPosts.map((award) => (
             <div>
-              <span>상이름</span>
-              <span>
-                <pre>내용입니다.</pre>
-              </span>
+              <img src={award.path} />
+              <div>
+                <span>{award.awardName}</span>
+                <span>
+                  <pre>{award.awardContent}</pre>
+                </span>
+              </div>
             </div>
-          </div>
+          ))}
         </AwardListContainer>
       </div>
       <Button name="등록" clickEvent={() => setIsOpen(true)} />
