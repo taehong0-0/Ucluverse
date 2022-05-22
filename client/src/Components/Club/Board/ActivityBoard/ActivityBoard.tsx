@@ -57,9 +57,8 @@ const ActivityBoard = (props: Props) => {
   const { boardIdx, clubId } = props;
   const [activityPosts, setActivityPosts] = useState<PostTitleType[]>([]);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/awards/${boardIdx}`).then((res) => {
-      console.log(res.data);
-      // setAwardPosts(res.data.res)
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`).then((res) => {
+      setActivityPosts(res.data.res.postings);
     });
   }, []);
   return (
@@ -71,9 +70,9 @@ const ActivityBoard = (props: Props) => {
           <span>활동 게시판</span>
         </div>
         <div className="activity-list">
-          {posts.map((post) => (
+          {activityPosts.map((post) => (
             <ActivityContainer>
-              <img src={post.path} />
+              <img src={post.path ?? ''} />
               <div>
                 <span>{post.title}</span>
                 <span>{post.createdAt}</span>
