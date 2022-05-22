@@ -17,7 +17,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ConfigService } from '@nestjs/config';
 import { IsSignedUpResDto } from './dto/isSignedUp-res.dto';
 import { CreateAnswerDto } from './dto/create-answer.dto';
-import { Question } from 'src/forms/entity/form.entity';
+import { Form, Question } from 'src/forms/entity/form.entity';
 import { ClubResDto } from 'src/clubs/dto/club-respones.dto';
 
 // 트랜잭션/에러처리 필요.
@@ -361,6 +361,7 @@ export class UserService {
         const {userIdx, clubIdx} = changeUserClubStatus;
         const userClub = await this.getUserClub(userIdx, clubIdx);
         userClub.status = status;
+        userClub.role = "member";
         const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
@@ -481,27 +482,48 @@ export class UserService {
     }
 
     async createAnswer(createAnswerDto: CreateAnswerDto){
-        const {questionIdx, clubIdx, userIdx, content} = createAnswerDto;
+        const {answerList, clubIdx, userIdx, submissionFiles} = createAnswerDto;
         const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try {
-            const answer = new Answer();
             const userClub = await queryRunner.manager.findOne(UserClub, {
                 where: {
                     clubIdx,
                     userIdx,
                 }
-            });
-            const question = await queryRunner.manager.findOne(Question, {
-                where: {
-                    questionIdx,
-                }
             })
-            answer.userClub = userClub;
-            answer.question = question;
-            answer.content = content;
-            await queryRunner.manager.save(answer);
+            await queryRunner.manager.delete(Answer, {
+                userClubIdx: userClub.userClubIdx,
+            })
+            answerList.map(async answer => {
+                const newAnswer = new Answer();
+                newAnswer.content = answer.content;
+                newAnswer.userClub = userClub;
+                const question = await queryRunner.manager.findOne(Question, {
+                    where: {
+                        questionIdx: answer.questionIdx,
+                    }
+                });
+                newAnswer.question = question;
+                await queryRunner.manager.save(newAnswer);
+            });
+
+            await queryRunner.manager.delete(SubmissionFile, {
+                userClubIdx: userClub.userClubIdx,
+            })
+            submissionFiles.map(async submissionFile => {
+                const newSubmissionFIle = new SubmissionFile();
+                const form = await queryRunner.manager.findOne(Form, {
+                    where: {
+                        clubIdx,
+                    }
+                })
+                newSubmissionFIle.userClub = userClub;
+                newSubmissionFIle.path = submissionFile;
+                newSubmissionFIle.form = form;
+                await queryRunner.manager.save(newSubmissionFIle);
+            });
             await queryRunner.commitTransaction();
             return new BaseSuccessResDto();
         } catch(e) {

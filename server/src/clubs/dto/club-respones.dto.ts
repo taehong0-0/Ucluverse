@@ -48,7 +48,6 @@ export class ClubsWithCategoriesAndClubBoardsResDto extends BaseSuccessResDto {
                 "name": "꽁",
                 "clubType": "과소학회",
                 "logoPath": "1.jpg",
-                "introductionPath": null,
                 "introductionDesc": null,
                 "clubCategories": [
                     "외국인",

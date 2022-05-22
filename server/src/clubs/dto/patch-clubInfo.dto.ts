@@ -7,7 +7,7 @@ export class PatchClubInfoDto {
     introductionDesc: string;
     @ApiProperty({ description: '동아리 포스터 경로' })
     @IsString()
-    introductionPath: string;
+    logoPath: string;
     @ApiProperty({ description: '동아리 카테고리 리스트' })
     @IsString({each: true})
     categories: string[];
