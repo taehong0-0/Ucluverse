@@ -36,6 +36,14 @@ export class ClubsController {
         return res.send(await this.clubsService.getNewClubs());
     }
 
+    @Get('greatClubs')
+    @ApiOperation({
+        summary: '우수 동아리 리스트 불러오기 API',
+    })
+    async getGreatClubs(@Res() res){
+        return res.send(await this.clubsService.getGreatClubs());
+    }
+
     @Get('central')
     @ApiOperation({
         summary: '(중앙)동아리 목록 불러오기 API',
