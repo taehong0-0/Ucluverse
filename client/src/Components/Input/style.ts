@@ -14,6 +14,18 @@ export const InputContainer = styled.div<props>`
   width: 10vw;
   margin-right: 1.25rem;
   position: relative;
+  span {
+    display: inline-block;
+    ${(props) => props.type === 'large' && largeStyle};
+    ${(props) => props.type === 'midium' && midiumStyle}
+    white-space: normal;
+    margin-top: -20px;
+    opacity: 0;
+    transition: all 0.2s linear;
+    font: normal normal normal 14px/20px Noto Sans KR;
+    letter-spacing: -1.05px;
+    color: #736f68;
+  }
   input {
     ${(props) => props.type === 'large' && largeStyle};
     ${(props) => props.type === 'midium' && midiumStyle}
@@ -41,7 +53,13 @@ export const InputContainer = styled.div<props>`
   &:focus-within label {
     transform: translate(0, 5px) scale(0.75);
   }
-  .active {
+  &:focus-within span {
+    opacity: 1;
+  }
+  label.active {
     transform: translate(0, 5px) scale(0.75);
+  }
+  span.active {
+    opacity: 1;
   }
 `;
