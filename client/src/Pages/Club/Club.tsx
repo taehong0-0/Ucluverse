@@ -27,7 +27,7 @@ const Club = (): ReactElement => {
   const { id } = useParams();
   const clubId = Number(id);
   const [boardIdx, setBoardIdx] = useState<number>(0);
-  const [boardName, setBoardName] = useState<string>('');
+  const [boardName, setBoardName] = useState<string>('전체 게시판');
   const [club, setClub] = useState<ClubType | null>(null);
   const [activityList, setActivityList] = useState<ActivityPostType[]>([]);
   const [AboutBoards, setAboutBoards] = useState<BoardType[]>([]);
@@ -70,14 +70,7 @@ const Club = (): ReactElement => {
               <Route path="/post" element={<ClubPost />}></Route>
               <Route
                 path="/board"
-                element={
-                  <ClubBoard
-                    boardIdx={boardIdx}
-                    clubId={clubId}
-                    boards={[...AboutBoards, ...CommunicationBoards]}
-                    boardName={boardName}
-                  />
-                }
+                element={<ClubBoard boardIdx={boardIdx} clubId={clubId} boardName={boardName} />}
               ></Route>
               <Route path="/posting" element={<Posting clubId={clubId} />}></Route>
             </Routes>

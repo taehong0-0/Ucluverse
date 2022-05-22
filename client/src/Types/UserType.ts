@@ -9,4 +9,5 @@ export interface UserType {
   isAdmin?: boolean;
   profilePhoto?: string;
   phoneNumber: string;
+  starredClubs: number[];
 }

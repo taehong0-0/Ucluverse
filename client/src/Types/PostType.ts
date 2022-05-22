@@ -1,3 +1,5 @@
+import { UserType } from 'aws-sdk/clients/workdocs';
+
 export interface AwardPostType {
   clubIdx: number;
   clubName: string;
@@ -13,7 +15,7 @@ export interface PostTitleType {
   type: string;
   path: string | null;
   createdAt: string;
-  postId: number;
+  postingIdx: number;
 }
 
 export interface ActivityPostType {
@@ -25,12 +27,18 @@ export interface ActivityPostType {
 }
 
 export interface PostType {
+  postingIdx: number;
   title: string;
   author: string;
   createAt: string;
-  posdId: number;
   content: string;
   isLike: boolean;
+  likesNum: number;
+  boardName: string;
+  comments: any[];
+  isPublic: boolean;
+  allowComments: boolean;
+  images: string[];
 }
 
 export interface BoardType {
