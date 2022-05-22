@@ -1,9 +1,10 @@
 import { IsNumber, IsString } from "class-validator";
 import { Club } from "src/clubs/entities/club.entity";
+import { Common } from "src/commons/entity/common.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Award {
+export class Award extends Common {
     @PrimaryGeneratedColumn()
     awardIdx: number;
     @Column()
