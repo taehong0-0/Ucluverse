@@ -23,7 +23,7 @@ export interface ActivityPostType {
   clubIdx: number;
   path: string;
   createdAt: string;
-  postId: number;
+  postingIdx: number;
 }
 
 export interface PostType {
