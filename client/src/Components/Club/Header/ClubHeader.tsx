@@ -1,7 +1,14 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ClubHeaderContainer } from './style';
 import {} from './style';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../../Recoil/User';
+
 interface props {
   title: string;
   hashtags: string[];
@@ -9,14 +16,26 @@ interface props {
 }
 const ClubHeader = (props: props): ReactElement => {
   const { title, hashtags, clubId } = props;
+  const user = useRecoilValue(userState);
+  const [like, setLike] = useState<boolean>(user.starredClubs.includes(clubId));
+  const onClick = () => {
+    setLike((like) => !like);
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/user/userClub/star`, {
+        userIdx: user.userIdx,
+        clubIdx: clubId,
+      })
+      .then((res) => console.log(user.starredClubs));
+  };
   return (
     <ClubHeaderContainer>
       <Link to={`/club/${clubId}`}>
         <span>{title}</span>
       </Link>
+      {like ? <FavoriteIcon id="like" onClick={onClick} /> : <FavoriteBorderIcon id="like" onClick={onClick} />}
       <div>
         {hashtags.map((hashtag) => (
-          <span>#{hashtag}</span>
+          <span key={hashtag}>#{hashtag}</span>
         ))}
       </div>
     </ClubHeaderContainer>
