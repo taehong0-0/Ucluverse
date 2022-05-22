@@ -17,10 +17,7 @@ interface props {
 const ClubHeader = (props: props): ReactElement => {
   const { title, hashtags, clubId } = props;
   const user = useRecoilValue(userState);
-  const [like, setLike] = useState<boolean>(false);
-  useEffect(() => {
-    // axios.get(``);
-  }, []);
+  const [like, setLike] = useState<boolean>(user.starredClubs.includes(clubId));
   useEffect(() => {
     // axios.post(``, {});
   }, [like]);
