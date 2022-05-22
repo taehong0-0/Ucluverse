@@ -8,6 +8,8 @@ import fileUploadImg from '../../../../Assets/파일 업로드.png';
 import Button from '../../../Button/Button';
 import DropZone from '../../../DropZone/DropZone';
 import { AdminMainContainer, BodyContainer, DropZoneDiv } from './style';
+import axios from 'axios';
+import AWS from 'aws-sdk';
 interface Props {
   club: ClubType | null;
   clubId: number;
@@ -18,34 +20,46 @@ const AdminMain = (props: Props): ReactElement => {
   const [introduce, setIntroduce] = useState<string>('');
   const [image, setImage] = useState<string | null>(null);
   const [file, setFile] = useState<Blob | null>(null);
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file: Blob) => {
-      const reader = new FileReader();
-      setFile(file);
-      const bloburl = URL.createObjectURL(file);
-      setImage(bloburl);
-      reader.onabort = () => console.log('file reading was aborted');
-      reader.onerror = () => console.log('file reading has failed');
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const binaryStr = reader.result;
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  }, []);
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
-  const submit = () => {
-    console.log(introduce);
-  };
   useEffect(() => {
     setTag(club?.clubCategories.join(',') ?? '');
     setIntroduce(club?.introductionDesc ?? '');
   }, [club]);
+  const option = {
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    region: process.env.REACT_APP_AWS_REGION,
+  };
+  const s3 = new AWS.S3(option);
+  const param = {
+    Bucket: process.env.REACT_APP_AWS_S3_BUCKET_NAME ?? '',
+    ACL: 'public-read',
+    ContentType: `image/jpeg`,
+    Key: `user/profile/${new Date().toString()}.png`,
+    Body: file ?? '',
+  };
+  const submit = () => {
+    if (file) {
+      s3.upload(param)
+        .promise()
+        .then((data) => {
+          axios
+            .patch(`${process.env.REACT_APP_SERVER_URL}/clubs/${clubId}`, {
+              introductionDesc: introduce,
+              logoPath: data.Location,
+              categories: tag.split(/[\s,/\|]+/),
+            })
+            .then((res) => console.log(res));
+        });
+    } else {
+      axios.patch(`${process.env.REACT_APP_SERVER_URL}/clubs/${clubId}`, {
+        introductionDesc: introduce,
+        logoPath: club?.logoPath ?? '',
+        categories: tag.split(/[\s,/\|]+/),
+      });
+    }
+  };
   const onChangeTag = useCallback((e) => setTag(e.target.value), []);
-  const onChangeIntroduce = useCallback(
-    (e) => setIntroduce(e.target.value),
-    [],
-  );
+  const onChangeIntroduce = useCallback((e) => setIntroduce(e.target.value), []);
   return (
     <AdminMainContainer>
       <span>동아리 정보</span>

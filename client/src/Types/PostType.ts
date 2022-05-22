@@ -1,3 +1,5 @@
+import { UserType } from './UserType';
+
 export interface AwardPostType {
   clubIdx: number;
   clubName: string;
@@ -13,7 +15,7 @@ export interface PostTitleType {
   type: string;
   path: string | null;
   createdAt: string;
-  postId: number;
+  postingIdx: number;
 }
 
 export interface ActivityPostType {
@@ -21,16 +23,22 @@ export interface ActivityPostType {
   clubIdx: number;
   path: string;
   createdAt: string;
-  postId: number;
+  postingIdx: number;
 }
 
 export interface PostType {
+  postingIdx: number;
   title: string;
-  author: string;
+  author: UserType;
   createAt: string;
-  posdId: number;
   content: string;
   isLike: boolean;
+  likesNum: number;
+  boardName: string;
+  comments: any[];
+  isPublic: boolean;
+  allowComments: boolean;
+  images: string[];
 }
 
 export interface BoardType {

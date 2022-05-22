@@ -10,18 +10,11 @@ import PostBoard from './PostBoard/PostBoard';
 interface props {
   boardIdx: number;
   clubId: number;
-  boards: BoardType[];
+  boardName: string;
 }
 const ClubBoard = (props: props): ReactElement => {
-  const { boardIdx, clubId, boards } = props;
-  const [boardName, setBoardName] = useState<string>('');
+  const { boardIdx, clubId, boardName } = props;
 
-  useEffect(() => {
-    setBoardName(
-      boards.filter((board) => board.boardIdx === boardIdx)[0]?.name ??
-        '전체게시판',
-    );
-  }, [boardIdx]);
   return (
     <>
       {boardName === '동아리 소개' ? (

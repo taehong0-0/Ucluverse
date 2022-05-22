@@ -26,13 +26,13 @@ export const ActivityContainer = styled.div`
         opacity: 1;
       }
     }
-    .slick-current {
+    /* .slick-current {
       img {
         width: 31.25rem;
         height: 18.75rem;
         opacity: 0.45;
       }
-    }
+    } */
   }
   img {
     margin: 0 auto;
