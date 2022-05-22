@@ -49,12 +49,12 @@ export class PostingsController {
         res.send(await this.postingsService.getAllPostings(boardName));
     }
 
-    @Get(':postingIdx')
+    @Get(':postingIdx/:userIdx')
     @ApiOperation({
         summary: 'postingIdx에 대한 게시글 정보 불러오기 API',
     })         
-    async getPostingByPostingIdx(@Param('postingIdx') postingIdx: number, @Res() res){
-        res.send(await this.postingsService.getPostingByPostingIdx(postingIdx));
+    async getPostingByPostingIdx(@Param('postingIdx') postingIdx: number, @Param('postingIdx') userIdx: number, @Res() res){
+        res.send(await this.postingsService.getPostingByPostingIdx(postingIdx, userIdx));
     }
 
     @Put(':postingIdx')
