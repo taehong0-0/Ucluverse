@@ -20,13 +20,11 @@ interface buttonProps {
   onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
-const dumyList = ['a', 'b', 'c', 'd'];
 const MainActivity = (): ReactElement => {
   const [activityList, setActivityList] = useState<ActivityPostType[]>([]);
   const activityRef = useRef<HTMLDivElement[]>([]);
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/main?boardName=활동 게시판`).then((res) => {
-      // console.log(res.data.res.postings);
       setActivityList(res.data.res.postings);
     });
   }, []);
@@ -63,22 +61,22 @@ const MainActivity = (): ReactElement => {
     );
   };
   const onChange = () => {
-    if (dumyList.length <= 3) return;
-    var idx = 0;
-    for (let element of activityRef.current) {
-      // console.log(element);
-      if (element.closest('.slick-active')) {
-        console.log(activityRef.current[(idx + 2) % dumyList.length]);
-        element.style.width = '31.25rem';
-        element.style.height = '18.75rem';
-        element.style.opacity = '0.45';
-        activityRef.current[(idx + 2) % dumyList.length].style.width = '31.25rem';
-        activityRef.current[(idx + 2) % dumyList.length].style.height = '18.75rem';
-        activityRef.current[(idx + 2) % dumyList.length].style.opacity = '0.45';
-        return false;
-      }
-      idx++;
-    }
+    // if (dumyList.length <= 3) return;
+    // var idx = 0;
+    // for (let element of activityRef.current) {
+    //   // console.log(element);
+    //   if (element.closest('.slick-active')) {
+    //     console.log(activityRef.current[(idx + 2) % dumyList.length]);
+    //     element.style.width = '31.25rem';
+    //     element.style.height = '18.75rem';
+    //     element.style.opacity = '0.45';
+    //     activityRef.current[(idx + 2) % dumyList.length].style.width = '31.25rem';
+    //     activityRef.current[(idx + 2) % dumyList.length].style.height = '18.75rem';
+    //     activityRef.current[(idx + 2) % dumyList.length].style.opacity = '0.45';
+    //     return false;
+    //   }
+    //   idx++;
+    // }
     // activityRef.current.forEach((element, idx) => {
     // console.log(element.closest('.slick-slide'));
     // if (element.closest('.slick-active')) {
@@ -98,13 +96,10 @@ const MainActivity = (): ReactElement => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    infinite: dumyList.length > 3 ? true : false,
-    centerMode: dumyList.length > 3 ? true : false,
+    infinite: activityList.length > 3 ? true : false,
+    centerMode: activityList.length > 3 ? true : false,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
-  };
-  const aa = () => {
-    console.log(document.getElementsByClassName('slick-active'));
   };
   return (
     <ActivityContainer>
@@ -114,9 +109,11 @@ const MainActivity = (): ReactElement => {
         <span>더보기</span>
       </Link>
       <Slider {...settings}>
-        {dumyList.map((activity, idx) => (
-          <div ref={(el: HTMLInputElement) => (activityRef.current[idx] = el)} key={activity}>
-            <img src={test1} width="468px" height="350px" />
+        {activityList.map((activity, idx) => (
+          <div ref={(el: HTMLInputElement) => (activityRef.current[idx] = el)} key={activity.createdAt}>
+            <Link to={`/club/${activity.clubIdx}/post?postId=${activity.postingIdx}`}>
+              <img src={activity.path ?? ''} width="468px" height="350px" />
+            </Link>
           </div>
         ))}
       </Slider>
