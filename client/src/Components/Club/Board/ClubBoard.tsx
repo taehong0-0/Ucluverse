@@ -10,11 +10,10 @@ import PostBoard from './PostBoard/PostBoard';
 interface props {
   boardIdx: number;
   clubId: number;
-  boards: BoardType[];
   boardName: string;
 }
 const ClubBoard = (props: props): ReactElement => {
-  const { boardIdx, clubId, boards, boardName } = props;
+  const { boardIdx, clubId, boardName } = props;
 
   return (
     <>
