@@ -78,7 +78,7 @@ export class PostingsService {
             postings.forEach(posting => {
                 const response = {};
                 const imageArr = [];
-                response['posingIdx'] = posting.postingIdx;
+                response['postingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
                 response['clubIdx'] = posting.clubBoard.clubIdx;
                 response['author'] = posting.user.name;
@@ -121,7 +121,7 @@ export class PostingsService {
             postings.forEach(posting => {
                 const response = {};
                 const imageArr = [];
-                response['posingIdx'] = posting.postingIdx;
+                response['postingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
                 response['clubIdx'] = posting.clubBoard.clubIdx;
                 response['author'] = posting.user.name;
@@ -164,7 +164,7 @@ export class PostingsService {
             postings.forEach(posting => {
                 const response = {};
                 const imageArr = [];
-                response['posingIdx'] = posting.postingIdx;
+                response['postingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
                 response['clubIdx'] = posting.clubBoard.clubIdx;
                 response['author'] = posting.user.name;
