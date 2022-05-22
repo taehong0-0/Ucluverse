@@ -28,7 +28,7 @@ export const ActivityContainer = styled.div`
     border-radius: 5px;
     opacity: 1;
   }
-  & > div {
+  & > a div {
     display: flex;
     width: 222px;
     /* margin-top: 10px; */
@@ -48,5 +48,18 @@ export const ActivityContainer = styled.div`
       color: #0e0e0e;
       opacity: 1;
     }
+  }
+
+  a:link {
+    text-decoration: none;
+  }
+  a:visited {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  a:active {
+    text-decoration: none;
   }
 `;

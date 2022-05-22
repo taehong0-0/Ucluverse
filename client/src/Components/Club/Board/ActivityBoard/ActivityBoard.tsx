@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../../../Recoil/User';
 import { PostTitleType } from '../../../../Types/PostType';
 import Button from '../../../Button/Button';
 import Posting from '../../Posting/Posting';
@@ -56,6 +58,7 @@ interface Props {
 const ActivityBoard = (props: Props) => {
   const { boardIdx, clubId } = props;
   const [activityPosts, setActivityPosts] = useState<PostTitleType[]>([]);
+  const user = useRecoilValue(userState);
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`).then((res) => {
       setActivityPosts(res.data.res.postings);
@@ -72,11 +75,13 @@ const ActivityBoard = (props: Props) => {
         <div className="activity-list">
           {activityPosts.map((post) => (
             <ActivityContainer>
-              <img src={post.path ?? ''} />
-              <div>
-                <span>{post.title}</span>
-                <span>{post.createdAt}</span>
-              </div>
+              <Link to={`/club/postings/${post.postingIdx}/${user.userIdx}`}>
+                <img src={post.path ?? ''} />
+                <div>
+                  <span>{post.title}</span>
+                  <span>{post.createdAt.slice(0, 10)}</span>
+                </div>
+              </Link>
             </ActivityContainer>
           ))}
         </div>
