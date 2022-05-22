@@ -72,6 +72,7 @@ export class PostingsService {
             .leftJoin('posting.clubBoard', 'clubBoard')
             .leftJoin('posting.images', 'images')
             .where('posting.clubBoardIdx = :clubBoardIdx', { clubBoardIdx })
+            .orderBy('posting.createdAt', 'DESC')
             .getMany()
             const responses = [];
             postings.forEach(posting => {
@@ -114,6 +115,7 @@ export class PostingsService {
                 .leftJoin('posting.clubBoard', 'clubBoard')
                 .leftJoin('posting.images', 'images')
                 .where('clubBoard.clubIdx = :clubIdx', { clubIdx })
+                .orderBy('posting.createdAt', 'DESC')
                 .getMany()
             const responses = [];
             postings.forEach(posting => {
@@ -156,6 +158,7 @@ export class PostingsService {
                 .leftJoin('posting.clubBoard', 'clubBoard')
                 .leftJoin('posting.images', 'images')
                 .where('clubBoard.name = :boardName', { boardName })
+                .orderBy('posting.createdAt', 'DESC')
                 .getMany()
             const responses = [];
             postings.forEach(posting => {

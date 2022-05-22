@@ -17,9 +17,10 @@ export class AwardsService {
         const queryRunner = this.connection.createQueryRunner();
         try {
             const awards = await queryRunner.manager.createQueryBuilder(Award, 'award')
-            .select(['award.awardIdx','award.competitionName','award.awardName','award.content','award.path','award.clubIdx'])
+            .select(['award.awardIdx','award.competitionName','award.awardName','award.content','award.path','award.clubIdx', 'award.createdAt', 'award.updatedAt'])
             .addSelect('club.name')
             .leftJoin('award.club', 'club')
+            .orderBy('award.createdAt', 'DESC')
             .getMany()
             const responses = [];
             awards.forEach(award => {
@@ -45,10 +46,11 @@ export class AwardsService {
         const queryRunner = this.connection.createQueryRunner();
         try {
                 const awards = await queryRunner.manager.createQueryBuilder(Award, 'award')
-                .select(['award.awardIdx','award.competitionName','award.awardName','award.content','award.path','award.clubIdx'])
+                .select(['award.awardIdx','award.competitionName','award.awardName','award.content','award.path','award.clubIdx', 'award.createdAt', 'award.updatedAt'])
                 .addSelect('club.name')
                 .leftJoin('award.club', 'club')
                 .where('club.clubIdx = :clubIdx', { clubIdx })
+                .orderBy('award.createdAt', 'DESC')
                 .getMany()
                 const responses = [];
                 awards.forEach(award => {
