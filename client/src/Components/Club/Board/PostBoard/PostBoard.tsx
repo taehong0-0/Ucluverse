@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import useCheckRole from '../../../../Hooks/useCheckRole';
 import { PostTitleType } from '../../../../Types/PostType';
 import Button from '../../../Button/Button';
 import PostTitle from '../../Post/Title/PostTitle';
@@ -15,6 +17,7 @@ interface props {
 const PostBoard = (props: props) => {
   const { boardIdx, clubId, boardName } = props;
   const [postList, setPostList] = useState<PostTitleType[]>([]);
+  const role = useCheckRole(clubId);
   useEffect(() => {
     if (boardName === '전체 게시판') {
       axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/club/entire/${clubId}`).then((res) => {
@@ -33,6 +36,27 @@ const PostBoard = (props: props) => {
       return -1;
     } else {
       return 1;
+    }
+  };
+  const setToast = (message: string) => {
+    toast(message, {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  const clickEvent = () => {
+    if (role === 0) {
+      setToast('회원이 아닙니다.');
+    } else if (boardName === '공지사항' && role !== 2) {
+      setToast('임원진이 아닙니다.');
+    } else {
+      window.history.pushState({ boardIdx, boardName }, '', `/club/${clubId}/posting`);
+      window.location.href = `/club/${clubId}/posting`;
     }
   };
   return (
@@ -55,15 +79,7 @@ const PostBoard = (props: props) => {
           ></PostTitle>
         ))}
       </div>
-      {boardName !== '전체 게시판' && (
-        <Button
-          name="글작성"
-          clickEvent={() => {
-            window.history.pushState({ boardIdx, boardName }, '', `/club/${clubId}/posting`);
-            window.location.href = `/club/${clubId}/posting`;
-          }}
-        ></Button>
-      )}
+      {boardName !== '전체 게시판' && <Button name="글작성" clickEvent={clickEvent}></Button>}
     </ClubBoardContainer>
   );
 };

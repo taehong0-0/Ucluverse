@@ -85,7 +85,6 @@ const AwardBoard = (props: Props) => {
   };
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/awards/club/${clubId}`).then((res) => {
-      console.log(res);
       setAwardPosts(res.data.res.awards);
     });
   }, [isOpen]);

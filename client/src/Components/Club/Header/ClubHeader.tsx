@@ -18,15 +18,14 @@ const ClubHeader = (props: props): ReactElement => {
   const { title, hashtags, clubId } = props;
   const user = useRecoilValue(userState);
   const [like, setLike] = useState<boolean>(user.starredClubs.includes(clubId));
-  useEffect(() => {
-    // axios.post(``, {});
-  }, [like]);
   const onClick = () => {
     setLike((like) => !like);
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/user/userClub/star`, {
-      userIdx: user.userIdx,
-      clubIdx: clubId,
-    });
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/user/userClub/star`, {
+        userIdx: user.userIdx,
+        clubIdx: clubId,
+      })
+      .then((res) => console.log(user.starredClubs));
   };
   return (
     <ClubHeaderContainer>

@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { Dispatch } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import useCheckRole from '../../../Hooks/useCheckRole';
 import { ClubContext } from '../../../Pages/Club/Club';
 import { userState } from '../../../Recoil/User';
 import { BoardType } from '../../../Types/PostType';
@@ -27,6 +28,7 @@ dddddd`;
 
 const ClubSideBar = (props: props): ReactElement => {
   const { AboutBoardList, CommunicationBoardList, setBoardIdx, setBoardName, clubId } = props;
+  const role = useCheckRole(clubId);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const user = useRecoilValue(userState);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -91,7 +93,7 @@ const ClubSideBar = (props: props): ReactElement => {
           ))}
         </div>
       </BoardContainer>
-      {!user.BDOList?.includes(clubId) && (
+      {role === 2 && (
         <Link to={`/admin/${clubId}`}>
           <button>어드민페이지</button>
         </Link>
