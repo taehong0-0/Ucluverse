@@ -6,7 +6,7 @@ import { BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Connection, In } from 'typeorm';
 import { CreatePostingDto } from './dto/create-posting.dto';
-import { CreatePostingResDto, PostingResDto } from './dto/postings-response.dto';
+import { CreatePostingResDto, PostingResDto, PostingsListResDto, PostingCountResDto } from './dto/postings-response.dto';
 import { UpdatePostingDto } from './dto/update-posting.dto';
 import { AttachedFile, Image, Posting } from './entities/posting.entity';
 
@@ -64,23 +64,27 @@ export class PostingsService {
         const queryRunner = this.connection.createQueryRunner();
         try {
             const postings = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
-            .select(['posting.postingIdx','posting.title'])
-            .addSelect('clubBoard.name')
+            .select(['posting.postingIdx','posting.title', 'posting.createdAt', 'posting.updatedAt'])
+            .addSelect(['clubBoard.name', 'clubBoard.clubIdx'])
             .addSelect('user.name')
             .addSelect('images.path')
             .leftJoin('posting.user', 'user')
             .leftJoin('posting.clubBoard', 'clubBoard')
             .leftJoin('posting.images', 'images')
             .where('posting.clubBoardIdx = :clubBoardIdx', { clubBoardIdx })
+            .orderBy('posting.createdAt', 'DESC')
             .getMany()
             const responses = [];
             postings.forEach(posting => {
                 const response = {};
                 const imageArr = [];
-                response['posingIdx'] = posting.postingIdx;
+                response['postingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
+                response['clubIdx'] = posting.clubBoard.clubIdx;
                 response['author'] = posting.user.name;
                 response['type'] = posting.clubBoard.name;
+                response['updatedAt'] = posting.updatedAt;
+                response['createdAt'] = posting.createdAt;
                 if(posting.images !== undefined){
                     posting.images.forEach(image => {
                         imageArr.push(image.path);
@@ -91,7 +95,7 @@ export class PostingsService {
                 }
                 responses.push(response);
             })
-            return new PostingResDto(responses);
+            return new PostingsListResDto(responses);
         } catch(e) {
             console.log(e);
         } finally {
@@ -103,23 +107,27 @@ export class PostingsService {
         const queryRunner = this.connection.createQueryRunner();
         try {
             const postings = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
-            .select(['posting.postingIdx','posting.title'])
-            .addSelect('clubBoard.name')
-            .addSelect('user.name')
-            .addSelect('images.path')
-            .leftJoin('posting.user', 'user')
-            .leftJoin('posting.clubBoard', 'clubBoard')
-            .leftJoin('posting.images', 'images')
-            .where('clubBoard.clubIdx = :clubIdx', { clubIdx })
-            .getMany()
+                .select(['posting.postingIdx','posting.title', 'posting.createdAt', 'posting.updatedAt'])
+                .addSelect(['clubBoard.name', 'clubBoard.clubIdx'])
+                .addSelect('user.name')
+                .addSelect('images.path')
+                .leftJoin('posting.user', 'user')
+                .leftJoin('posting.clubBoard', 'clubBoard')
+                .leftJoin('posting.images', 'images')
+                .where('clubBoard.clubIdx = :clubIdx', { clubIdx })
+                .orderBy('posting.createdAt', 'DESC')
+                .getMany()
             const responses = [];
             postings.forEach(posting => {
                 const response = {};
                 const imageArr = [];
-                response['posingIdx'] = posting.postingIdx;
+                response['postingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
+                response['clubIdx'] = posting.clubBoard.clubIdx;
                 response['author'] = posting.user.name;
                 response['type'] = posting.clubBoard.name;
+                response['updatedAt'] = posting.updatedAt;
+                response['createdAt'] = posting.createdAt;
                 if(posting.images !== undefined){
                     posting.images.forEach(image => {
                         imageArr.push(image.path);
@@ -130,7 +138,7 @@ export class PostingsService {
                 }
                 responses.push(response);
             })
-            return new PostingResDto(responses);
+            return new PostingsListResDto(responses);
         } catch(e) {
             console.log(e);
         } finally {
@@ -141,18 +149,40 @@ export class PostingsService {
     async getAllPostings(boardName: string){
         const queryRunner = this.connection.createQueryRunner();
         try {
-            const postings = await queryRunner.manager.find(Posting, {
-                relations:[
-                    'clubBoard',
-                    'images',
-                    'comments',
-                    'likes',
-                ],
-                where:{
-                    clubBoard: { name: boardName },
-                },
-            })
-            return new PostingResDto(postings);
+            const postings = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
+                .select(['posting.postingIdx','posting.title', 'posting.createdAt', 'posting.updatedAt'])
+                .addSelect(['clubBoard.name', 'clubBoard.clubIdx'])
+                .addSelect('user.name')
+                .addSelect('images.path')
+                .leftJoin('posting.user', 'user')
+                .leftJoin('posting.clubBoard', 'clubBoard')
+                .leftJoin('posting.images', 'images')
+                .where('clubBoard.name = :boardName', { boardName })
+                .orderBy('posting.createdAt', 'DESC')
+                .getMany()
+            const responses = [];
+            postings.forEach(posting => {
+                const response = {};
+                const imageArr = [];
+                response['postingIdx'] = posting.postingIdx;
+                response['title'] = posting.title;
+                response['clubIdx'] = posting.clubBoard.clubIdx;
+                response['author'] = posting.user.name;
+                response['type'] = posting.clubBoard.name;
+                response['updatedAt'] = posting.updatedAt;
+                response['createdAt'] = posting.createdAt;
+                
+                posting.images.forEach(image => {
+                    imageArr.push(image.path);            
+                });
+                if(imageArr.length > 0){
+                    response['path'] = imageArr[0];
+                } else {
+                    response['path'] = '';
+                }
+                responses.push(response);
+            });
+            return new PostingsListResDto(responses);
         } catch(e) {
             console.log(e);
         } finally {
@@ -160,7 +190,7 @@ export class PostingsService {
         }
     }
 
-    async getPostingByPostingIdx(postingIdx: number){
+    async getPostingByPostingIdx(postingIdx: number, userIdx: number){
         const queryRunner = this.connection.createQueryRunner();
         try {
             const posting = await queryRunner.manager
@@ -170,6 +200,10 @@ export class PostingsService {
                 .addSelect(['attachedFiles.attachedFileIdx','attachedFiles.path'])
                 .addSelect(['comments.commentIdx','comments.userIdx','comments.content'])
                 .addSelect(['likes.likeIdx','likes.userIdx'])
+                .addSelect(['user.name'])
+                .addSelect(['clubBoard.name'])
+                .leftJoin('posting.clubBoard', 'clubBoard')
+                .leftJoin('posting.user', 'user')
                 .leftJoin('posting.attachedFiles' , 'attachedFiles')
                 .leftJoin('posting.images' , 'images')
                 .leftJoin('posting.comments', 'comments')
@@ -194,7 +228,11 @@ export class PostingsService {
                     attachedFileRes['attachedFilePath'] = attachedFile.path;
                     attachedFileArr.push(attachedFileRes);
                 });
+                response['isLike'] = false;
                 posting.likes.forEach(like => {
+                    if(like.userIdx === userIdx){
+                        response['isLike'] = true;
+                    }
                     const likeRes = {};
                     likeRes['likeIdx'] = like.likeIdx;
                     likeRes['userIdx'] = like.userIdx;
@@ -209,13 +247,15 @@ export class PostingsService {
                 });
                 response['postingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
+                response['author'] = posting.user.name;
                 response['content'] = posting.content;
                 response['createdAt'] = posting.createdAt;
+                response['likesNum'] = likeArr.length;
+                response['boardName'] = posting.clubBoard.name;
                 response['allowComments'] = posting.allowComments;
                 response['isPublic'] = posting.isPublic;
                 response['images'] = imageArr;
                 response['attachedFiles'] = attachedFileArr;
-                response['likes'] = likeArr;
                 response['comments'] = commentArr;
             return new PostingResDto(response);
         } catch(e) {
@@ -294,6 +334,24 @@ export class PostingsService {
             console.log(error);
             await queryRunner.rollbackTransaction();
             return new BaseFailResDto('게시물 삭제에 실패했습니다.');
+        } finally {
+            await queryRunner.release();
+        }
+    }
+
+    async getCountOfClubBoard(clubBoardIdx: number) {
+        const queryRunner = this.connection.createQueryRunner();
+
+        try {
+            const postingCount: number = await queryRunner.manager.createQueryBuilder(Posting, 'posting')
+            .select('posting.postingIdx')
+            .where('posting.clubBoardIdx = :clubBoardIdx', { clubBoardIdx: clubBoardIdx })
+            .getCount();
+
+            return new PostingCountResDto(postingCount);
+        } catch(e) {
+            console.log(e);
+            return new BaseFailResDto('동아리 게시판의 총 게시물 수를 가져오는 데 실패했습니다.');
         } finally {
             await queryRunner.release();
         }

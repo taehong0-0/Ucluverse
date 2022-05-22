@@ -99,6 +99,14 @@ export const FormBodyContainer = styled.div`
       opacity: 1;
     }
   }
+  & > div:first-child {
+    height: 150px;
+    textarea {
+      width: 253px;
+      height: 130px;
+      resize: none;
+    }
+  }
 `;
 
 export const ListBodyContainer = styled.div`

@@ -15,6 +15,11 @@ export const ClubHeaderContainer = styled.div`
       opacity: 1;
     }
   }
+  #like {
+    margin-left: auto;
+    margin-top: 5rem;
+    cursor: pointer;
+  }
   div {
     margin: 0 auto;
     display: flex;
@@ -22,7 +27,7 @@ export const ClubHeaderContainer = styled.div`
     align-items: center;
     width: 75vw;
     height: 2.5rem;
-    margin-top: 4.375rem;
+    margin-top: 1rem;
     /* UI Properties */
     border: 1px solid var(---grey1-3);
     border: 1px solid #dddae0;

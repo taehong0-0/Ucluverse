@@ -1,18 +1,17 @@
 import React, { ReactElement } from 'react';
+import { PostType } from '../../../../Types/PostType';
 import { PostMainContainer } from './style';
 interface props {
-  post: Post;
+  post: PostType | null;
 }
-interface Post {
-  title: string;
-  content: string;
-  time: string;
-  boardName: string;
-  likeNum: number;
-  isLike: boolean;
-  comment: any[];
-}
+
 const PostMain = (props: props): ReactElement => {
-  return <PostMainContainer></PostMainContainer>;
+  const { post } = props;
+
+  return (
+    <PostMainContainer>
+      <span dangerouslySetInnerHTML={{ __html: post?.content ?? '' }} />
+    </PostMainContainer>
+  );
 };
 export default PostMain;

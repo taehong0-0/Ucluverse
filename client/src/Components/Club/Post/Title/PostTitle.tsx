@@ -7,18 +7,19 @@ interface props {
   date: string;
   type: string;
   postId: number;
+  clubId: number;
 }
 const PostTitle = (props: props): ReactElement => {
-  const { title, author, date, type, postId } = props;
+  const { title, author, date, type, postId, clubId } = props;
   return (
     <TitleContainer>
       <div className={type === '공지사항' ? 'notice' : 'post'}>
         {type === '공지사항' ? <span>공지</span> : <span>·</span>}
-        <Link to={`/club/post?postId=${postId}`}>
+        <Link to={`/club/${clubId}/post?postId=${postId}`}>
           <span>{title}</span>
         </Link>
         <span>{author}</span>
-        <span>{date}</span>
+        <span>{date.slice(0, 10)}</span>
       </div>
     </TitleContainer>
   );

@@ -33,9 +33,6 @@ export class Club extends Common{
     logoPath: string;
     @Column({ nullable: true })
     @IsString()
-    introductionPath: string;
-    @Column({ nullable: true })
-    @IsString()
     introductionDesc: string;
     @ManyToOne(() => College, college => college.clubs, {
         nullable: true,
@@ -103,25 +100,4 @@ export class ClubCategory {
         referencedColumnName: 'clubIdx',
     })
     club: Club;
-}
-
-@Entity()
-export class Question{
-    @PrimaryGeneratedColumn()
-    @IsNumber()
-    questionIdx: number;
-    @Column()
-    @IsNumber()
-    formIdx: number;
-    @Column()
-    @IsString()
-    content: string;
-    @ManyToOne(() => Form, form => form.questions)
-    @JoinColumn({
-        name: 'formIdx',
-        referencedColumnName: 'formIdx',
-    })
-    form: Form;
-    @OneToMany(() => Answer, answer => answer.question)
-    answers: Answer[];
 }

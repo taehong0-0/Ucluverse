@@ -10,13 +10,15 @@ import { ProfilePhoto } from './entities/profilePhoto.entity';
 import { UserResDto } from './dto/user-response.dto';
 import { SignupClubDto } from './dto/signup-club.dto';
 import { BaseFailResDto, BaseSuccessResDto } from 'src/commons/response.dto';
-import { Club, Question } from 'src/clubs/entities/club.entity';
+import { Club } from 'src/clubs/entities/club.entity';
 import { ChangeUserClubStatusDto } from './dto/change-userClubStatus.dto';
 import { StarClubDto } from './dto/star-club.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ConfigService } from '@nestjs/config';
 import { IsSignedUpResDto } from './dto/isSignedUp-res.dto';
 import { CreateAnswerDto } from './dto/create-answer.dto';
+import { Form, Question } from 'src/forms/entity/form.entity';
+import { ClubResDto } from 'src/clubs/dto/club-respones.dto';
 
 // 트랜잭션/에러처리 필요.
 @Injectable()
@@ -135,6 +137,13 @@ export class UserService {
             .select(['user', 'profilePhoto.path'])
             .where('user.userIdx=:userIdx', { userIdx })
             .getOne();
+
+            const result = await this.getStarredClubs(userIdx);
+            const starredClubIdxs = []
+            result.res.clubs.forEach(club => {
+                starredClubIdxs.push(club.clubIdx);
+            })
+            user['starredClubs'] = starredClubIdxs;
             return new UserResDto(user); 
         } catch(e) {
             console.log(e);
@@ -326,10 +335,33 @@ export class UserService {
         }
     }
 
+    async changeRole(userClubIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try{
+            const userClub = await queryRunner.manager.findOne(UserClub, {
+                where: {
+                    userClubIdx,
+                }
+            });
+            userClub.role === "member" ? userClub.role = "manager" : userClub.role = "member";
+            await queryRunner.manager.save(userClub);
+            await queryRunner.commitTransaction();
+            return new BaseSuccessResDto();
+        }catch(e){
+            console.log(e);
+            await queryRunner.rollbackTransaction();
+        }finally{
+            await queryRunner.release();
+        }
+    }
+
     async changeUserClubStatus(changeUserClubStatus: ChangeUserClubStatusDto, status: string){
         const {userIdx, clubIdx} = changeUserClubStatus;
         const userClub = await this.getUserClub(userIdx, clubIdx);
         userClub.status = status;
+        userClub.role = "member";
         const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
@@ -450,27 +482,48 @@ export class UserService {
     }
 
     async createAnswer(createAnswerDto: CreateAnswerDto){
-        const {questionIdx, clubIdx, userIdx, content} = createAnswerDto;
+        const {answerList, clubIdx, userIdx, submissionFiles} = createAnswerDto;
         const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try {
-            const answer = new Answer();
             const userClub = await queryRunner.manager.findOne(UserClub, {
                 where: {
                     clubIdx,
                     userIdx,
                 }
-            });
-            const question = await queryRunner.manager.findOne(Question, {
-                where: {
-                    questionIdx,
-                }
             })
-            answer.userClub = userClub;
-            answer.question = question;
-            answer.content = content;
-            await queryRunner.manager.save(answer);
+            await queryRunner.manager.delete(Answer, {
+                userClubIdx: userClub.userClubIdx,
+            })
+            answerList.map(async answer => {
+                const newAnswer = new Answer();
+                newAnswer.content = answer.content;
+                newAnswer.userClub = userClub;
+                const question = await queryRunner.manager.findOne(Question, {
+                    where: {
+                        questionIdx: answer.questionIdx,
+                    }
+                });
+                newAnswer.question = question;
+                await queryRunner.manager.save(newAnswer);
+            });
+
+            await queryRunner.manager.delete(SubmissionFile, {
+                userClubIdx: userClub.userClubIdx,
+            })
+            submissionFiles.map(async submissionFile => {
+                const newSubmissionFIle = new SubmissionFile();
+                const form = await queryRunner.manager.findOne(Form, {
+                    where: {
+                        clubIdx,
+                    }
+                })
+                newSubmissionFIle.userClub = userClub;
+                newSubmissionFIle.path = submissionFile;
+                newSubmissionFIle.form = form;
+                await queryRunner.manager.save(newSubmissionFIle);
+            });
             await queryRunner.commitTransaction();
             return new BaseSuccessResDto();
         } catch(e) {
@@ -552,6 +605,51 @@ export class UserService {
         }catch(e){
             console.log(e);
         }finally{
+            await queryRunner.release();
+        }
+    }
+
+    async getAcceptedClubs(userIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        try{
+            const clubs = await queryRunner.manager.find(Club, {
+                relations: [
+                    'userClubs',
+                ],
+                where: {
+                    userClubs: {
+                        userIdx,
+                        status : "accepted",
+                    },
+                }
+            });
+            console.log(clubs);
+            return new ClubResDto(clubs);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
+    }
+
+    async getStarredClubs(userIdx: number){
+        const queryRunner = this.connection.createQueryRunner();
+        try{
+            const clubs = await queryRunner.manager.find(Club, {
+                relations: [
+                    'userClubs',
+                ],
+                where: {
+                    userClubs: {
+                        userIdx,
+                        star: true,
+                    },
+                }
+            });
+            return new ClubResDto(clubs);
+        } catch(e) {
+            console.log(e);
+        } finally {
             await queryRunner.release();
         }
     }
