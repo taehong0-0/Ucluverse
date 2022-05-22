@@ -1,18 +1,10 @@
 import React, { ReactElement } from 'react';
 import { HeaderContainer } from './style';
 import test1 from '../../../../Assets/test1.jpeg';
+import { PostType } from '../../../../Types/PostType';
 
 interface props {
-  post: Post;
-}
-interface Post {
-  title: string;
-  content: string;
-  time: string;
-  boardName: string;
-  likeNum: number;
-  isLike: boolean;
-  comment: any[];
+  post: PostType | null;
 }
 const PostHeader = (props: props): ReactElement => {
   const { post } = props;
@@ -22,17 +14,17 @@ const PostHeader = (props: props): ReactElement => {
         <div className="navigator">
           <span>Home</span>
           <span>{'>'}</span>
-          <span>{post.boardName}</span>
+          <span>{post?.boardName}</span>
           <span>{'>'}</span>
-          <span>{post.title}</span>
+          <span>{post?.title}</span>
         </div>
-        <span id="title">{post.title}</span>
-        <span id="time">{post.time}</span>
+        <span id="title">{post?.title}</span>
+        <span id="time">{post?.createAt.slice(0, 10)}</span>
       </div>
       <div>
         <div>
           <span className="normal">회원</span>
-          <span>작성자이름이다</span>
+          <span>{post?.author}</span>
         </div>
         <img src={test1} width="5.625rem" height="5.625rem"></img>
       </div>
