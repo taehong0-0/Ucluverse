@@ -368,7 +368,11 @@ export class UserService {
         const {userIdx, clubIdx} = changeUserClubStatus;
         const userClub = await this.getUserClub(userIdx, clubIdx);
         userClub.status = status;
-        userClub.role = "member";
+        if(status === "accepted"){
+            userClub.role = "member";
+        } else if(status === "rejected"){
+            userClub.role = null;
+        }
         const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
