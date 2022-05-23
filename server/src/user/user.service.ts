@@ -151,7 +151,6 @@ export class UserService {
 
             res = user;
             res['profilePhoto'] = path;
-            console.log(user);
             return new UserResDto(user); 
         } catch(e) {
             console.log(e);
