@@ -1,10 +1,20 @@
 import React, { ReactElement } from 'react';
+import { useContext } from 'react';
+import { ClubContext } from '../../../Pages/Club/Club';
+import ClubBoard from '../Board/ClubBoard';
 import { ClubMainContainer } from './style';
-const ClubMain = (): ReactElement => {
+
+interface Props {
+  clubId: number;
+}
+const ClubMain = (props: Props): ReactElement => {
+  const { clubId } = props;
+  const context = useContext(ClubContext);
+  const club = context?.club;
   return (
     <ClubMainContainer>
-      <div></div>
-      <div></div>
+      <div>{club?.logoPath ? <img src={club.logoPath} /> : <div></div>}</div>
+      <ClubBoard boardIdx={0} clubId={clubId} boardName="전체 게시판" />
     </ClubMainContainer>
   );
 };

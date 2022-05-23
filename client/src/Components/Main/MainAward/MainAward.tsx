@@ -32,7 +32,7 @@ const MainAward = (): ReactElement => {
       <Slider {...settings}>
         {awardList.map((award) => {
           return (
-            <Link to={`club/${award.clubIdx}`}>
+            <Link to={`club/${award.clubIdx}`} key={award.clubIdx}>
               <AwardDiv>
                 <img src={award.path} width="304px" height="486px" />
                 <div>

@@ -8,6 +8,7 @@ import backGround from '../../../Assets/MainBG.svg';
 
 const MyInfo = (): ReactElement => {
   const user = useRecoilValue(userState);
+  console.log(user);
   const [department, setDepartment] = useState<string>('');
   useEffect(() => {
     axios
@@ -41,7 +42,7 @@ const MyInfo = (): ReactElement => {
       <InfoRightContainer>
         <ImageDetail>
           <div>{user.profilePhoto ? <img src={user.profilePhoto} /> : <span>이미지를 등록해주세요.</span>}</div>
-          <div>aa</div>
+          <div>캐릭터가 들어갈 예정</div>
         </ImageDetail>
         <InfoButtonContainer>
           <button>정보수정</button>

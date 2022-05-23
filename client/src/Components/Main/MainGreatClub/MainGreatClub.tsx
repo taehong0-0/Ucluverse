@@ -10,10 +10,10 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { ClubType } from '../../../Types/ClubType';
 const MainGreatClub = (): ReactElement => {
-  const [greatList, setGreateList] = useState<ClubType[]>([]);
+  const [greatList, setGreatList] = useState<ClubType[]>([]);
   useEffect(() => {
     // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
-    //   setGreateList(res.data);
+    //   setGreatList(res.data);
     // });
   }, []);
 
@@ -24,6 +24,16 @@ const MainGreatClub = (): ReactElement => {
       <span>사람들과 교류를 쉽게 할 수 있을 거에요!</span>
       <ImgContainer>
         <div className="overflow-container">
+          {greatList.map((club) => (
+            <div key={club.clubIdx}>
+              <Link to={`/club/${club.clubIdx}`}>
+                <img src={club.logoPath ?? ''} />
+                <button>
+                  <span>+</span>
+                </button>
+              </Link>
+            </div>
+          ))}
           <div>
             <Link to="login">
               <img src={test1} />

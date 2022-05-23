@@ -42,13 +42,11 @@ const AdminMain = (props: Props): ReactElement => {
       s3.upload(param)
         .promise()
         .then((data) => {
-          axios
-            .patch(`${process.env.REACT_APP_SERVER_URL}/clubs/${clubId}`, {
-              introductionDesc: introduce,
-              logoPath: data.Location,
-              categories: tag.split(/[\s,/\|]+/),
-            })
-            .then((res) => console.log(res));
+          axios.patch(`${process.env.REACT_APP_SERVER_URL}/clubs/${clubId}`, {
+            introductionDesc: introduce,
+            logoPath: data.Location,
+            categories: tag.split(/[\s,/\|]+/),
+          });
         });
     } else {
       axios.patch(`${process.env.REACT_APP_SERVER_URL}/clubs/${clubId}`, {

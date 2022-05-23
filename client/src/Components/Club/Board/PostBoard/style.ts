@@ -11,3 +11,6 @@ export const ClubBoardContainer = styled.div`
     margin-left: 48rem;
   }
 `;
+export const PostContainer = styled.div`
+  overflow: auto;
+`;
