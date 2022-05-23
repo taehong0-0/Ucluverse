@@ -11,6 +11,8 @@ interface Props {
 }
 type Member = UserType & {
   questions: string[];
+  answerList: string[];
+  submissionFiles: string[];
 };
 const AdminEnrollmentList = (props: Props): ReactElement => {
   const { clubId } = props;
@@ -70,10 +72,10 @@ const AdminEnrollmentList = (props: Props): ReactElement => {
       </div>
       <ListBodyContainer>
         {memberList?.map((member) => (
-          <div>
+          <div key={member.studentId}>
             <span>{member.name}</span>
             <span>{member.studentId}</span>
-            <span>{departmentIdxList[member.departmentIdx]}</span>
+            <span>{departmentIdxList[member.departmentIdx - 1]}</span>
             <span>첨부파일</span>
             <span
               onClick={() => {

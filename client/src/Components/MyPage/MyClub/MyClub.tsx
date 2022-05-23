@@ -8,7 +8,6 @@ import peopleImg from '../../../Assets/people.png';
 import { ClubContainer, ClubListContainer, ClubNavigator } from './style';
 import { ClubType } from '../../../Types/ClubType';
 
-const ClubList = ['동아리이름', '동아리이름', '동아리이름', '동아리이름', '동아리이름', '동아리이름', '동아리이름'];
 const MyClub = (): ReactElement => {
   const user = useRecoilValue(userState);
   const [index, setIndex] = useState<number>(0);
@@ -39,10 +38,10 @@ const MyClub = (): ReactElement => {
         </div>
       </ClubNavigator>
       <ClubListContainer>
-        {ClubList.map((club) => (
-          <div>
-            <img></img>
-            <span>{club}</span>
+        {clubList?.map((club) => (
+          <div key={club.clubIdx}>
+            <img src={club.logoPath ?? ''}></img>
+            <span>{club.name}</span>
           </div>
         ))}
       </ClubListContainer>

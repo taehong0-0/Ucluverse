@@ -28,13 +28,17 @@ export const AdminMemberContainer = styled.div`
       opacity: 1;
     }
   }
-  button {
+  & > button {
+    margin-top: 16px;
+    margin-left: 210px;
+    margin-bottom: 111px;
   }
 `;
 export const MemberBodyContainer = styled.div`
   border-bottom: 2px solid #707070;
   height: 455px;
   overflow: auto;
+  margin-bottom: 90px;
   & > div {
     display: flex;
     width: 480px;
@@ -52,7 +56,7 @@ export const MemberBodyContainer = styled.div`
       select::-ms-expand {
         display: none; /*for IE10,11*/
       }
-      select[title='임원'] {
+      select.manager {
         display: inline-block;
         width: 46px;
         height: 19px;
@@ -65,7 +69,7 @@ export const MemberBodyContainer = styled.div`
         letter-spacing: -0.9px;
         color: #ffffff;
       }
-      select[title='회원'] {
+      select.member {
         display: inline-block;
         width: 46px;
         height: 19px;
@@ -79,32 +83,6 @@ export const MemberBodyContainer = styled.div`
         letter-spacing: -0.9px;
         color: #4e4e4e;
       }
-      /* .executives {
-        display: inline-block;
-        width: 46px;
-        height: 19px;
-        background: #4e4e4e 0% 0% no-repeat padding-box;
-        box-shadow: 2px 2px 6px #00000029;
-        border-radius: 5px;
-        opacity: 1;
-        text-align: center;
-        font: normal normal normal 12px/20px Noto Sans KR;
-        letter-spacing: -0.9px;
-        color: #ffffff;
-      }
-      .normal {
-        display: inline-block;
-        width: 46px;
-        height: 19px;
-        background: #f5f5f5 0% 0% no-repeat padding-box;
-        box-shadow: 2px 2px 6px #00000029;
-        border-radius: 5px;
-        opacity: 1;
-        text-align: center;
-        font: normal normal normal 12px/20px Noto Sans KR;
-        letter-spacing: -0.9px;
-        color: #4e4e4e;
-      }*/
     }
   }
 `;

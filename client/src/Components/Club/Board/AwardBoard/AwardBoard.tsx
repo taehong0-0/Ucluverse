@@ -114,7 +114,7 @@ const AwardBoard = (props: Props) => {
         </div>
         <AwardListContainer>
           {awardPosts.map((award) => (
-            <div>
+            <div key={award.awardTitle}>
               <img src={award.path} />
               <div>
                 <span>{award.awardName}</span>

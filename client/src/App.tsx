@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Suspense } from 'react';
-import { Navigate, Route, Routes, useHref, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useHref } from 'react-router-dom';
 import Club from './Pages/Club/Club';
 import ClubList from './Pages/Club/ClubList';
 import Login from './Pages/Login/Login';
@@ -20,15 +20,6 @@ import MyPage from './Pages/MyPage/MyPage';
 
 axios.defaults.withCredentials = true;
 
-function ScrollToTop() {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-}
 const App = () => {
   const setClubList = useSetRecoilState(ClubListState);
   const setDepartmentList = useSetRecoilState(DepartmentListState);

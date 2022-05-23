@@ -5,7 +5,6 @@ export const ClubContainer = styled.div`
   flex-direction: column;
   margin-left: 15.125rem;
   margin-bottom: 130px;
-
   z-index: 1;
   .title {
     width: 13.625rem;
@@ -44,7 +43,7 @@ export const ClubContainer = styled.div`
 `;
 
 export const ImgContainer = styled.div`
-  width: 75rem;
+  width: 83.3vw;
   overflow: scroll;
   margin-top: 3.75rem;
   height: 22.5rem;
@@ -80,9 +79,7 @@ export const ImgContainer = styled.div`
         height: 40px;
         border: none;
         border-radius: 100% 0% 0% 0%;
-        background: transparent
-          linear-gradient(180deg, #63239b 0%, #9239df 100%) 0% 0% no-repeat
-          padding-box;
+        background: transparent linear-gradient(180deg, #63239b 0%, #9239df 100%) 0% 0% no-repeat padding-box;
         box-shadow: 1px 1px 4px #a45de2;
         background-color: black;
         span {

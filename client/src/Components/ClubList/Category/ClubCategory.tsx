@@ -17,6 +17,7 @@ const ClubCategory = (props: props) => {
         {categoryList.map((category) => {
           return (
             <div
+              key={category}
               onClick={() => onClick(category)}
               className={selectedCategory === category ? 'selected' : ''}
             >

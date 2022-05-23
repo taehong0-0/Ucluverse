@@ -21,21 +21,20 @@ const AdminEnrollmentForm = (props: Props): ReactElement => {
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/forms/${clubId}`).then((res) => {
       if (res.data.isSuccess) {
-        setNotice(res.data.res.from.notice);
+        setNotice(res.data.res.form.notice);
         setQuestions(res.data.res.form.questions.map((question: Question) => question.content));
       }
-      console.log(res);
     });
   }, [clubId]);
   const addQuestion = () => {
     setQuestions((questions) => [...questions, '']);
   };
   const removeQuestion = (index: number) => {
-    setQuestions((questions) => {
-      questions.splice(index, index);
-      console.log(questions);
-      return questions;
-    });
+    setQuestions((questions) =>
+      questions.filter((question, idx) => {
+        return idx !== index;
+      }),
+    );
   };
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>, idx: number) => {
     // console.log(e.target.value);
@@ -60,17 +59,15 @@ const AdminEnrollmentForm = (props: Props): ReactElement => {
       <FormBodyContainer>
         <div>
           <span>공지사항</span>
-          <textarea ref={noticeRef}>{notice}</textarea>
+          <textarea ref={noticeRef} defaultValue={notice}></textarea>
         </div>
-        {questions.map((question, idx) => {
-          return (
-            <div>
-              <span>질문</span>
-              <input onChange={(e) => onChange(e, idx)} value={question}></input>
-              <button onClick={() => removeQuestion(idx)}>취소</button>
-            </div>
-          );
-        })}
+        {questions.map((question, idx) => (
+          <div key={idx}>
+            <span>질문</span>
+            <input onChange={(e) => onChange(e, idx)} value={question}></input>
+            <button onClick={() => removeQuestion(idx)}>취소</button>
+          </div>
+        ))}
       </FormBodyContainer>
       <div>
         <Button name="추가" clickEvent={addQuestion}></Button>
