@@ -20,7 +20,6 @@ const ClubPost = (): ReactElement => {
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/${postId}/${user.userIdx}`).then((res) => {
-      console.log(res.data.res.postings);
       setPost(res.data.res.postings);
     });
   }, []);

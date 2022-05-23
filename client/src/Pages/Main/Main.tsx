@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { useEffect } from 'react';
 import Header from '../../Components/Header/Header';
 import MainActivity from '../../Components/Main/MainActivity/MainActivity';
 import MainAward from '../../Components/Main/MainAward/MainAward';
@@ -9,8 +10,8 @@ import MainNewClub from '../../Components/Main/MainNewClub/MainNewClub';
 import useCheckLogin from '../../Hooks/useCheckLogin';
 
 const Main = (): ReactElement => {
+  useEffect(() => {}, []);
   useCheckLogin();
-  //design test
   return (
     <div>
       <Header />

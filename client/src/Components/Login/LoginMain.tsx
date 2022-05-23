@@ -5,12 +5,7 @@ import { Navigate } from 'react-router-dom';
 import googleImg from '../../Assets/구글로그인.png';
 import singInImg from '../../Assets/로그인.png';
 import { ToastContainer, toast } from 'react-toastify';
-import {
-  LoginButtonContainer,
-  LoginContentContainer,
-  LoginDetailSpan,
-  LoginMainContainer,
-} from './style';
+import { LoginButtonContainer, LoginContentContainer, LoginDetailSpan, LoginMainContainer } from './style';
 import Cookies from 'universal-cookie';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userState } from '../../Recoil/User';
@@ -48,14 +43,7 @@ const LoginMain = () => {
       const options = new gapi.auth2.SigninOptionsBuilder();
       options.setPrompt('select_account');
       options.setScope('email profile');
-      gapi.auth2
-        .getAuthInstance()
-        .attachClickHandler(
-          'GgCustomLogin',
-          options,
-          onSignIn,
-          onSignInFailure,
-        );
+      gapi.auth2.getAuthInstance().attachClickHandler('GgCustomLogin', options, onSignIn, onSignInFailure);
     });
   };
   const onSignIn = async (googleUser: any) => {
@@ -64,18 +52,15 @@ const LoginMain = () => {
     const isAjouMail = email.includes('@ajou.ac.kr');
 
     if (isAjouMail) {
-      axios
-        .get(`${process.env.REACT_APP_SERVER_URL}/auth/login?email=${email}`)
-        .then((res) => {
-          if (res.data.status === 1) {
-            window.location.replace(`/login/info?email=${email}`);
-          } else {
-            const { currentHashedRefreshToken, ...userData } = res.data.user;
-            console.log(userData);
-            setUser(userData);
-            window.location.replace('/');
-          }
-        });
+      axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/login?email=${email}`).then((res) => {
+        if (res.data.status === 1) {
+          window.location.replace(`/login/info?email=${email}`);
+        } else {
+          const { currentHashedRefreshToken, ...userData } = res.data.user;
+          setUser(userData);
+          window.location.replace('/');
+        }
+      });
     } else {
       notify();
     }

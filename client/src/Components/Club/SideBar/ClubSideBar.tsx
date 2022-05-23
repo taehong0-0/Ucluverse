@@ -1,12 +1,15 @@
+import axios from 'axios';
 import React, { ReactElement, SetStateAction, useEffect, useRef, useState } from 'react';
 import { useContext } from 'react';
 import { Dispatch } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import useCheckRole from '../../../Hooks/useCheckRole';
 import { ClubContext } from '../../../Pages/Club/Club';
 import { userState } from '../../../Recoil/User';
 import { BoardType } from '../../../Types/PostType';
+import { departmentIdxList } from '../../../Util/constant';
 import Button from '../../Button/Button';
 import FloatInput from '../../Input/Input';
 import { BoardContainer, SideBarContainer } from './style';
@@ -17,19 +20,23 @@ interface props {
   setBoardIdx: Dispatch<SetStateAction<number>>;
   setBoardName: Dispatch<SetStateAction<string>>;
 }
-const questions = ['이름', '학번', '관심있는 과목', '개발경험', '개발실력', '개발언어'];
-const notice = `ddddd\r\n
-ddddddd
-ddddddddddd\r\n
-ddddddd
-ddddddddddd\r\n
-ddddddd
-dddddd`;
 
+interface Form {
+  clubIdx: number;
+  notice: string;
+  formIdx: number;
+  questions: Question[];
+}
+interface Question {
+  content: string;
+  questionIdx: number;
+  formIdx: number;
+}
 const ClubSideBar = (props: props): ReactElement => {
   const { AboutBoardList, CommunicationBoardList, setBoardIdx, setBoardName, clubId } = props;
   const role = useCheckRole(clubId);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [form, setForm] = useState<Form | null>(null);
   const user = useRecoilValue(userState);
   const modalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement[]>([]);
@@ -38,7 +45,44 @@ const ClubSideBar = (props: props): ReactElement => {
       setIsOpen(false);
     }
   };
-  const submit = () => {};
+  const showToast = (content: string) => {
+    toast(content, {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  const submit = () => {
+    for (let input of inputRef.current) {
+      if (!input.value) {
+        showToast('모든 질문에 응답해주세요.');
+        return;
+      }
+    }
+    const answerList = inputRef.current.map((answer, idx) => {
+      return { questionIdx: form?.questions[idx].questionIdx, content: answer.value };
+    });
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/user/userClub/answer`, {
+        userIdx: user.userIdx,
+        clubIdx: clubId,
+        answerList: answerList,
+        submissionFiles: [],
+      })
+      .then((res) => {
+        showToast('신청이 완료되었습니다.');
+        setIsOpen(false);
+      });
+  };
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/forms/${clubId}`).then((res) => {
+      setForm(res.data.res.form);
+    });
+  }, [clubId]);
   useEffect(() => {
     if (isOpen) {
       document.body.style.cssText = `
@@ -63,8 +107,9 @@ const ClubSideBar = (props: props): ReactElement => {
         <div>
           <span>About</span>
           {AboutBoardList.map((board) => (
-            <Link to={`/club/${clubId}/board`}>
+            <Link to={`/club/${clubId}/board`} key={board.boardIdx}>
               <span
+                key={board.boardIdx}
                 className="board-name"
                 onClick={() => {
                   setBoardIdx(board.boardIdx);
@@ -79,8 +124,9 @@ const ClubSideBar = (props: props): ReactElement => {
         <div>
           <span>소통공간</span>
           {CommunicationBoardList.map((board) => (
-            <Link to={`/club/${clubId}/board`}>
+            <Link to={`/club/${clubId}/board`} key={board.boardIdx}>
               <span
+                key={board.boardIdx}
                 className="board-name"
                 onClick={() => {
                   setBoardIdx(board.boardIdx);
@@ -93,7 +139,7 @@ const ClubSideBar = (props: props): ReactElement => {
           ))}
         </div>
       </BoardContainer>
-      {role === 2 && (
+      {role !== 2 && (
         <Link to={`/admin/${clubId}`}>
           <button>어드민페이지</button>
         </Link>
@@ -106,20 +152,26 @@ const ClubSideBar = (props: props): ReactElement => {
               <div>
                 <span>공지사항</span>
                 <div id="notice">
-                  <pre>{notice}</pre>
+                  <pre>
+                    <p>{form?.notice}</p>
+                  </pre>
                 </div>
                 <span>첨부파일</span>
               </div>
               <div>
-                {questions.map((question, idx) => {
-                  return (
-                    <FloatInput
-                      name={question}
-                      inputRef={(el: HTMLInputElement) => (inputRef.current[idx] = el)}
-                      type="midium"
-                    />
-                  );
-                })}
+                {form?.questions
+                  .map((question) => question.content)
+                  .map((question, idx) => {
+                    return (
+                      <FloatInput
+                        name={'질문 ' + (idx + 1)}
+                        inputRef={(el: HTMLInputElement) => (inputRef.current[idx] = el)}
+                        type="midium"
+                        detail={question}
+                        key={question}
+                      />
+                    );
+                  })}
               </div>
             </div>
             <div>

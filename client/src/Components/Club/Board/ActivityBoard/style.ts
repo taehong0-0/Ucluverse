@@ -20,6 +20,7 @@ export const ActivityContainer = styled.div`
   flex-direction: column;
   /* margin-right: 24px;
   margin-bottom: 24px; */
+  overflow: auto;
   margin: 24px;
   margin-bottom: 0px;
   img {

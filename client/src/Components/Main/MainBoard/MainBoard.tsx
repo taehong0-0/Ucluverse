@@ -16,7 +16,7 @@ const MainBoard = (props: props): ReactElement => {
       <img src={imgURL} />
       <div>
         {posts.map((post) => (
-          <Link to={`/posts/${post.id}`}>
+          <Link to={`/posts/${post.id}`} key={post.id}>
             <span>{post.title}</span>
           </Link>
         ))}
