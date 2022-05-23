@@ -18,7 +18,6 @@ const SearchBar = (): ReactElement => {
     setSearchDataList(
       [...clubList, ...departmentClubList]
         .filter((club) => {
-          console.log(club.name.includes(e.target.value.toString().toLowerCase()));
           return club.name.toString().toLowerCase().includes(e.target.value.toString().toLowerCase());
         })
         .sort(sortFunction),
@@ -65,7 +64,7 @@ const SearchBar = (): ReactElement => {
       {keyword !== '' && (
         <SearchDataContainer>
           {searchDataList.map((club) => (
-            <Link to={`/club/${club.clubIdx}`}>
+            <Link to={`/club/${club.clubIdx}`} key={club.clubIdx}>
               <span dangerouslySetInnerHTML={{ __html: letterEmphasis(club.name) }} />
             </Link>
           ))}

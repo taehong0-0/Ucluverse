@@ -56,12 +56,10 @@ const Posting = (props: Props) => {
         .upload(param)
         .promise()
         .then((data) => {
-          console.log(data.Location);
           result = result.replace(srcData, data.Location);
           return data.Location;
         });
     });
-    console.log(promiseList);
     const res = await Promise.all(promiseList ?? []);
     setImageList(res);
   };

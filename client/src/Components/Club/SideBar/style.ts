@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 11.9vw;
+  margin-left: 12.5vw;
   width: 17.3vw;
   overflow: hidden;
   .modal-background {
@@ -58,14 +58,21 @@ export const SideBarContainer = styled.div`
           margin-top: 13px;
           margin-bottom: 21px;
           overflow: auto;
+          p {
+            width: 300px;
+            white-space: normal;
+            font: normal normal normal 14px/20px Noto Sans KR;
+            letter-spacing: -1.05px;
+            color: #1a1917;
+            opacity: 1;
+          }
           &::-webkit-scrollbar {
             width: 3px;
-            background: transparent
-              linear-gradient(180deg, #ffffff 0%, #ffffff 100%) 0% 0% no-repeat
-              padding-box;
+            background: transparent linear-gradient(180deg, #ffffff 0%, #ffffff 100%) 0% 0% no-repeat padding-box;
             box-shadow: 1px 1px 4px #00000029;
           }
           &::-webkit-scrollbar-thumb {
+            width: 3px;
             background: #6d00b9 0% 0% no-repeat padding-box;
             border-radius: 1.25rem;
             opacity: 1;
@@ -87,9 +94,7 @@ export const SideBarContainer = styled.div`
         overflow: auto;
         &::-webkit-scrollbar {
           width: 3px;
-          background: transparent
-            linear-gradient(180deg, #ffffff 0%, #ffffff 100%) 0% 0% no-repeat
-            padding-box;
+          background: transparent linear-gradient(180deg, #ffffff 0%, #ffffff 100%) 0% 0% no-repeat padding-box;
           box-shadow: 1px 1px 4px #00000029;
         }
         &::-webkit-scrollbar-thumb {

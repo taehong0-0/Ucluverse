@@ -66,7 +66,7 @@ const Club = (): ReactElement => {
               setBoardName={setBoardName}
             />
             <Routes>
-              <Route path="/" element={<ClubMain />}></Route>
+              <Route path="/" element={<ClubMain clubId={clubId} />}></Route>
               <Route path="/post" element={<ClubPost />}></Route>
               <Route
                 path="/board"
