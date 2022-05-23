@@ -138,12 +138,20 @@ export class UserService {
             .where('user.userIdx=:userIdx', { userIdx })
             .getOne();
 
+            let res = {};
             const result = await this.getStarredClubs(userIdx);
             const starredClubIdxs = []
             result.res.clubs.forEach(club => {
                 starredClubIdxs.push(club.clubIdx);
             })
             user['starredClubs'] = starredClubIdxs;
+            const path = user.profilePhoto.path;
+            delete user.profilePhoto;
+            delete user.currentHashedRefreshToken;
+
+            res = user;
+            res['profilePhoto'] = path;
+            console.log(user);
             return new UserResDto(user); 
         } catch(e) {
             console.log(e);
