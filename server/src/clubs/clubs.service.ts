@@ -335,6 +335,7 @@ export class ClubsService {
                 where: {
                     userClubs: {
                         clubIdx,
+                        status : "accepted",
                     }
                 },
                 select: ['userIdx', 'name', 'departmentIdx', 'studentId', 'email', 'phoneNumber', 'nickname', 'userClubs']
