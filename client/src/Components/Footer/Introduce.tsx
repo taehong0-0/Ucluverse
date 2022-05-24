@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import logo from '../../Assets/Logo-SetColor-transparent-shadow.png';
+import logo from '../../Assets/로고2.png';
 import { IntroduceDiv } from './style';
 import {Heading3, Heading4} from'../../styles/fonts/style';
 

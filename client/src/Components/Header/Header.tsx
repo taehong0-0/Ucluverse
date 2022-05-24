@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import LinkButton from '../Button/LinkButton';
 import { HeaderContainer, HeaderLinkContainer, UserInfoContainer } from './style';
-import logoImg from '../../Assets/로고.png';
+import logoImg from '../../Assets/로고2.png';
 import profileImg from '../../Assets/profile.svg';
 import alarmImg from '../../Assets/알림.png';
 import logoutImg from '../../Assets/logout.png';
