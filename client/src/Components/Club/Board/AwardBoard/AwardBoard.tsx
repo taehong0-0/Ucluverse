@@ -72,6 +72,8 @@ const AwardBoard = (props: Props) => {
               path: data.Location,
             })
             .then(() => {
+              setImage(null);
+              setFile(null);
               setIsOpen(false);
             });
         });
@@ -87,7 +89,7 @@ const AwardBoard = (props: Props) => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/awards/club/${clubId}`).then((res) => {
       setAwardPosts(res.data.res.awards);
     });
-  }, [isOpen]);
+  }, []);
   useEffect(() => {
     if (isOpen) {
       document.body.style.cssText = `
@@ -95,6 +97,10 @@ const AwardBoard = (props: Props) => {
     top: -${window.scrollY}px;
     overflow-y: scroll;
     width: 100%;`;
+    } else {
+      axios.get(`${process.env.REACT_APP_SERVER_URL}/awards/club/${clubId}`).then((res) => {
+        setAwardPosts(res.data.res.awards);
+      });
     }
     window.addEventListener('click', handleModalClose);
     return () => {

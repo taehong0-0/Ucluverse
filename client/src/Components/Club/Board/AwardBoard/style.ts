@@ -60,6 +60,10 @@ export const AwardBoardContainer = styled.div`
         width: 16.5rem;
         margin-right: 24px;
         text-align: left;
+
+        & > div {
+          margin-bottom: 18px;
+        }
         span {
           font: normal normal bold 18px/24px Noto Sans KR;
           letter-spacing: -1.35px;
@@ -80,7 +84,6 @@ export const AwardBoardContainer = styled.div`
           margin-bottom: 30px;
         }
         textarea {
-          margin-top: 30px;
           height: 17rem;
           background: #ffffff 0% 0% no-repeat padding-box;
           box-shadow: 1px 1px 4px #00000029;
