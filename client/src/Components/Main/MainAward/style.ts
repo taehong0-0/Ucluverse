@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import awardBG1 from '../../../Assets/수상내역배경1.svg';
 
 const fadeIn = keyframes`
 from {
@@ -21,10 +22,10 @@ from {
 export const AwardContainer = styled.div`
   margin-top: 10vh;
   width: 100vw;
-  height: 74rem;
+  height: 80rem;
   overflow: hidden;
-  
   opacity: 1;
+  background: linear-gradient(60deg, var(--primary-l1) 0%, var(--primary-0) 100%);
   & > div:nth-child(1) {
     display: flex;
     flex-direction: column;
@@ -55,11 +56,9 @@ export const AwardContainer = styled.div`
     /* display: flex; */
     justify-content: center;
   }
-
-  .BG {
-    // 어떻게 해야 하나?
-  }
 `;
+
+
 export const AwardDiv = styled.div`
   cursor: pointer;
   width: 100%;
