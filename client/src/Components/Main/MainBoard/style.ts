@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const MainBoardDiv = styled.div`
-  width : 280px;
+  width : 444px;
   height: 191px;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 3px 3px 0.625rem #dddae0;
