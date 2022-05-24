@@ -65,7 +65,9 @@ const Posting = (props: Props) => {
   };
 
   const send = () => {
+    console.log(imageList);
     if (!titleRef.current || content === '') return;
+    console.log(22);
     axios
       .post(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`, {
         userIdx: user.userIdx,
@@ -76,6 +78,7 @@ const Posting = (props: Props) => {
         isPublic: true,
       })
       .then((res) => {
+        console.log(res);
         window.location.href = `/club/${clubId}/board`;
       });
   };
