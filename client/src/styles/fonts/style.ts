@@ -19,3 +19,13 @@ export const Heading4 = styled.p`
     letter-spacing: -1.35px;
     color: var(--font-black-grey2-8);
 `
+
+export const Paragraph = styled.p`
+    font-family : Noto Sans KR;
+    font-style : normal;
+    font-weight : normal;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -1.05px;
+    color: var(--font-black-grey2-8);
+`

@@ -29,8 +29,12 @@ export const IntroduceDiv = styled.div`
 `
 
 export const FooterDiv = styled.div`
+    display : flex;
     width : 100vw;
     height : 250px;
+    align-items : center;
+    justify-content : center;
+    flex-direction : column;
     background: transparent linear-gradient(180deg, var(--primary-0) 0%, var(--gradient-link-0) 100%) 0% 0% no-repeat padding-box;
 
     img {
@@ -38,5 +42,22 @@ export const FooterDiv = styled.div`
         position : relative;
         width : 100px;
         height : 100px;
+        object-fit : cover;
+    }
+
+    p {
+        color : white;
+        text-align : center;
+
+        :first-child {
+            padding-top : 24px;
+        }
+        
+        :last-child {
+            padding-top : 10px;
+        }
+        :not(:last-child) {
+            font-weight : bold;
+        }
     }
 `
