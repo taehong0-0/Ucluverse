@@ -87,13 +87,15 @@ const Posting = (props: Props) => {
   }, [imageList]);
   return (
     <PostingContainer>
-      <div className="navigator">
-        <span>Home</span>
-        <span>{'>'}</span>
-        <span>{boardName}</span>
+      <div>
+        <div className="navigator">
+          <span>Home</span>
+          <span>{'>'}</span>
+          <span>{boardName}</span>
+        </div>
+        <FloatInput inputRef={titleRef} name="제목" type="large" />
+        <Editor setContent={setContent} />
       </div>
-      <FloatInput inputRef={titleRef} name="제목" type="large" />
-      <Editor setContent={setContent} />
       <Button name="작성" clickEvent={submit}></Button>
     </PostingContainer>
   );
