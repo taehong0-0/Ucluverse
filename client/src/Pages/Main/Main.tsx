@@ -11,7 +11,7 @@ import useCheckLogin from '../../Hooks/useCheckLogin';
 
 const Main = (): ReactElement => {
   useEffect(() => {}, []);
-  useCheckLogin();
+  //useCheckLogin();
   return (
     <div>
       <Header />
