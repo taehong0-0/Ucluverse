@@ -24,6 +24,7 @@ const ClubBody = () => {
   const [category, setCategory] = useState<string>('전체');
   // const [clubList, setClubList] = useState<ClubType[]>([]);
   const clubList = useRecoilValue(ClubListState);
+  console.log(clubList);
   // useEffect(() => {
   //   axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/central`).then((res) => {
   //     setClubList(res.data.res.clubs);
