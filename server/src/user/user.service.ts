@@ -139,6 +139,20 @@ export class UserService {
             .where('user.userIdx=:userIdx', { userIdx })
             .getOne();
 
+            const bodList = await queryRunner.manager.find(UserClub, {
+                where: {
+                    userIdx,
+                    role: "manager",
+                }
+            });
+            const bodArr = [];
+            if(bodList){
+                bodList.map(bod => {
+                    bodArr.push(bod.clubIdx);
+                })
+            }
+            console.log(bodArr);
+
             let res = {};
             const result = await this.getStarredClubs(userIdx);
             if(result){
@@ -157,6 +171,7 @@ export class UserService {
 
             res = user;
             res['profilePhoto'] = path;
+            res['BODList'] = bodArr;
             console.log(user);
             return new UserResDto(user); 
         } catch(e) {
