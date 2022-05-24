@@ -13,5 +13,6 @@ export const ClubBoardContainer = styled.div`
   }
 `;
 export const PostContainer = styled.div`
+  width: 100%;
   overflow: auto;
 `;

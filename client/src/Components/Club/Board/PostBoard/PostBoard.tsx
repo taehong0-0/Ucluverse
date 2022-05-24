@@ -53,6 +53,7 @@ const PostBoard = (props: props) => {
     if (role === 0) {
       setToast('회원이 아닙니다.');
     } else if (boardName === '공지사항' && role !== 2) {
+      console.log(role);
       setToast('임원진이 아닙니다.');
     } else {
       window.history.pushState({ boardIdx, boardName }, '', `/club/${clubId}/posting`);
