@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 export const MainContainer = styled.div``;
 export const TitleContainer = styled.div`
-  width: 56.3vw;
+  width: 100%;
   height: 2.75rem;
-  div {
+  & > div {
     span {
       display: inline-block;
       text-align: left;
@@ -13,13 +13,14 @@ export const TitleContainer = styled.div`
       vertical-align: middle;
     }
     & > span:nth-of-type(2) {
-      width: 10vw;
+      width: 15%;
     }
   }
   & + & {
     border: none;
   }
   .notice {
+    width: 100%;
     background: #f7f4fb 0% 0% no-repeat padding-box;
     border: 1px solid #dddae0;
     border-width: 1px 0px 1px 0px;
@@ -30,7 +31,7 @@ export const TitleContainer = styled.div`
     }
     & > span:first-child {
       padding-top: 0.625rem;
-      width: 5vw;
+      width: 5%;
       height: 2.125rem;
       margin-right: 1.25rem;
       line-height: 2.75rem;
@@ -43,15 +44,11 @@ export const TitleContainer = styled.div`
       opacity: 1;
     }
     a {
-      span {
-        width: 33vw;
-      }
-    }
-    & > span:nth-of-type(2) {
-      width: 10vw;
+      width: 65%;
     }
   }
   .post {
+    width: 100%;
     height: 2.75rem;
     vertical-align: middle;
     background: #ffffff 0% 0% no-repeat padding-box;
@@ -75,9 +72,7 @@ export const TitleContainer = styled.div`
       opacity: 1;
     }
     a {
-      span {
-        width: 38vw;
-      }
+      width: 65%;
     }
   }
 

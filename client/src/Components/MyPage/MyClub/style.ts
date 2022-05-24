@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ClubContainer = styled.div`
-  margin-top: 50px;
+  margin-top: 10%;
   margin-bottom: 100px;
   margin-left: auto;
   margin-right: auto;

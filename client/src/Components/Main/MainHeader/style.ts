@@ -16,7 +16,7 @@ export const MainHeaderDiv = styled.div`
     z-index: 999;
     .main-header {
       //width : 27vw;
-      width: 350px;
+      width: 75%;
     }
     & > span {
       top: 14.688rem;
