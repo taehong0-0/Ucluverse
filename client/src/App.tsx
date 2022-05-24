@@ -15,6 +15,7 @@ import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { ClubListState, DepartmentListState } from './Recoil/Club';
 import MyPage from './Pages/MyPage/MyPage';
+import { Loading } from './Components/Animation/';
 
 axios.defaults.withCredentials = true;
 
@@ -32,7 +33,7 @@ const App = () => {
   }, []);
   return (
     <>
-      <Suspense fallback={<span>로딩중</span>}>
+      <Suspense fallback={<Loading/>}>
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Main />} />
