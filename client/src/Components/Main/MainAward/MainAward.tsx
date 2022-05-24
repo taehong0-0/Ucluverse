@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { AwardContainer, AwardDiv } from './style';
 import awardHeaderImg from '../../../Assets/수상내역.png';
+import awardBG1 from '../../../Assets/수상내역배경1.svg';
 import Slider from 'react-slick';
 import testImg from '../../../Assets/test4.jpeg';
 import { AwardPostType } from '../../../Types/PostType';
@@ -49,6 +50,7 @@ const MainAward = (): ReactElement => {
           );
         })}
       </Slider>
+      <img className="BG" src={awardBG1}/>
     </AwardContainer>
   );
 };

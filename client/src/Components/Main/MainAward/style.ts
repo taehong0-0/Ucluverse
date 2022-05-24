@@ -23,19 +23,7 @@ export const AwardContainer = styled.div`
   width: 100vw;
   height: 74rem;
   overflow: hidden;
-  /* UI Properties */
-  background: transparent
-    linear-gradient(
-      180deg,
-      #53009b80 0%,
-      #8352ac 4%,
-      #7b39b4 17%,
-      #c19f57 61%,
-      #ffe3a8bf 74%,
-      #ffe3a880 84%,
-      #eed09000 100%
-    )
-    0% 0% no-repeat padding-box;
+  
   opacity: 1;
   & > div:nth-child(1) {
     display: flex;
@@ -61,6 +49,10 @@ export const AwardContainer = styled.div`
     width: 130vw;
     height: 31.25rem;
     margin-left: -15vw;
+  }
+
+  .BG {
+    // 어떻게 해야 하나?
   }
 `;
 export const AwardDiv = styled.div`
