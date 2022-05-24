@@ -62,16 +62,19 @@ export const AwardContainer = styled.div`
     height: 31.25rem;
     margin-left: -15%;
   }
-  .slick-slider {
-    /* width: 19rem; */
+  .slick-track div {
+    z-index: 1;
+    /* display: flex; */
+    justify-content: center;
   }
 `;
 export const AwardDiv = styled.div`
   cursor: pointer;
-  width: 19rem;
+  width: 100%;
   height: 29.25rem;
   z-index: 1;
   opacity: 1;
+  margin: 0 auto;
   img {
     background: transparent 0% 0% no-repeat padding-box;
     box-shadow: 3px 3px 0.625rem #211f1f;
@@ -101,6 +104,7 @@ export const AwardDiv = styled.div`
       opacity: 1;
     }
     div {
+      z-index: 999;
       width: 200px;
       margin-top: 0.625rem;
       font: normal normal medium 1.25rem/1.375rem Noto Sans KR;

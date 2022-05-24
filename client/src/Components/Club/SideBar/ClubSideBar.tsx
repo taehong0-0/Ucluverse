@@ -100,9 +100,17 @@ const ClubSideBar = (props: props): ReactElement => {
       window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
     };
   }, [isOpen]);
+  const singUpClick = () => {
+    const status = useCheckRole(user.userIdx);
+    if (status === 0) {
+      setIsOpen(true);
+    } else {
+      showToast('이미 회원입니다.');
+    }
+  };
   return (
     <SideBarContainer>
-      <button onClick={() => setIsOpen(true)}>가입 신청</button>
+      <button onClick={singUpClick}>가입 신청</button>
       <span>카테고리</span>
       <BoardContainer>
         <div>

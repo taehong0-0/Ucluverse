@@ -14,7 +14,7 @@ const InfoBoard = () => {
           <span>{'>'}</span>
           <span>동아리 소개</span>
         </div>
-        <img src={club?.introductionPath} />
+        <img src={club?.logoPath ?? ''} />
         <span>{club?.name}</span>
         <span>{club?.introductionDesc}</span>
       </div>
