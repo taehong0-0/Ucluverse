@@ -108,7 +108,7 @@ const LoginInfoMain = (): ReactElement => {
           })
           .then((response) => {
             console.log('response : ', JSON.stringify(response, null, 2));
-            window.location.replace('/');
+            window.location.replace('/login');
           })
           .catch((error) => {
             console.log('failed', error);
