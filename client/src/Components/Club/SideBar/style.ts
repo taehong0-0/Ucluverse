@@ -58,9 +58,9 @@ export const SideBarContainer = styled.div`
           margin-top: 13px;
           margin-bottom: 21px;
           overflow: auto;
-          p {
+          pre {
+            white-space: pre-wrap;
             width: 300px;
-            white-space: normal;
             font: normal normal normal 14px/20px Noto Sans KR;
             letter-spacing: -1.05px;
             color: #1a1917;

@@ -81,6 +81,7 @@ const ClubSideBar = (props: props): ReactElement => {
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/forms/${clubId}`).then((res) => {
       setForm(res.data.res.form);
+      console.log(res.data.res.form);
     });
   }, [clubId]);
   useEffect(() => {
@@ -152,9 +153,7 @@ const ClubSideBar = (props: props): ReactElement => {
               <div>
                 <span>공지사항</span>
                 <div id="notice">
-                  <pre>
-                    <p>{form?.notice}</p>
-                  </pre>
+                  <pre>{form?.notice}</pre>
                 </div>
                 <span>첨부파일</span>
               </div>

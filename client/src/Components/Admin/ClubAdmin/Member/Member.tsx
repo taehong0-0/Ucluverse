@@ -90,7 +90,7 @@ const AdminMember = (props: Props): ReactElement => {
               </div>
               <span>{member.name}</span>
               <span>{member.studentId}</span>
-              <span>{departmentIdxList[member.departmentIdx]}</span>
+              <span>{departmentIdxList[member.departmentIdx - 1]}</span>
             </div>
           );
         })}
