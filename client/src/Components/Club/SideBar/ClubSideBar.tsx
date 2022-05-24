@@ -1,6 +1,6 @@
+import { ConstructionOutlined } from '@mui/icons-material';
 import axios from 'axios';
 import React, { ReactElement, SetStateAction, useEffect, useRef, useState } from 'react';
-import { useContext } from 'react';
 import { Dispatch } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -34,12 +34,12 @@ interface Question {
 }
 const ClubSideBar = (props: props): ReactElement => {
   const { AboutBoardList, CommunicationBoardList, setBoardIdx, setBoardName, clubId } = props;
-  const role = useCheckRole(clubId);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [form, setForm] = useState<Form | null>(null);
   const user = useRecoilValue(userState);
   const modalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement[]>([]);
+  const role = useCheckRole(clubId);
   const handleModalClose = (e: MouseEvent) => {
     if (isOpen && !modalRef.current?.contains(e.target as Node)) {
       setIsOpen(false);
@@ -81,7 +81,6 @@ const ClubSideBar = (props: props): ReactElement => {
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/forms/${clubId}`).then((res) => {
       setForm(res.data.res.form);
-      console.log(res.data.res.form);
     });
   }, [clubId]);
   useEffect(() => {
@@ -101,8 +100,7 @@ const ClubSideBar = (props: props): ReactElement => {
     };
   }, [isOpen]);
   const singUpClick = () => {
-    const status = useCheckRole(user.userIdx);
-    if (status === 0) {
+    if (role === 0) {
       setIsOpen(true);
     } else {
       showToast('이미 회원입니다.');
@@ -110,7 +108,7 @@ const ClubSideBar = (props: props): ReactElement => {
   };
   return (
     <SideBarContainer>
-      <button onClick={singUpClick}>가입 신청</button>
+      <button onClick={() => singUpClick()}>가입 신청</button>
       <span>카테고리</span>
       <BoardContainer>
         <div>
