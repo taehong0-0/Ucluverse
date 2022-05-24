@@ -9,8 +9,7 @@ ${({ theme }) => css`
     }
 
     :root {
-        background: ${theme.colors.background};
-        color: ${theme.colors.black};
+        background: ${props => props.theme.background.default};
 
         /* Colors: */
         --accent1-l1: #694BE6;
@@ -71,5 +70,5 @@ ${({ theme }) => css`
             margin-top : 42px;
         }
     }
-    `}
+`}
 `

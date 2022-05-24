@@ -19,5 +19,3 @@ export const Heading4 = styled.p`
     letter-spacing: -1.35px;
     color: var(--font-black-grey2-8);
 `
-
-export default {Heading3, Heading4};
