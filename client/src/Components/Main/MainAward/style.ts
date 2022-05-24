@@ -22,7 +22,7 @@ from {
 export const AwardContainer = styled.div`
   margin-top: 10vh;
   width: 100vw;
-  height: 80rem;
+  height: 74rem;
   overflow: hidden;
   opacity: 1;
   background: linear-gradient(60deg, var(--primary-l1) 0%, var(--primary-0) 100%);

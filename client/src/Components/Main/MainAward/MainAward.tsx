@@ -52,7 +52,7 @@ const MainAward = (): ReactElement => {
           );
         })}
       </Slider>
-      <Wave location={17}/>
+      <Wave location={11}/>
     </AwardContainer>
   );
 };

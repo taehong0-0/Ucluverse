@@ -13,6 +13,7 @@ export const NewClubContainer = styled.div`
     width: 19rem;
     height: 21.875rem;
     overflow: hidden;
+    z-index : 1;
     box-shadow: 3px 3px 10px #dddae0;
     
     .club-img {
@@ -88,6 +89,7 @@ export const NewClubContainer = styled.div`
     flex-direction: column;
     margin-top: 3.75rem;
     margin-left: 106px;
+    z-index : 1;
     img {
       width: 9.563rem;
       height: 2.25rem;
@@ -111,16 +113,7 @@ export const NewClubContainer = styled.div`
       }
     }
   }
-  a:link {
-    text-decoration: none;
-  }
-  a:visited {
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: none;
-  }
-  a:active {
+  a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
   }
 `;
