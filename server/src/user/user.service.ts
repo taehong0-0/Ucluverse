@@ -61,8 +61,9 @@ export class UserService {
                 await queryRunner.manager.save(profilePhoto);
             }
             await queryRunner.commitTransaction();
-
-            return new LoginResponseDto(2, '회원가입을 완료했습니다.', email, user);
+            const loginRes = new LoginResponseDto(2, '회원가입을 완료했습니다.', email, user);
+            console.log(loginRes);
+            return loginRes;
         }catch(e){
             console.log(e);
             await queryRunner.rollbackTransaction();
@@ -140,17 +141,23 @@ export class UserService {
 
             let res = {};
             const result = await this.getStarredClubs(userIdx);
-            const starredClubIdxs = []
-            result.res.clubs.forEach(club => {
+            if(result){
+                const starredClubIdxs = []
+                result.res.clubs.forEach(club => {
                 starredClubIdxs.push(club.clubIdx);
-            })
-            user['starredClubs'] = starredClubIdxs;
-            const path = user.profilePhoto.path;
+                })
+                user['starredClubs'] = starredClubIdxs;
+            }
+            let path = ""
+            if(user.profilePhoto !== null){
+                path = user.profilePhoto.path;
+            }
             delete user.profilePhoto;
             delete user.currentHashedRefreshToken;
 
             res = user;
             res['profilePhoto'] = path;
+            console.log(user);
             return new UserResDto(user); 
         } catch(e) {
             console.log(e);
@@ -368,11 +375,7 @@ export class UserService {
         const {userIdx, clubIdx} = changeUserClubStatus;
         const userClub = await this.getUserClub(userIdx, clubIdx);
         userClub.status = status;
-        if(status === "accepted"){
-            userClub.role = "member";
-        } else if(status === "rejected"){
-            userClub.role = null;
-        }
+        userClub.role = "member";
         const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
@@ -573,6 +576,7 @@ export class UserService {
 
     async getAppliedUsers(clubIdx :number){
         const queryRunner = this.connection.createQueryRunner();
+        await queryRunner.connect();
         try{
             const users = await queryRunner.manager
                 .createQueryBuilder(User, 'user')
@@ -584,6 +588,8 @@ export class UserService {
                 .where('userClubs.clubIdx = :clubIdx and userClubs.status = "waiting"', { clubIdx })
                 .getMany();
             
+            
+            console.log(users);
             return new UserResDto(users);
         }catch(e){
             console.log(e);
