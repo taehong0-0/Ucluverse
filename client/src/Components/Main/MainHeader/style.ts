@@ -74,6 +74,15 @@ export const SearchBarDiv = styled.div`
       height: 1.5rem;
     }
   }
+
+  @media (max-width : 768px) {
+    max-width : 468px;
+    width : 72vw;
+      input {
+        max-width : 405px;
+        width : 68vw;
+      }
+  }
 `;
 export const SearchDataContainer = styled.div`
   position: absolute;
@@ -97,5 +106,9 @@ export const SearchDataContainer = styled.div`
   }
   a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    width : 72vw;
   }
 `;

@@ -21,16 +21,7 @@ export const MainBoardDiv = styled.div`
       color: #1a1917;
       opacity: 1;
     }
-    a:link {
-      text-decoration: none;
-    }
-    a:visited {
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: none;
-    }
-    a:active {
+    a:is(:link, :visited, :hover, :active) {
       text-decoration: none;
     }
     a {
@@ -40,6 +31,11 @@ export const MainBoardDiv = styled.div`
         padding-top: 6px;
       }
   }
+
+  @media (max-width: 768px) {
+    width : 85vw;
+    margin : 1rem 4vw;
+  }
 `;
 
 export const MainBoardContainerDiv = styled.div`
@@ -47,4 +43,8 @@ export const MainBoardContainerDiv = styled.div`
   justify-content: space-between;
   width: 60rem;
   margin: 5rem auto;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
