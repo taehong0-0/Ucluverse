@@ -20,16 +20,13 @@ export const InfoDetail = styled.div`
   flex-direction: column;
   align-items: center;
   height: 500px;
-  & > span:first-child {
-    text-decoration: underline;
-    font: normal normal bold 48px/56px Noto Sans KR;
-    letter-spacing: -3.6px;
-    color: #ffffff;
-    opacity: 1;
-  }
   & > div {
-    width: 300px;
+    width: 45%;
     margin-bottom: 12px;
+    display: flex;
+    select {
+      width: 222px;
+    }
     span:first-child {
       display: inline-block;
       width: 90px;
@@ -42,10 +39,16 @@ export const InfoDetail = styled.div`
     }
     span:last-child {
       text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       font: normal normal normal 24px/28px Noto Sans KR;
       letter-spacing: -1.8px;
       color: #ffffff;
       opacity: 1;
+    }
+    input {
+      width: 222px;
+      height: 22px;
     }
   }
   & > div:first-child {
@@ -62,12 +65,7 @@ export const InfoDetail = styled.div`
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    span:last-child {
-      display: inline-block;
-      font: normal normal bold 48px/56px Noto Sans KR;
-      letter-spacing: -3.6px;
-      color: #ffffff;
-      opacity: 1;
+    input {
     }
   }
 `;
