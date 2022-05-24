@@ -18,11 +18,13 @@ export class AuthService {
         if(cookies.Refresh) {
             const payload: any = this.decodeToken(cookies.Refresh);
             const userIdx = payload.userIdx;
-            const user = await this.userService.findUser(userIdx);
+            console.log(userIdx);
+            const { res } = await this.userService.findUser(userIdx);
+            console.log(res);
 
             return {
                 status: 1,
-                user: user.res.user,
+                user: res.user,
             }
         } else {
             return {
