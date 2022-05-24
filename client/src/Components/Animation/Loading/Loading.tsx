@@ -5,7 +5,10 @@ import {LoadingDiv} from './style';
 const Loading = () : ReactElement => {
     return (
         <LoadingDiv>
-             <img src={logoImg} width="50px" height="50px" />
+             <section>
+                <img src={logoImg} width="50px" height="50px" />
+             </section>
+             <div/>
         </LoadingDiv>
     )
 }
