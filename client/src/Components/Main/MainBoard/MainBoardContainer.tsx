@@ -32,7 +32,6 @@ const MainBoardContainer = (): ReactElement => {
   }, []);
   return (
     <MainBoardContainerDiv>
-      <MainBoard imgURL={popularImg} posts={posts} />
       <MainBoard imgURL={noticeImg} posts={posts} />
       <MainBoard imgURL={FAQImg} posts={posts} />
     </MainBoardContainerDiv>

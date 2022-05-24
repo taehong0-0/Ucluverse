@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { ClubType } from '../../../Types/ClubType';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { Wave } from '../../Animation';
+
 interface props {
   imgURL: string;
   linkURL: string;

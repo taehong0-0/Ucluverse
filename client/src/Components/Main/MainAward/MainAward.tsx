@@ -2,10 +2,10 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { AwardContainer, AwardDiv } from './style';
 import awardHeaderImg from '../../../Assets/수상내역.png';
 import Slider from 'react-slick';
-import testImg from '../../../Assets/test4.jpeg';
 import { AwardPostType } from '../../../Types/PostType';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Wave } from '../../Animation';
 
 const MainAward = (): ReactElement => {
   const [awardList, setAwardList] = useState<AwardPostType[]>([]);
@@ -14,6 +14,7 @@ const MainAward = (): ReactElement => {
       setAwardList(res.data.res.awards);
     });
   }, []);
+
   const settings = {
     dots: false,
     infinite: awardList.length > 5 ? true : false,
@@ -23,9 +24,11 @@ const MainAward = (): ReactElement => {
     slidesToShow: 5,
     slidesToScroll: 1,
   };
+
   return (
     <AwardContainer>
       <div>
+          <Wave rotation={180}/>
         <img src={awardHeaderImg} />
         <span>열심히 활동한 동아리를 볼 수 있어요.</span>
       </div>
@@ -49,6 +52,7 @@ const MainAward = (): ReactElement => {
           );
         })}
       </Slider>
+      <Wave location={11}/>
     </AwardContainer>
   );
 };

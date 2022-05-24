@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import awardBG1 from '../../../Assets/수상내역배경1.svg';
 
 const fadeIn = keyframes`
 from {
@@ -23,20 +24,8 @@ export const AwardContainer = styled.div`
   width: 100vw;
   height: 74rem;
   overflow: hidden;
-  /* UI Properties */
-  background: transparent
-    linear-gradient(
-      180deg,
-      #53009b80 0%,
-      #8352ac 4%,
-      #7b39b4 17%,
-      #c19f57 61%,
-      #ffe3a8bf 74%,
-      #ffe3a880 84%,
-      #eed09000 100%
-    )
-    0% 0% no-repeat padding-box;
   opacity: 1;
+  background: linear-gradient(60deg, var(--primary-l1) 0%, var(--primary-0) 100%);
   & > div:nth-child(1) {
     display: flex;
     flex-direction: column;
@@ -68,6 +57,8 @@ export const AwardContainer = styled.div`
     justify-content: center;
   }
 `;
+
+
 export const AwardDiv = styled.div`
   cursor: pointer;
   width: 100%;

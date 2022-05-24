@@ -16,9 +16,12 @@ export const MainHeaderDiv = styled.div`
     z-index: 999;
     .main-header {
       //width : 27vw;
-      width: 75%;
+      width: 350px;
+      position : relative;
+      animation : upBottom20 1s 1 alternate forwards;
     }
     & > span {
+      position : static;
       top: 14.688rem;
       left: 32.563rem;
       width: 16.875rem;
@@ -29,6 +32,7 @@ export const MainHeaderDiv = styled.div`
       color: #a19279;
       opacity: 1;
       margin-top: 0.938rem;
+      animation : upMargin42 1s 1 alternate forwards;
     }
     display: flex;
     flex-direction: column;
@@ -70,6 +74,15 @@ export const SearchBarDiv = styled.div`
       height: 1.5rem;
     }
   }
+
+  @media (max-width : 768px) {
+    max-width : 468px;
+    width : 72vw;
+      input {
+        max-width : 405px;
+        width : 68vw;
+      }
+  }
 `;
 export const SearchDataContainer = styled.div`
   position: absolute;
@@ -91,16 +104,11 @@ export const SearchDataContainer = styled.div`
       color: #1a1917;
     }
   }
-  a:link {
+  a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
   }
-  a:visited {
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: none;
-  }
-  a:active {
-    text-decoration: none;
+
+  @media (max-width: 768px) {
+    width : 72vw;
   }
 `;

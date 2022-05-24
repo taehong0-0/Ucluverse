@@ -7,17 +7,19 @@ export const NewClubContainer = styled.div`
   opacity: 1;
   margin-left: 15.125rem;
   margin-top: -12.5rem;
+
   & > div:first-child {
     margin-top: -5rem;
     width: 19rem;
     height: 21.875rem;
     overflow: hidden;
+    z-index : 1;
     box-shadow: 3px 3px 10px #dddae0;
+    
     .club-img {
       width: 19rem;
       height: 21.875rem;
-      /* UI Properties */
-      box-shadow: 3px 3px 0.625rem var(---grey1-3);
+      box-shadow: 3px 3px 0.625rem var(--grey1-3);
       background: transparent 0% 0% no-repeat padding-box;
       box-shadow: 3px 3px 0.625rem #dddae0;
       border-radius: 5px;
@@ -34,6 +36,7 @@ export const NewClubContainer = styled.div`
       left: -110px;
       opacity: 0;
       transition: all 0.2s linear;
+
       span {
         display: block;
         margin-left: 20px;
@@ -43,6 +46,7 @@ export const NewClubContainer = styled.div`
         color: #6d00b9;
       }
     }
+
     button {
       opacity: 0;
       cursor: pointer;
@@ -59,6 +63,7 @@ export const NewClubContainer = styled.div`
         0% 0% no-repeat padding-box;
       box-shadow: 1px 1px 4px #a45de2;
       background-color: black;
+
       span {
         display: block;
         color: #fff;
@@ -84,6 +89,7 @@ export const NewClubContainer = styled.div`
     flex-direction: column;
     margin-top: 3.75rem;
     margin-left: 106px;
+    z-index : 1;
     img {
       width: 9.563rem;
       height: 2.25rem;
@@ -107,16 +113,7 @@ export const NewClubContainer = styled.div`
       }
     }
   }
-  a:link {
-    text-decoration: none;
-  }
-  a:visited {
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: none;
-  }
-  a:active {
+  a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
   }
 `;
