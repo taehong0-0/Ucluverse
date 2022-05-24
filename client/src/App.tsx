@@ -11,6 +11,7 @@ import AuthRoute from './Routes/AuthRoute';
 import LoginRoute from './Routes/LoginRoute';
 import { ToastContainer } from 'react-toastify';
 import ClubAdmin from './Pages/Admin/ClubAdmin';
+
 import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { ClubListState, DepartmentListState } from './Recoil/Club';
@@ -39,58 +40,50 @@ const App = () => {
           <Route
             path="/login"
             element={
-             // <LoginRoute>
+             <LoginRoute>
                 <Login />
-           //   </LoginRoute>
+             </LoginRoute>
             }
           />
           <Route
             path="login/info"
             element={
-            //  <LoginRoute>
+             <LoginRoute>
                 <LoginInfo />
-           //   </LoginRoute>
+             </LoginRoute>
             }
           />
           <Route
             path="/club/:id/*"
             element={
-            //  <AuthRoute>
+             <AuthRoute>
                 <Club />
-          //    </AuthRoute>
+             </AuthRoute>
             }
           />
           <Route path="*" element={<Navigate replace to="/" />} />
           <Route
             path="/clubList/*"
             element={
-             // <AuthRoute>
+             <AuthRoute>
                 <ClubList />
-           //   </AuthRoute>
+             </AuthRoute>
             }
           />
           <Route
             path="/admin/:id"
             element={
-            //  <AuthRoute>
+            <AuthRoute>
                 <ClubAdmin />
-           //   </AuthRoute>
+            </AuthRoute>
             }
           />
           <Route
             path="/mypage"
             element={
-           //   <AuthRoute>
+            <AuthRoute>
                 <MyPage />
-         //     </AuthRoute>
-            }
-          />
-        <Route
-            path="/introduce"
-            element={
-            //  <LoginRoute>
-                <Introduce />
-           //   </LoginRoute>
+           </AuthRoute>
             }
           />
           <Route path="*" element={<Navigate replace to="/" />} />
