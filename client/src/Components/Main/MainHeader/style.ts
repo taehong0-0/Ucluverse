@@ -17,8 +17,11 @@ export const MainHeaderDiv = styled.div`
     .main-header {
       //width : 27vw;
       width: 350px;
+      position : relative;
+      animation : upBottom20 1s 1 alternate forwards;
     }
     & > span {
+      position : static;
       top: 14.688rem;
       left: 32.563rem;
       width: 16.875rem;
@@ -29,6 +32,7 @@ export const MainHeaderDiv = styled.div`
       color: #a19279;
       opacity: 1;
       margin-top: 0.938rem;
+      animation : upMargin42 1s 1 alternate forwards;
     }
     display: flex;
     flex-direction: column;
@@ -91,16 +95,7 @@ export const SearchDataContainer = styled.div`
       color: #1a1917;
     }
   }
-  a:link {
-    text-decoration: none;
-  }
-  a:visited {
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: none;
-  }
-  a:active {
+  a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
   }
 `;
