@@ -13,7 +13,9 @@ const ClubMain = (props: Props): ReactElement => {
   const club = context?.club;
   return (
     <ClubMainContainer>
-      <div>{club?.logoPath ? <img src={club.logoPath} /> : <div></div>}</div>
+      <div>
+        <div>{club?.logoPath ? <img src={club.logoPath} /> : <div></div>}</div>
+      </div>
       <ClubBoard boardIdx={0} clubId={clubId} boardName="전체 게시판" />
     </ClubMainContainer>
   );
