@@ -121,6 +121,7 @@ const DepartmentBody = () => {
       setDepartmentCategory('');
     } else {
       setCollegeCategory(category);
+      setDepartmentCategory('');
     }
   };
   const clickDepartmentCategory = (category: string) => {

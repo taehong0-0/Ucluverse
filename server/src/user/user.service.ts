@@ -138,12 +138,19 @@ export class UserService {
             .where('user.userIdx=:userIdx', { userIdx })
             .getOne();
 
+            let res = {};
             const result = await this.getStarredClubs(userIdx);
             const starredClubIdxs = []
             result.res.clubs.forEach(club => {
                 starredClubIdxs.push(club.clubIdx);
             })
             user['starredClubs'] = starredClubIdxs;
+            const path = user.profilePhoto.path;
+            delete user.profilePhoto;
+            delete user.currentHashedRefreshToken;
+
+            res = user;
+            res['profilePhoto'] = path;
             return new UserResDto(user); 
         } catch(e) {
             console.log(e);
@@ -361,7 +368,11 @@ export class UserService {
         const {userIdx, clubIdx} = changeUserClubStatus;
         const userClub = await this.getUserClub(userIdx, clubIdx);
         userClub.status = status;
-        userClub.role = "member";
+        if(status === "accepted"){
+            userClub.role = "member";
+        } else if(status === "rejected"){
+            userClub.role = null;
+        }
         const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
@@ -500,12 +511,15 @@ export class UserService {
                 const newAnswer = new Answer();
                 newAnswer.content = answer.content;
                 newAnswer.userClub = userClub;
+                console.log(answer.questionIdx);
                 const question = await queryRunner.manager.findOne(Question, {
                     where: {
                         questionIdx: answer.questionIdx,
                     }
                 });
+                console.log(question);
                 newAnswer.question = question;
+                console.log(newAnswer);
                 await queryRunner.manager.save(newAnswer);
             });
 
@@ -524,6 +538,8 @@ export class UserService {
                 newSubmissionFIle.form = form;
                 await queryRunner.manager.save(newSubmissionFIle);
             });
+            userClub.status = 'waiting';
+            await queryRunner.manager.save(userClub);
             await queryRunner.commitTransaction();
             return new BaseSuccessResDto();
         } catch(e) {
@@ -560,48 +576,15 @@ export class UserService {
         try{
             const users = await queryRunner.manager
                 .createQueryBuilder(User, 'user')
-                .select(['user.name', 'user.studentId'])
-                .addSelect('department.name')
-                .addSelect(['userClubs.userClubIdx'])
-                .addSelect(['answers.answerIdx','answers.questionIdx','answers.content'])
-                .addSelect(['submissionFiles.submissionFileIdx'])
-                .leftJoin('user.department' , 'department')
-                .leftJoin('user.userClubs' , 'userClubs')
-                .leftJoin('userClubs.answers', 'answers')
-                .leftJoin('userClubs.submissionFiles', 'submissionFiles')
+                .leftJoinAndSelect('user.department' , 'department')
+                .leftJoinAndSelect('user.userClubs' , 'userClubs')
+                .leftJoinAndSelect('userClubs.answers', 'answers')
+                .leftJoinAndSelect('answers.question', 'question')
+                .leftJoinAndSelect('userClubs.submissionFiles', 'submissionFiles')
                 .where('userClubs.clubIdx = :clubIdx and userClubs.status = "waiting"', { clubIdx })
                 .getMany();
             
-            const responses = [];
-            users.forEach(user => {
-                const response = {};
-                user.userClubs.forEach(userClub => {
-                    const answerArr = [];
-                    const submissionFileArr = [];
-                    userClub.answers.forEach(answer => {
-                        const answerRes = {};
-                        answerRes['answerIdx'] = answer.answerIdx;
-                        answerRes['questionIdx'] = answer.questionIdx;
-                        answerRes['content'] = answer.content;
-                        answerArr.push(answerRes);
-                    });
-                    userClub.submissionFiles.forEach(submissionFile => {
-                        const submissionFileRes = {};
-                        submissionFileRes['submissionFileIdx'] = submissionFile.submissionFileIdx;
-                        submissionFileRes['formIdx'] = submissionFile.formIdx;
-                        submissionFileRes['path'] = submissionFile.path;
-                        submissionFileArr.push(submissionFileRes);
-                    });
-                    response['answers'] = answerArr;
-                    response['submissionFiles'] = submissionFileArr;
-                })
-                response['userName'] = user.name;
-                response['studentId'] = user.studentId;
-                response['department'] = user.department.name;
-                response['userClubIdx'] = user.userClubs[0].userClubIdx;
-                responses.push(response);
-            })
-            return new UserResDto(responses);
+            return new UserResDto(users);
         }catch(e){
             console.log(e);
         }finally{

@@ -75,6 +75,24 @@ export class ClubsService {
         }
     }
 
+    async getGreatClubs(){
+        const queryRunner = this.connection.createQueryRunner();
+        try {
+            const clubs = await queryRunner.manager.
+            createQueryBuilder(Club, 'club')
+            .orderBy('RAND()')
+            .limit(10)
+            .getMany()
+
+            const greatClubs = clubs.filter(club => club.clubIdx > 1);
+            return new ClubResDto(greatClubs);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            await queryRunner.release();
+        }
+    }
+
     async getCentralClubs() {
         const queryRunner = this.connection.createQueryRunner();
         try {            
@@ -317,6 +335,7 @@ export class ClubsService {
                 where: {
                     userClubs: {
                         clubIdx,
+                        status : "accepted",
                     }
                 },
                 select: ['userIdx', 'name', 'departmentIdx', 'studentId', 'email', 'phoneNumber', 'nickname', 'userClubs']

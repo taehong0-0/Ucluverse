@@ -74,7 +74,7 @@ const ActivityBoard = (props: Props) => {
         </div>
         <div className="activity-list">
           {activityPosts.map((post) => (
-            <ActivityContainer>
+            <ActivityContainer key={post.createdAt}>
               <Link to={`/club/${clubId}/post?postId=${post.postingIdx}`}>
                 <img src={post.path ?? ''} />
                 <div>

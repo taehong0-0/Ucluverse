@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ClubType } from '../../../Types/ClubType';
 import { ClubListContainer } from './style';
 
 interface props {
-  clubList: any[] | null;
+  clubList: ClubType[] | null;
 }
 const ClubList = (props: props) => {
   const { clubList } = props;
@@ -14,9 +15,9 @@ const ClubList = (props: props) => {
       <div>
         {clubList?.map((club) => {
           return (
-            <Link to={`/club/${club.clubIdx}`}>
+            <Link to={`/club/${club.clubIdx}`} key={club.clubIdx}>
               <div>
-                <img src={club.imgSrc}></img>
+                {club.logoPath ? <img src={club.logoPath ?? ''}></img> : <div></div>}
                 <span>{club.name}</span>
               </div>
             </Link>

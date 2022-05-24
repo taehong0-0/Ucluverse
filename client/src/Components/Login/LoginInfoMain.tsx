@@ -151,11 +151,7 @@ const LoginInfoMain = (): ReactElement => {
               <FloatInput type="large" inputRef={nameRef} name="이름" />
               <FloatInput type="large" inputRef={studentIDRef} name="학번" />
             </div>
-            <FormControl
-              variant="standard"
-              sx={{ m: 1, minWidth: 120 }}
-              id="select-box"
-            >
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }} id="select-box">
               <InputLabel id="input-label">학과</InputLabel>
               <Select
                 labelId="demo-simple-select-standard-label"
@@ -165,7 +161,9 @@ const LoginInfoMain = (): ReactElement => {
                 label="학과"
               >
                 {departmentList.map((department) => (
-                  <MenuItem value={department}>{department}</MenuItem>
+                  <MenuItem value={department} key={department}>
+                    {department}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -195,18 +193,8 @@ const LoginInfoMain = (): ReactElement => {
             <CharacterContainer>
               <img src={characterImg} width="140px" height="140px"></img>
               <div>
-                <CharacterButton
-                  content="머리"
-                  number={head}
-                  maxNum={10}
-                  setNumber={setHead}
-                ></CharacterButton>
-                <CharacterButton
-                  content="상의"
-                  number={body}
-                  maxNum={10}
-                  setNumber={setBody}
-                ></CharacterButton>
+                <CharacterButton content="머리" number={head} maxNum={10} setNumber={setHead}></CharacterButton>
+                <CharacterButton content="상의" number={body} maxNum={10} setNumber={setBody}></CharacterButton>
                 <CharacterButton
                   content="악세사리"
                   number={accessorie}

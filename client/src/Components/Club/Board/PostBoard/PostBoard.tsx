@@ -7,7 +7,7 @@ import useCheckRole from '../../../../Hooks/useCheckRole';
 import { PostTitleType } from '../../../../Types/PostType';
 import Button from '../../../Button/Button';
 import PostTitle from '../../Post/Title/PostTitle';
-import { ClubBoardContainer } from './style';
+import { ClubBoardContainer, PostContainer } from './style';
 
 interface props {
   boardIdx: number;
@@ -67,17 +67,19 @@ const PostBoard = (props: props) => {
           <span>{'>'}</span>
           <span>{boardName}</span>
         </div>
-        {postList.map((post) => (
-          <PostTitle
-            key={post.createdAt}
-            title={post.title}
-            author={post.author}
-            date={post.createdAt}
-            type={post.type}
-            postId={post.postingIdx}
-            clubId={clubId}
-          ></PostTitle>
-        ))}
+        <PostContainer>
+          {postList.map((post) => (
+            <PostTitle
+              key={post.createdAt}
+              title={post.title}
+              author={post.author}
+              date={post.createdAt}
+              type={post.type}
+              postId={post.postingIdx}
+              clubId={clubId}
+            ></PostTitle>
+          ))}
+        </PostContainer>
       </div>
       {boardName !== '전체 게시판' && <Button name="글작성" clickEvent={clickEvent}></Button>}
     </ClubBoardContainer>

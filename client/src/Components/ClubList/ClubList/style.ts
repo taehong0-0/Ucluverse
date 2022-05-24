@@ -22,10 +22,15 @@ export const ClubListContainer = styled.div`
     flex-wrap: wrap;
     overflow: auto;
     a {
-      div {
+      & > div {
         margin-right: 24px;
         display: flex;
         flex-direction: column;
+        div {
+          width: 226px;
+          height: 150px;
+          background-color: #fff;
+        }
         img {
           width: 226px;
           height: 150px;
