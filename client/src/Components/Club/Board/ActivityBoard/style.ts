@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { BoardStyle } from '../style';
 
 export const ActivityBoardContainer = styled.div`
+  width: 56.3%;
   & > div:first-child {
     ${BoardStyle}
   }

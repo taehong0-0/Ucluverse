@@ -8,14 +8,16 @@ const InfoBoard = () => {
   const club = contextValue?.club;
   return (
     <InfoBoardContainer>
-      <div className="navigator">
-        <span>Home</span>
-        <span>{'>'}</span>
-        <span>동아리 소개</span>
+      <div>
+        <div className="navigator">
+          <span>Home</span>
+          <span>{'>'}</span>
+          <span>동아리 소개</span>
+        </div>
+        <img src={club?.introductionPath} />
+        <span>{club?.name}</span>
+        <span>{club?.introductionDesc}</span>
       </div>
-      <img src={club?.introductionPath} />
-      <span>{club?.name}</span>
-      <span>{club?.introductionDesc}</span>
     </InfoBoardContainer>
   );
 };
