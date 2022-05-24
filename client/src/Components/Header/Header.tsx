@@ -42,7 +42,9 @@ const Header = (): ReactElement => {
             width="24px"
             height="21px"
             onClick={() => {
-              axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/logout`);
+              axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/logout`).then((res) => {
+                window.location.href = '/';
+              });
             }}
           />
           <LinkButton url="/mypage">
