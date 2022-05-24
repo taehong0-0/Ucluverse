@@ -5,7 +5,7 @@ export interface UserType {
   nickname: string;
   studentId: number;
   email: string;
-  BDOList?: number[] | null;
+  BODList?: number[] | null;
   isAdmin?: boolean;
   profilePhoto?: string;
   phoneNumber: string;

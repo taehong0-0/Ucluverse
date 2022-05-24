@@ -103,7 +103,7 @@ export class ClubsService {
                 .addSelect(['cbs.clubBoardIdx', 'cbs.name'])
                 .leftJoin('club.clubCategories' , 'ccs')
                 .leftJoin('club.clubBoards', 'cbs')
-                .where('club.clubType = :clubType', { clubType: '중앙동아리' })
+                .where('club.clubType = :clubType', { clubType: 'centralClub' })
                 .getMany();
             
             centralClubs.forEach(centralClub => {

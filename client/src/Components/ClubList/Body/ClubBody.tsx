@@ -12,7 +12,7 @@ const categoryList = [
   '전체',
   '체육',
   '사회활동',
-  '언행예술',
+  '연행예술',
   '레저스포츠',
   '과학기술',
   '학술언론',
@@ -24,6 +24,7 @@ const ClubBody = () => {
   const [category, setCategory] = useState<string>('전체');
   // const [clubList, setClubList] = useState<ClubType[]>([]);
   const clubList = useRecoilValue(ClubListState);
+  console.log(clubList);
   // useEffect(() => {
   //   axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/central`).then((res) => {
   //     setClubList(res.data.res.clubs);

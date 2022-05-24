@@ -11,7 +11,7 @@ export const userState = atom<UserType>({
     nickname: '',
     studentId: 0,
     email: '',
-    BDOList: null,
+    BODList: null,
     isAdmin: false,
     profilePhoto: '',
     phoneNumber: '',
@@ -23,6 +23,7 @@ export const userDataState = selector({
   key: 'userDataState',
   get: async () => {
     const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/isLogin`);
+    console.log(res.data);
     return res.data;
   },
   set: ({ set }, newValue) => {

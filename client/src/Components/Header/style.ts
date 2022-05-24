@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
   display: flex;
-  width: 60rem;
+  width: 70%;
   height: 6.25rem;
   line-height: 6.25rem;
   margin: 0 auto;
@@ -10,29 +10,29 @@ export const HeaderContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   button {
-    padding : 0;
+    padding: 0;
   }
 
-  @media (max-width : 960px) {
-    width : 30rem;
+  @media (max-width: 960px) {
+    width: 30rem;
   }
 `;
 export const HeaderLinkContainer = styled.div`
   width: 303px;
-  margin-left : 1.15rem;
+  margin-left: 1.15rem;
   display: flex;
   justify-content: space-between;
   button {
-    padding : 0;
+    padding: 0;
     /* margin-right: 60px;
     &:last-child {
       margin-right: 0px;
     } */
   }
 
-  @media (max-width : 960px) {
-    width : 100%;
-    margin : 0 2rem 0 2.813rem;
+  @media (max-width: 960px) {
+    width: 100%;
+    margin: 0 2rem 0 2.813rem;
   }
 `;
 export const UserInfoContainer = styled.div`

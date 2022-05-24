@@ -32,7 +32,7 @@ export const InfoDetail = styled.div`
     margin-bottom: 12px;
     span:first-child {
       display: inline-block;
-      width: 83px;
+      width: 90px;
       margin-right: 24px;
       text-align: right;
       font: normal normal bold 24px/28px Noto Sans KR;
@@ -91,6 +91,10 @@ export const ImageDetail = styled.div`
     box-shadow: 3px 3px 10px #00000029;
     border-radius: 5px;
     opacity: 1;
+    img {
+      width: 175px;
+      height: 225px;
+    }
   }
   & > div:first-child {
     margin-right: 18px;
