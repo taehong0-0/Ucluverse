@@ -168,13 +168,15 @@ export class UserService {
 
     async findDuplicateNickname(nickname: string){
         const queryRunner = this.connection.createQueryRunner();
-
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
         try {
             const user = await queryRunner.manager.findOne(User, {
                 where:{
                     nickname: nickname,
                 }
             })
+            await queryRunner.commitTransaction();
             if(!user){
                 return false;
             }
@@ -188,7 +190,8 @@ export class UserService {
 
     async findByEmail(email: string): Promise<User> | null {
         const queryRunner = this.connection.createQueryRunner();
-        
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
         try {
             const user = await queryRunner.manager.findOne(User, {
                 where: {
@@ -198,6 +201,7 @@ export class UserService {
             if (!user) {
                 return null;
             }
+            await queryRunner.commitTransaction();
             return user;
         } catch(error) {
             console.log(error);
@@ -231,13 +235,15 @@ export class UserService {
 
     async getUserIfRefreshTokenMatches(refreshToken: string, userIdx: number) {
         const queryRunner = this.connection.createQueryRunner();
-
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
         try{
             const user = await queryRunner.manager.findOne(User, {
                 where: {
                     userIdx: userIdx,
                 }
             });
+            await queryRunner.commitTransaction();
             const ifRefreshTokenMatches = await bcrypt.compare(
                 refreshToken, user.currentHashedRefreshToken
             );
@@ -285,6 +291,8 @@ export class UserService {
 
     async getUserClub(userIdx: number, clubIdx: number){
         const queryRunner = this.connection.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
         try {
             const userClub = await queryRunner.manager.findOne(UserClub, {
                 where: {
@@ -292,6 +300,7 @@ export class UserService {
                     clubIdx: clubIdx,
                 }
             });
+            await queryRunner.commitTransaction();
             return userClub;
         } catch (e) {
             console.log(e);
@@ -577,6 +586,7 @@ export class UserService {
     async getAppliedUsers(clubIdx :number){
         const queryRunner = this.connection.createQueryRunner();
         await queryRunner.connect();
+        await queryRunner.startTransaction();
         try{
             const users = await queryRunner.manager
                 .createQueryBuilder(User, 'user')
@@ -590,6 +600,7 @@ export class UserService {
             
             
             console.log(users);
+            await queryRunner.commitTransaction();
             return new UserResDto(users);
         }catch(e){
             console.log(e);
@@ -600,6 +611,8 @@ export class UserService {
 
     async getAcceptedClubs(userIdx: number){
         const queryRunner = this.connection.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
         try{
             const clubs = await queryRunner.manager.find(Club, {
                 relations: [
@@ -613,6 +626,7 @@ export class UserService {
                 }
             });
             console.log(clubs);
+            await queryRunner.commitTransaction();
             return new ClubResDto(clubs);
         } catch(e) {
             console.log(e);
@@ -623,6 +637,8 @@ export class UserService {
 
     async getStarredClubs(userIdx: number){
         const queryRunner = this.connection.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
         try{
             const clubs = await queryRunner.manager.find(Club, {
                 relations: [
@@ -635,6 +651,7 @@ export class UserService {
                     },
                 }
             });
+            await queryRunner.commitTransaction();
             return new ClubResDto(clubs);
         } catch(e) {
             console.log(e);
