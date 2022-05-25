@@ -43,33 +43,5 @@ ${({ theme }) => css`
         --gradient-link-0: #A27BC4;
         --shadow-purple-0: rgba(113,34,168,.16);
     }
-
-    /* animation */
-    @keyframes upBottom20 {
-        0% {
-        opacity : 0.25;
-        bottom : -20px;
-        }
-        100% {
-        opacity : 1;
-        bottom : 0px;
-        }
-    }
-
-    @keyframes fadeIn {
-        from {
-        opacity : 0;
-        }
-        to {
-        opacity : 1;
-        }
-    }
-
-    @keyframes upMargin42 {
-        from {
-            opacity : 0.25;
-            margin-top : 42px;
-        }
-    }
 `}
 `

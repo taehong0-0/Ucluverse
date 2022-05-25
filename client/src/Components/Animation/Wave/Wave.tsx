@@ -7,8 +7,9 @@ rotation? : number;
 }
 
 const Wave = (props : propsInfo) : ReactElement => {
+    const {location, rotation} = props;
     return (
-        <WaveDiv REM={props.location} DEG={props.rotation}>
+        <WaveDiv REM={location} DEG={rotation}>
             <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
             viewBox="0 24 135 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
