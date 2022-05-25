@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
 export const ActivityContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+
+  article {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
   /* align-items: center; */
   .slick-slider {
     width: 160vw;

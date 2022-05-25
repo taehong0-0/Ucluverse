@@ -23,7 +23,7 @@ const MainBoardContainer = (): ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [noticeList, setNoticeList] = useState<PostTitleType[]>([]);
   const [FAQList, setFAQList] = useState<PostTitleType[]>([]);
-  const animate = useScrollFadeIn();
+  const animation = useScrollFadeIn();
 
   useEffect(() => {
     // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
@@ -36,7 +36,7 @@ const MainBoardContainer = (): ReactElement => {
 
   return (
     <MainBoardContainerDiv>
-      <section {...animate}>
+      <section {...animation}>
         <MainBoard imgURL={noticeImg} posts={posts} />
         <MainBoard imgURL={FAQImg} posts={posts} />
       </section>

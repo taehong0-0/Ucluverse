@@ -13,6 +13,7 @@ import Slider from 'react-slick';
 import { ActivityPostType } from '../../../Types/PostType';
 import { useState } from 'react';
 import axios from 'axios';
+import { useScrollFadeIn } from '../../../Hooks';
 
 interface buttonProps {
   className?: string;
@@ -21,6 +22,7 @@ interface buttonProps {
 }
 
 const MainActivity = (): ReactElement => {
+  const animation = useScrollFadeIn();
   const [activityList, setActivityList] = useState<ActivityPostType[]>([]);
   const activityRef = useRef<HTMLDivElement[]>([]);
   useEffect(() => {
@@ -103,11 +105,13 @@ const MainActivity = (): ReactElement => {
   };
   return (
     <ActivityContainer>
-      <img src={activityImg} width="117px" />
-      <span>서로가 남긴 발자취를 담아 보았어요.</span>
-      <Link to="/">
-        <span>더보기</span>
-      </Link>
+      <article {...animation}>
+        <img src={activityImg} width="117px" />
+        <span>서로가 남긴 발자취를 담아 보았어요.</span>
+        <Link to="/">
+          <span>더보기</span>
+        </Link>
+      </article>
       <Slider {...settings}>
         {activityList.map((activity, idx) => (
           <div ref={(el: HTMLInputElement) => (activityRef.current[idx] = el)} key={activity.createdAt}>

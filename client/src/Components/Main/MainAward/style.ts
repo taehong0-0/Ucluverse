@@ -1,5 +1,4 @@
 import styled, { keyframes } from 'styled-components';
-import awardBG1 from '../../../Assets/수상내역배경1.svg';
 
 const fadeIn = keyframes`
 from {

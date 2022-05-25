@@ -12,7 +12,7 @@ export const MainHeaderDiv = styled.div`
     width: 100vw;
     height: 68vh;
   }
-  .content {
+  .content > article {
     z-index: 999;
     .main-header {
       //width : 27vw;

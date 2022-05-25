@@ -1,7 +1,7 @@
 import { useRef, useCallback, useEffect } from 'react';
 
 export const useScrollFadeIn  = (direction: string = 'up', duration : number = 1, delay : number = 0, boundary : number = 0.5) => {
-    const DOM = useRef<any>();
+    const DOM = useRef<any>(); // ref type 형식 넣어야함 (any 빼야 함)
   
     const moveDirection = (name : string) => {
       switch (name) {
