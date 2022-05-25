@@ -9,7 +9,11 @@ import test5 from '../../../Assets/test5.jpeg';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { ClubType } from '../../../Types/ClubType';
+import { useScrollFadeIn } from '../../../Hooks';
+
 const MainGreatClub = (): ReactElement => {
+  const animation = useScrollFadeIn();
+  const animation2 = useScrollFadeIn('up',1,0,.05);
   const [greatList, setGreatList] = useState<ClubType[]>([]);
   useEffect(() => {
     // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
@@ -19,12 +23,13 @@ const MainGreatClub = (): ReactElement => {
 
   return (
     <ClubContainer>
-      <section></section>
-      <img src={titleImg} className="title" />
-      <span>동아리 활동이 현재 매우 활발한 동아리에요.</span>
-      <span>사람들과 교류를 쉽게 할 수 있을 거에요!</span>
+      <article {...animation}>
+        <img src={titleImg} className="title" />
+        <span>동아리 활동이 현재 매우 활발한 동아리에요.</span>
+        <span>사람들과 교류를 쉽게 할 수 있을 거에요!</span>
+      </article>
       <ImgContainer>
-        <div className="overflow-container">
+        <section className="overflow-container" {...animation2}>
           {greatList.map((club) => (
             <div key={club.clubIdx}>
               <Link to={`/club/${club.clubIdx}`}>
@@ -73,7 +78,7 @@ const MainGreatClub = (): ReactElement => {
               <span>+</span>
             </button>
           </div>
-        </div>
+        </section>
       </ImgContainer>
     </ClubContainer>
   );
