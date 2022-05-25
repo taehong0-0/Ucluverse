@@ -16,7 +16,7 @@ const Header = (): ReactElement => {
       <LinkButton url="/">
         <img src={logoImg} width="50px" height="50px" />
       </LinkButton>
-      <HeaderLinkContainer>
+      <HeaderLinkContainer className={user.userIdx === 0 ? '' : 'logined'}>
         <LinkButton url="/">홈</LinkButton>
         <LinkButton url="/clubList">동아리</LinkButton>
         <LinkButton url="/clubList/department">소학회</LinkButton>

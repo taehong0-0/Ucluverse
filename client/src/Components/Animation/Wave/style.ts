@@ -38,10 +38,10 @@ export const WaveDiv = styled.div<propsInfo>`
 
   @keyframes moveWave {
     0% {
-    transform: translate3d(-80px,0,0);
+    transform: translate3d(-90px,0,0);
     }
     100% { 
-      transform: translate3d(80px,0,0);
+      transform: translate3d(90px,0,0);
     }
   }
   

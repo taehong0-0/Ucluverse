@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const IntroduceDiv = styled.div`
+export const IntroduceDiv = styled.footer`
     display : flex;
     width : 100vw;
     height : 120px;
@@ -17,7 +17,7 @@ export const IntroduceDiv = styled.div`
         object-fit : cover;
     }
 
-    p {
+    h3, h4 {
         padding-left : 34px;
         color : var(--primary-0);
         text-align : left;
@@ -28,7 +28,7 @@ export const IntroduceDiv = styled.div`
     }
 `
 
-export const FooterDiv = styled.div`
+export const FooterDiv = styled.footer`
     display : flex;
     width : 100vw;
     height : 250px;
@@ -45,7 +45,7 @@ export const FooterDiv = styled.div`
         object-fit : cover;
     }
 
-    p {
+    h4, p {
         color : white;
         text-align : center;
 

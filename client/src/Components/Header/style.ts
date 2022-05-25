@@ -13,7 +13,7 @@ export const HeaderContainer = styled.header`
     padding: 0;
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 768px) {
     width: 30rem;
   }
 `;
@@ -30,7 +30,11 @@ export const HeaderLinkContainer = styled.div`
     } */
   }
 
-  @media (max-width: 960px) {
+  .logined {
+    // 로그인 됐을 때 어떻게 여백 설정할까?
+  }
+
+  @media (max-width: 768px) {
     width: 100%;
     margin: 0 2rem 0 2.813rem;
   }

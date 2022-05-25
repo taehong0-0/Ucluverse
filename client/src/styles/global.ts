@@ -8,6 +8,10 @@ ${({ theme }) => css`
         padding : 0;
     }
 
+    body {
+        overflow-x : hidden;
+    }
+
     :root {
         background: ${props => props.theme.background.default};
 

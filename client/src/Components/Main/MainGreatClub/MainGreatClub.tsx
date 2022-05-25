@@ -19,6 +19,7 @@ const MainGreatClub = (): ReactElement => {
 
   return (
     <ClubContainer>
+      <section></section>
       <img src={titleImg} className="title" />
       <span>동아리 활동이 현재 매우 활발한 동아리에요.</span>
       <span>사람들과 교류를 쉽게 할 수 있을 거에요!</span>

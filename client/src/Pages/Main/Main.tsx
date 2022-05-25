@@ -13,18 +13,18 @@ import useCheckLogin from '../../Hooks/useCheckLogin';
 
 const Main = (): ReactElement => {
   useEffect(() => {}, []);
-  useCheckLogin();
+  //useCheckLogin();
   return (
     <div>
       <Header />
-      <div>
+      <section>
         <MainHeader />
         <MainBoardContainer />
         <MainActivity />
         <MainAward />
         <MainNewClub />
         <MainGreatClub />
-      </div>
+      </section>
       <Introduce />
       <Footer />
     </div>

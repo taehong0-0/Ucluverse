@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const MainHeaderDiv = styled.div`
+export const MainHeaderDiv = styled.section`
   display: flex;
   flex-direction: column;
   width: 100vw;

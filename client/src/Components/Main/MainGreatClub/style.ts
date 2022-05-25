@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ClubContainer = styled.div`
+export const ClubContainer = styled.section`
   display: flex;
   flex-direction: column;
   margin-left: 15.125rem;
