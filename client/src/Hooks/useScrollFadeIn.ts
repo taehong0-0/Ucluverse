@@ -1,6 +1,6 @@
 import { useRef, useCallback, useEffect } from 'react';
 
-export const useScrollFadeIn  = (direction: string = 'up', duration : number = 1, delay : number = 0, boundary : number = 0.5) => {
+export const useScrollFadeIn  = (direction: string = 'up', duration : number = 1, delay : number = 0, thresholdIdx : number = 0.5, zidx : number = 1) => {
     const DOM = useRef<any>(); // ref type 형식 넣어야함 (any 빼야 함)
   
     const moveDirection = (name : string) => {
@@ -29,6 +29,7 @@ export const useScrollFadeIn  = (direction: string = 'up', duration : number = 1
           current.style.transitionDelay = `${delay}s`;
           current.style.opacity = 1;
           current.style.transform = 'translate3d(0, 0, 0)';
+          current.style.zIndex = `${zidx}`;
         };
       },
       [delay, duration],
@@ -39,7 +40,7 @@ export const useScrollFadeIn  = (direction: string = 'up', duration : number = 1
       const { current } = DOM;
   
       if (current) {
-        observer = new IntersectionObserver(moveScroll, { threshold: boundary }); // threshold (노출율)
+        observer = new IntersectionObserver(moveScroll, { threshold: thresholdIdx }); // threshold (노출율)
         observer.observe(current);
       }
   
