@@ -1,3 +1,4 @@
+import { PropaneSharp } from '@mui/icons-material';
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
@@ -9,6 +10,11 @@ export const HeaderContainer = styled.header`
   vertical-align: middle;
   align-items: center;
   justify-content: space-between;
+
+  > * {
+    z-index : 1;
+  }
+
   button {
     padding: 0;
   }
@@ -22,6 +28,7 @@ export const HeaderLinkContainer = styled.div`
   margin-left: 1.15rem;
   display: flex;
   justify-content: space-between;
+
   button {
     padding: 0;
     /* margin-right: 60px;
@@ -44,8 +51,30 @@ export const UserInfoContainer = styled.div`
   height: 6.25rem;
   vertical-align: middle;
   align-items: center;
+
   img {
     cursor: pointer;
     margin-left: 26px;
   }
 `;
+
+export const BackGround = styled.div`
+    position : absolute;
+    left : 0;
+    top : 0;
+    width : 100vw;
+    height : 100px;
+    z-index : 0;
+    background-color : ${(props) => (
+        props.color == 'darkPurple' &&
+          props.theme.background.darkPurple ||
+        props.color == 'yellow' &&
+          props.theme.background.yellow ||
+        props.color == 'default' &&
+          props.theme.background.default ||
+        props.color == 'purple' &&
+          props.theme.background.purple ||
+        props.color == 'lightYellow' &&
+          props.theme.background.lightYellow
+      )};
+`

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const LoginMainContainer = styled.div`
   width: 100vw;
   height: 61rem;
-  background: #f8f0e0 0% 0% no-repeat padding-box;
+  background: var(--grey2-1) 0% 0% no-repeat padding-box;
   opacity: 1;
   backdrop-filter: blur(1.25rem);
   -webkit-backdrop-filter: blur(1.25rem);

@@ -42,7 +42,8 @@ export const ClubContainer = styled.section`
 
 export const ImgContainer = styled.div`
   width: 83.3vw;
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y : hidden;
   margin-top: 3.75rem;
   margin-left: 15.125rem;
   height: 22.5rem;

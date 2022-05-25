@@ -10,6 +10,7 @@ ${({ theme }) => css`
 
     body {
         overflow-x : hidden;
+        
     }
 
     :root {

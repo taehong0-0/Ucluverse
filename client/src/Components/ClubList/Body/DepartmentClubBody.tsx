@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useRecoilValue } from 'recoil';
 import { DepartmentListState } from '../../../Recoil/Club';
+import { theme } from '../../../Recoil/Theme';
+import { useSetRecoilState } from 'recoil';
 
 interface departmentCategoryType {
   [index: string]: string[];
@@ -105,6 +107,8 @@ const clubList: any[] = [
   },
 ];
 const DepartmentBody = () => {
+  const setThemeColor = useSetRecoilState(theme);
+  setThemeColor('darkPurple');
   const [collegeCategory, setCollegeCategory] = useState<string>('');
   const [departmentCategory, setDepartmentCategory] = useState<string>('');
   // const [departmentClubList, setDepartmentClubList] = useState<ClubType[]>([]);

@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import LinkButton from '../Button/LinkButton';
-import { HeaderContainer, HeaderLinkContainer, UserInfoContainer } from './style';
+import { HeaderContainer, HeaderLinkContainer, UserInfoContainer, BackGround } from './style';
 import logoImg from '../../Assets/로고2.png';
 import profileImg from '../../Assets/profile.svg';
 import alarmImg from '../../Assets/알림.png';
@@ -8,15 +8,20 @@ import logoutImg from '../../Assets/logout.png';
 import mypageImg from '../../Assets/내정보.png';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../Recoil/User';
+import { theme } from '../../Recoil/Theme';
 import axios from 'axios';
-const Header = (): ReactElement => {
+import { PresignedPost } from 'aws-sdk/clients/s3';
+
+const Header = () : ReactElement => {
   const user = useRecoilValue(userState);
+  const themeColor = useRecoilValue(theme);
+
   return (
     <HeaderContainer>
       <LinkButton url="/">
         <img src={logoImg} width="50px" height="50px" />
       </LinkButton>
-      <HeaderLinkContainer className={user.userIdx === 0 ? '' : 'logined'}>
+      <HeaderLinkContainer color={themeColor} className={user.userIdx === 0 ? '' : 'logined'}>
         <LinkButton url="/">홈</LinkButton>
         <LinkButton url="/clubList">동아리</LinkButton>
         <LinkButton url="/clubList/department">소학회</LinkButton>
@@ -52,6 +57,7 @@ const Header = (): ReactElement => {
           </LinkButton>
         </UserInfoContainer>
       )}
+    <BackGround color={themeColor} />
     </HeaderContainer>
   );
 };

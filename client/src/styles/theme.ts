@@ -1,10 +1,16 @@
 export default {
     background: {
-        default: 'white'
+        default: 'white',
+        darkPurple : '#1C072C',
+        purple : 'var(--primary-l1)',
+        yellow : '#FFE3A8',
+        lightYellow : 'var(--grey2-1)',
     },
-    colors: {
-        // Color theme
-        // ex) ThemeYellow : #eeeeee;
+    font: {
+        default: 'var(--font-black-grey2-8)',
+        darkPurple : 'white',
+        purple : 'white',
+        yellow : 'var(--font-black-grey2-8)',
+        lightYellow : 'var(--font-black-grey2-8)',
       },
-      transition: '0.3s',
   }
