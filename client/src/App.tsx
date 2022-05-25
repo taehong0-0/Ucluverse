@@ -37,7 +37,7 @@ const App = () => {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route
+          {/* <Route
             path="/login"
             element={
               <LoginRoute>
@@ -61,7 +61,6 @@ const App = () => {
               </AuthRoute>
             }
           />
-          <Route path="*" element={<Navigate replace to="/" />} />
           <Route
             path="/clubList/*"
             element={
@@ -86,7 +85,7 @@ const App = () => {
             </AuthRoute>
             }
           />
-          <Route path="*" element={<Navigate replace to="/" />} />
+          <Route path="*" element={<Navigate replace to="/" />} /> */}
         </Routes>
       </Suspense>
     </>

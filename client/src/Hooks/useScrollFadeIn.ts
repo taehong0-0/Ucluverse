@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback, useEffect, HTMLAttributes } from 'react';
 
 export const useScrollFadeIn  = (direction: string = 'up', duration : number = 1, delay : number = 0, thresholdIdx : number = 0.5, zidx : number = 1) => {
     const DOM = useRef<any>(); // ref type 형식 넣어야함 (any 빼야 함)
@@ -22,7 +22,6 @@ export const useScrollFadeIn  = (direction: string = 'up', duration : number = 1
       ([entry]) => {
         const { current } = DOM;
         if (entry.isIntersecting) {
-          console.log("wow");
           current.style.transitionProperty = 'all';
           current.style.transitionDuration = `${duration}s`;
           current.style.transitionTimingFunction = 'cubic-bezier(0, 0, 0.2, 1)';

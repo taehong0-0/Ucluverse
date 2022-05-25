@@ -12,7 +12,7 @@ import { ClubType } from '../../../Types/ClubType';
 import { useScrollFadeIn } from '../../../Hooks';
 
 const MainGreatClub = (): ReactElement => {
-  const animation = useScrollFadeIn();
+  const animation = useScrollFadeIn('up',1,0,1);
   const animation2 = useScrollFadeIn('up',1,0,.05);
   const [greatList, setGreatList] = useState<ClubType[]>([]);
   useEffect(() => {

@@ -37,6 +37,16 @@ export const MainHeaderDiv = styled.section`
     align-items: center;
     margin-top: 2rem;
   }
+
+  #lottie {
+    @media (min-width: 1024px) {
+      position : absolute;
+      display : block;
+      left : 24%;
+      top : 12%;
+      }
+    display : none;
+  }
 `;
 
 export const SearchBarDiv = styled.div`

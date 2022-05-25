@@ -9,6 +9,7 @@ export const ClubContainer = styled.section`
   article {
     display : flex;
     flex-direction: column;
+    margin-top : 4rem;
     margin-left: 15.125rem;
   }
 
