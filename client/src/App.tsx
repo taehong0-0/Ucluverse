@@ -73,17 +73,17 @@ const App = () => {
           <Route
             path="/admin/:id"
             element={
-            <AuthRoute>
+              <AuthRoute>
                 <ClubAdmin />
-            </AuthRoute>
+              </AuthRoute>
             }
           />
           <Route
             path="/mypage"
             element={
-            <AuthRoute>
+             <AuthRoute>
                 <MyPage />
-            </AuthRoute>
+             </AuthRoute>
             }
           />
           <Route path="*" element={<Navigate replace to="/" />} />

@@ -14,7 +14,7 @@ export const NewClubContainer = styled.div`
     height: 21.875rem;
     overflow: hidden;
     z-index : 1;
-    box-shadow: 3px 3px 10px #dddae0;
+    box-shadow: 0px 10px .625rem var(--shadow-purple-0);
     
     .club-img {
       width: 19rem;

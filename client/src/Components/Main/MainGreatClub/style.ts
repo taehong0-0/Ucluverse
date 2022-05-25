@@ -28,16 +28,7 @@ export const ClubContainer = styled.div`
       opacity: 1;
     }
   }
-  a:link {
-    text-decoration: none;
-  }
-  a:visited {
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: none;
-  }
-  a:active {
+  a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
   }
 `;
@@ -103,7 +94,7 @@ export const ImgContainer = styled.div`
       width: 24.125rem;
       height: 18.75rem;
       background: transparent 0% 0% no-repeat padding-box;
-      box-shadow: 3px 3px 0.625rem #dddae0;
+      box-shadow: 0px 10px .625rem var(--shadow-purple-0);
       border-radius: 5px;
       opacity: 1;
       button {

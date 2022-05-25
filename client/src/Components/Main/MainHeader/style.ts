@@ -12,13 +12,12 @@ export const MainHeaderDiv = styled.div`
     width: 100vw;
     height: 68vh;
   }
-  .content {
+  .content, .content > article {
     z-index: 999;
     .main-header {
       //width : 27vw;
       width: 350px;
       position : relative;
-      animation : upBottom20 1s 1 alternate forwards;
     }
     & > span {
       position : static;
@@ -32,7 +31,6 @@ export const MainHeaderDiv = styled.div`
       color: #a19279;
       opacity: 1;
       margin-top: 0.938rem;
-      animation : upMargin42 1s 1 alternate forwards;
     }
     display: flex;
     flex-direction: column;

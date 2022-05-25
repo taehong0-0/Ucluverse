@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react';
+import React, { ReactElement, ReactEventHandler, useRef } from 'react';
 import MainBoard from './MainBoard';
 import { MainBoardContainerDiv } from './style';
 import noticeImg from '../../../Assets/공지사항.png';
@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { PostTitleType } from '../../../Types/PostType';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useScrollFadeIn } from '../../../Hooks';
 
 //테스트용 더미데이터
 const posts = [
@@ -22,6 +23,8 @@ const MainBoardContainer = (): ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [noticeList, setNoticeList] = useState<PostTitleType[]>([]);
   const [FAQList, setFAQList] = useState<PostTitleType[]>([]);
+  const animation = useScrollFadeIn();
+
   useEffect(() => {
     // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
     //   setNoticeList(res.data);
@@ -30,10 +33,13 @@ const MainBoardContainer = (): ReactElement => {
     //   setFAQList(res.data);
     // });
   }, []);
+
   return (
     <MainBoardContainerDiv>
-      <MainBoard imgURL={noticeImg} posts={posts} />
-      <MainBoard imgURL={FAQImg} posts={posts} />
+      <section {...animation}>
+        <MainBoard imgURL={noticeImg} posts={posts} />
+        <MainBoard imgURL={FAQImg} posts={posts} />
+      </section>
     </MainBoardContainerDiv>
   );
 };
