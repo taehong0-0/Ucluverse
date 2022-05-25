@@ -41,6 +41,7 @@ ${({ theme }) => css`
         --primary-0: #9239DF;
         --primary-l1: #A45DE2;
         --gradient-link-0: #A27BC4;
+        --shadow-purple-0: rgba(113,34,168,.16);
     }
 
     /* animation */

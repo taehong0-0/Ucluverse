@@ -4,7 +4,7 @@ export const MainBoardDiv = styled.div`
   width : 444px;
   height: 191px;
   background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 3px 3px 0.625rem #dddae0;
+  box-shadow: 3px 3px 0.625rem var(--shadow-purple-0);
   opacity: 1;
   padding-left: 1.5rem;
   padding-top: 1.563rem;

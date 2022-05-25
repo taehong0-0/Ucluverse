@@ -61,16 +61,7 @@ export const ActivityContainer = styled.div`
     }
   }
 
-  a:link {
-    text-decoration: none;
-  }
-  a:visited {
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: none;
-  }
-  a:active {
+  a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
   }
 `;
