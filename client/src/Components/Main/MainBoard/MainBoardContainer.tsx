@@ -22,7 +22,7 @@ const MainBoardContainer = (): ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [noticeList, setNoticeList] = useState<PostTitleType[]>([]);
   const [FAQList, setFAQList] = useState<PostTitleType[]>([]);
-  const animation = useScrollFadeIn();
+  const animation = useScrollFadeIn('up', 1, 0, .05);
 
   useEffect(() => {
     // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {

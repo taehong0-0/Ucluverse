@@ -116,4 +116,39 @@ export const NewClubContainer = styled.section`
   a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
   }
+
+  /* for mobiles */
+  @media (max-width: 768px) {
+    display : flex;
+    flex-direction: column;
+    margin-left : 0;
+    margin-bottom : 20rem;
+
+    article {
+      left : 0;
+      top : 0;
+      width : 100vw;
+    }
+
+    & > article:first-child {
+      width : 88vw;
+      margin-left : 4vw;
+
+      .club-img {
+          width : 90vw;
+      }
+    }
+
+    & > article:last-child {
+      margin-top : 3rem;
+      margin-left : 0;
+      justify-content: center;
+      vertical-align: middle;
+      align-items: center;
+      
+      span {
+        text-align : center;
+      }
+    }
+  }
 `;

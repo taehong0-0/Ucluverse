@@ -39,6 +39,19 @@ export const ClubContainer = styled.section`
   a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
   }
+
+  /* for mobiles */
+  @media (max-width: 768px) {
+    article {
+      display : flex;
+      margin-left : 0;
+      align-items: center;
+    }
+
+    span {
+      text-align: center;
+    }
+  }
 `;
 
 export const ImgContainer = styled.div`
@@ -126,5 +139,11 @@ export const ImgContainer = styled.div`
     background: #6d00b9 0% 0% no-repeat padding-box;
     border-radius: 1.25rem;
     opacity: 1;
+  }
+
+  /* for mobiles */
+  @media (max-width: 768px) {
+    margin : 0 auto;
+    margin-top : 2rem;
   }
 `;
