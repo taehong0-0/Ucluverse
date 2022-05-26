@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 
-export const ClubListContainer = styled.div`
+export const ClubListContainer = styled.section`
   width: 70rem;
   height: 29rem;
   border-radius: 5px;
   opacity: 1;
+  background-color : var(--grey1-4);
+
+  // 동아리 이름 (span)
   span {
     font: normal normal normal 18px/24px Noto Sans KR;
     letter-spacing: -1.35px;
-    color: #ffffff;
+    color: var(--font-grey-2-8);
     opacity: 1;
   }
   & > div {
@@ -29,7 +32,7 @@ export const ClubListContainer = styled.div`
         div {
           width: 226px;
           height: 150px;
-          background-color: #fff;
+          background-color: #333;
         }
         img {
           width: 226px;
@@ -52,16 +55,7 @@ export const ClubListContainer = styled.div`
       border-radius: 1.25rem;
       opacity: 1;
     }
-    a:link {
-      text-decoration: none;
-    }
-    a:visited {
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: none;
-    }
-    a:active {
+    a:is(:link, :visited, :hover, :active) {
       text-decoration: none;
     }
   }
