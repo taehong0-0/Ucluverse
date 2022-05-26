@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react';
 import ClubCategory from '../Category/ClubCategory';
 import ClubList from '../ClubList/ClubList';
 import { ClubBodyContainer } from './style';
+import character from '../../../Assets/Character-hello.png';
 import { ClubType } from '../../../Types/ClubType';
 import axios from 'axios';
 import { useRecoilValue } from 'recoil';
 import { ClubListState } from '../../../Recoil/Club';
-import YukeyHello from '../../../Assets/Lottie/YukeyHello.json';
-import { useLottie } from '../../../Hooks';
-import { useScrollFadeIn } from '../../../Hooks';
 
 const categoryList = [
   '전체',
@@ -23,11 +21,6 @@ const categoryList = [
   '준/가동아리',
 ];
 const ClubBody = () => {
-  const lottieYuKey = useLottie(YukeyHello, true, 20, 1);
-  const animation = useScrollFadeIn();
-  const animation2 = useScrollFadeIn('up', 1, 0.15, 0);
-  const animation3 = useScrollFadeIn('up', 1, 0.25, 0);
-
   const [category, setCategory] = useState<string>('전체');
   // const [clubList, setClubList] = useState<ClubType[]>([]);
   const clubList = useRecoilValue(ClubListState);
@@ -42,23 +35,19 @@ const ClubBody = () => {
   };
   return (
     <ClubBodyContainer>
-      <span {...animation}>아주대학교 동아리를 모아봤어요!</span>
-      <article {...animation2}>
-        <div id="lottieYukey" {...lottieYuKey} />
-      </article>
-      <article {...animation3} >
-        <ClubCategory
-          categoryName="종류"
-          onClick={clickCategory}
-          categoryList={categoryList}
-          selectedCategory={category}
-        />
-        <ClubList
-          clubList={
-            category === '전체' ? clubList : clubList.filter((club) => club.clubCategories.includes(category + '분과'))
-          }
-        />
-      </article>
+      <span>아주대학교 단체를 소개합니다!</span>
+      <img width="304px" height="195px" src={character} />
+      <ClubCategory
+        categoryName="종류"
+        onClick={clickCategory}
+        categoryList={categoryList}
+        selectedCategory={category}
+      />
+      <ClubList
+        clubList={
+          category === '전체' ? clubList : clubList.filter((club) => club.clubCategories.includes(category + '분과'))
+        }
+      />
     </ClubBodyContainer>
   );
 };

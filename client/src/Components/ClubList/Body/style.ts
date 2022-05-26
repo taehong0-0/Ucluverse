@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ClubBodyContainer = styled.div`
+export const ClubBodyContainer = styled.section`
   height: 80rem;
   /* UI Properties */
   background: #1c072c 0% 0% no-repeat padding-box;
@@ -8,6 +8,7 @@ export const ClubBodyContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   & > span {
     text-align: center;
     font: normal normal bold 36px/40px Noto Sans KR;
@@ -15,5 +16,16 @@ export const ClubBodyContainer = styled.div`
     color: #ffffff;
     opacity: 1;
     margin: 40px;
+  }
+
+  img {
+    width : 200px;
+    height : 200px;
+    object-fit: cover;
+  }
+
+  /* lottie */
+  #lottieYukey {
+    position : relative;
   }
 `;
