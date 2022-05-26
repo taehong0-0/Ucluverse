@@ -9,6 +9,7 @@ import { ClubListState } from '../../../Recoil/Club';
 import YukeyHello from '../../../Assets/Lottie/YukeyHello.json';
 import { useLottie } from '../../../Hooks';
 import { useScrollFadeIn } from '../../../Hooks';
+import { Wave } from '../../Animation';
 
 const categoryList = [
   '전체',
@@ -42,11 +43,17 @@ const ClubBody = () => {
   };
   return (
     <ClubBodyContainer>
-      <span {...animation}>아주대학교 동아리를 모아봤어요!</span>
+      <section className="top">
+        <div className='topBG' />
+        <Wave/>
+      </section>
+      <section className="title" {...animation}>
+      <span>아주대학교 동아리를 모아봤어요!</span>
       <article {...animation2}>
         <div id="lottieYukey" {...lottieYuKey} />
       </article>
-      <article {...animation3} >
+      </section>
+      <section className="content" {...animation3} >
         <ClubCategory
           categoryName="종류"
           onClick={clickCategory}
@@ -58,7 +65,11 @@ const ClubBody = () => {
             category === '전체' ? clubList : clubList.filter((club) => club.clubCategories.includes(category + '분과'))
           }
         />
-      </article>
+      </section>
+      <section className="bottom">
+        <Wave rotation={180}/>
+        <div className='bottomBG' />
+      </section>
     </ClubBodyContainer>
   );
 };

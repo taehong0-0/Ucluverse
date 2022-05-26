@@ -1,11 +1,15 @@
 import React, { ReactElement } from 'react';
 import ajou from '../../Assets/ajou-purple.png';
 import { FooterDiv } from './style';
-import {Heading3, Heading4, Paragraph} from '../../styles/fonts/style';
+import { Heading3, Heading4, Paragraph} from '../../styles/fonts/style';
+import { theme } from '../../Recoil/Theme';
+import { useRecoilValue } from 'recoil';
 
 const Footer = () : ReactElement => {
+    const themeColor = useRecoilValue(theme);
+
     return (
-        <FooterDiv>
+        <FooterDiv color={themeColor}>
             <img src={ajou}/>
             <footer>
                 <Heading4>
