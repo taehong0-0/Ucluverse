@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ActivityContainer = styled.div`
+export const ActivityContainer = styled.section`
 
   article {
     display: flex;

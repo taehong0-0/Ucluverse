@@ -1,42 +1,65 @@
 import styled from 'styled-components';
 
-export const ClubContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 15.125rem;
-  margin-bottom: 130px;
-  z-index: 1;
-  .title {
-    width: 13.625rem;
-    height: 2.25rem;
-    margin-bottom: 1rem;
+export const ClubContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 130px;
+    z-index: 1;
+
+  article {
+    display : flex;
+    flex-direction: column;
+    margin-top : 4rem;
+    margin-left: 15.125rem;
   }
-  span {
-    width: 22rem;
-    text-align: left;
-    font: normal normal normal 18px/1.5rem Noto Sans KR;
-    letter-spacing: -1.35px;
-    color: #a19279;
-    opacity: 1;
-  }
-  a {
-    margin-top: 1rem;
+
+    .title {
+      width: 13.625rem;
+      height: 2.25rem;
+      margin-bottom: 1rem;
+    }
     span {
+      width: 22rem;
+      text-align: left;
       font: normal normal normal 18px/1.5rem Noto Sans KR;
       letter-spacing: -1.35px;
-      color: #513c0e;
+      color: #a19279;
       opacity: 1;
     }
-  }
+    a {
+        margin-top: 1rem;
+        span {
+          font: normal normal normal 18px/1.5rem Noto Sans KR;
+          letter-spacing: -1.35px;
+          color: #513c0e;
+          opacity: 1;
+        }
+    }
+  
   a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
+  }
+
+  /* for mobiles */
+  @media (max-width: 768px) {
+    article {
+      display : flex;
+      margin-left : 0;
+      align-items: center;
+    }
+
+    span {
+      text-align: center;
+    }
   }
 `;
 
 export const ImgContainer = styled.div`
   width: 83.3vw;
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y : hidden;
   margin-top: 3.75rem;
+  margin-left: 15.125rem;
   height: 22.5rem;
   .overflow-container {
     display: inline-flex;
@@ -116,5 +139,11 @@ export const ImgContainer = styled.div`
     background: #6d00b9 0% 0% no-repeat padding-box;
     border-radius: 1.25rem;
     opacity: 1;
+  }
+
+  /* for mobiles */
+  @media (max-width: 768px) {
+    margin : 0 auto;
+    margin-top : 2rem;
   }
 `;

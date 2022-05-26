@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
-export const NewClubContainer = styled.div`
+export const NewClubContainer = styled.section`
   display: flex;
   width: 43rem;
   height: 21.875rem;
   opacity: 1;
   margin-left: 15.125rem;
-  margin-top: -12.5rem;
+  margin-top: -3.5rem;
 
-  & > div:first-child {
+  & > article:first-child {
     margin-top: -5rem;
     width: 19rem;
     height: 21.875rem;
@@ -26,7 +26,7 @@ export const NewClubContainer = styled.div`
       opacity: 1;
       transition: all 0.2s linear;
     }
-    div {
+    article {
       z-index: 1;
       position: relative;
       width: 19rem;
@@ -73,18 +73,18 @@ export const NewClubContainer = styled.div`
       }
     }
   }
-  div:first-child:hover {
+  article:first-child:hover {
     .club-img {
       transform: scale(1.1);
     }
-    div {
+    article {
       opacity: 1;
     }
     button {
       opacity: 1;
     }
   }
-  div:last-child {
+  article:last-child {
     display: flex;
     flex-direction: column;
     margin-top: 3.75rem;
@@ -115,5 +115,40 @@ export const NewClubContainer = styled.div`
   }
   a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
+  }
+
+  /* for mobiles */
+  @media (max-width: 768px) {
+    display : flex;
+    flex-direction: column;
+    margin-left : 0;
+    margin-bottom : 20rem;
+
+    article {
+      left : 0;
+      top : 0;
+      width : 100vw;
+    }
+
+    & > article:first-child {
+      width : 88vw;
+      margin-left : 4vw;
+
+      .club-img {
+          width : 90vw;
+      }
+    }
+
+    & > article:last-child {
+      margin-top : 3rem;
+      margin-left : 0;
+      justify-content: center;
+      vertical-align: middle;
+      align-items: center;
+      
+      span {
+        text-align : center;
+      }
+    }
   }
 `;

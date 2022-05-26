@@ -3,7 +3,6 @@ import MainBoard from './MainBoard';
 import { MainBoardContainerDiv } from './style';
 import noticeImg from '../../../Assets/공지사항.png';
 import FAQImg from '../../../Assets/FAQ.png';
-import popularImg from '../../../Assets/인기게시판.png';
 import { useState } from 'react';
 import { PostTitleType } from '../../../Types/PostType';
 import { useEffect } from 'react';
@@ -23,7 +22,7 @@ const MainBoardContainer = (): ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [noticeList, setNoticeList] = useState<PostTitleType[]>([]);
   const [FAQList, setFAQList] = useState<PostTitleType[]>([]);
-  const animation = useScrollFadeIn();
+  const animation = useScrollFadeIn('up', 1, 0, .05);
 
   useEffect(() => {
     // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {

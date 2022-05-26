@@ -8,6 +8,11 @@ ${({ theme }) => css`
         padding : 0;
     }
 
+    body {
+        overflow-x : hidden;
+        
+    }
+
     :root {
         background: ${props => props.theme.background.default};
 
@@ -42,6 +47,15 @@ ${({ theme }) => css`
         --primary-l1: #A45DE2;
         --gradient-link-0: #A27BC4;
         --shadow-purple-0: rgba(113,34,168,.16);
+    }
+
+    /* lottie default */
+    .lottie {
+        display : none;
+        @media (min-width: 1024px) {
+            position : absolute;
+            display : block;
+        }
     }
 `}
 `

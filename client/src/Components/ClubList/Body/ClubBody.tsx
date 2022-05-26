@@ -5,8 +5,9 @@ import { ClubBodyContainer } from './style';
 import character from '../../../Assets/Character-hello.png';
 import { ClubType } from '../../../Types/ClubType';
 import axios from 'axios';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { ClubListState } from '../../../Recoil/Club';
+import { theme } from '../../../Recoil/Theme'
 
 const categoryList = [
   '전체',
@@ -21,6 +22,9 @@ const categoryList = [
   '준/가동아리',
 ];
 const ClubBody = () => {
+  const setThemeColor = useSetRecoilState(theme);
+  setThemeColor('darkPurple');
+  
   const [category, setCategory] = useState<string>('전체');
   // const [clubList, setClubList] = useState<ClubType[]>([]);
   const clubList = useRecoilValue(ClubListState);

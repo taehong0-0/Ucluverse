@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
-export const MainHeaderDiv = styled.div`
+export const MainHeaderDiv = styled.section`
   display: flex;
   flex-direction: column;
   width: 100vw;
   height: 68vh;
   align-items: center;
+
   .background {
     z-index: 1;
     position: absolute;
@@ -36,6 +37,45 @@ export const MainHeaderDiv = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 2rem;
+  }
+
+
+  /* lottie data */
+  #lottie {
+    @media (min-width: 1024px) {
+      left : 24%;
+      top : 12%;
+      }
+  }
+
+  #lottie2 {
+    @media (min-width: 1024px) {
+      left : 63.5%;
+      top : 22%;
+      }
+  }
+
+  #lottie3 {
+    @media (min-width: 1024px) {
+      animation : flowLeft 20s infinite;
+      top : 24%;
+      }
+  }
+
+  #lottieBG {
+    top : 15%;
+    left : 0%;
+    display : block;
+    position : absolute;
+  }
+
+  @keyframes flowLeft {
+      from {
+        left : 90%;
+      }
+      to {
+        left : -25%;
+      }
   }
 `;
 

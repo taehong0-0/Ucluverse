@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Heading3 = styled.p`
+export const Heading3 = styled.h3`
     font-family : Noto Sans KR;
     font-style : normal;
     font-weight : bold;
@@ -10,7 +10,7 @@ export const Heading3 = styled.p`
     color : var(--font-black-grey2-8);
 `
 
-export const Heading4 = styled.p`
+export const Heading4 = styled.h4`
     font-family : Noto Sans KR;
     font-style : normal;
     font-weight : normal;

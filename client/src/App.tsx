@@ -40,28 +40,27 @@ const App = () => {
           <Route
             path="/login"
             element={
-             <LoginRoute>
+              <LoginRoute>
                 <Login />
-             </LoginRoute>
+              </LoginRoute>
             }
           />
           <Route
             path="login/info"
             element={
-            <LoginRoute>
+              <LoginRoute>
                 <LoginInfo />
-            </LoginRoute>
+              </LoginRoute>
             }
           />
           <Route
             path="/club/:id/*"
             element={
-            <AuthRoute>
+              <AuthRoute>
                 <Club />
-            </AuthRoute>
+              </AuthRoute>
             }
           />
-          <Route path="*" element={<Navigate replace to="/" />} />
           <Route
             path="/clubList/*"
             element={
@@ -81,9 +80,9 @@ const App = () => {
           <Route
             path="/mypage"
             element={
-             <AuthRoute>
-                <MyPage />
-             </AuthRoute>
+            <AuthRoute>
+              <MyPage />
+            </AuthRoute>
             }
           />
           <Route path="*" element={<Navigate replace to="/" />} />
