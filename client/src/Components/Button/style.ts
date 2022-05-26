@@ -21,6 +21,10 @@ export const LinkButtonContainer = styled.button`
         props.color == 'lightYellow' &&
           props.theme.font.lightYellow
       )};
+
+    :hover {
+      color : var(--primary-0);
+    }
   }
 
   @media (max-width : 960px) {
@@ -39,6 +43,7 @@ export const CharacterButtonContainer = styled.button`
   opacity: 1;
   text-align: center;
   align-items: center;
+
   button {
     background: none;
     border: none;
