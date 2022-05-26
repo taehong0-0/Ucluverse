@@ -67,14 +67,14 @@ export const BackGround = styled.div`
     z-index : 0;
     background-color : ${(props) => (
         props.color == 'darkPurple' &&
-          props.theme.background.darkPurple ||
+          props.theme.header.darkPurple ||
         props.color == 'yellow' &&
-          props.theme.background.yellow ||
+          props.theme.header.yellow ||
         props.color == 'default' &&
-          props.theme.background.default ||
+          props.theme.header.default ||
         props.color == 'purple' &&
-          props.theme.background.purple ||
+          props.theme.header.purple ||
         props.color == 'lightYellow' &&
-          props.theme.background.lightYellow
+          props.theme.header.lightYellow
       )};
 `

@@ -35,7 +35,19 @@ export const FooterDiv = styled.footer`
     align-items : center;
     justify-content : center;
     flex-direction : column;
-    background: transparent linear-gradient(180deg, var(--primary-0) 0%, var(--gradient-link-0) 100%) 0% 0% no-repeat padding-box;
+    background-image : ${(props) => (
+        props.color == 'darkPurple' &&
+          props.theme.footer.darkPurple ||
+        props.color == 'yellow' &&
+          props.theme.footer.yellow ||
+        props.color == 'default' &&
+          props.theme.footer.default ||
+        props.color == 'purple' &&
+          props.theme.footer.purple ||
+        props.color == 'lightYellow' &&
+          props.theme.footer.lightYellow
+      )};
+    
 
     img {
         display : block;

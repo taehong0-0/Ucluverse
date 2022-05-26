@@ -56,10 +56,10 @@ export const MainHeaderDiv = styled.section`
   }
 
   #lottie3 {
-    @media (min-width: 1024px) {
-      animation : flowLeft 20s infinite;
-      top : 24%;
-      }
+    animation : flowLeft 20s infinite;
+    top : 24%;
+    position : absolute;
+    display : block;
   }
 
   #lottieBG {
@@ -74,7 +74,7 @@ export const MainHeaderDiv = styled.section`
         left : 90%;
       }
       to {
-        left : -25%;
+        left : -30%;
       }
   }
 `;
