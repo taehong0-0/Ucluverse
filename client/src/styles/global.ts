@@ -48,5 +48,14 @@ ${({ theme }) => css`
         --gradient-link-0: #A27BC4;
         --shadow-purple-0: rgba(113,34,168,.16);
     }
+
+    /* lottie default */
+    .lottie {
+        display : none;
+        @media (min-width: 1024px) {
+            position : absolute;
+            display : block;
+        }
+    }
 `}
 `

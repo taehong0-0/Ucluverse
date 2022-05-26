@@ -5,15 +5,18 @@ import mainHeaderContentImg from '../../../Assets/메인헤더글.svg';
 import SearchBar from './SearchBar';
 import {useScrollFadeIn, useLottie} from '../../../Hooks';
 import firework from '../../../Assets/Lottie/firework.json';
+import firework2 from '../../../Assets/Lottie/firework0.5s.json';
 
 const MainHeader = (): ReactElement => {
   const animation = useScrollFadeIn('up', 1, 0);
   const animation2 = useScrollFadeIn('up', 1, 0.25);
-  const lottie = useLottie(firework, true, 14);
+  const lottieFireWork = useLottie(firework, true, 14, 1);
+  const lottieFireWork2 = useLottie(firework2, true, 12, 1);
 
   return (
     <MainHeaderDiv>
-      <div id="lottie" {...lottie}/>
+      <div id="lottie" {...lottieFireWork}/>
+      <div id="lottie2" {...lottieFireWork2}/>
       <img src={mainHeaderImg} className="background" />
       <div className="content">
         <article {...animation}>

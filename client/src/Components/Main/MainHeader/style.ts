@@ -6,6 +6,7 @@ export const MainHeaderDiv = styled.section`
   width: 100vw;
   height: 68vh;
   align-items: center;
+
   .background {
     z-index: 1;
     position: absolute;
@@ -38,14 +39,20 @@ export const MainHeaderDiv = styled.section`
     margin-top: 2rem;
   }
 
+
+  /* lottie data */
   #lottie {
     @media (min-width: 1024px) {
-      position : absolute;
-      display : block;
       left : 24%;
       top : 12%;
       }
-    display : none;
+  }
+
+  #lottie2 {
+    @media (min-width: 1024px) {
+      left : 63.5%;
+      top : 22%;
+      }
   }
 `;
 

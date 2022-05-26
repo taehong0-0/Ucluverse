@@ -1,17 +1,22 @@
 import React, {useEffect, useRef} from 'react';
 import lottie from 'lottie-web';
 
-const Lottie = (data : any, isLoop : boolean = false, imgSize : number) => {
-    const DOM = useRef<any>();
+interface lottieInfo {
 
+}
+
+const Lottie = (data : any, isLoop : boolean | number = false, imgSize : number, speed : number = 1) => {
+    const DOM = useRef<any>();
+    
     useEffect(()=>{
         lottie.loadAnimation({
             container: DOM.current,
             renderer: 'svg',
             loop: isLoop,
             autoplay : true,
-            animationData : data     
+            animationData : data,
         })
+        lottie.setSpeed(speed);
     },[])
     
     return {
@@ -19,8 +24,11 @@ const Lottie = (data : any, isLoop : boolean = false, imgSize : number) => {
         style : {
             width : `${imgSize}vw`,
             height : `${imgSize}vh`
-        }
+        },
+        className:'lottie'
     }
 }
 
 export default Lottie;
+
+// delay 표현할 방법 찾아야 함 (setTimeout 너무 비효율적 + 개별적으로 적용이 안 됨)
