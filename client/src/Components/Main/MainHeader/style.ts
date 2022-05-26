@@ -54,6 +54,13 @@ export const MainHeaderDiv = styled.section`
       top : 22%;
       }
   }
+
+  #lottieBG {
+    top : 10%;
+    left : 1.5%;
+    display : block;
+    position : absolute;
+  }
 `;
 
 export const SearchBarDiv = styled.div`
