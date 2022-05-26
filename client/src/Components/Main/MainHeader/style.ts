@@ -56,8 +56,8 @@ export const MainHeaderDiv = styled.section`
   }
 
   #lottieBG {
-    top : 10%;
-    left : 1.5%;
+    top : 15%;
+    left : 0%;
     display : block;
     position : absolute;
   }

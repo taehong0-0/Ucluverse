@@ -33,3 +33,5 @@ const MainHeader = (): ReactElement => {
   );
 };
 export default MainHeader;
+
+// 그라데이션은 로띠로 적용하기 약간 불편...
