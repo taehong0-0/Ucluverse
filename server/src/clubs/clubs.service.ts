@@ -144,7 +144,7 @@ export class ClubsService {
                 .addSelect(['cbs.clubBoardIdx', 'cbs.name'])
                 .leftJoin('club.clubCategories' , 'ccs')
                 .leftJoin('club.clubBoards', 'cbs')
-                .where('club.clubType = :clubType', { clubType: '과소학회' })
+                .where('club.clubType = :clubType', { clubType: 'departmentClub' })
                 .getMany();
             
             departmentClubs.forEach(departmentClub => {
