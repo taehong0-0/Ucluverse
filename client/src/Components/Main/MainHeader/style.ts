@@ -55,11 +55,27 @@ export const MainHeaderDiv = styled.section`
       }
   }
 
+  #lottie3 {
+    @media (min-width: 1024px) {
+      animation : flowLeft 20s infinite;
+      top : 24%;
+      }
+  }
+
   #lottieBG {
     top : 15%;
     left : 0%;
     display : block;
     position : absolute;
+  }
+
+  @keyframes flowLeft {
+      from {
+        left : 90%;
+      }
+      to {
+        left : -25%;
+      }
   }
 `;
 
