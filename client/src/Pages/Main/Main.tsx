@@ -10,21 +10,26 @@ import MainNewClub from '../../Components/Main/MainNewClub/MainNewClub';
 import Introduce from '../../Components/Footer/Introduce';
 import Footer from '../../Components/Footer/Footer';
 import useCheckLogin from '../../Hooks/useCheckLogin';
+import { useSetRecoilState } from 'recoil'
+import { theme } from '../../Recoil/Theme'
 
 const Main = (): ReactElement => {
+  const setThemeColor = useSetRecoilState(theme);
+  setThemeColor('default');
+  
   useEffect(() => {}, []);
   useCheckLogin();
   return (
     <div>
       <Header />
-      <div>
+      <section>
         <MainHeader />
         <MainBoardContainer />
         <MainActivity />
         <MainAward />
         <MainNewClub />
         <MainGreatClub />
-      </div>
+      </section>
       <Introduce />
       <Footer />
     </div>

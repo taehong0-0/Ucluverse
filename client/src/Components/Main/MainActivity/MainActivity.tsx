@@ -22,7 +22,7 @@ interface buttonProps {
 }
 
 const MainActivity = (): ReactElement => {
-  const animation = useScrollFadeIn();
+  const animation = useScrollFadeIn('up', 1, 0, 0.95);
   const [activityList, setActivityList] = useState<ActivityPostType[]>([]);
   const activityRef = useRef<HTMLDivElement[]>([]);
   useEffect(() => {

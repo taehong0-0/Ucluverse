@@ -7,6 +7,22 @@ export const LinkButtonContainer = styled.button`
   font: normal normal bold 14px Noto Sans KR;
   cursor: pointer;
 
+  a {
+    text-decoration: none;
+    color : ${(props) => (
+        props.color == 'darkPurple' &&
+          props.theme.font.darkPurple ||
+        props.color == 'yellow' &&
+          props.theme.font.yellow ||
+        props.color == 'default' &&
+          props.theme.font.default ||
+        props.color == 'purple' &&
+          props.theme.font.purple ||
+        props.color == 'lightYellow' &&
+          props.theme.font.lightYellow
+      )};
+  }
+
   @media (max-width : 960px) {
     font-size : 14px;
   }

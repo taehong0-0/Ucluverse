@@ -41,28 +41,27 @@ const App = () => {
           <Route
             path="/login"
             element={
-             <LoginRoute>
+              <LoginRoute>
                 <Login />
-             </LoginRoute>
+              </LoginRoute>
             }
           />
           <Route
             path="login/info"
             element={
-            <LoginRoute>
+              <LoginRoute>
                 <LoginInfo />
-            </LoginRoute>
+              </LoginRoute>
             }
           />
           <Route
             path="/club/:id/*"
             element={
-            <AuthRoute>
+              <AuthRoute>
                 <Club />
-            </AuthRoute>
+              </AuthRoute>
             }
           />
-          <Route path="*" element={<Navigate replace to="/" />} />
           <Route
             path="/clubList/*"
             element={
@@ -74,16 +73,16 @@ const App = () => {
           <Route
             path="/admin/:id"
             element={
-            <AuthRoute>
+              <AuthRoute>
                 <ClubAdmin />
-            </AuthRoute>
+              </AuthRoute>
             }
           />
           <Route
             path="/mypage"
             element={
             <AuthRoute>
-                <MyPage />
+              <MyPage />
             </AuthRoute>
             }
           />

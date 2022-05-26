@@ -18,7 +18,7 @@ from {
   }
 `;
 
-export const AwardContainer = styled.div`
+export const AwardContainer = styled.section`
   margin-top: 10vh;
   width: 100vw;
   height: 74rem;
