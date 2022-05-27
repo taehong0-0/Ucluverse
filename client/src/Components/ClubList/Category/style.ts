@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ClubCategoryContainer = styled.article`
   width: 70rem;
-  
+
   :first-child {
     margin-top: 48px;
   }
@@ -40,8 +40,12 @@ export const ClubCategoryContainer = styled.article`
     }
 
     /* button */
+    .first {
+        letter-spacing: -0.04rem;
+    }
+
     .second {
-        background-color:#ffffff;
+        background-color : white;
         padding : 0;
         color : var(--grey1-5);
         box-shadow: none;
@@ -73,3 +77,6 @@ export const ClubCategoryContainer = styled.article`
       }
   }
 `;
+
+
+// .className +.className == :nth-child(n+1)
