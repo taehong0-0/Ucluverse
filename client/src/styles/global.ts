@@ -88,7 +88,7 @@ ${({ theme }) => css`
         font-family : Noto Sans KR;
         font-style : normal;
         font-weight : normal;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 20px;
         letter-spacing: -1.05px;
         color: var(--font-black-grey2-8);

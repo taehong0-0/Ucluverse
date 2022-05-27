@@ -10,7 +10,6 @@ const ClubBody = () => {
   const lottieYuKey = useLottie(YukeyHello, true, 20, 1);
   const animation = useScrollFadeIn();
   const animation2 = useScrollFadeIn('up', 1, 0.15, 0);
-  const animation3 = useScrollFadeIn('up', 1, 0.25, 0);
 
   return (
     <ClubBodyContainer>
@@ -25,10 +24,10 @@ const ClubBody = () => {
         </article>
       </section>
       <section className="content contentBox">
-        <ClubContentBox />
-        <ClubContentBox />
-        <ClubContentBox />
-        <ClubContentBox />
+        <ClubContentBox delay={.0}/>
+        <ClubContentBox delay={.15}/>
+        <ClubContentBox delay={.25}/>
+        <ClubContentBox delay={.35}/>
       </section>
       <section className="bottom">
         <Wave rotation={180}/>

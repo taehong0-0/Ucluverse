@@ -12,7 +12,7 @@ export const ClubContentBoxDiv = styled.div`
     }
 
     .box {
-        display:flex;
+        display : flex;
         margin-top : 3rem;
         align-items: baseline;
         overflow : hidden;
@@ -29,6 +29,6 @@ export const ClubContentBoxDiv = styled.div`
 
     /* title */
     h3 {
-        padding : 1rem 0 .6rem 0;
+        padding : 1rem 0 .8rem 0;
     }
 `
