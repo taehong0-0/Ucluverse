@@ -5,25 +5,6 @@ export const ClubBodyContainer = styled.section`
   flex-direction: column;
   align-items: center;
 
-  .title {
-    display : flex;
-    flex-direction: column;
-    align-items: center;
-
-    span {
-      text-align: center;
-      font: normal normal bold 36px/40px Noto Sans KR;
-      letter-spacing: -2.7px;
-      color: #ffffff;
-      opacity: 1;
-      margin: 40px;
-    }
-  }
-
-  .content {
-    margin-bottom : 6rem;
-  }
-
   .top {
     /* wave */
     & > div { 
@@ -40,6 +21,34 @@ export const ClubBodyContainer = styled.section`
       height : 20rem;
       width : 100vw;
     }
+  }
+
+  .title {
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+      text-align: center;
+      font: normal normal bold 36px/40px Noto Sans KR;
+      letter-spacing: -1.75px;
+      color: #ffffff;
+      opacity: 1;
+      margin: 40px;
+    }
+  }
+
+  .content {
+    margin-bottom : 6rem;
+    width : 90%;
+    max-width : ${(props) => props.theme.layout.maxWidth};
+  }
+
+  .contentBox {
+    display : flex;
+    justify-content : space-between;
+    overflow : hidden;
+    flex-wrap: wrap;
   }
 
   .bottom {

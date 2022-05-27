@@ -48,10 +48,10 @@ const ClubBody = () => {
         <Wave/>
       </section>
       <section className="title" {...animation}>
-      <span>아주대학교 동아리를 모아봤어요!</span>
-      <article {...animation2}>
-        <div id="lottieYukey" {...lottieYuKey} />
-      </article>
+        <span>아주대학교 동아리를 모아봤어요!</span>
+        <article {...animation2}>
+          <div id="lottieYukey" {...lottieYuKey} />
+        </article>
       </section>
       <section className="content" {...animation3} >
         <ClubCategory

@@ -72,7 +72,7 @@ const App = () => {
           <Route
             path="/admin/:id"
             element={
-              <AuthRoute>
+             <AuthRoute>
                 <ClubAdmin />
               </AuthRoute>
             }

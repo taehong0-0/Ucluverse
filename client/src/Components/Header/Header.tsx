@@ -5,7 +5,7 @@ import logoImg from '../../Assets/로고2.png';
 import profileImg from '../../Assets/profile.svg';
 import alarmImg from '../../Assets/알림.png';
 import logoutImg from '../../Assets/logout.png';
-import mypageImg from '../../Assets/내정보.png';
+import mypageImg from '../../Assets/내정보.svg';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../Recoil/User';
 import { theme } from '../../Recoil/Theme';
