@@ -56,23 +56,23 @@ const App = () => {
           <Route
             path="/club/:id/*"
             element={
-              <AuthRoute>
+            //  <AuthRoute>
                 <Club />
-              </AuthRoute>
+            //  </AuthRoute>
             }
           />
           <Route
             path="/clubList/*"
             element={
-             <AuthRoute>
+            // <AuthRoute>
                 <ClubList />
-             </AuthRoute>
+           //  </AuthRoute>
             }
           />
           <Route
             path="/admin/:id"
             element={
-              <AuthRoute>
+             <AuthRoute>
                 <ClubAdmin />
               </AuthRoute>
             }

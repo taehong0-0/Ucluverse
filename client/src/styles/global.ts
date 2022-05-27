@@ -10,7 +10,7 @@ ${({ theme }) => css`
 
     body {
         overflow-x : hidden;
-        
+        max-width : 100vw;
     }
 
     :root {
@@ -25,7 +25,10 @@ ${({ theme }) => css`
         --grey1-3: #DDDAE0;
         --grey1-4: #C4C1C7;
         --grey1-5: #A3A1A6;
+        --grey1-6: #717073;
         --grey1-7: #4B4A4D;
+        --grey1-8: #323233;
+        --grey1-9: #0D0C0D;
         --accent2-l1: #FFB925;
         --accent2-0: #703F00;
         --paragraph-0: #A19279;
@@ -33,6 +36,7 @@ ${({ theme }) => css`
         --font-sub-grey2-5: #736F68;
         --grey2-7: #3F3F3E;
         --font-black-grey2-8: #1A1917;
+        --grey2-8: #1A1917;
         --good-0: #32B178;
         --good-l1: #63C599;
         --bad-l1: #E86C6C;
@@ -42,11 +46,12 @@ ${({ theme }) => css`
         --secondary-0: #846116;
         --secondary-l1: #BF8F27;
         --secondary-l2-natural-: #FFEABF;
+        --primary-d2: #1C072C;
         --primary-d1: #6D00B9;
         --primary-0: #9239DF;
         --primary-l1: #A45DE2;
         --gradient-link-0: #A27BC4;
-        --shadow-purple-0: rgba(113,34,168,.16);
+        --shadow-purple-0: rgba(113,34,168,.16);   
     }
 
     /* lottie default */
@@ -56,6 +61,37 @@ ${({ theme }) => css`
             position : absolute;
             display : block;
         }
+    }
+
+    /* font style */
+    h3 {
+        font-family : Noto Sans KR;
+        font-style : normal;
+        font-weight : bold;
+        font-size : 24px;
+        line-height : 28px;
+        letter-spacing : -1.8px;
+        color : var(--font-black-grey2-8);
+    }
+    
+    h4 {
+        font-family : Noto Sans KR;
+        font-style : normal;
+        font-weight : normal;
+        font-size: 18px;
+        line-height: 24px;
+        letter-spacing: -0.75px;
+        color: var(--font-black-grey2-8);
+    }
+
+    p {
+        font-family : Noto Sans KR;
+        font-style : normal;
+        font-weight : normal;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -1.05px;
+        color: var(--font-black-grey2-8);
     }
 `}
 `

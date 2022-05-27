@@ -23,4 +23,7 @@ export default {
         yellow : 'var(--font-black-grey2-8)',
         lightYellow : 'var(--font-black-grey2-8)',
       },
+    layout: {
+        maxWidth : '1200px',
+    },
   }
