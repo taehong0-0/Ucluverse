@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const NewClubContainer = styled.section`
   display: flex;
-  width: calc(${(props) => props.theme.layout.maxWidth});
+  width: 90%;
   max-width : calc(${(props) => props.theme.layout.maxWidth});
   height: 21.875rem;
   margin-top: -3.5rem;
@@ -115,22 +115,18 @@ export const NewClubContainer = styled.section`
   @media (max-width: 768px) {
     display : flex;
     flex-direction: column;
-    margin-left : 0;
     margin-bottom : 20rem;
+    align-items : center;
+    width : 90%;
 
     article {
       left : 0;
       top : 0;
-      width : 100vw;
+      width : 90%;
     }
 
     & > article:first-child {
-      width : 88vw;
-      margin-left : 4vw;
-
-      .club-img {
-          width : 90vw;
-      }
+      
 
       button {
         top : -9.6rem;

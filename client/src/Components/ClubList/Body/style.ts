@@ -4,7 +4,8 @@ export const ClubBodyContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  width : 100%;
+  
   .top {
     /* wave */
     & > div { 
@@ -36,7 +37,7 @@ export const ClubBodyContainer = styled.section`
       text-align: center;
       font: normal normal bold 36px/40px Noto Sans KR;
       letter-spacing: -1.75px;
-      color: #ffffff;
+      color: white;
       opacity: 1;
       margin: 40px;
     }

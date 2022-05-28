@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 export const MainBoardDiv = styled.article`
-  width : calc(${(props) => props.theme.layout.maxWidth} / 2
-            - ${(props) => props.theme.layout.gutter});
+  width : calc(50% - 1.5rem - (${(props) => props.theme.layout.gutter} / 2));
   height: 12rem;
-  background: #ffffff 0% 0% no-repeat padding-box;
+  background: white;
   box-shadow: 3px 3px 0.625rem var(--shadow-purple-0);
-  opacity: 1;
   padding-left: 1.5rem;
   padding-top: 1.563rem;
+
+
   img {
     height: 18px;
   }
@@ -34,8 +34,8 @@ export const MainBoardDiv = styled.article`
   }
 
   @media (max-width: 768px) {
-    width : 85vw;
-    margin : 1rem 4vw;
+    width : calc(90vw - 1.5rem);
+    margin : 1rem auto;
   }
 `;
 
@@ -45,14 +45,14 @@ export const MainBoardContainerDiv = styled.section`
 
   section {
     display: flex;
-    justify-content: space-between;
-    width : ${(props) => props.theme.layout.maxWidth};
+    justify-content : space-between;
+    width : 100%;
     max-width : ${(props) => props.theme.layout.maxWidth};
     margin: 8rem auto;
   }
 
   @media (max-width: 768px) {
-      width : 100vw;
+      width : 100%;
       margin-top : -10rem;
 
       section {
