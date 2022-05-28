@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const MainBoardDiv = styled.article`
-  width : 444px;
-  height: 191px;
+  width : calc(${(props) => props.theme.layout.maxWidth} / 2
+            - ${(props) => props.theme.layout.gutter});
+  height: 12rem;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 3px 3px 0.625rem var(--shadow-purple-0);
   opacity: 1;
@@ -39,14 +40,23 @@ export const MainBoardDiv = styled.article`
 `;
 
 export const MainBoardContainerDiv = styled.section`
+  width: 90vw;
+  margin : 0 auto;
+
   section {
     display: flex;
     justify-content: space-between;
-    width: 60rem;
-    margin: 5rem auto;
+    width : ${(props) => props.theme.layout.maxWidth};
+    max-width : ${(props) => props.theme.layout.maxWidth};
+    margin: 8rem auto;
+  }
 
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
+  @media (max-width: 768px) {
+      width : 100vw;
+      margin-top : -10rem;
+
+      section {
+        flex-direction: column;
+      }
   }
 `;

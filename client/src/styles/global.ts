@@ -45,6 +45,7 @@ ${({ theme }) => css`
         --bad-0: #D93838;
         --third-0: #FFD9D9;
         --secondary-d1-font-title-: #513C0E;
+        --secondary-d1: #513C0E;
         --secondary-0: #846116;
         --secondary-l1: #BF8F27;
         --secondary-l2-natural-: #FFEABF;
