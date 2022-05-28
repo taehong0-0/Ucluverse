@@ -27,15 +27,16 @@ export const ExplainMyPageDiv = styled.div`
         /* Yukey */
         section {
             position : relative;
-            top : -3rem;
-            left : 2rem;
             float : right;
         }
     }
 
+    /* heart */
     .Heart {
-        left : 7rem;
+        left : 2rem;
+        top : 5rem;
         animation-delay : 5s;
+        animation-iteration-count : 1;
         animation : fadeOut 5s ease-out forwards;
         opacity : 0;
         transform : scale(0);
@@ -48,6 +49,31 @@ export const ExplainMyPageDiv = styled.div`
             to {
                 transform : scale(1);
                 opacity : 0;
+            }
+        }
+    }
+
+    /* for mobile */
+    @media (max-width: 768px) {
+        display : flex;
+        width : 100%;
+        justify-content: center;
+
+        div {
+            width : 90%;
+            max-width : 90%;
+            margin : 0 auto;
+            margin-top : 3rem;
+
+            h3 {
+                font-size : .9rem;
+                font-weight : normal;
+                letter-spacing : -0.025rem;
+                line-height : 2rem;
+            }
+
+            img {
+                width : 1rem;
             }
         }
     }

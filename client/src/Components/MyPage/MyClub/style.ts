@@ -6,6 +6,12 @@ export const ClubContainer = styled.section`
   height: auto;
   margin : 0 5vw;
   justify-content : center;
+
+  /* for mobile */
+  @media (max-width:768px) {
+    width : 100%;
+    margin : 0;
+  }
 `;
 
 export const ClubNavigator = styled.section`
@@ -15,26 +21,34 @@ export const ClubNavigator = styled.section`
   width : 10rem;
 
   & > div {
-    width: 99px;
-    height: 49px;
+    width: 6rem;
+    height: 3rem;
     cursor: pointer;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: transparent 0% 0% no-repeat padding-box;
-    background-color: #ffffffbf;
+    background-color: white;
     box-shadow: 3px 3px 10px #00000029;
-    border-radius: 5px;
-    opacity: 1;
   }
 
   .selected {
-    background: transparent 0% 0% no-repeat padding-box;
-    background-color: #ffe3a8;
+    background-color: var(--secondary-l2);
     box-shadow: 3px 3px 10px #00000029;
-    border-radius: 5px;
-    opacity: 1;
+  }
+
+  /* for mobile */
+  @media (max-width: 768px) {
+      width : 10%;
+
+      & > div {
+        width : 100%;
+        
+          img {
+            width : 1.2rem;
+            height: 1rem;
+          }
+      }
   }
 `;
 
@@ -107,5 +121,12 @@ export const ClubListContainer = styled.section`
 
   a:is(:link, :hover, :focus, :active) {
     text-decoration: none;
+  }
+
+  /* for mobile */
+  @media (max-width: 768px) {
+    width : 100%;
+
+   
   }
 `;

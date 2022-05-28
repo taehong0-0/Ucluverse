@@ -48,7 +48,7 @@ ${({ theme }) => css`
         --secondary-d1: #513C0E;
         --secondary-0: #846116;
         --secondary-l1: #BF8F27;
-        --secondary-l2-natural-: #FFEABF;
+        --secondary-l2: #FFEABF;
         --primary-d2: #1C072C;
         --primary-d1: #6D00B9;
         --primary-0: #9239DF;

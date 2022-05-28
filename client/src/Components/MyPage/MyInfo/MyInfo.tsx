@@ -3,7 +3,7 @@ import React, { ChangeEvent, ReactElement, RefObject, useRef, useState } from 'r
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userDataState, userState } from '../../../Recoil/User';
-import { InfoRightContainer, InfoContainer, InfoDetail, ImageDetail, InfoButtonContainer } from './style';
+import { InfoRightContainer, InfoContainer, InfoDetail, ImageDetail } from './style';
 import Button from '../../Button/Button';
 import { departmentIdxList, departmentList } from '../../../Util/constant';
 
@@ -137,13 +137,11 @@ const MyInfo = (): ReactElement => {
       )}
       </div>
       <section>
-              <InfoButtonContainer>
-                {isModify ? (
-                  <Button name="저장하기" clickEvent={() => clickSave()} />
-                ) : (
-                  <Button name="정보수정" clickEvent={() => setModify()} />
-                )}
-              </InfoButtonContainer>
+          {isModify ? (
+            <Button name="저장하기" clickEvent={() => clickSave()} />
+          ) : (
+            <Button name="정보수정" clickEvent={() => setModify()} />
+          )}
       </section>
       </InfoDetail>
       <InfoRightContainer>
