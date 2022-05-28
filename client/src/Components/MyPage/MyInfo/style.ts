@@ -54,13 +54,18 @@ export const InfoDetail = styled.section`
       }
     }
 
-    input {
-      width: 222px;
-      height: 22px;
+    /* input area */
+    input, select {
+      width: 13rem;
+      height: 1.5rem;
+      border : none;
+      box-shadow: 3px 3px 10px #00000029;
+      margin : auto 0;
+      padding-left : .5rem;
     }
 
     select {
-      width: 222px;
+      width : 13.5rem;
     }
   }
 

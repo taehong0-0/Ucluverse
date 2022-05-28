@@ -47,7 +47,7 @@ const MyClub = (): ReactElement => {
           <Link to={`/club/${club.clubIdx}`}>
             <div key={club.clubIdx}>
               <img src={club.logoPath ?? ''}></img>
-              <span>{club.name}</span>
+              <h3>{club.name}</h3>
             </div>
           </Link>
         ))}
