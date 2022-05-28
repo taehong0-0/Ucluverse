@@ -43,16 +43,66 @@ const MyClub = (): ReactElement => {
         </div>
       </ClubNavigator>
       <ClubListContainer>
-        {clubList?.map((club) => (
-          <Link to={`/club/${club.clubIdx}`}>
-            <div key={club.clubIdx}>
-              <img src={club.logoPath ?? ''}></img>
-              <h3>{club.name}</h3>
+        <a>
+          <div>
+            <div>
+              <img src="https://images.unsplash.com/photo-1653314622658-4a34c996b410?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60">
+              </img>
             </div>
-          </Link>
-        ))}
+            <h4>
+              ㅎㅇ
+            </h4>
+          </div>
+        </a>
+        <a>
+          <div>
+            <img>
+            </img>
+            <h4>
+              ㅎㅇ
+            </h4>
+          </div>
+        </a>
+        <a>
+          <div>
+            <img>
+            </img>
+            <h4>
+              ㅎㅇ
+            </h4>
+          </div>
+        </a>
+        <a>
+          <div>
+            <img>
+            </img>
+            <h4>
+              안녕
+            </h4>
+          </div>
+        </a>
+        <a>
+          <div>
+            <img>
+            </img>
+            <h4>
+              안녕
+            </h4>
+          </div>
+        </a>
       </ClubListContainer>
     </ClubContainer>
   );
 };
 export default MyClub;
+
+// {clubList?.map((club) => (
+//   <Link to={`/club/${club.clubIdx}`}>
+//     <div key={club.clubIdx}>
+//       <div>
+//         <img src={club.logoPath ?? ''}/>
+//       </div>
+//       <h4>{club.name}</h4>
+//     </div>
+//   </Link>
+// ))}

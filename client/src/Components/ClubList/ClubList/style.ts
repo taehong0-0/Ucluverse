@@ -19,17 +19,18 @@ export const ClubListContainer = styled.article`
 
   & > div {
     cursor: pointer;
-    margin: 20px 10px 20px 40px;
-    width: 65rem;
-    height: 27.7rem;
-    padding-top : 1.4rem;
+    width: calc(100% - 4rem);
+    height: 25.7rem;
+    padding : 2rem;
+    justify-content : center;
    
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
+
     a {
       & > div {
-        margin-right: 24px;
+        margin-right: 3.2rem;
         display: flex;
         flex-direction: column;
         div {

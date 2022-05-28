@@ -31,7 +31,7 @@ export const WaveDiv = styled.div<propsInfo>`
     top : -8.4rem;
 
     @media (max-width:768px) {
-      top : -4.4rem;
+      top : -4.2rem;
     }
   }
 

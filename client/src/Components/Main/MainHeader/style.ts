@@ -116,6 +116,11 @@ export const SearchDataContainer = styled.section`
         font-weight : 600;
       }
     }
+
+    span, strong {
+      font-size: 14px;
+      letter-spacing: -0.075rem;
+    }
   }
 
   a:is(:link, :visited, :hover, :active) {
@@ -132,6 +137,7 @@ export const SearchBarContainer = styled.section`
   max-width : ${(props) => props.theme.layout.maxWidth};
 
   input {
+    width : calc(100% - 2.5rem);
     font: normal normal normal 0.875rem Noto Sans KR;
     letter-spacing: -0.04rem;
     height: 2.5rem;
@@ -160,7 +166,7 @@ export const SearchBarContainer = styled.section`
 
   @media (max-width: 768px) {
     input {
-      width : 60vw;
+      width : calc(100%-2rem);
     }
 
     button  {
