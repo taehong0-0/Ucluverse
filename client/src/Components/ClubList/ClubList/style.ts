@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ClubListContainer = styled.article`
-  width: 70rem;
+  width: 100%;
   height: 29rem;
   border-radius: 5px;
   opacity: 1;

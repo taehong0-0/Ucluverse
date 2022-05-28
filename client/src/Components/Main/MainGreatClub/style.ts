@@ -1,23 +1,32 @@
+import { PresignedPost } from 'aws-sdk/clients/s3';
 import styled from 'styled-components';
 
 export const ClubContainer = styled.section`
     display: flex;
     flex-direction: column;
-    margin-bottom: 130px;
     z-index: 1;
+    width : 90%;
+    max-width : ${(props) => props.theme.layout.maxWidth};
+    margin : 0 auto;
+    margin-bottom: 10rem;
 
-  article {
-    display : flex;
-    flex-direction: column;
-    margin-top : 4rem;
-    margin-left: 15.125rem;
-  }
+    /* layout setting */
+    .layout {
+        
+    }
+
+    .titleDiv {
+      display : flex;
+      flex-direction: column;
+      margin-bottom : 3rem;
+    }
 
     .title {
       width: 13.625rem;
       height: 2.25rem;
       margin-bottom: 1rem;
     }
+
     span {
       width: 22rem;
       text-align: left;
@@ -26,6 +35,7 @@ export const ClubContainer = styled.section`
       color: #a19279;
       opacity: 1;
     }
+    
     a {
         margin-top: 1rem;
         span {
@@ -42,7 +52,12 @@ export const ClubContainer = styled.section`
 
   /* for mobiles */
   @media (max-width: 768px) {
-    article {
+    max-width : 90vw;
+    width : 90vw;
+
+    .titleDiv {
+      width : 90vw;
+      max-width : 90vw;
       display : flex;
       margin-left : 0;
       align-items: center;
@@ -55,11 +70,8 @@ export const ClubContainer = styled.section`
 `;
 
 export const ImgContainer = styled.div`
-  width: 83.3vw;
   overflow-x: scroll;
   overflow-y : hidden;
-  margin-top: 3.75rem;
-  margin-left: 15.125rem;
   height: 22.5rem;
   .overflow-container {
     display: inline-flex;

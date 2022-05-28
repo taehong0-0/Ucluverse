@@ -42,7 +42,7 @@ const App = () => {
             element={
              <LoginRoute>
                 <Login />
-              </LoginRoute>
+             </LoginRoute>
             }
           />
           <Route
@@ -56,9 +56,9 @@ const App = () => {
           <Route
             path="/club/:id/*"
             element={
-              <AuthRoute>
+             <AuthRoute>
                 <Club />
-              </AuthRoute>
+             </AuthRoute>
             }
           />
           <Route
@@ -74,15 +74,15 @@ const App = () => {
             element={
              <AuthRoute>
                 <ClubAdmin />
-              </AuthRoute>
+             </AuthRoute>
             }
           />
           <Route
             path="/mypage"
             element={
-            <AuthRoute>
+          //  <AuthRoute>
               <MyPage />
-            </AuthRoute>
+          //  </AuthRoute>
             }
           />
           <Route path="*" element={<Navigate replace to="/" />} />

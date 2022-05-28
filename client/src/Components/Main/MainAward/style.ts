@@ -20,7 +20,7 @@ from {
 
 export const AwardContainer = styled.section`
   margin-top: 10vh;
-  width: 100vw;
+  width: 100%;
   height: 74rem;
   overflow: hidden;
   opacity: 1;

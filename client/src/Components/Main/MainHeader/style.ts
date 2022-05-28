@@ -79,74 +79,96 @@ export const MainHeaderDiv = styled.section`
   }
 `;
 
-export const SearchBarDiv = styled.div`
+export const SearchBarDiv = styled.section`
   display: flex;
-  /* width: 36vw; */
-  width: 468px;
-  height: 2.813rem;
+  width: 29.25rem;
+  height: 2.5rem;
   margin-top: 2.813rem;
-  opacity: 1;
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 3px 3px 0.625rem #dddae0;
-  border-radius: 5px;
-  opacity: 1;
+  background: white;
+  box-shadow: 6px 3px 0.625rem var(--shadow-purple-0);
   overflow: hidden;
-  input {
-    width: 405px;
-    font: normal normal normal 14px Noto Sans KR;
-    letter-spacing: -0.75px;
-    height: 2.813rem;
-    border: none;
-    text-indent: 1.25rem;
-  }
-  input:focus {
-    outline: none;
-  }
-  button {
-    cursor: pointer;
-    width: 63px;
-    background-color: #a45de2;
-    border: none;
-    img {
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-  }
+  justify-content : center;
 
-  @media (max-width : 768px) {
-    max-width : 468px;
-    width : 72vw;
-      input {
-        max-width : 405px;
-        width : 68vw;
-      }
+  @media (max-width:768px) {
+    width : 75vw;
   }
 `;
-export const SearchDataContainer = styled.div`
+
+export const SearchDataContainer = styled.section`
   position: absolute;
   margin-top: 3.2rem;
-  width: 468px;
+  width: 29.25rem;
   height: 12rem;
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 3px 3px 0.625rem #dddae0;
-  border-radius: 5px;
-  opacity: 1;
+  background-color: white;
+  box-shadow: 3px 3px 0.625rem var(--shadow-purple-0);
   overflow: auto;
+
   a {
     span {
       display: block;
       margin-left: 18px;
       margin-top: 12px;
-      font: normal normal normal 16px Noto Sans KR;
       letter-spacing: -0.6px;
-      color: #1a1917;
+      color: var(--grey2-8);
+
+      strong {
+        color : var(--primary-0);
+        font-weight : 600;
+      }
     }
   }
+
   a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
   }
 
   @media (max-width: 768px) {
-    width : 72vw;
+    width : 75vw;
   }
 `;
+
+export const SearchBarContainer = styled.section`
+  width : 100%;
+  max-width : ${(props) => props.theme.layout.maxWidth};
+
+  input {
+    font: normal normal normal 0.875rem Noto Sans KR;
+    letter-spacing: -0.04rem;
+    height: 2.5rem;
+    text-indent: 1.25rem;
+    border: none;
+  }
+  
+  input:focus {
+    outline: none;
+  }
+  
+  button {
+    cursor: pointer;
+    position : relative;
+    float : right;
+    height: 2.5rem;
+    width : 2.5rem;
+    background-color: var(--primary-l1);
+    border: none;
+
+    img {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    input {
+      width : 60vw;
+    }
+
+    button  {
+      width : 2rem;
+
+      img {
+        width : 1rem;
+      }
+    }
+  }
+`
