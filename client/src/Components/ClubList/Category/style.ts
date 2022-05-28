@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ClubCategoryContainer = styled.article`
-  width: 70rem;
+  width: 100%;
 
   :first-child {
     margin-top: 48px;
