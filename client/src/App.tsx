@@ -40,9 +40,9 @@ const App = () => {
           <Route
             path="/login"
             element={
-              <LoginRoute>
+          //   <LoginRoute>
                 <Login />
-              </LoginRoute>
+         //     </LoginRoute>
             }
           />
           <Route
@@ -64,9 +64,9 @@ const App = () => {
           <Route
             path="/clubList/*"
             element={
-             <AuthRoute>
+           //  <AuthRoute>
                 <ClubList />
-             </AuthRoute>
+           //  </AuthRoute>
             }
           />
           <Route
@@ -80,9 +80,9 @@ const App = () => {
           <Route
             path="/mypage"
             element={
-            <AuthRoute>
+          //  <AuthRoute>
               <MyPage />
-            </AuthRoute>
+          //  </AuthRoute>
             }
           />
           <Route path="*" element={<Navigate replace to="/" />} />

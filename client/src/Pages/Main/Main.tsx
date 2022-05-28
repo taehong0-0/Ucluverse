@@ -18,9 +18,9 @@ const Main = (): ReactElement => {
   setThemeColor('default');
   
   useEffect(() => {}, []);
-  useCheckLogin();
+  //useCheckLogin();
   return (
-    <div>
+    <>
       <Header />
       <section>
         <MainHeader />
@@ -32,7 +32,7 @@ const Main = (): ReactElement => {
       </section>
       <Introduce />
       <Footer />
-    </div>
+    </>
   );
 };
 export default Main;

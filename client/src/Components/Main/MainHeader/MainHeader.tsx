@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 import { MainHeaderDiv } from './style';
-import mainHeaderImg from '../../../Assets/메인헤더.png';
 import mainHeaderContentImg from '../../../Assets/메인헤더글.svg';
 import SearchBar from './SearchBar';
 import {useScrollFadeIn, useLottie} from '../../../Hooks';

@@ -25,5 +25,6 @@ export default {
       },
     layout: {
         maxWidth : '1200px',
+        gutter : '30px',
     },
   }

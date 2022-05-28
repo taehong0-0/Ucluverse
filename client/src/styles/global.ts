@@ -6,11 +6,13 @@ ${({ theme }) => css`
     * {
         margin : 0;
         padding : 0;
+        letter-spacing : 0.04rem;
+        border-radius: 5px;
     }
 
     body {
         overflow-x : hidden;
-        max-width : 100vw;
+        max-width : 100vw; 
     }
 
     :root {
@@ -64,13 +66,23 @@ ${({ theme }) => css`
     }
 
     /* font style */
+    h1 {
+        font-family : Noto Sans KR;
+        font-style : normal;
+        font-weight : bold;
+        font-size : 48px;
+        line-height : 56px;
+        letter-spacing : -0.05rem;
+        color : var(--font-black-grey2-8);
+    }
+
     h3 {
         font-family : Noto Sans KR;
         font-style : normal;
         font-weight : bold;
         font-size : 24px;
         line-height : 28px;
-        letter-spacing : -1.8px;
+        letter-spacing : -0.075rem;
         color : var(--font-black-grey2-8);
     }
     
@@ -80,7 +92,7 @@ ${({ theme }) => css`
         font-weight : normal;
         font-size: 18px;
         line-height: 24px;
-        letter-spacing: -0.75px;
+        letter-spacing: -0.04rem;
         color: var(--font-black-grey2-8);
     }
 
@@ -90,7 +102,7 @@ ${({ theme }) => css`
         font-weight : normal;
         font-size: 16px;
         line-height: 20px;
-        letter-spacing: -1.05px;
+        letter-spacing: -0.04rem;
         color: var(--font-black-grey2-8);
     }
 `}

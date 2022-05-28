@@ -15,7 +15,7 @@ const Button = (props: props) => {
         e.stopPropagation();
       }}
     >
-      <span>{name}</span>
+      <h4>{name}</h4>
     </ButtonContainer>
   );
 };
