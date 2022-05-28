@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ClubContentBoxDiv = styled.div`
     position : relative;
-    width : calc(50% - 24px);
+    width : calc(50% - (${(props) => props.theme.layout.gutter} / 2));
     height : auto;
 
     /* box for otherBody.tsx */

@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userDataState, userState } from '../../../Recoil/User';
 import { InfoRightContainer, InfoContainer, InfoDetail, ImageDetail, InfoButtonContainer } from './style';
-import backGround from '../../../Assets/MainBG.svg';
 import Button from '../../Button/Button';
 import { departmentIdxList, departmentList } from '../../../Util/constant';
 
@@ -69,80 +68,89 @@ const MyInfo = (): ReactElement => {
   // };
   return (
     <InfoContainer>
-      <img src={backGround} />
       <InfoDetail>
-        {isModify ? (
-          <>
-            <div />
-            <div>
-              <span>닉네임</span>
-              <input
-                value={nicknameModify}
-                onChange={(e) => setNicknameModify(e.target.value)}
-                ref={nickNameRef}
-              ></input>
-            </div>
-          </>
-        ) : (
-          <div>
-            <span>{user.nickname} 님</span>
-          </div>
-        )}
+      {isModify ? (
+      <>
         <div>
-          <span>성명</span>
-          {isModify ? (
-            <input value={nameModify} onChange={(e) => setNameModify(e.target.value)} ref={nameRef}></input>
-          ) : (
-            <span>{user.name}</span>
-          )}
+          <h3>닉네임</h3>
+          <input
+            value={nicknameModify}
+            onChange={(e) => setNicknameModify(e.target.value)}
+            ref={nickNameRef}
+          ></input>
         </div>
-        <div>
-          <span>학번</span>
-          {isModify ? (
-            <input
-              value={studentIdModify}
-              onChange={(e) => setStudentIdModify(Number(e.target.value))}
-              ref={studentIDRef}
-            ></input>
-          ) : (
-            <span>{user.studentId}</span>
-          )}
-        </div>
-        <div>
-          <span>학과</span>
-          {isModify ? (
-            <select ref={departmentRef} value={department} onChange={(e) => setDepartment(e.target.value)}>
-              {departmentList.map((department) => (
-                <option value={department} key={department}>
-                  {department}
-                </option>
-              ))}
-            </select>
-          ) : (
-            <span>{department}</span>
-          )}
-        </div>
-        <div>
-          <span>전화번호</span>
-          {isModify ? (
-            <input value={phoneModify} onChange={(e) => setPhoneModify(e.target.value)} ref={phoneRef}></input>
-          ) : (
-            <span>{user.phoneNumber}</span>
-          )}
-        </div>
+      </>
+      ) : (
+      <div>
+        <h1>{user.nickname} 님</h1>
+        {/* <section>
+            <InfoButtonContainer>
+              {isModify ? (
+                <Button name="저장하기" clickEvent={() => clickSave()} />
+              ) : (
+                <Button name="정보수정" clickEvent={() => setModify()} />
+              )}
+            </InfoButtonContainer>
+         </section> */}
+      </div>
+      )}
+      <div>
+      <h3>성명</h3>
+      {isModify ? (
+        <input value={nameModify} onChange={(e) => setNameModify(e.target.value)} ref={nameRef}></input>
+      ) : (
+        <h3>{user.name}</h3>
+      )}
+      </div>
+      <div>
+      <h3>학번</h3>
+      {isModify ? (
+        <input
+          value={studentIdModify}
+          onChange={(e) => setStudentIdModify(Number(e.target.value))}
+          ref={studentIDRef}
+        ></input>
+      ) : (
+        <h3>{user.studentId}</h3>
+      )}
+      </div>
+      <div>
+      <h3>학과</h3>
+      {isModify ? (
+        <select ref={departmentRef} value={department} onChange={(e) => setDepartment(e.target.value)}>
+          {departmentList.map((department) => (
+            <option value={department} key={department}>
+              {department}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <h3>{department}</h3>
+      )}
+      </div>
+      <div>
+      <h3>전화번호</h3>
+      {isModify ? (
+          <input value={phoneModify} onChange={(e) => setPhoneModify(e.target.value)} ref={phoneRef}></input>
+      ) : (
+        <h3>{user.phoneNumber}</h3>
+      )}
+      </div>
+      <section>
+              <InfoButtonContainer>
+                {isModify ? (
+                  <Button name="저장하기" clickEvent={() => clickSave()} />
+                ) : (
+                  <Button name="정보수정" clickEvent={() => setModify()} />
+                )}
+              </InfoButtonContainer>
+      </section>
       </InfoDetail>
       <InfoRightContainer>
         <ImageDetail>
           <div>{user.profilePhoto ? <img src={user.profilePhoto} /> : <span>이미지를 등록해주세요.</span>}</div>
           <div>캐릭터가 들어갈 예정</div>
         </ImageDetail>
-        <InfoButtonContainer>
-          {isModify ? (
-            <Button name="저장하기" clickEvent={() => clickSave()} />
-          ) : (
-            <Button name="정보수정" clickEvent={() => setModify()} />
-          )}
-        </InfoButtonContainer>
       </InfoRightContainer>
     </InfoContainer>
   );

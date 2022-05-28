@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
-export const InfoContainer = styled.div`
+export const InfoContainer = styled.section`
   display: flex;
-  width: 100%;
-  height: 730px;
-  /* UI Properties */
+  width : 100vw;
+  height: 30rem;
+  padding-top: 3rem;
   opacity: 1;
+  justify-content: center;
+  background: transparent linear-gradient(180deg, var(--primary-l1) 0%, var(--primary-0) 100%) 0% 0% no-repeat padding-box;
+
   & > img {
     z-index: 1;
     width: 100%;
@@ -13,90 +16,94 @@ export const InfoContainer = styled.div`
   }
 `;
 
-export const InfoDetail = styled.div`
+export const InfoDetail = styled.section`
   z-index: 10;
-  width: 50%;
+  width: calc(${(props) => props.theme.layout.maxWidth} / 2);
+  max-width : calc(${(props) => props.theme.layout.maxWidth} / 2);
+  
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 500px;
+  
+  h1 {
+      color : white;
+  }
+
+  /* title */
   & > div {
-    width: 45%;
-    margin-bottom: 12px;
+    margin-bottom: 1.6rem;
     display: flex;
-    select {
-      width: 222px;
+
+    /* button */
+    section {
+      margin-top : auto;
+      margin-left : 4rem;
     }
-    span:first-child {
+
+    h3 {
       display: inline-block;
-      width: 90px;
-      margin-right: 24px;
-      text-align: right;
-      font: normal normal bold 24px/28px Noto Sans KR;
-      letter-spacing: -1.8px;
-      color: #ffffff;
-      opacity: 1;
-    }
-    span:last-child {
+      width: 7rem;
+      margin-right: 2rem;
+      color: white;
+      text-align: justify;
+
+      + h3 {
       text-align: left;
       text-overflow: ellipsis;
       white-space: nowrap;
-      font: normal normal normal 24px/28px Noto Sans KR;
-      letter-spacing: -1.8px;
-      color: #ffffff;
-      opacity: 1;
+      font-weight: normal;
+      }
     }
-    input {
-      width: 222px;
-      height: 22px;
+
+    /* input area */
+    input, select {
+      width: 13rem;
+      height: 1.5rem;
+      border : none;
+      box-shadow: 3px 3px 10px #00000029;
+      margin : auto 0;
+      padding-left : .5rem;
     }
-  }
-  & > div:first-child {
-    margin-top: 100px;
-    margin-bottom: 25px;
-    span:first-child {
-      display: inline-block;
-      width: 500px;
-      font: normal normal bold 48px/56px Noto Sans KR;
-      letter-spacing: -3.6px;
-      color: #ffffff;
-      opacity: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    input {
+
+    select {
+      width : 13.5rem;
     }
   }
+
+
 `;
-export const InfoRightContainer = styled.div`
-  width: 50%;
+export const InfoRightContainer = styled.section`
+  width: calc(${(props) => props.theme.layout.maxWidth} / 2);
+  max-width : calc(${(props) => props.theme.layout.maxWidth} / 2);
+  height: 18.75rem;
   z-index: 10;
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
 export const ImageDetail = styled.div`
   display: flex;
-  margin-top: 100px;
-  margin-bottom: 60px;
+  margin-left : auto;
+  height: 14rem;
+
   & > div {
-    width: 175px;
-    height: 225px;
-    /* UI Properties */
+    width: 10rem;
+
     background: #d4bce9 0% 0% no-repeat padding-box;
     box-shadow: 3px 3px 10px #00000029;
     border-radius: 5px;
     opacity: 1;
+
     img {
-      width: 175px;
-      height: 225px;
+      width: 10rem;
+      height: 14rem;
     }
-  }
-  & > div:first-child {
-    margin-right: 18px;
+
+    + div {
+      margin-left : 2rem;
+    }
   }
 `;
 
-export const InfoButtonContainer = styled.div``;
+export const InfoButtonContainer = styled.div`
+  
+`;

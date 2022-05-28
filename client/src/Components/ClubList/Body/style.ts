@@ -9,8 +9,12 @@ export const ClubBodyContainer = styled.section`
     /* wave */
     & > div { 
       position : absolute;
-      top : 280px;
+      top : 17.8rem;
       left : 0;
+
+      @media (max-width:768px) {
+        top : 22rem;
+      }
     }
     /* background */
     & > .topBG {
@@ -56,8 +60,12 @@ export const ClubBodyContainer = styled.section`
     & > div { 
       position : relative;
       left : 0;
-      top: 130px;
+      top: 8.2rem;
       z-index : 1;
+
+      @media (max-width:768px) {
+        top: 4rem;
+      }
     }
     /* background */
     & > .bottomBG {

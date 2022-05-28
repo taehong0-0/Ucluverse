@@ -31,10 +31,6 @@ export const HeaderLinkContainer = styled.div`
 
   button {
     padding: 0;
-    /* margin-right: 60px;
-    &:last-child {
-      margin-right: 0px;
-    } */
   }
 
   .logined {
@@ -46,6 +42,7 @@ export const HeaderLinkContainer = styled.div`
     margin: 0 2rem 0 2.813rem;
   }
 `;
+
 export const UserInfoContainer = styled.div`
   display: flex;
   height: 6.25rem;

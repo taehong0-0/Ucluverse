@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { propsInfo } from './Footer';
 
 export const IntroduceDiv = styled.footer`
     display : flex;
@@ -28,12 +29,14 @@ export const IntroduceDiv = styled.footer`
     }
 `
 
-export const FooterDiv = styled.footer`
+export const FooterDiv = styled.footer<propsInfo>`
     display : flex;
     width : 100vw;
-    height : 250px;
+    min-height : 226px;
+    height : calc(226px + (${(props) => props.addHeight}px));
     align-items : center;
-    justify-content : center;
+    justify-content : flex-end;
+    padding-bottom : 24px;
     flex-direction : column;
     background-image : ${(props) => (
         props.color == 'darkPurple' &&

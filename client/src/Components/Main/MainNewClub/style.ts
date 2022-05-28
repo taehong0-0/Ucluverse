@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 export const NewClubContainer = styled.section`
   display: flex;
-  width: 43rem;
+  width: calc(${(props) => props.theme.layout.maxWidth});
+  max-width : calc(${(props) => props.theme.layout.maxWidth});
   height: 21.875rem;
-  opacity: 1;
-  margin-left: 15.125rem;
   margin-top: -3.5rem;
+  margin : 0 auto;
 
   & > article:first-child {
     margin-top: -5rem;
@@ -26,6 +26,7 @@ export const NewClubContainer = styled.section`
       opacity: 1;
       transition: all 0.2s linear;
     }
+
     article {
       z-index: 1;
       position: relative;
@@ -37,12 +38,10 @@ export const NewClubContainer = styled.section`
       opacity: 0;
       transition: all 0.2s linear;
 
-      span {
+      h3 {
         display: block;
-        margin-left: 20px;
-        margin-top: 20px;
-        font: normal normal bold 24px/22px Noto Sans KR;
-        letter-spacing: -1.8px;
+        margin-left: 1.25rem;
+        margin-top: 1.25rem;
         color: #6d00b9;
       }
     }
@@ -53,10 +52,10 @@ export const NewClubContainer = styled.section`
       transition: all 0.2s linear;
       z-index: 999;
       position: relative;
-      left: 14rem;
-      top: -48px;
-      width: 40px;
-      height: 40px;
+      float : right;
+      top: -3rem;
+      width: 2.5rem;
+      height: 2.5rem;
       border: none;
       border-radius: 100% 0% 0% 0%;
       background: transparent linear-gradient(180deg, #63239b 0%, #9239df 100%)
@@ -66,10 +65,9 @@ export const NewClubContainer = styled.section`
 
       span {
         display: block;
-        color: #fff;
-        margin-left: 10px;
-        margin-top: 10px;
-        font-size: 24px;
+        color: white;
+        margin : .6rem 0 0 .6rem;
+        font-size: 1.5rem;
       }
     }
   }
@@ -88,27 +86,23 @@ export const NewClubContainer = styled.section`
     display: flex;
     flex-direction: column;
     margin-top: 3.75rem;
-    margin-left: 106px;
+    margin-left: 6.625rem;
     z-index : 1;
     img {
       width: 9.563rem;
       height: 2.25rem;
       margin-bottom: 1rem;
     }
-    span {
+    h4 {
       width: 20rem;
       text-align: left;
-      font: normal normal normal 18px/1.5rem Noto Sans KR;
-      letter-spacing: -1.35px;
-      color: #a19279;
-      opacity: 1;
+      color: var(--paragraph-0);
     }
     a {
       margin-top: 1rem;
-      span {
-        font: normal normal normal 18px/1.5rem Noto Sans KR;
-        letter-spacing: -1.35px;
-        color: #513c0e;
+
+      h4 {
+        color: var(--secondary-d1);
         opacity: 1;
       }
     }
@@ -137,6 +131,10 @@ export const NewClubContainer = styled.section`
       .club-img {
           width : 90vw;
       }
+
+      button {
+        top : -9.6rem;
+      }
     }
 
     & > article:last-child {
@@ -146,7 +144,7 @@ export const NewClubContainer = styled.section`
       vertical-align: middle;
       align-items: center;
       
-      span {
+      h4 {
         text-align : center;
       }
     }

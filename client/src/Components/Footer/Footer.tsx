@@ -4,11 +4,16 @@ import { FooterDiv } from './style';
 import { theme } from '../../Recoil/Theme';
 import { useRecoilValue } from 'recoil';
 
-const Footer = () : ReactElement => {
+export interface propsInfo {
+    addHeight? : number;
+}
+
+const Footer = (props : propsInfo) : ReactElement => {
+    const { addHeight } = props;
     const themeColor = useRecoilValue(theme);
 
     return (
-        <FooterDiv color={themeColor}>
+        <FooterDiv color={themeColor} addHeight={addHeight}>
             <img src={ajou}/>
             <footer>
                 <h4>
