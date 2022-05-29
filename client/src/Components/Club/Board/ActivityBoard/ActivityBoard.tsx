@@ -61,7 +61,7 @@ const ActivityBoard = (props: Props) => {
   const { boardIdx, clubId } = props;
   const [activityPosts, setActivityPosts] = useState<PostTitleType[]>([]);
   const user = useRecoilValue(userState);
-  const status = useCheckRole(user.userIdx);
+  const status = useCheckRole(clubId);
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`).then((res) => {
       setActivityPosts(res.data.res.postings);
