@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { propsInfo } from './Footer';
-import { Link } from 'react-router-dom';
 
 export const IntroduceDiv = styled.footer`
     display : flex;
@@ -9,6 +8,8 @@ export const IntroduceDiv = styled.footer`
     background-color : var(--secondary-l2);
     align-items : center;
     justify-content : center;
+    transition : .2s ease-out;
+    transform : scale(1.0);
     cursor : pointer;
 
     img {
@@ -30,7 +31,9 @@ export const IntroduceDiv = styled.footer`
         padding-top : 6px;
     }
 
-    
+    :hover {
+        transform : scale(1.1);
+    }
 `
 
 export const FooterDiv = styled.footer<propsInfo>`

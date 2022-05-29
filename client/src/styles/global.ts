@@ -1,5 +1,6 @@
 import { createGlobalStyle, css } from 'styled-components'
 
+
 export default createGlobalStyle`
 ${({ theme }) => css`
     /* 초기값 */
@@ -12,7 +13,7 @@ ${({ theme }) => css`
 
     body {
         overflow-x : hidden;
-        max-width : 100vw; 
+        max-width : 100vw;
     }
 
     :root {
@@ -49,6 +50,7 @@ ${({ theme }) => css`
         --secondary-0: #846116;
         --secondary-l1: #BF8F27;
         --secondary-l2: #FFEABF;
+        --secondary-l3: #FFE3A8;
         --primary-d2: #1C072C;
         --primary-d1: #6D00B9;
         --primary-0: #9239DF;
@@ -143,6 +145,7 @@ ${({ theme }) => css`
         a {
             text-decoration: none;
         }
+        overflow: hidden;
     }
 
     .transparent {

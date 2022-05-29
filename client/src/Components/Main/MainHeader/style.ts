@@ -162,6 +162,10 @@ export const SearchBarContainer = styled.section`
       width: 1.2rem;
       height: 1.2rem;
     }
+
+    :hover {
+      background: transparent linear-gradient(180deg, var(--primary-l1) 0%, var(--primary-0) 100%);
+    }
   }
 
   @media (max-width: 768px) {

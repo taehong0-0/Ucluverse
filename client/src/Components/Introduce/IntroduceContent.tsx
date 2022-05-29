@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { IntroduceSection } from './style';
-import { ContentFirst } from './index';
+import { ContentFirst, ContentSecond, ContentThird, ContentFourth, ContentFifth, ContentSixth } from './index';
 import Wave from '../Animation/Wave/Wave';
 
 const IntroduceContent = () : ReactElement => {
@@ -8,12 +8,14 @@ const IntroduceContent = () : ReactElement => {
         <IntroduceSection>
             <ContentFirst/>
             <Wave style="IntroduceWave"/>
-            <article>
-                    영역 나눠버리기!
-            </article>
-            <article>
-                    영역 나눠버리기!
-            </article>
+            <ContentSecond/>
+            <Wave rotation={180} style="IntroduceWave"/>
+            <ContentThird/>
+            <Wave style="IntroduceWave"/>
+            <ContentFourth/>
+            <ContentFifth/>
+            <Wave rotation={180} style="IntroduceWave2"/>
+            <ContentSixth/>
         </IntroduceSection>
     );
 }
