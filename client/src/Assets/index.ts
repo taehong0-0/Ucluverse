@@ -5,5 +5,9 @@ import profileImgWhite from './profile-white.svg';
 import alarmImg from './알림.png';
 import logoutImg from './logout.png';
 import mypageImg from './내정보.svg';
+import groupImg from './단체사진.jpg';
+import Icons from './icon';
 
-export default { logoImg, logoImgWhite, profileImg, profileImgWhite, alarmImg, logoutImg, mypageImg };
+const { facebookIcon ,InstaIcon, GithubIcon } = Icons;
+
+export default { facebookIcon, InstaIcon, GithubIcon, groupImg, logoImg, logoImgWhite, profileImg, profileImgWhite, alarmImg, logoutImg, mypageImg };

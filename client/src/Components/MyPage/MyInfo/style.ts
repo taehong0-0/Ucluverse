@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const InfoContainer = styled.section`
   display: flex;
-  width : 100vw;
+  width : 100%;
   height: 30rem;
   padding-top: 3rem;
   opacity: 1;
@@ -13,6 +13,14 @@ export const InfoContainer = styled.section`
     z-index: 1;
     width: 100%;
     position: absolute;
+  }
+
+  /* for mobile */
+  @media (max-width:768px) {
+    padding-top : 14rem;
+    flex-direction : row;
+    padding-bottom : 10rem;
+    flex-wrap : wrap-reverse;
   }
 `;
 
@@ -69,8 +77,26 @@ export const InfoDetail = styled.section`
     }
   }
 
+  /* for mobile */
+  @media (max-width:768px) {
+      max-width : 100%;
+      width : 100%;
 
+      /* input */
+      div {
+        justify-content : center;
+      }
+
+      /* button */
+      section {
+        justify-content: center;
+        display : flex;
+        max-width : 100%;
+        margin-bottom : 2rem;
+      }
+  }
 `;
+
 export const InfoRightContainer = styled.section`
   width: calc(${(props) => props.theme.layout.maxWidth} / 2);
   max-width : calc(${(props) => props.theme.layout.maxWidth} / 2);
@@ -78,6 +104,11 @@ export const InfoRightContainer = styled.section`
   z-index: 10;
   display: flex;
   flex-direction: column;
+
+  @media (max-width:768px) {
+    width : 100%;
+    max-width : 100%;
+  }
 `;
 
 export const ImageDetail = styled.div`
@@ -102,8 +133,10 @@ export const ImageDetail = styled.div`
       margin-left : 2rem;
     }
   }
-`;
 
-export const InfoButtonContainer = styled.div`
-  
+  /* for mobile */
+  @media (max-width:768px) {
+    margin-left : 0;
+    justify-content: center;
+  }
 `;

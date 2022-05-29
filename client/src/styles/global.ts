@@ -1,5 +1,6 @@
 import { createGlobalStyle, css } from 'styled-components'
 
+
 export default createGlobalStyle`
 ${({ theme }) => css`
     /* 초기값 */
@@ -12,7 +13,7 @@ ${({ theme }) => css`
 
     body {
         overflow-x : hidden;
-        max-width : 100vw; 
+        max-width : 100vw;
     }
 
     :root {
@@ -48,7 +49,8 @@ ${({ theme }) => css`
         --secondary-d1: #513C0E;
         --secondary-0: #846116;
         --secondary-l1: #BF8F27;
-        --secondary-l2-natural-: #FFEABF;
+        --secondary-l2: #FFEABF;
+        --secondary-l3: #FFE3A8;
         --primary-d2: #1C072C;
         --primary-d1: #6D00B9;
         --primary-0: #9239DF;
@@ -98,6 +100,16 @@ ${({ theme }) => css`
         color : var(--font-black-grey2-8);
     }
 
+    h2 {
+        font-family : Noto Sans KR;
+        font-style : normal;
+        font-weight : bold;
+        font-size : 36px;
+        line-height : 40px;
+        letter-spacing : -0.075rem;
+        color : var(--font-black-grey2-8);
+    }
+
     h3 {
         font-family : Noto Sans KR;
         font-style : normal;
@@ -126,6 +138,18 @@ ${({ theme }) => css`
         line-height: 20px;
         letter-spacing: -0.04rem;
         color: var(--font-black-grey2-8);
+    }
+
+    /* Reset Style */
+    .nonStyledLink {
+        a {
+            text-decoration: none;
+        }
+        overflow: hidden;
+    }
+
+    .transparent {
+        background-color: transparent !important;
     }
 `}
 `

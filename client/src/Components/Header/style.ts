@@ -23,6 +23,7 @@ export const HeaderContainer = styled.header`
     width: 30rem;
   }
 `;
+
 export const HeaderLinkContainer = styled.div`
   width: 303px;
   margin-left: 1.15rem;
@@ -57,11 +58,13 @@ export const UserInfoContainer = styled.div`
 
 export const BackGround = styled.div`
     position : absolute;
+    border-radius : 0;
     left : 0;
     top : 0;
-    width : 100vw;
+    width : 100%;
     height : 100px;
     z-index : 0;
+
     background-color : ${(props) => (
         props.color == 'darkPurple' &&
           props.theme.header.darkPurple ||

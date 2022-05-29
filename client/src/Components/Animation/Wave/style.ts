@@ -5,11 +5,6 @@ interface propsInfo {
   DEG? : number;
 }
 
-interface WaveBGInfo {
-  height? : number;
-  colors : string;
-}
-
 export const WaveDiv = styled.div<propsInfo>`
   width : 100vw;
   z-index : 0;
@@ -31,7 +26,7 @@ export const WaveDiv = styled.div<propsInfo>`
     top : -8.4rem;
 
     @media (max-width:768px) {
-      top : -4.4rem;
+      top : -4.2rem;
     }
   }
 

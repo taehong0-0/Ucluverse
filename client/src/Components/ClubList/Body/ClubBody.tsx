@@ -24,7 +24,7 @@ const categoryList = [
   '준/가동아리',
 ];
 const ClubBody = () => {
-  const lottieYuKey = useLottie(YukeyHello, true, 20, 1);
+  const lottieYuKey = useLottie(YukeyHello, true, 20, 20);
   const animation = useScrollFadeIn();
   const animation2 = useScrollFadeIn('up', 1, 0.15, 0);
   const animation3 = useScrollFadeIn('up', 1, 0.25, 0);

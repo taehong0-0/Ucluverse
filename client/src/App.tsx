@@ -80,9 +80,15 @@ const App = () => {
           <Route
             path="/mypage"
             element={
-          //  <AuthRoute>
+            <AuthRoute>
               <MyPage />
-          //  </AuthRoute>
+            </AuthRoute>
+            }
+          />
+          <Route
+            path="/introduce"
+            element={
+              <Introduce />
             }
           />
           <Route path="*" element={<Navigate replace to="/" />} />

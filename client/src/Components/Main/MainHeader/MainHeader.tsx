@@ -11,10 +11,10 @@ import BGMain from '../../../Assets/Lottie/BGMain.json';
 const MainHeader = (): ReactElement => {
   const animation = useScrollFadeIn('up', 1, 0);
   const animation2 = useScrollFadeIn('up', 1, 0.25);
-  const lottieFireWork = useLottie(firework, true, 14, 1);
-  const lottieFireWork2 = useLottie(firework2, true, 12, 1);
-  const lottieBirds = useLottie(birds, true, 30, 1);
-  const lottieBGMain = useLottie(BGMain, true, 100, 1);
+  const lottieFireWork = useLottie(firework, true, 14, 14);
+  const lottieFireWork2 = useLottie(firework2, true, 12, 12);
+  const lottieBirds = useLottie(birds, true, 30, 30);
+  const lottieBGMain = useLottie(BGMain, true, 100, 100);
 
   return (
     <MainHeaderDiv>

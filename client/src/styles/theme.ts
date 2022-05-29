@@ -1,6 +1,7 @@
 export default {
     background: {
         default : 'white',
+        purple : 'linear-gradient(359deg, var(--primary-0) 0%, #62329B 100%)'
     },
     header: {
         default: 'white',
