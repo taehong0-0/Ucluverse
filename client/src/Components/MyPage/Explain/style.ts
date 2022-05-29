@@ -40,15 +40,19 @@ export const ExplainMyPageDiv = styled.div`
         animation : fadeOut 5s ease-out forwards;
         opacity : 0;
         transform : scale(0);
+        z-index : 0;
 
         @keyframes fadeOut {
             50% {
                 opacity : 1;
                 transform : scale(1);
             }
-            to {
+            99% {
                 transform : scale(1);
                 opacity : 0;
+            }
+            to {
+                transform : scale(0);
             }
         }
     }

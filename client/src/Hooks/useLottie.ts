@@ -5,7 +5,7 @@ interface lottieInfo {
 
 }
 
-const Lottie = (data : any, isLoop : boolean | number = false, imgSize : number, speed : number = 1) => {
+const Lottie = (data : any, isLoop : boolean | number = false, imgWidth : number, imgHeight : number, speed : number = 1) => {
     const DOM = useRef<any>();
     
     useEffect(()=>{
@@ -22,8 +22,8 @@ const Lottie = (data : any, isLoop : boolean | number = false, imgSize : number,
     return {
         ref: DOM,
         style : {
-            width : `${imgSize}vw`,
-            height : `${imgSize}vh`
+            width : `${imgWidth}vw`,
+            height : `${imgHeight}vh`
         },
         className:'lottie'
     }

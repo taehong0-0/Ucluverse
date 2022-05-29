@@ -85,6 +85,12 @@ const App = () => {
           //  </AuthRoute>
             }
           />
+          <Route
+            path="/introduce"
+            element={
+              <Introduce />
+            }
+          />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
       </Suspense>

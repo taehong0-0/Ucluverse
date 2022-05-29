@@ -98,6 +98,16 @@ ${({ theme }) => css`
         color : var(--font-black-grey2-8);
     }
 
+    h2 {
+        font-family : Noto Sans KR;
+        font-style : normal;
+        font-weight : bold;
+        font-size : 36px;
+        line-height : 40px;
+        letter-spacing : -0.075rem;
+        color : var(--font-black-grey2-8);
+    }
+
     h3 {
         font-family : Noto Sans KR;
         font-style : normal;
@@ -126,6 +136,17 @@ ${({ theme }) => css`
         line-height: 20px;
         letter-spacing: -0.04rem;
         color: var(--font-black-grey2-8);
+    }
+
+    /* Reset Style */
+    .nonStyledLink {
+        a {
+            text-decoration: none;
+        }
+    }
+
+    .transparent {
+        background-color: transparent !important;
     }
 `}
 `

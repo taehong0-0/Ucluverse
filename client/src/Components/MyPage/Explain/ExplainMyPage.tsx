@@ -5,8 +5,8 @@ import Heart from '../../../Assets/Lottie/heart.json';
 import { useLottie, useScrollFadeIn } from '../../..//Hooks';
 
 const ExplainMyPage = () : ReactElement => {
-    const lottieYuKey = useLottie(YukeyHello, true, 20, 1);
-    const lottieHeart = useLottie(Heart, false, 100, 1);
+    const lottieYuKey = useLottie(YukeyHello, true, 20, 20);
+    const lottieHeart = useLottie(Heart, false, 100, 100);
     const animation = useScrollFadeIn('right',1,0,.5,1);
 
     return (
