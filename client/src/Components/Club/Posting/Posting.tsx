@@ -25,7 +25,7 @@ const Posting = (props: Props) => {
   const [content, setContent] = useState<string>('');
   const [imageList, setImageList] = useState<string[]>([]);
 
-  var result = content;
+  var result = '';
   const submit = async () => {
     if (!titleRef.current || content === '') return;
     const option = {
@@ -36,8 +36,7 @@ const Posting = (props: Props) => {
     const s3 = new AWS.S3(option);
     const srcRegEx = /<img src=\"([^\"]*?)\" \/>/gi;
     const srcList = content.match(srcRegEx);
-    // var result = content;
-    var images;
+    result = content;
     const promiseList = srcList?.map(async (tag, idx) => {
       tag.match(srcRegEx);
       const srcData = RegExp.$1;
@@ -65,9 +64,7 @@ const Posting = (props: Props) => {
   };
 
   const send = () => {
-    console.log(imageList);
     if (!titleRef.current || content === '') return;
-    console.log(22);
     axios
       .post(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`, {
         userIdx: user.userIdx,
