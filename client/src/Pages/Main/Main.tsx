@@ -13,6 +13,7 @@ import useCheckLogin from '../../Hooks/useCheckLogin';
 import { useSetRecoilState } from 'recoil';
 import { theme } from '../../Recoil/Theme';
 import { Link } from 'react-router-dom';
+import EnterMetaverse from '../../Components/Footer/EnterMetaverse';
 
 const Main = (): ReactElement => {
   const setThemeColor = useSetRecoilState(theme);
@@ -31,9 +32,7 @@ const Main = (): ReactElement => {
         <MainNewClub />
         <MainGreatClub />
       </section>
-      <Link to="/metaverse">
-        <span>메타버스로 가기</span>
-      </Link>
+      <EnterMetaverse />
       <Introduce />
       <Footer />
     </>
