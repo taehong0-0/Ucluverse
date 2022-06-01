@@ -10,13 +10,14 @@ import MainNewClub from '../../Components/Main/MainNewClub/MainNewClub';
 import Introduce from '../../Components/Footer/Introduce';
 import Footer from '../../Components/Footer/Footer';
 import useCheckLogin from '../../Hooks/useCheckLogin';
-import { useSetRecoilState } from 'recoil'
-import { theme } from '../../Recoil/Theme'
+import { useSetRecoilState } from 'recoil';
+import { theme } from '../../Recoil/Theme';
+import { Link } from 'react-router-dom';
 
 const Main = (): ReactElement => {
   const setThemeColor = useSetRecoilState(theme);
   setThemeColor('default');
-  
+
   useEffect(() => {}, []);
   useCheckLogin();
   return (
@@ -30,6 +31,9 @@ const Main = (): ReactElement => {
         <MainNewClub />
         <MainGreatClub />
       </section>
+      <Link to="/metaverse">
+        <span>메타버스로 가기</span>
+      </Link>
       <Introduce />
       <Footer />
     </>
