@@ -1,33 +1,37 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import lottie from 'lottie-web';
 
-interface lottieInfo {
+interface lottieInfo {}
 
-}
+const Lottie = (
+  data: any,
+  isLoop: boolean | number = false,
+  imgWidth: number,
+  imgHeight: number,
+  speed: number = 1,
+) => {
+  const DOM = useRef<any>();
 
-const Lottie = (data : any, isLoop : boolean | number = false, imgWidth : number, imgHeight : number, speed : number = 1) => {
-    const DOM = useRef<any>();
-    
-    useEffect(()=>{
-        lottie.loadAnimation({
-            container: DOM.current,
-            renderer: 'svg',
-            loop: isLoop,
-            autoplay : true,
-            animationData : data,
-        })
-        lottie.setSpeed(speed);
-    },[])
-    
-    return {
-        ref: DOM,
-        style : {
-            width : `${imgWidth}vw`,
-            height : `${imgHeight}vh`
-        },
-        className:'lottie'
-    }
-}
+  useEffect(() => {
+    lottie.loadAnimation({
+      container: DOM.current,
+      renderer: 'svg',
+      loop: isLoop,
+      autoplay: true,
+      animationData: data,
+    });
+    lottie.setSpeed(speed);
+  }, []);
+
+  return {
+    ref: DOM,
+    style: {
+      width: `${imgWidth}vw`,
+      height: `${imgHeight}vh`,
+    },
+    className: 'lottie',
+  };
+};
 
 export default Lottie;
 

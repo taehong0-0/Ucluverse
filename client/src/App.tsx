@@ -16,6 +16,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { ClubListState, DepartmentListState } from './Recoil/Club';
 import MyPage from './Pages/MyPage/MyPage';
 import { Loading } from './Components/Animation/';
+import Metaverse from './Pages/Metaverse/Metaverse';
 
 axios.defaults.withCredentials = true;
 
@@ -33,16 +34,16 @@ const App = () => {
   }, []);
   return (
     <>
-      <Suspense fallback={<Loading/>}>
+      <Suspense fallback={<Loading />}>
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route
             path="/login"
             element={
-             <LoginRoute>
+              <LoginRoute>
                 <Login />
-             </LoginRoute>
+              </LoginRoute>
             }
           />
           <Route
@@ -56,41 +57,44 @@ const App = () => {
           <Route
             path="/club/:id/*"
             element={
-             <AuthRoute>
+              <AuthRoute>
                 <Club />
-             </AuthRoute>
+              </AuthRoute>
             }
           />
           <Route
             path="/clubList/*"
             element={
-             <AuthRoute>
+              <AuthRoute>
                 <ClubList />
-             </AuthRoute>
+              </AuthRoute>
             }
           />
           <Route
             path="/admin/:id"
             element={
-             <AuthRoute>
+              <AuthRoute>
                 <ClubAdmin />
-             </AuthRoute>
+              </AuthRoute>
             }
           />
           <Route
             path="/mypage"
             element={
-            <AuthRoute>
-              <MyPage />
-            </AuthRoute>
+              <AuthRoute>
+                <MyPage />
+              </AuthRoute>
             }
           />
           <Route
-            path="/introduce"
+            path="metaverse"
             element={
-              <Introduce />
+              <AuthRoute>
+                <Metaverse />
+              </AuthRoute>
             }
-          />
+          ></Route>
+          <Route path="/introduce" element={<Introduce />} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
       </Suspense>
