@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { userDataState, userState } from '../../Recoil/User';
 import socket from '../../Util/socket';
-import './chat.scss';
+import { ChatContainer, ChatTitle, ChatLog } from './style';
 
 const Chat = (socketId: any) => {
   const user = useRecoilValue(userDataState);
@@ -40,18 +40,17 @@ const Chat = (socketId: any) => {
   };
 
   return (
-    <div className="chat chatBlockStyle">
-      <div className="chatTitle">
+    <ChatContainer>
+      <ChatTitle>
         <h2>Chat</h2>
-      </div>
-      <div className="chatContainer">
+      </ChatTitle>
+      <ChatLog>
         <div className="chatStyle" dangerouslySetInnerHTML={{ __html: chatHtml }} />
-      </div>
-      <form className="formStyle" onSubmit={handleSubmit}>
+      </ChatLog>
+      <form onSubmit={handleSubmit}>
         <input placeholder="Insert whatever" />
-        {/* <button>😎</button> */}
       </form>
-    </div>
+    </ChatContainer>
   );
 };
 
