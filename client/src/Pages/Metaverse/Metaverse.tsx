@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-
 import socket from '../../Util/socket';
 import Background from '../../Components/Background/background';
 import Character from '../../Components/Character/character';
