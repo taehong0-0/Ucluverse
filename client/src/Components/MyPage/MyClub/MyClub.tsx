@@ -46,8 +46,10 @@ const MyClub = (): ReactElement => {
         {clubList?.map((club) => (
           <Link to={`/club/${club.clubIdx}`}>
             <div key={club.clubIdx}>
-              <img src={club.logoPath ?? ''}></img>
-              <span>{club.name}</span>
+              <div>
+                <img src={club.logoPath ?? ''}/>
+              </div>
+              <h4>{club.name}</h4>
             </div>
           </Link>
         ))}

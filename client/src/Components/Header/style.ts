@@ -23,6 +23,7 @@ export const HeaderContainer = styled.header`
     width: 30rem;
   }
 `;
+
 export const HeaderLinkContainer = styled.div`
   width: 303px;
   margin-left: 1.15rem;
@@ -31,10 +32,6 @@ export const HeaderLinkContainer = styled.div`
 
   button {
     padding: 0;
-    /* margin-right: 60px;
-    &:last-child {
-      margin-right: 0px;
-    } */
   }
 
   .logined {
@@ -46,6 +43,7 @@ export const HeaderLinkContainer = styled.div`
     margin: 0 2rem 0 2.813rem;
   }
 `;
+
 export const UserInfoContainer = styled.div`
   display: flex;
   height: 6.25rem;
@@ -60,21 +58,23 @@ export const UserInfoContainer = styled.div`
 
 export const BackGround = styled.div`
     position : absolute;
+    border-radius : 0;
     left : 0;
     top : 0;
-    width : 100vw;
+    width : 100%;
     height : 100px;
     z-index : 0;
+
     background-color : ${(props) => (
         props.color == 'darkPurple' &&
-          props.theme.background.darkPurple ||
+          props.theme.header.darkPurple ||
         props.color == 'yellow' &&
-          props.theme.background.yellow ||
+          props.theme.header.yellow ||
         props.color == 'default' &&
-          props.theme.background.default ||
+          props.theme.header.default ||
         props.color == 'purple' &&
-          props.theme.background.purple ||
+          props.theme.header.purple ||
         props.color == 'lightYellow' &&
-          props.theme.background.lightYellow
+          props.theme.header.lightYellow
       )};
 `

@@ -30,16 +30,16 @@ const MainNewClub = (): ReactElement => {
             <span>+</span>
           </button>
           <div>
-            <span>{club?.name}</span>
+            <h3>{club?.name}</h3>
           </div>
         </Link>
       </article>
       <article {...animation2}>
         <img src={newClubImg} />
-        <span>이번에 새로 생긴 매력 넘치는 동아리에요</span>
-        <span> 무엇이 생겼는지 한 번 확인해보시겠어요?</span>
+        <h4>이번에 새로 생긴 매력 넘치는 동아리에요</h4>
+        <h4> 무엇이 생겼는지 한 번 확인해보시겠어요?</h4>
         <Link to="/">
-          <span>→ 자세히 보기</span>
+          <h4>→ 자세히 보기</h4>
         </Link>
       </article>
     </NewClubContainer>

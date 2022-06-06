@@ -8,7 +8,6 @@ const useCheckRole = (clubId: number) => {
   const [role, setRole] = useState<number>(0); //0 : 회원아님 / 1 : 회원 / 2 : 임원진
 
   useEffect(() => {
-    console.log(user);
     if (user.BODList?.includes(clubId)) setRole(2);
     else {
       axios

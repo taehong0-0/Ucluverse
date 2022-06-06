@@ -21,6 +21,14 @@ export const LinkButtonContainer = styled.button`
         props.color == 'lightYellow' &&
           props.theme.font.lightYellow
       )};
+
+    :hover {
+      color : ${ (props) => (
+        props.color == 'purple' &&
+        'var(--primary-d1)' ||
+        'var(--primary-0)'
+      )}
+    }
   }
 
   @media (max-width : 960px) {
@@ -39,6 +47,7 @@ export const CharacterButtonContainer = styled.button`
   opacity: 1;
   text-align: center;
   align-items: center;
+
   button {
     background: none;
     border: none;
@@ -46,21 +55,18 @@ export const CharacterButtonContainer = styled.button`
   }
 `;
 export const ButtonContainer = styled.button`
-  width: 3.75rem;
-  height: 2.125rem;
-  /* UI Properties */
-  background: #a45de2 0% 0% no-repeat padding-box;
-  box-shadow: 2px 2px 6px #00000029;
-  border-radius: 5px;
+  width: auto;
+  height: auto;
+  line-height: 2.125rem;
+  padding : .5rem 1.2rem;
+  background: var(--primary-d1);
+  box-shadow: 2px 2px 6px #33333329;
   border: none;
   opacity: 1;
   cursor: pointer;
-  text-align: center;
-  line-height: 2.125rem;
-  span {
-    font: normal normal normal 0.875rem/1.25rem Noto Sans KR;
-    letter-spacing: -1.05px;
-    color: #ffffff;
-    opacity: 1;
+
+  h4 {
+    color: white;
+    font-weight: 400;
   }
 `;

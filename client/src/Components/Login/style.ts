@@ -14,26 +14,78 @@ export const LoginContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 export const LoginButtonContainer = styled.div`
-  width: 29.25rem;
-  height: 7.5rem;
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 3px 3px 0.625rem #00000029;
-  border-radius: 5px;
-  opacity: 1;
-  margin-top: 1.875rem;
+  margin-top: 3rem;
   text-align: center;
   vertical-align: middle;
+  
   button {
-    width: 19rem;
-    height: 2.813rem;
-    margin-top: 2.375rem;
-    background: none;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
+    border: none; 
+    background: transparent;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.4rem 2.2rem;
+    overflow: hidden;
+    border-radius: 100vmax;
+    box-shadow: var(--shadow-elevation-high);
+    transition: box-shadow 0.2s ease-in-out;
+    
+    &::after, &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: red;
+    }
+    
+    &::before {
+      z-index: 1;
+      right: -100%;
+      background: linear-gradient(to right, #EA4235 0%, #FABC05 25%, #34A853 50%, #4286F5 75%, #8A8D92 100%);
+      background-size: 50% 100%;
+      animation: scroll 1.2s infinite linear;
+    }
+
+    &::after {
+      z-index: 2;
+      inset: 5px;
+      border-radius: 100vmax;
+      background-color: white;
+      transition: inset 0.2s ease-in-out;
+    }
+    
+    p {
+      z-index: 3;
+      background : linear-gradient(to right, #EA4235 0%, #FABC05 25%, #34A853 50%, #4286F5 75%, #8A8D92 100%);
+      color: transparent;
+      -webkit-background-clip: text;
+      text-transform: uppercase;
+      font-weight: bold;
+      + p {
+        color : var(--grey2-8);
+        padding-left : 1rem;
+      }
+    }
+    
+    &:hover {
+      box-shadow: var(--shadow-elevation-medium);
+      cursor : pointer;
+
+      &::after {
+        inset: 8px;
+      }
+    }
   }
+
+  @keyframes scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
 `;
+
 export const InputContainer = styled.div`
   width: 31.5vw;
   height: 45vh;
@@ -160,16 +212,18 @@ export const LoginDetailSpan = styled.span`
   color: #a19279;
   opacity: 1;
 `;
+
 export const InfoButtonContainer = styled.div`
   margin-top: -10vh;
   margin-left: 57vw;
+
   button {
     cursor: pointer;
   }
+
   button:first-child {
     width: 3.75rem;
     height: 2.125rem;
-    /* UI Properties */
     background: #ffffff;
     opacity: 1;
 
@@ -181,6 +235,7 @@ export const InfoButtonContainer = styled.div`
       opacity: 1;
     }
   }
+
   button:last-child {
     width: 3.75rem;
     height: 2.125rem;
@@ -191,6 +246,7 @@ export const InfoButtonContainer = styled.div`
     opacity: 1;
     border: none;
     margin-left: 23px;
+
     span {
       font: normal normal normal 0.875rem/1.25rem Noto Sans KR;
       letter-spacing: -1.05px;

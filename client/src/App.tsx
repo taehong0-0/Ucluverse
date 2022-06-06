@@ -17,6 +17,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { ClubListState, DepartmentListState } from './Recoil/Club';
 import MyPage from './Pages/MyPage/MyPage';
 import { Loading } from './Components/Animation/';
+import Metaverse from './Pages/Metaverse/Metaverse';
 
 axios.defaults.withCredentials = true;
 
@@ -34,7 +35,7 @@ const App = () => {
   }, []);
   return (
     <>
-      <Suspense fallback={<Loading/>}>
+      <Suspense fallback={<Loading />}>
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Main />} />
@@ -65,9 +66,9 @@ const App = () => {
           <Route
             path="/clubList/*"
             element={
-             <AuthRoute>
+              <AuthRoute>
                 <ClubList />
-             </AuthRoute>
+              </AuthRoute>
             }
           />
           <Route
@@ -81,11 +82,20 @@ const App = () => {
           <Route
             path="/mypage"
             element={
-            <AuthRoute>
-              <MyPage />
-            </AuthRoute>
+              <AuthRoute>
+                <MyPage />
+              </AuthRoute>
             }
           />
+          <Route
+            path="metaverse"
+            element={
+              <AuthRoute>
+                <Metaverse />
+              </AuthRoute>
+            }
+          ></Route>
+          <Route path="/introduce" element={<Introduce />} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
       </Suspense>
