@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import snowman from '../../Assets/snowman.png';
+import Yukey from '../../Assets/Yukey.png';
 const direct: any = {
   up: 32 * 6,
   down: 0,
@@ -37,7 +37,7 @@ const Character = ({ socketId, users, marginBackground, move }: any) => {
     Object.entries(users).map(([key, { x, y, direction, state }]: any) => {
       if (key !== socketId) {
         if (characterImg === undefined || !characterImg) return;
-        characterImg.src = snowman;
+        characterImg.src = Yukey;
 
         actx?.drawImage(
           characterImg,
@@ -52,7 +52,7 @@ const Character = ({ socketId, users, marginBackground, move }: any) => {
         );
       } else {
         if (characterImg === undefined) return;
-        characterImg.src = snowman;
+        characterImg.src = Yukey;
 
         actx?.drawImage(
           characterImg,
