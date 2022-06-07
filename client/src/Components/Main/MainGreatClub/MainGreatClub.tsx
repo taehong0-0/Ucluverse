@@ -10,15 +10,16 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { ClubType } from '../../../Types/ClubType';
 import { useScrollFadeIn } from '../../../Hooks';
+import axios from 'axios';
 
 const MainGreatClub = (): ReactElement => {
-  const animation = useScrollFadeIn('up',1,0,.5);
-  const animation2 = useScrollFadeIn('up',1,0,.05);
+  const animation = useScrollFadeIn('up', 1, 0, 0.5);
+  const animation2 = useScrollFadeIn('up', 1, 0, 0.05);
   const [greatList, setGreatList] = useState<ClubType[]>([]);
   useEffect(() => {
-    // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
-    //   setGreatList(res.data);
-    // });
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/greatClubs`).then((res) => {
+      setGreatList(res.data.res.clubs);
+    });
   }, []);
 
   return (
@@ -41,44 +42,6 @@ const MainGreatClub = (): ReactElement => {
                 </Link>
               </div>
             ))}
-            <div>
-              <Link to="login">
-                <img src={test1} />
-                <button>
-                  <span>+</span>
-                </button>
-              </Link>
-            </div>
-            <div>
-              <img src={test2} />
-              <button>
-                <span>+</span>
-              </button>
-            </div>
-            <div>
-              <img src={test3} />
-              <button>
-                <span>+</span>
-              </button>
-            </div>
-            <div>
-              <img src={test4} />
-              <button>
-                <span>+</span>
-              </button>
-            </div>
-            <div>
-              <img src={test5} />
-              <button>
-                <span>+</span>
-              </button>
-            </div>
-            <div>
-              <img src={test1} />
-              <button>
-                <span>+</span>
-              </button>
-            </div>
           </section>
         </ImgContainer>
       </div>

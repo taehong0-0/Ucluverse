@@ -3,19 +3,19 @@ import styled from 'styled-components';
 export const NewClubContainer = styled.section`
   display: flex;
   width: 90%;
-  max-width : calc(${(props) => props.theme.layout.maxWidth});
+  max-width: calc(${(props) => props.theme.layout.maxWidth});
   height: 21.875rem;
   margin-top: -3.5rem;
-  margin : 0 auto;
+  margin: 0 auto;
 
   & > article:first-child {
     margin-top: -5rem;
     width: 19rem;
     height: 21.875rem;
     overflow: hidden;
-    z-index : 1;
-    box-shadow: 0px 10px .625rem var(--shadow-purple-0);
-    
+    z-index: 1;
+    box-shadow: 0px 10px 0.625rem var(--shadow-purple-0);
+
     .club-img {
       width: 19rem;
       height: 21.875rem;
@@ -27,14 +27,14 @@ export const NewClubContainer = styled.section`
       transition: all 0.2s linear;
     }
 
-    article {
-      z-index: 1;
+    div {
+      z-index: 100;
       position: relative;
       width: 19rem;
       height: 5rem;
       background-color: #fff;
-      top: -180px;
-      left: -110px;
+      top: -100px;
+      /* left: -110px; */
       opacity: 0;
       transition: all 0.2s linear;
 
@@ -52,21 +52,20 @@ export const NewClubContainer = styled.section`
       transition: all 0.2s linear;
       z-index: 999;
       position: relative;
-      float : right;
+      float: right;
       top: -3rem;
       width: 2.5rem;
       height: 2.5rem;
       border: none;
       border-radius: 100% 0% 0% 0%;
-      background: transparent linear-gradient(180deg, #63239b 0%, #9239df 100%)
-        0% 0% no-repeat padding-box;
+      background: transparent linear-gradient(180deg, #63239b 0%, #9239df 100%) 0% 0% no-repeat padding-box;
       box-shadow: 1px 1px 4px #a45de2;
       background-color: black;
 
       span {
         display: block;
         color: white;
-        margin : .6rem 0 0 .6rem;
+        margin: 0.6rem 0 0 0.6rem;
         font-size: 1.5rem;
       }
     }
@@ -75,7 +74,7 @@ export const NewClubContainer = styled.section`
     .club-img {
       transform: scale(1.1);
     }
-    article {
+    div {
       opacity: 1;
     }
     button {
@@ -87,7 +86,7 @@ export const NewClubContainer = styled.section`
     flex-direction: column;
     margin-top: 3.75rem;
     margin-left: 6.625rem;
-    z-index : 1;
+    z-index: 1;
     img {
       width: 9.563rem;
       height: 2.25rem;
@@ -113,35 +112,33 @@ export const NewClubContainer = styled.section`
 
   /* for mobiles */
   @media (max-width: 768px) {
-    display : flex;
+    display: flex;
     flex-direction: column;
-    margin-bottom : 20rem;
-    align-items : center;
-    width : 90%;
+    margin-bottom: 20rem;
+    align-items: center;
+    width: 90%;
 
     article {
-      left : 0;
-      top : 0;
-      width : 90%;
+      left: 0;
+      top: 0;
+      width: 90%;
     }
 
     & > article:first-child {
-      
-
       button {
-        top : -9.6rem;
+        top: -9.6rem;
       }
     }
 
     & > article:last-child {
-      margin-top : 3rem;
-      margin-left : 0;
+      margin-top: 3rem;
+      margin-left: 0;
       justify-content: center;
       vertical-align: middle;
       align-items: center;
-      
+
       h4 {
-        text-align : center;
+        text-align: center;
       }
     }
   }
