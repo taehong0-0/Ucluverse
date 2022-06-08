@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1281.001" height="1064.633" viewBox="0 0 1281.001 1064.633">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#a45de2"/>
+      <stop offset="1" stop-color="#9239df"/>
+    </linearGradient>
+  </defs>
+  <path id="수상내역배경1" d="M-1293.167,2384.56c-230.125-2.484-279.833-91.733-279.833-91.733l.568-78.361a12.515,12.515,0,0,1-.068-1.3V1411.406s109.833,13.3,360-9.534,410.541-84.282,640.666-81.8S-292,1411.807-292,1411.807l-.741,102.177a12.38,12.38,0,0,1,.241,2.44v776.8s-109.833-13.3-360,9.534c-245.22,22.382-404.193,81.867-627.125,81.872C-1284.122,2384.633-1288.616,2384.609-1293.167,2384.56Z" transform="translate(1573 -1320)" fill="url(#linear-gradient)"/>
+</svg>

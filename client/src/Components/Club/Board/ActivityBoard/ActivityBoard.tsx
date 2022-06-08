@@ -2,7 +2,9 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
+import useCheckRole from '../../../../Hooks/useCheckRole';
 import { userState } from '../../../../Recoil/User';
 import { PostTitleType } from '../../../../Types/PostType';
 import Button from '../../../Button/Button';
@@ -59,11 +61,28 @@ const ActivityBoard = (props: Props) => {
   const { boardIdx, clubId } = props;
   const [activityPosts, setActivityPosts] = useState<PostTitleType[]>([]);
   const user = useRecoilValue(userState);
+  const status = useCheckRole(clubId);
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`).then((res) => {
       setActivityPosts(res.data.res.postings);
     });
   }, []);
+  const postClick = () => {
+    if (status === 0) {
+      toast('회원이 아닙니다.', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      window.history.pushState({ boardIdx, boardName: '활동 게시판' }, '', `/club/${clubId}/posting`);
+      window.location.href = `/club/${clubId}/posting`;
+    }
+  };
   return (
     <ActivityBoardContainer>
       <div>
@@ -86,13 +105,7 @@ const ActivityBoard = (props: Props) => {
           ))}
         </div>
       </div>
-      <Button
-        name="글작성"
-        clickEvent={() => {
-          window.history.pushState({ boardIdx, boardName: '활동 게시판' }, '', `/club/${clubId}/posting`);
-          window.location.href = `/club/${clubId}/posting`;
-        }}
-      ></Button>
+      <Button name="글작성" clickEvent={postClick}></Button>
     </ActivityBoardContainer>
   );
 };

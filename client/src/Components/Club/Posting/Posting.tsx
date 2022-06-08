@@ -25,7 +25,7 @@ const Posting = (props: Props) => {
   const [content, setContent] = useState<string>('');
   const [imageList, setImageList] = useState<string[]>([]);
 
-  var result = content;
+  var result = '';
   const submit = async () => {
     if (!titleRef.current || content === '') return;
     const option = {
@@ -36,8 +36,7 @@ const Posting = (props: Props) => {
     const s3 = new AWS.S3(option);
     const srcRegEx = /<img src=\"([^\"]*?)\" \/>/gi;
     const srcList = content.match(srcRegEx);
-    // var result = content;
-    var images;
+    result = content;
     const promiseList = srcList?.map(async (tag, idx) => {
       tag.match(srcRegEx);
       const srcData = RegExp.$1;
@@ -76,6 +75,7 @@ const Posting = (props: Props) => {
         isPublic: true,
       })
       .then((res) => {
+        console.log(res);
         window.location.href = `/club/${clubId}/board`;
       });
   };
@@ -84,13 +84,15 @@ const Posting = (props: Props) => {
   }, [imageList]);
   return (
     <PostingContainer>
-      <div className="navigator">
-        <span>Home</span>
-        <span>{'>'}</span>
-        <span>{boardName}</span>
+      <div>
+        <div className="navigator">
+          <span>Home</span>
+          <span>{'>'}</span>
+          <span>{boardName}</span>
+        </div>
+        <FloatInput inputRef={titleRef} name="제목" type="large" />
+        <Editor setContent={setContent} />
       </div>
-      <FloatInput inputRef={titleRef} name="제목" type="large" />
-      <Editor setContent={setContent} />
       <Button name="작성" clickEvent={submit}></Button>
     </PostingContainer>
   );

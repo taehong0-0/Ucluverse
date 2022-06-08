@@ -7,6 +7,7 @@ import heartImg from '../../../Assets/heart.png';
 import peopleImg from '../../../Assets/people.png';
 import { ClubContainer, ClubListContainer, ClubNavigator } from './style';
 import { ClubType } from '../../../Types/ClubType';
+import { Link } from 'react-router-dom';
 
 const MyClub = (): ReactElement => {
   const user = useRecoilValue(userState);
@@ -14,8 +15,12 @@ const MyClub = (): ReactElement => {
   const [clubList, setClubList] = useState<ClubType[]>([]);
 
   useEffect(() => {
-    const api = index === 0 ? '/' : '';
-    axios.get(`${process.env.REACT_APP_SERVER_URL}${api}`).then((res) => setClubList(res.data.res.clubList));
+    const api =
+      index === 0 ? `user/userClub/stared/clubs/${user.userIdx}` : `user/userClub/accepted/clubs/${user.userIdx}`;
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/${api}`).then((res) => {
+      console.log(res.data);
+      setClubList(res.data.res.clubs);
+    });
   }, [index]);
   return (
     <ClubContainer>
@@ -39,10 +44,14 @@ const MyClub = (): ReactElement => {
       </ClubNavigator>
       <ClubListContainer>
         {clubList?.map((club) => (
-          <div key={club.clubIdx}>
-            <img src={club.logoPath ?? ''}></img>
-            <span>{club.name}</span>
-          </div>
+          <Link to={`/club/${club.clubIdx}`}>
+            <div key={club.clubIdx}>
+              <div>
+                <img src={club.logoPath ?? ''}/>
+              </div>
+              <h4>{club.name}</h4>
+            </div>
+          </Link>
         ))}
       </ClubListContainer>
     </ClubContainer>

@@ -11,6 +11,9 @@ import AWS from 'aws-sdk';
 import { toast } from 'react-toastify';
 import { AwardPostType } from '../../../../Types/PostType';
 import DropZone from '../../../DropZone/DropZone';
+import useCheckRole from '../../../../Hooks/useCheckRole';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../../../Recoil/User';
 
 interface Props {
   clubId: number;
@@ -25,6 +28,8 @@ const AwardBoard = (props: Props) => {
   const [image, setImage] = useState<string | null>(null);
   const [file, setFile] = useState<Blob | null>(null);
   const [awardPosts, setAwardPosts] = useState<AwardPostType[]>([]);
+  const user = useRecoilValue(userState);
+  const status = useCheckRole(clubId);
   const option = {
     accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
@@ -110,6 +115,21 @@ const AwardBoard = (props: Props) => {
       window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
     };
   }, [isOpen]);
+  const singUpClick = () => {
+    if (status === 0) {
+      setIsOpen(true);
+    } else {
+      toast('회원이 아닙니다.', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
   return (
     <AwardBoardContainer>
       <div>
@@ -132,7 +152,7 @@ const AwardBoard = (props: Props) => {
           ))}
         </AwardListContainer>
       </div>
-      <Button name="등록" clickEvent={() => setIsOpen(true)} />
+      <Button name="등록" clickEvent={() => singUpClick()} />
       {isOpen && (
         <div className="modal-background">
           <div className="modal" ref={modalRef}>

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ChangeEventHandler, ReactElement, useRef, useState } from 'react';
-import { SearchBarDiv, SearchDataContainer } from './style';
+import { SearchBarDiv, SearchDataContainer, SearchBarContainer } from './style';
 import serchIconImg from '../../../Assets/검색아이콘.svg';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { ClubListState, DepartmentListState } from '../../../Recoil/Club';
@@ -13,6 +13,7 @@ const SearchBar = (): ReactElement => {
   const [keyword, setKeyword] = useState<string>('');
   const [searchDataList, setSearchDataList] = useState<ClubType[]>([]);
   const searchRef = useRef<HTMLDivElement>(null);
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
     setSearchDataList(
@@ -23,6 +24,7 @@ const SearchBar = (): ReactElement => {
         .sort(sortFunction),
     );
   };
+
   const sortFunction = (aClub: ClubType, bClub: ClubType) => {
     const a = aClub.name;
     const b = bClub.name;
@@ -39,6 +41,7 @@ const SearchBar = (): ReactElement => {
       return b.toLowerCase().substring(0, len) === keywordLowerCase ? 1 : 0;
     }
   };
+
   const handleSearch = (e: MouseEvent) => {
     if (!searchRef.current?.contains(e.target as Node)) setKeyword('');
   };
@@ -46,21 +49,25 @@ const SearchBar = (): ReactElement => {
     window.addEventListener('click', handleSearch);
     return () => window.removeEventListener('click', handleSearch);
   }, []);
+
   const letterEmphasis = (name: string) => {
     var pattern = new RegExp(keyword, 'i');
     const matchString = name.match(pattern);
-    if (matchString && matchString.length !== 0) {
+
+    if (matchString && matchString.length !== 0)
       return name.replace(matchString[0], `<strong>${matchString[0]}</strong>`);
-    }
 
     return '';
   };
+
   return (
     <SearchBarDiv ref={searchRef}>
-      <input placeholder="궁금한 공간을 입력해주세요" value={keyword} onChange={onChange}></input>
-      <button>
-        <img src={serchIconImg} />
-      </button>
+      <SearchBarContainer>
+        <input placeholder="궁금한 공간을 입력해주세요" value={keyword} onChange={onChange}></input>
+        <button>
+          <img src={serchIconImg} />
+        </button>
+      </SearchBarContainer>
       {keyword !== '' && (
         <SearchDataContainer>
           {searchDataList.map((club) => (

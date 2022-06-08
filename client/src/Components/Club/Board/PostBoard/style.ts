@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { BoardStyle } from '../style';
 
 export const ClubBoardContainer = styled.div`
+  width: 56.3%;
   & > div:first-child {
     ${BoardStyle}
   }
@@ -11,6 +12,9 @@ export const ClubBoardContainer = styled.div`
     margin-left: 48rem;
   }
 `;
+
 export const PostContainer = styled.div`
+  width: 100%;
+  min-width: 70vh;
   overflow: auto;
 `;

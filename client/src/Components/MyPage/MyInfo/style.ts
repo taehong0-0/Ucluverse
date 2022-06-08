@@ -1,100 +1,142 @@
 import styled from 'styled-components';
 
-export const InfoContainer = styled.div`
+export const InfoContainer = styled.section`
   display: flex;
-  width: 100%;
-  height: 730px;
-  /* UI Properties */
+  width : 100%;
+  height: 30rem;
+  padding-top: 3rem;
   opacity: 1;
+  justify-content: center;
+  background: transparent linear-gradient(180deg, var(--primary-l1) 0%, var(--primary-0) 100%) 0% 0% no-repeat padding-box;
+
   & > img {
     z-index: 1;
     width: 100%;
     position: absolute;
   }
+
+  /* for mobile */
+  @media (max-width:768px) {
+    padding-top : 14rem;
+    flex-direction : row;
+    padding-bottom : 10rem;
+    flex-wrap : wrap-reverse;
+  }
 `;
 
-export const InfoDetail = styled.div`
+export const InfoDetail = styled.section`
   z-index: 10;
-  width: 50%;
+  width: calc(${(props) => props.theme.layout.maxWidth} / 2);
+  max-width : calc(${(props) => props.theme.layout.maxWidth} / 2);
+  
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 500px;
-  & > span:first-child {
-    text-decoration: underline;
-    font: normal normal bold 48px/56px Noto Sans KR;
-    letter-spacing: -3.6px;
-    color: #ffffff;
-    opacity: 1;
+  
+  h1 {
+      color : white;
   }
+
+  /* title */
   & > div {
-    width: 300px;
-    margin-bottom: 12px;
-    span:first-child {
-      display: inline-block;
-      width: 83px;
-      margin-right: 24px;
-      text-align: right;
-      font: normal normal bold 24px/28px Noto Sans KR;
-      letter-spacing: -1.8px;
-      color: #ffffff;
-      opacity: 1;
+    margin-bottom: 1.6rem;
+    display: flex;
+
+    /* button */
+    section {
+      margin-top : auto;
+      margin-left : 4rem;
     }
-    span:last-child {
+
+    h3 {
+      display: inline-block;
+      width: 7rem;
+      margin-right: 2rem;
+      color: white;
+      text-align: justify;
+
+      + h3 {
       text-align: left;
-      font: normal normal normal 24px/28px Noto Sans KR;
-      letter-spacing: -1.8px;
-      color: #ffffff;
-      opacity: 1;
-    }
-  }
-  & > div:first-child {
-    margin-top: 100px;
-    margin-bottom: 25px;
-    span:first-child {
-      display: inline-block;
-      width: 500px;
-      font: normal normal bold 48px/56px Noto Sans KR;
-      letter-spacing: -3.6px;
-      color: #ffffff;
-      opacity: 1;
-      overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-weight: normal;
+      }
     }
-    span:last-child {
-      display: inline-block;
-      font: normal normal bold 48px/56px Noto Sans KR;
-      letter-spacing: -3.6px;
-      color: #ffffff;
-      opacity: 1;
+
+    /* input area */
+    input, select {
+      width: 13rem;
+      height: 1.5rem;
+      border : none;
+      box-shadow: 3px 3px 10px #00000029;
+      margin : auto 0;
+      padding-left : .5rem;
+    }
+
+    select {
+      width : 13.5rem;
     }
   }
+
+  /* for mobile */
+  @media (max-width:768px) {
+      max-width : 100%;
+      width : 100%;
+
+      /* input */
+      div {
+        justify-content : center;
+      }
+
+      /* button */
+      section {
+        justify-content: center;
+        display : flex;
+        max-width : 100%;
+        margin-bottom : 2rem;
+      }
+  }
 `;
-export const InfoRightContainer = styled.div`
-  width: 50%;
+
+export const InfoRightContainer = styled.section`
+  width: calc(${(props) => props.theme.layout.maxWidth} / 2);
+  max-width : calc(${(props) => props.theme.layout.maxWidth} / 2);
+  height: 18.75rem;
   z-index: 10;
   display: flex;
   flex-direction: column;
-  align-items: center;
+
+  @media (max-width:768px) {
+    width : 100%;
+    max-width : 100%;
+  }
 `;
 
 export const ImageDetail = styled.div`
   display: flex;
-  margin-top: 100px;
-  margin-bottom: 60px;
+  margin-left : auto;
+  height: 14rem;
+
   & > div {
-    width: 175px;
-    height: 225px;
-    /* UI Properties */
+    width: 10rem;
+
     background: #d4bce9 0% 0% no-repeat padding-box;
     box-shadow: 3px 3px 10px #00000029;
     border-radius: 5px;
     opacity: 1;
+
+    img {
+      width: 10rem;
+      height: 14rem;
+    }
+
+    + div {
+      margin-left : 2rem;
+    }
   }
-  & > div:first-child {
-    margin-right: 18px;
+
+  /* for mobile */
+  @media (max-width:768px) {
+    margin-left : 0;
+    justify-content: center;
   }
 `;
-
-export const InfoButtonContainer = styled.div``;

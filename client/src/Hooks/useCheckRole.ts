@@ -8,7 +8,7 @@ const useCheckRole = (clubId: number) => {
   const [role, setRole] = useState<number>(0); //0 : 회원아님 / 1 : 회원 / 2 : 임원진
 
   useEffect(() => {
-    if (user.BDOList?.includes(clubId)) setRole(2);
+    if (user.BODList?.includes(clubId)) setRole(2);
     else {
       axios
         .get(`${process.env.REACT_APP_SERVER_URL}/user/userClub/isSignedUp/${user.userIdx}/${clubId}`)

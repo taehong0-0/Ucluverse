@@ -6,17 +6,18 @@ import ClubList from './Pages/Club/ClubList';
 import Login from './Pages/Login/Login';
 import LoginInfo from './Pages/Login/LoginInfo';
 import Main from './Pages/Main/Main';
+import Introduce from './Pages/Introduce/Introduce';
 import AuthRoute from './Routes/AuthRoute';
 import LoginRoute from './Routes/LoginRoute';
-import banner from './Assets/띠배너.png';
-import footer from './Assets/Footer.png';
 import { ToastContainer } from 'react-toastify';
 import ClubAdmin from './Pages/Admin/ClubAdmin';
-import './styles/App.css'; // 초기값 css
+
 import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { ClubListState, DepartmentListState } from './Recoil/Club';
 import MyPage from './Pages/MyPage/MyPage';
+import { Loading } from './Components/Animation/';
+import Metaverse from './Pages/Metaverse/Metaverse';
 
 axios.defaults.withCredentials = true;
 
@@ -34,7 +35,7 @@ const App = () => {
   }, []);
   return (
     <>
-      <Suspense fallback={<span>로딩중</span>}>
+      <Suspense fallback={<Loading />}>
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Main />} />
@@ -62,7 +63,6 @@ const App = () => {
               </AuthRoute>
             }
           />
-          <Route path="*" element={<Navigate replace to="/" />} />
           <Route
             path="/clubList/*"
             element={
@@ -87,17 +87,17 @@ const App = () => {
               </AuthRoute>
             }
           />
+          <Route
+            path="metaverse"
+            element={
+              <AuthRoute>
+                <Metaverse />
+              </AuthRoute>
+            }
+          ></Route>
+          <Route path="/introduce" element={<Introduce />} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
-        <img
-          src={banner}
-          style={{ width: '100%', cursor: 'pointer' }}
-          onClick={() => {
-            history.pushState(null, '', '/');
-            window.location.replace('/');
-          }}
-        />
-        <img src={footer} style={{ width: '100%' }} />
       </Suspense>
     </>
   );

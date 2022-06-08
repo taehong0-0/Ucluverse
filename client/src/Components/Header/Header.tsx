@@ -1,31 +1,33 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import LinkButton from '../Button/LinkButton';
-import { HeaderContainer, HeaderLinkContainer, UserInfoContainer } from './style';
-import logoImg from '../../Assets/로고.png';
-import profileImg from '../../Assets/profile.svg';
-import alarmImg from '../../Assets/알림.png';
-import logoutImg from '../../Assets/logout.png';
-import mypageImg from '../../Assets/내정보.png';
+import { HeaderContainer, HeaderLinkContainer, UserInfoContainer, BackGround } from './style';
+import Assets from '../../Assets'
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../Recoil/User';
+import { theme } from '../../Recoil/Theme';
 import axios from 'axios';
-const Header = (): ReactElement => {
+import { PresignedPost } from 'aws-sdk/clients/s3';
+
+const Header = () : ReactElement => {
+  const { logoImg, logoImgWhite, profileImg, profileImgWhite, alarmImg, logoutImg, mypageImg } = Assets;
   const user = useRecoilValue(userState);
+  const themeColor = useRecoilValue(theme);
+
   return (
     <HeaderContainer>
       <LinkButton url="/">
-        <img src={logoImg} width="50px" height="50px" />
+        <img src={themeColor === 'purple' ? logoImgWhite : logoImg} width="50px" height="50px" />
       </LinkButton>
-      <HeaderLinkContainer>
+      <HeaderLinkContainer color={themeColor} className={user.userIdx === 0 ? '' : 'logined'}>
         <LinkButton url="/">홈</LinkButton>
         <LinkButton url="/clubList">동아리</LinkButton>
         <LinkButton url="/clubList/department">소학회</LinkButton>
-        <LinkButton url="/">그 외 단체</LinkButton>
+        <LinkButton url="/clubList/other">그 외 단체</LinkButton>
       </HeaderLinkContainer>
 
       {user.userIdx === 0 ? (
         <LinkButton url="/login">
-          <img src={profileImg} width="50px" height="50px" />
+          <img src={themeColor === 'purple' ? profileImgWhite : profileImg} width="50px" height="50px" />
         </LinkButton>
       ) : (
         <UserInfoContainer>
@@ -42,7 +44,9 @@ const Header = (): ReactElement => {
             width="24px"
             height="21px"
             onClick={() => {
-              axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/logout`);
+              axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/logout`).then((res) => {
+                window.location.href = '/';
+              });
             }}
           />
           <LinkButton url="/mypage">
@@ -50,6 +54,7 @@ const Header = (): ReactElement => {
           </LinkButton>
         </UserInfoContainer>
       )}
+    <BackGround color={themeColor} />
     </HeaderContainer>
   );
 };

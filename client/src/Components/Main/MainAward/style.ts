@@ -18,25 +18,13 @@ from {
   }
 `;
 
-export const AwardContainer = styled.div`
+export const AwardContainer = styled.section`
   margin-top: 10vh;
-  width: 100vw;
+  width: 100%;
   height: 74rem;
   overflow: hidden;
-  /* UI Properties */
-  background: transparent
-    linear-gradient(
-      180deg,
-      #53009b80 0%,
-      #8352ac 4%,
-      #7b39b4 17%,
-      #c19f57 61%,
-      #ffe3a8bf 74%,
-      #ffe3a880 84%,
-      #eed09000 100%
-    )
-    0% 0% no-repeat padding-box;
   opacity: 1;
+  background: linear-gradient(60deg, var(--primary-l1) 0%, var(--primary-0) 100%);
   & > div:nth-child(1) {
     display: flex;
     flex-direction: column;
@@ -58,17 +46,25 @@ export const AwardContainer = styled.div`
   }
   .slick-slider {
     margin-top: 6.25rem;
-    width: 130vw;
+    width: 130%;
     height: 31.25rem;
-    margin-left: -15vw;
+    margin-left: -15%;
+  }
+  .slick-track div {
+    z-index: 1;
+    /* display: flex; */
+    justify-content: center;
   }
 `;
+
+
 export const AwardDiv = styled.div`
   cursor: pointer;
-  width: 19rem;
+  width: 100%;
   height: 29.25rem;
   z-index: 1;
   opacity: 1;
+  margin: 0 auto;
   img {
     background: transparent 0% 0% no-repeat padding-box;
     box-shadow: 3px 3px 0.625rem #211f1f;
@@ -84,9 +80,8 @@ export const AwardDiv = styled.div`
     text-align: center;
     width: 19rem;
     height: 8.188rem;
-    background: transparent
-      linear-gradient(180deg, #0e131100 0%, #151e1bbf 45%, #22342f 100%) 0% 0%
-      no-repeat padding-box;
+    background: transparent linear-gradient(180deg, #0e131100 0%, #151e1bbf 45%, #22342f 100%) 0% 0% no-repeat
+      padding-box;
     border-radius: 0px 0px 5px 5px;
     opacity: 1;
     justify-content: center;
@@ -99,6 +94,7 @@ export const AwardDiv = styled.div`
       opacity: 1;
     }
     div {
+      z-index: 999;
       width: 200px;
       margin-top: 0.625rem;
       font: normal normal medium 1.25rem/1.375rem Noto Sans KR;

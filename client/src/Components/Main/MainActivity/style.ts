@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
-export const ActivityContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+export const ActivityContainer = styled.section`
+
+  article {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
   /* align-items: center; */
   .slick-slider {
     width: 160vw;
@@ -61,16 +64,7 @@ export const ActivityContainer = styled.div`
     }
   }
 
-  a:link {
-    text-decoration: none;
-  }
-  a:visited {
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: none;
-  }
-  a:active {
+  a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
   }
 `;

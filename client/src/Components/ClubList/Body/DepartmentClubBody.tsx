@@ -8,6 +8,10 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useRecoilValue } from 'recoil';
 import { DepartmentListState } from '../../../Recoil/Club';
+import { useLottie } from '../../../Hooks';
+import { useScrollFadeIn } from '../../../Hooks';
+import YukeyHello from '../../../Assets/Lottie/YukeyHello.json';
+import { Wave } from '../../Animation';
 
 interface departmentCategoryType {
   [index: string]: string[];
@@ -105,6 +109,10 @@ const clubList: any[] = [
   },
 ];
 const DepartmentBody = () => {
+  const lottieYuKey = useLottie(YukeyHello, true, 20, 20);
+  const animation = useScrollFadeIn();
+  const animation2 = useScrollFadeIn('up', 1, 0.15, 0);
+  const animation3 = useScrollFadeIn('up', 1, 0.25, 0);
   const [collegeCategory, setCollegeCategory] = useState<string>('');
   const [departmentCategory, setDepartmentCategory] = useState<string>('');
   // const [departmentClubList, setDepartmentClubList] = useState<ClubType[]>([]);
@@ -133,25 +141,41 @@ const DepartmentBody = () => {
   };
   return (
     <ClubBodyContainer>
-      <span>아주대학교 소학회를 모아봤어요!</span>
-      <img width="304px" height="195px" src={character} />
-      <ClubCategory
-        categoryName="단과"
-        onClick={clickCollegeCategory}
-        selectedCategory={collegeCategory}
-        categoryList={collegeCategoryList}
-      />
-      {collegeCategory !== '' && (
+      <section className="top">
+        <div className='topBG' />
+        <Wave/>
+      </section>
+      <section className="title" {...animation}>
+        <span>아주대학교 소학회를 모아봤어요!</span>
+        <article {...animation2}>
+          <div id="lottieYukey" {...lottieYuKey} />
+        </article>
+      </section>
+      <section className="content" {...animation3} >
         <ClubCategory
-          categoryName="학과"
-          onClick={clickDepartmentCategory}
-          selectedCategory={departmentCategory}
-          categoryList={departmentCategoryList[collegeCategory]}
+          categoryName="단과"
+          onClick={clickCollegeCategory}
+          selectedCategory={collegeCategory}
+          categoryList={collegeCategoryList}
+          categoryCSS='first'
         />
-      )}
-      {collegeCategory !== '' && departmentCategory !== '' && (
-        <ClubList clubList={clubList.filter((club) => club.department === departmentCategory)} />
-      )}
+        {collegeCategory !== '' && (
+          <ClubCategory
+            categoryName="학과"
+            onClick={clickDepartmentCategory}
+            selectedCategory={departmentCategory}
+            categoryList={departmentCategoryList[collegeCategory]}
+            categoryCSS='second'
+          />
+        )}
+        {collegeCategory !== '' && departmentCategory !== '' && (
+          <ClubList clubList={clubList.filter((club) => club.department === departmentCategory)} />
+        )}
+      </section>
+      <section className="bottom">
+        <Wave rotation={180}/>
+        <div className='bottomBG' />
+      </section>
     </ClubBodyContainer>
   );
 };
