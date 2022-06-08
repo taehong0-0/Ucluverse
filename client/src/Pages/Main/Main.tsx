@@ -20,7 +20,7 @@ const Main = (): ReactElement => {
   setThemeColor('default');
 
   useEffect(() => {}, []);
-  useCheckLogin();
+  //useCheckLogin();
   return (
     <>
       <Header />

@@ -3,9 +3,8 @@ import MainBoard from './MainBoard';
 import { MainBoardContainerDiv } from './style';
 import noticeImg from '../../../Assets/공지사항.png';
 import FAQImg from '../../../Assets/FAQ.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PostTitleType } from '../../../Types/PostType';
-import { useEffect } from 'react';
 import axios from 'axios';
 import { useScrollFadeIn } from '../../../Hooks';
 
