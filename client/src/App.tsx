@@ -66,9 +66,9 @@ const App = () => {
           <Route
             path="/clubList/*"
             element={
-            //  <AuthRoute>
+              <AuthRoute>
                 <ClubList />
-            //  </AuthRoute>
+              </AuthRoute>
             }
           />
           <Route
