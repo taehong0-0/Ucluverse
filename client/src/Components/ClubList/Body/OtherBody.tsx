@@ -29,6 +29,10 @@ const ClubBody = () => {
           delay={.0}
           imgSrc={otherGaiaImg}
           mainSrc="https://www.instagram.com/ajouuniv_gaia/?hl=ko"
+          snsIg="https://www.instagram.com/ajouuniv_gaia/?hl=ko"
+          snsfb="https://www.facebook.com/ajougaia/"
+          snstw="https://twitter.com/ajou_gaia"
+          snsyu="https://www.youtube.com/c/%EC%95%84%EC%A3%BC%EB%8C%80%ED%95%99%EA%B5%90%EC%9E%85%ED%95%99%EC%B2%98/featured"
           title="아주대학교 입학홍보대사 가이아(G.A.I.A)"
           content='💙아주의 곁에서 아주를 알리다💙'
           content2='가이아(G.A.I.A)는 Great Ambassador in Ajou의 줄임말이며 현재 아주대학교 입학 홍보대사 역할을 맡고 있습니다.'/>

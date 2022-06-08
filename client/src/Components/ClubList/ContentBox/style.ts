@@ -45,6 +45,10 @@ export const ClubContentBoxDiv = styled.div`
         display: flex;
         padding: 1rem 1rem .5rem 0;
 
+        .nosee {
+            display : none;
+        }
+
         button {
             position: relative;
             width: 50px;
