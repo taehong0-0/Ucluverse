@@ -10,4 +10,6 @@ import Icons from './icon';
 
 const { facebookIcon ,InstaIcon, GithubIcon } = Icons;
 
-export default { facebookIcon, InstaIcon, GithubIcon, groupImg, logoImg, logoImgWhite, profileImg, profileImgWhite, alarmImg, logoutImg, mypageImg };
+export default { 
+    facebookIcon, InstaIcon, GithubIcon, 
+    groupImg, logoImg, logoImgWhite, profileImg, profileImgWhite, alarmImg, logoutImg, mypageImg };
