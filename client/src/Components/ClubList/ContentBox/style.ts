@@ -49,6 +49,7 @@ export const ClubContentBoxDiv = styled.div`
             display : none;
         }
 
+        // default
         button {
             position: relative;
             width: 50px;
@@ -67,13 +68,13 @@ export const ClubContentBoxDiv = styled.div`
             transform : scale(1.0);
             transition: .3s ease-out;
             
-
             :hover {
                 transform: scale(1.1);
                 transition: .3s ease-out;
             }
         }
 
+        // individual button
         .btn-fb {
             background-color: #ecf0f8bb;
             fill: #3b5998;
@@ -92,6 +93,15 @@ export const ClubContentBoxDiv = styled.div`
         .btn-yu {
             background-color: #f9d3d3bb;
             fill: #bd3939;
+        }
+
+        .btn-no {
+            background-color: #ddddddbb;
+            fill: #555555;
+
+            svg {
+                width : 1.4rem;
+            }
         }
     }
 `
