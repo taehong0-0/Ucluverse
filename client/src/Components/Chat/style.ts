@@ -1,18 +1,19 @@
-// npm i sass 필요
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+import styled from 'styled-components';
 
+export const ChatContainer = styled.section`
 // Container
-.chatBlockStyle {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: absolute;
+  font-family : Noto Sans KR;
   width: 350px;
   height: 100vh;
   left: calc(100vw - 350px);
   top: 0px;
   background-color: #2d1646;
 
+  // 입력
   form {
     width: 85%;
     margin: 0 auto;
@@ -27,6 +28,7 @@
       color: #eee;
 
       font-size: 1rem;
+      min-height : 0.6rem;
       width: 100%;
       margin: 0 2px;
       padding: 1.1rem 1rem;
@@ -36,34 +38,30 @@
         outline: 2px solid rgba(202, 216, 255, 0.6);
       }
     }
-
-    button {
-      display: none;
-      // padding : 0 .8rem;
-      // border-radius : 5px;
-      // font-size : 20px;
-      // background-color : #73578b;
-      // border-color : #73578b;
-    }
   }
-}
+`;
+
 
 // Title
-.chatTitle {
+export const ChatTitle = styled.div`
   width: 85%;
   margin: 0 auto;
   padding-top: 1rem;
+  min-height : 2rem;
   color: #ddd;
-}
+
+  h2 {
+    color : var(--grey2-1);
+  }
+`;
 
 //채팅 log Container
-.chatContainer {
+export const ChatLog = styled.div`
   margin-top: 1rem;
-  height: 70%;
+  height: 100%;
   border-radius: 5px;
-}
 
-// 채팅 log
+  // 채팅 log
 .chatStyle {
   width: 85%;
   height: 100%;
@@ -116,12 +114,4 @@
     padding: 0 1rem 0.5rem;
   }
 }
-
-// 입력 log
-// .formStyle {
-//     position: "relative";
-//     top : calc(100vh - 30px);
-//     left : calc(100vw - 1450px);
-//     height : 100%;
-//     min-height : 200px;
-// }
+`

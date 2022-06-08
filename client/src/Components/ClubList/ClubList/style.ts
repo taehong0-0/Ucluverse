@@ -21,7 +21,7 @@ export const ClubListContainer = styled.article`
     cursor: pointer;
     width: calc(100% - 4rem);
     height: 25.7rem;
-    padding : 2rem;
+    padding : 2rem 2rem 0 2rem;
     justify-content : center;
    
     display: flex;

@@ -90,9 +90,9 @@ const App = () => {
           <Route
             path="metaverse"
             element={
-              <AuthRoute>
+             <AuthRoute>
                 <Metaverse />
-              </AuthRoute>
+             </AuthRoute>
             }
           ></Route>
           <Route path="/introduce" element={<Introduce />} />

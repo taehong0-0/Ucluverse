@@ -2,13 +2,13 @@ import axios from 'axios';
 import React, { ReactElement } from 'react';
 import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import googleImg from '../../Assets/구글로그인.png';
 import singInImg from '../../Assets/로그인.png';
 import { ToastContainer, toast } from 'react-toastify';
 import { LoginButtonContainer, LoginContentContainer, LoginDetailSpan, LoginMainContainer } from './style';
 import Cookies from 'universal-cookie';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userState } from '../../Recoil/User';
+import GoogleIcon from '../../Assets/icon/g-logo.png';
 
 declare global {
   interface Window {
@@ -80,7 +80,8 @@ const LoginMain = () => {
         <LoginDetailSpan>아주메일로 로그인을 진행해주세요</LoginDetailSpan>
         <LoginButtonContainer>
           <button id="GgCustomLogin">
-            <p>Google</p><p>Login</p>
+            <img src={GoogleIcon}/>
+            <p>구글 로그인</p>
           </button>
         </LoginButtonContainer>
       </LoginContentContainer>
