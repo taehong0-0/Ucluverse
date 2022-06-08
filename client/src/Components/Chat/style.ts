@@ -28,6 +28,7 @@ export const ChatContainer = styled.section`
       color: #eee;
 
       font-size: 1rem;
+      min-height : 0.6rem;
       width: 100%;
       margin: 0 2px;
       padding: 1.1rem 1rem;
@@ -46,6 +47,7 @@ export const ChatTitle = styled.div`
   width: 85%;
   margin: 0 auto;
   padding-top: 1rem;
+  min-height : 2rem;
   color: #ddd;
 
   h2 {
@@ -56,7 +58,7 @@ export const ChatTitle = styled.div`
 //채팅 log Container
 export const ChatLog = styled.div`
   margin-top: 1rem;
-  height: 70%;
+  height: 100%;
   border-radius: 5px;
 
   // 채팅 log
