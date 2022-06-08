@@ -4,25 +4,23 @@ export const ClubCategoryContainer = styled.article`
   width: 100%;
 
   :first-child {
-    margin-top: 48px;
+    margin-top: 3rem;
   }
 
   & > section {
-    margin-top: 11px;
-    margin-bottom: 16px;
+    padding: .5rem 0 1rem;
     display: flex;
-    height: 42px;
-    overflow: scroll;
+    height: auto;
+    flex-wrap : wrap;
 
     /* content background */
     div {
       cursor: pointer;
       display: inline-block;
       line-height: 42px;
-      padding-left: 28px;
-      padding-right: 28px;
+      padding : 0 28px;
+      margin : 10px 10px 0 0;
       height: 42px;
-      margin-right: 10px;
       background: var(--grey1-2);
       box-shadow: 2px 2px 6px #00000029;
       border-radius: 5px;
@@ -46,6 +44,7 @@ export const ClubCategoryContainer = styled.article`
 
     .second {
         background-color : white;
+        margin : 0px 10px 0 0;
         padding : 0;
         color : var(--grey1-5);
         box-shadow: none;
@@ -53,7 +52,7 @@ export const ClubCategoryContainer = styled.article`
         letter-spacing: -0.04rem;
 
         +.second {
-          margin-left : 1rem;
+          margin-right : 1rem;
         }
       }
 
