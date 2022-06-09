@@ -73,7 +73,6 @@ const Posting = (props: Props) => {
         isPublic: true,
       })
       .then((res) => {
-        console.log(res);
         window.location.href = `/club/${clubId}/board`;
       });
   };

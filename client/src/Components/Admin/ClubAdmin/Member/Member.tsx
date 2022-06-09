@@ -27,7 +27,7 @@ const AdminMember = (props: Props): ReactElement => {
   const [memberList, setMemberList] = useState<Member[]>([]);
   useEffect(() => {
     // todo: 데이터 요청
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/departments`).then((res) => console.log(res));
+    // axios.get(`${process.env.REACT_APP_SERVER_URL}/departments`).then((res) => console.log(res));
     axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/users/${clubId}`).then((res) => {
       setMemberList(res.data.res.user.sort(sortFunction));
     });
