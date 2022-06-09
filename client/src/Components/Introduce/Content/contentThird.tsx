@@ -2,6 +2,9 @@ import React, { ReactElement } from 'react';
 import { ContentThirdDiv } from '../style';
 import IntroContentBox from '../ContentBox/IntroContentBox';
 import { useScrollFadeIn } from '../../../Hooks';
+import intro1 from '../../../Assets/introduce/introduce-1.png';
+import intro2 from '../../../Assets/introduce/introduce-2.png';
+import intro3 from '../../../Assets/introduce/introduce-3.png';
 
 const Content = () : ReactElement => {
     const animation = useScrollFadeIn();
@@ -14,13 +17,13 @@ const Content = () : ReactElement => {
                 </h2>
                 <section>
                     <div className="picture">
-                        <IntroContentBox />
-                        <IntroContentBox delay={.15} />
-                        <IntroContentBox delay={.3} />
+                        <IntroContentBox imgSrc={intro1} />
+                        <IntroContentBox imgSrc={intro2} delay={.15} />
+                        <IntroContentBox imgSrc={intro3} delay={.3} />
                     </div>
                     <div className="explain">
                         <h4 {...animation2}>
-                            이러한 활동을 가졌습니다
+                            사용자의 니즈를 최대한 반영하기 위해, 사용자의 고충을 해결하기 위해 지속적으로 노력하였습니다.
                         </h4>
                     </div>
                 </section>

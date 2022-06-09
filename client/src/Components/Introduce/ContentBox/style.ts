@@ -77,7 +77,6 @@ export const ProfileContentBoxDiv = styled.div`
             padding : 0;
             transition: all .25s ease;
             // Links
-            //
             a {
                 background: white;
                 color: rgba(255,185,37,1);
@@ -99,12 +98,18 @@ export const ProfileContentBoxDiv = styled.div`
                     fill: rgba(112,63,0,1);
                 }
 
-                    &:hover {
-                        background: lighten(rgba(255,185,37,0),15%);
-                        color: white;
-                    }
+                &:hover {
+                    background: lighten(rgba(255,185,37,0),15%);
+                    color: white;
                 }
+            }
         }
+
+        // If you don't data, display is none. (Link)
+        .nosee {
+            display : none; 
+        }
+
         // Hover 
         &:hover {
             box-shadow: inset 0 0 0 2px var(--secondary-0), 0 1rem 20px rgba(255,185,37,0.2);
