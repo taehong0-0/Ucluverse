@@ -59,6 +59,7 @@ export const ChatTitle = styled.div`
 export const ChatLog = styled.div`
   margin-top: 1rem;
   height: 100%;
+  max-height: 75%;
   border-radius: 5px;
 
   // 채팅 log
