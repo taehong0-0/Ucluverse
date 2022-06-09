@@ -200,7 +200,8 @@ export class PostingsService {
                 .addSelect(['attachedFiles.attachedFileIdx','attachedFiles.path'])
                 .addSelect(['comments.commentIdx','comments.userIdx','comments.content'])
                 .addSelect(['likes.likeIdx','likes.userIdx'])
-                .addSelect(['user.name'])
+                .addSelect(['user'])
+                .addSelect(['profilePhoto.path'])
                 .addSelect(['clubBoard.name'])
                 .leftJoin('posting.clubBoard', 'clubBoard')
                 .leftJoin('posting.user', 'user')
@@ -208,6 +209,7 @@ export class PostingsService {
                 .leftJoin('posting.images' , 'images')
                 .leftJoin('posting.comments', 'comments')
                 .leftJoin('posting.likes', 'likes')
+                .leftJoin('user.profilePhoto', 'profilePhoto')
                 .where('posting.postingIdx = :postingIdx', { postingIdx })
                 .getOne();
 
@@ -245,9 +247,19 @@ export class PostingsService {
                     commentRes['content'] = comment.content;
                     commentArr.push(commentRes);
                 });
+                let path = ""
+                if(posting.user.profilePhoto !== null){
+                    path = posting.user.profilePhoto.path;
+                }
+                delete posting.user.profilePhoto;
+                delete posting.user.currentHashedRefreshToken;
+                let author = {};
+                author = posting.user;
+                author['profilePhoto'] = path;
+                
                 response['postingIdx'] = posting.postingIdx;
                 response['title'] = posting.title;
-                response['author'] = posting.user.name;
+                response['author'] = author;
                 response['content'] = posting.content;
                 response['createdAt'] = posting.createdAt;
                 response['likesNum'] = likeArr.length;
@@ -257,6 +269,7 @@ export class PostingsService {
                 response['images'] = imageArr;
                 response['attachedFiles'] = attachedFileArr;
                 response['comments'] = commentArr;
+                console.log(response);
             return new PostingResDto(response);
         } catch(e) {
             console.log(e);
