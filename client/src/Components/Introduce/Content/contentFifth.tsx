@@ -3,6 +3,14 @@ import { ContentFifthDiv } from '../style';
 import Assets from '../../../Assets';
 import { useScrollFadeIn, useScrollBG } from '../../../Hooks';
 import IntroContentBox from '../ContentBox/IntroContentBox';
+import Intro1 from '../../../Assets/introduce/introduce-pack-1.png';
+import Intro2 from '../../../Assets/introduce/introduce-pack-2.png';
+import Intro3 from '../../../Assets/introduce/introduce-pack-3.png';
+import Intro4 from '../../../Assets/introduce/introduce-pack-4.png';
+import Intro5 from '../../../Assets/introduce/introduce-pack-5.png';
+import Intro6 from '../../../Assets/introduce/introduce-pack-6.png';
+import Intro7 from '../../../Assets/introduce/introduce-pack-7.png';
+import Intro8 from '../../../Assets/introduce/introduce-pack-8.png';
 
 const Content = () : ReactElement => {
     const animation = useScrollFadeIn();
@@ -18,18 +26,18 @@ const Content = () : ReactElement => {
                     </h2>
                 </div>
                 <div className="Content">
-                    <IntroContentBox />
-                    <IntroContentBox delay={.15}/>
-                    <IntroContentBox delay={.25}/>
+                    <IntroContentBox imgSrc={Intro1} />
+                    <IntroContentBox imgSrc={Intro2} delay={.15}/>
+                    <IntroContentBox imgSrc={Intro3} delay={.25}/>
                 </div>
                 <div className="Content">
-                    <IntroContentBox imgSrc='https://images.unsplash.com/photo-1653624824808-e1597cf459a4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'/>
-                    <IntroContentBox imgSrc='https://images.unsplash.com/photo-1653624824808-e1597cf459a4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60' delay={.15}/>
+                    <IntroContentBox imgSrc={Intro4} />
+                    <IntroContentBox imgSrc={Intro5} />
                 </div>
                 <div className="Content">
-                    <IntroContentBox />
-                    <IntroContentBox delay={.15}/>
-                    <IntroContentBox delay={.25}/>
+                    <IntroContentBox imgSrc={Intro6} />
+                    <IntroContentBox imgSrc={Intro7} delay={.15}/>
+                    <IntroContentBox imgSrc={Intro8} delay={.25}/>
                 </div>
             </article>   
         </ContentFifthDiv>
