@@ -45,13 +45,11 @@ const AdminEnrollmentForm = (props: Props): ReactElement => {
     });
   }, []);
   const submit = () => {
-    axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/forms`, {
-        clubIdx: clubId,
-        notice: noticeRef.current?.value,
-        questions: questions,
-      })
-      .then((res) => console.log(res));
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/forms`, {
+      clubIdx: clubId,
+      notice: noticeRef.current?.value,
+      questions: questions,
+    });
   };
   return (
     <AdminEnrollmentFormContainer>

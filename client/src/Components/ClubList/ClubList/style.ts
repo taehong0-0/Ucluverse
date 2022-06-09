@@ -1,35 +1,42 @@
 import styled from 'styled-components';
 
-export const ClubListContainer = styled.div`
-  width: 70rem;
+export const ClubListContainer = styled.article`
+  width: 100%;
   height: 29rem;
   border-radius: 5px;
   opacity: 1;
+  background-color : var(--grey1-1);
+
+  // 동아리 이름 (span)
   span {
     font: normal normal normal 18px/24px Noto Sans KR;
     letter-spacing: -1.35px;
-    color: #ffffff;
+    color: var(--font-black-grey2-8);
     opacity: 1;
+    padding-bottom : 1rem;
+    padding-top : .6rem;
   }
+
   & > div {
     cursor: pointer;
-    margin: 20px;
-    margin-left: 40px;
-    width: 65rem;
-    height: 27.7rem;
-
+    width: calc(100% - 4rem);
+    height: 25.7rem;
+    padding : 2rem 2rem 0 2rem;
+    justify-content : center;
+   
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
+
     a {
       & > div {
-        margin-right: 24px;
+        margin-right: 3.2rem;
         display: flex;
         flex-direction: column;
         div {
           width: 226px;
           height: 150px;
-          background-color: #fff;
+          background-color: #333;
         }
         img {
           width: 226px;
@@ -43,25 +50,19 @@ export const ClubListContainer = styled.div`
       width: 3px;
       height: 3px;
       margin-right: 20px;
+      background-color : white;
+      box-shadow: 1px 1px 4px #00000029;
     }
+    
     &::-webkit-scrollbar-thumb {
       margin-right: 20px;
       width: 3px;
       height: 3px;
-      background: #fff 0% 0% no-repeat padding-box;
+      background : transparent linear-gradient(180deg, #7D3DB4 0%, #502280 100%) 0% 0% no-repeat padding-box;
       border-radius: 1.25rem;
       opacity: 1;
     }
-    a:link {
-      text-decoration: none;
-    }
-    a:visited {
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: none;
-    }
-    a:active {
+    a:is(:link, :visited, :hover, :active) {
       text-decoration: none;
     }
   }

@@ -14,6 +14,8 @@ import ClubSideBar from '../../Components/Club/SideBar/ClubSideBar';
 import Header from '../../Components/Header/Header';
 import { ClubType } from '../../Types/ClubType';
 import { ActivityPostType, BoardType } from '../../Types/PostType';
+import { useSetRecoilState } from 'recoil';
+import { theme } from '../../Recoil/Theme';
 
 const AboutList = ['전체 게시판', '공지사항', '동아리 소개', '활동 게시판', '수상 게시판'];
 const CommunicationList = ['자유 게시판', 'QNA 게시판'];
@@ -24,6 +26,8 @@ interface ContextProps {
 }
 export const ClubContext = createContext<ContextProps | null>(null);
 const Club = (): ReactElement => {
+  const setThemeColor = useSetRecoilState(theme);
+  setThemeColor('default');
   const { id } = useParams();
   const clubId = Number(id);
   const [boardIdx, setBoardIdx] = useState<number>(0);

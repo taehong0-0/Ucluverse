@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
   display: flex;
-  width: 70%;
+  width: 90%;
+  max-width : ${(props) => props.theme.layout.maxWidth};
   height: 6.25rem;
   line-height: 6.25rem;
   margin: 0 auto;
@@ -23,29 +24,27 @@ export const HeaderContainer = styled.header`
     width: 30rem;
   }
 `;
-export const HeaderLinkContainer = styled.div`
+
+export const HeaderLinkContainer = styled.section`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-48%);
   width: 303px;
-  margin-left: 1.15rem;
   display: flex;
   justify-content: space-between;
 
   button {
     padding: 0;
-    /* margin-right: 60px;
-    &:last-child {
-      margin-right: 0px;
-    } */
-  }
-
-  .logined {
-    // 로그인 됐을 때 어떻게 여백 설정할까?
   }
 
   @media (max-width: 768px) {
-    width: 100%;
-    margin: 0 2rem 0 2.813rem;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin : 0 auto;
   }
 `;
+
 export const UserInfoContainer = styled.div`
   display: flex;
   height: 6.25rem;
@@ -60,21 +59,23 @@ export const UserInfoContainer = styled.div`
 
 export const BackGround = styled.div`
     position : absolute;
+    border-radius : 0;
     left : 0;
     top : 0;
-    width : 100vw;
+    width : 100%;
     height : 100px;
     z-index : 0;
+
     background-color : ${(props) => (
         props.color == 'darkPurple' &&
-          props.theme.background.darkPurple ||
+          props.theme.header.darkPurple ||
         props.color == 'yellow' &&
-          props.theme.background.yellow ||
+          props.theme.header.yellow ||
         props.color == 'default' &&
-          props.theme.background.default ||
+          props.theme.header.default ||
         props.color == 'purple' &&
-          props.theme.background.purple ||
+          props.theme.header.purple ||
         props.color == 'lightYellow' &&
-          props.theme.background.lightYellow
+          props.theme.header.lightYellow
       )};
 `

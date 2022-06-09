@@ -25,7 +25,6 @@ const Posting = (props: Props) => {
   const [content, setContent] = useState<string>('');
   const [imageList, setImageList] = useState<string[]>([]);
 
-  var result = content;
   const submit = async () => {
     if (!titleRef.current || content === '') return;
     const option = {
@@ -36,8 +35,6 @@ const Posting = (props: Props) => {
     const s3 = new AWS.S3(option);
     const srcRegEx = /<img src=\"([^\"]*?)\" \/>/gi;
     const srcList = content.match(srcRegEx);
-    // var result = content;
-    var images;
     const promiseList = srcList?.map(async (tag, idx) => {
       tag.match(srcRegEx);
       const srcData = RegExp.$1;
@@ -56,7 +53,7 @@ const Posting = (props: Props) => {
         .upload(param)
         .promise()
         .then((data) => {
-          result = result.replace(srcData, data.Location);
+          setContent((prev) => prev.replace(srcData, data.Location));
           return data.Location;
         });
     });
@@ -65,20 +62,17 @@ const Posting = (props: Props) => {
   };
 
   const send = () => {
-    console.log(imageList);
     if (!titleRef.current || content === '') return;
-    console.log(22);
     axios
       .post(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`, {
         userIdx: user.userIdx,
         title: titleRef.current.value,
-        content: result,
+        content: content,
         images: imageList,
         allowComments: true,
         isPublic: true,
       })
       .then((res) => {
-        console.log(res);
         window.location.href = `/club/${clubId}/board`;
       });
   };

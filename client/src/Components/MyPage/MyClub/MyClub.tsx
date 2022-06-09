@@ -18,7 +18,6 @@ const MyClub = (): ReactElement => {
     const api =
       index === 0 ? `user/userClub/stared/clubs/${user.userIdx}` : `user/userClub/accepted/clubs/${user.userIdx}`;
     axios.get(`${process.env.REACT_APP_SERVER_URL}/${api}`).then((res) => {
-      console.log(res.data);
       setClubList(res.data.res.clubs);
     });
   }, [index]);
@@ -46,8 +45,10 @@ const MyClub = (): ReactElement => {
         {clubList?.map((club) => (
           <Link to={`/club/${club.clubIdx}`}>
             <div key={club.clubIdx}>
-              <img src={club.logoPath ?? ''}></img>
-              <span>{club.name}</span>
+              <div>
+                <img src={club.logoPath ?? ''} />
+              </div>
+              <h4>{club.name}</h4>
             </div>
           </Link>
         ))}

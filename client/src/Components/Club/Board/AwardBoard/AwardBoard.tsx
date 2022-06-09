@@ -29,7 +29,7 @@ const AwardBoard = (props: Props) => {
   const [file, setFile] = useState<Blob | null>(null);
   const [awardPosts, setAwardPosts] = useState<AwardPostType[]>([]);
   const user = useRecoilValue(userState);
-  const status = useCheckRole(user.userIdx);
+  const status = useCheckRole(clubId);
   const option = {
     accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,

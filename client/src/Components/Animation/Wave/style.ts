@@ -12,13 +12,33 @@ export const WaveDiv = styled.div<propsInfo>`
   svg {
     position : relative;
     width: 100vw;
-    height: 140px;
+    height: 8.75rem;
     margin-bottom: -7px; // 줄방지
-    min-height : 100px;
-    max-height : 140px;
+    min-height : 8.75rem;
+    max-height : 8.75rem;
     padding-top : ${(props) => props.REM ? props.REM : 0}rem;
     transform: rotate( ${(props) => props.DEG ? props.DEG : 0}deg );
   }
+
+  /* location */
+  .default {
+    position : relative;
+    top : -8.4rem;
+
+    @media (max-width:768px) {
+      top : -4.2rem;
+    }
+  }
+
+  .default-reverse {
+    position : relative;
+    top : 8.4rem;
+
+    @media (max-width:768px) {
+      top : 4.0rem;
+    }
+  }
+
   /* Animation */
   .parallax > use {
     animation: moveWave 30s cubic-bezier(.35,.5,.25,.5) infinite;
@@ -47,8 +67,8 @@ export const WaveDiv = styled.div<propsInfo>`
   
   @media (max-width: 768px) {
     .waves {
-      height:40px;
-      min-height:40px;
+      height:2.5rem;
+      min-height:2.5rem;
     }
 
     svg {

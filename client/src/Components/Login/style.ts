@@ -14,26 +14,47 @@ export const LoginContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 export const LoginButtonContainer = styled.div`
-  width: 29.25rem;
-  height: 7.5rem;
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 3px 3px 0.625rem #00000029;
-  border-radius: 5px;
-  opacity: 1;
-  margin-top: 1.875rem;
+  margin-top: 3rem;
   text-align: center;
   vertical-align: middle;
+  
+  /* button */
   button {
-    width: 19rem;
-    height: 2.813rem;
-    margin-top: 2.375rem;
-    background: none;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
+    display : flex;
+    cursor : pointer;
+    outline : none;
+    border : none;
+    padding : .6rem 2.4rem;
+    background : white;
+    font-weight : bold;
+    box-shadow: 1px 1px 1px #00000026;
+    transition : .3s ease;
+
+    :hover {
+      transition : .3s ease;
+      box-shadow: 3px 3px 3px #00000026;
+    }
+    
+    /* logo */
+    img {
+      width : 24px;
+      height : 24px;
+      margin-right : 24px;
+    }
+    
+    p {
+      font-family : 'Roboto Medium';
+      font-size : 1rem;
+      color : grey;
+    }
   }
+  
+  box-shadow : 1px 1px 2px 5px rgba(0,0,0, 0);
+  
 `;
+
 export const InputContainer = styled.div`
   width: 31.5vw;
   height: 45vh;
@@ -160,16 +181,18 @@ export const LoginDetailSpan = styled.span`
   color: #a19279;
   opacity: 1;
 `;
+
 export const InfoButtonContainer = styled.div`
   margin-top: -10vh;
   margin-left: 57vw;
+
   button {
     cursor: pointer;
   }
+
   button:first-child {
     width: 3.75rem;
     height: 2.125rem;
-    /* UI Properties */
     background: #ffffff;
     opacity: 1;
 
@@ -181,6 +204,7 @@ export const InfoButtonContainer = styled.div`
       opacity: 1;
     }
   }
+
   button:last-child {
     width: 3.75rem;
     height: 2.125rem;
@@ -191,6 +215,7 @@ export const InfoButtonContainer = styled.div`
     opacity: 1;
     border: none;
     margin-left: 23px;
+
     span {
       font: normal normal normal 0.875rem/1.25rem Noto Sans KR;
       letter-spacing: -1.05px;
