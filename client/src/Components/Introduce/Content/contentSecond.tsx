@@ -6,6 +6,9 @@ import Assets from '../../../Assets';
 const Content = () : ReactElement => {
     const animation = useScrollFadeIn('up', 1, .5, 0);
     const animation2 = useScrollFadeIn('up', 1, 0, .75);
+    const animation4 = useScrollFadeIn('left', 1, 1.5, .75);
+    const animation5 = useScrollFadeIn('left', 1, 2, .75);
+    const animation6 = useScrollFadeIn('left', 1, 2.5, .75);
     const { groupImg } = Assets;
 
     return (
@@ -20,9 +23,21 @@ const Content = () : ReactElement => {
                     </div>
                     <div className="explain">
                         <h4>
-                            저희 유클러버스  팀은 이러하게 모였습니다.
-                            이러한 목표를 가지고 있으며
-                            이러한 사이트를 배포하는 데 성공하였습니다.
+                            저희 유클러버스 팀은
+                        </h4>
+                        <section>
+                            <h3 {...animation4}>
+                                팬데믹으로 인한 비대면 불편함 해소
+                            </h3>
+                            <h3 {...animation5}>
+                                원활한 동아리 활동관리와 홍보, 소통
+                            </h3>
+                            <h3 {...animation6}>
+                                지속가능한 웹 서비스 출시 경험
+                            </h3>
+                        </section>
+                        <h4>
+                            이라는 목표를 가지고 모이게 되었습니다.
                         </h4>
                     </div>
                 </section>

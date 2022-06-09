@@ -20,70 +20,39 @@ export const LoginButtonContainer = styled.div`
   text-align: center;
   vertical-align: middle;
   
+  /* button */
   button {
-    border: none; 
-    background: transparent;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.4rem 2.2rem;
-    overflow: hidden;
-    border-radius: 100vmax;
-    box-shadow: var(--shadow-elevation-high);
-    transition: box-shadow 0.2s ease-in-out;
-    
-    &::after, &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-color: red;
-    }
-    
-    &::before {
-      z-index: 1;
-      right: -100%;
-      background: linear-gradient(to right, #EA4235 0%, #FABC05 25%, #34A853 50%, #4286F5 75%, #8A8D92 100%);
-      background-size: 50% 100%;
-      animation: scroll 1.2s infinite linear;
-    }
+    display : flex;
+    cursor : pointer;
+    outline : none;
+    border : none;
+    padding : .6rem 2.4rem;
+    background : white;
+    font-weight : bold;
+    box-shadow: 1px 1px 1px #00000026;
+    transition : .3s ease;
 
-    &::after {
-      z-index: 2;
-      inset: 5px;
-      border-radius: 100vmax;
-      background-color: white;
-      transition: inset 0.2s ease-in-out;
+    :hover {
+      transition : .3s ease;
+      box-shadow: 3px 3px 3px #00000026;
+    }
+    
+    /* logo */
+    img {
+      width : 24px;
+      height : 24px;
+      margin-right : 24px;
     }
     
     p {
-      z-index: 3;
-      background : linear-gradient(to right, #EA4235 0%, #FABC05 25%, #34A853 50%, #4286F5 75%, #8A8D92 100%);
-      color: transparent;
-      -webkit-background-clip: text;
-      text-transform: uppercase;
-      font-weight: bold;
-      + p {
-        color : var(--grey2-8);
-        padding-left : 1rem;
-      }
-    }
-    
-    &:hover {
-      box-shadow: var(--shadow-elevation-medium);
-      cursor : pointer;
-
-      &::after {
-        inset: 8px;
-      }
+      font-family : 'Roboto Medium';
+      font-size : 1rem;
+      color : grey;
     }
   }
-
-  @keyframes scroll {
-  to {
-    transform: translateX(-50%);
-  }
-}
+  
+  box-shadow : 1px 1px 2px 5px rgba(0,0,0, 0);
+  
 `;
 
 export const InputContainer = styled.div`

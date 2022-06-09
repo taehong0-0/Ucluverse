@@ -130,10 +130,32 @@ export const ContentSecondDiv = styled.div`
             /* 설명 영역 */
             .explain {
                 display : block;
-                h4 {
+                h3, h4 {
                     width : 75%;
                     padding-left : ${(props) => props.theme.layout.gutter};
                 }
+                
+                h4 + section {
+                    padding-top : .8rem;
+                }
+
+                section + h4 {
+                    padding-top : 1.6rem;
+                }
+
+                section {
+                    display : block;
+                    
+                    h3 {
+                        padding-bottom : .8rem;
+                    }
+
+                    h4 {
+                        padding-bottom : .4rem;
+                    }
+                }
+
+                
             }
         }
     }

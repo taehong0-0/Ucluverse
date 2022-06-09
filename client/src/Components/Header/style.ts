@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
   display: flex;
-  width: 70%;
+  width: 90%;
+  max-width : ${(props) => props.theme.layout.maxWidth};
   height: 6.25rem;
   line-height: 6.25rem;
   margin: 0 auto;
@@ -24,9 +25,11 @@ export const HeaderContainer = styled.header`
   }
 `;
 
-export const HeaderLinkContainer = styled.div`
+export const HeaderLinkContainer = styled.section`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-48%);
   width: 303px;
-  margin-left: 1.15rem;
   display: flex;
   justify-content: space-between;
 
@@ -34,13 +37,11 @@ export const HeaderLinkContainer = styled.div`
     padding: 0;
   }
 
-  .logined {
-    // 로그인 됐을 때 어떻게 여백 설정할까?
-  }
-
   @media (max-width: 768px) {
-    width: 100%;
-    margin: 0 2rem 0 2.813rem;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin : 0 auto;
   }
 `;
 
