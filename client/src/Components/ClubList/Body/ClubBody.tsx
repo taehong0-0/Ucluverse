@@ -32,7 +32,7 @@ const ClubBody = () => {
   const [category, setCategory] = useState<string>('전체');
   // const [clubList, setClubList] = useState<ClubType[]>([]);
   const clubList = useRecoilValue(ClubListState);
-  console.log(clubList);
+
   // useEffect(() => {
   //   axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/central`).then((res) => {
   //     setClubList(res.data.res.clubs);
@@ -44,8 +44,8 @@ const ClubBody = () => {
   return (
     <ClubBodyContainer>
       <section className="top">
-        <div className='topBG' />
-        <Wave/>
+        <div className="topBG" />
+        <Wave />
       </section>
       <section className="title" {...animation}>
         <span>아주대학교 동아리를 모아봤어요!</span>
@@ -53,7 +53,7 @@ const ClubBody = () => {
           <div id="lottieYukey" {...lottieYuKey} />
         </article>
       </section>
-      <section className="content" {...animation3} >
+      <section className="content" {...animation3}>
         <ClubCategory
           categoryName="종류"
           onClick={clickCategory}
@@ -67,8 +67,8 @@ const ClubBody = () => {
         />
       </section>
       <section className="bottom">
-        <Wave rotation={180}/>
-        <div className='bottomBG' />
+        <Wave rotation={180} />
+        <div className="bottomBG" />
       </section>
     </ClubBodyContainer>
   );

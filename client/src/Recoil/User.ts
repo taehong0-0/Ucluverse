@@ -23,7 +23,7 @@ export const userDataState = selector({
   key: 'userDataState',
   get: async () => {
     const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/isLogin`);
-    console.log(res.data);
+
     return res.data;
   },
   set: ({ set }, newValue) => {

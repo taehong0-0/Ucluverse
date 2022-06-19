@@ -20,12 +20,10 @@ const ClubHeader = (props: props): ReactElement => {
   const [like, setLike] = useState<boolean>(user.starredClubs.includes(clubId));
   const onClick = () => {
     setLike((like) => !like);
-    axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/user/userClub/star`, {
-        userIdx: user.userIdx,
-        clubIdx: clubId,
-      })
-      .then((res) => console.log(user.starredClubs));
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/user/userClub/star`, {
+      userIdx: user.userIdx,
+      clubIdx: clubId,
+    });
   };
   return (
     <ClubHeaderContainer>
