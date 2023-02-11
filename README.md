@@ -18,8 +18,12 @@
   <img src="https://img.shields.io/badge/typescript-blue?style=for-the-badge&logo=typescript&logoColor=white"/>
   <img src="https://img.shields.io/badge/nest-ff69b4?style=for-the-badge&logo=nestjs"/>
   <img src="https://img.shields.io/badge/MySQL-yellow?style=for-the-badge&logo=mysql&logoColor=white"/>
-<img src="https://img.shields.io/badge/MariaDB-brown?style=for-the-badge&logo=mariadb"/>
-<img src="https://img.shields.io/badge/TypeORM-red?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/MariaDB-brown?style=for-the-badge&logo=mariadb"/>
+  <img src="https://img.shields.io/badge/TypeORM-red?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/AWS EC2-gray?style=for-the-badge&logo=amazon&logoColor=white"/>
+  <img src="https://img.shields.io/badge/AWS S3-lightgray?style=for-the-badge&logo=amazon&logoColor=white"/>
+  <img src="https://img.shields.io/badge/AWS RDS-black?style=for-the-badge&logo=amazon&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Github Action-skyblue?style=for-the-badge&logo=github&logoColor=white"/>
   <br/>
   <img src="https://img.shields.io/github/contributors/taehong0-0/Ucluverse?style=for-the-badge"/>
   <img src="https://img.shields.io/github/last-commit/taehong0-0/ucluverse?style=for-the-badge"/>
@@ -48,6 +52,8 @@
 
 ### ERD
 ![image](https://user-images.githubusercontent.com/79848632/178212707-4becbc9b-75c7-46a5-a1c6-e80228d41683.png)
+https://www.erdcloud.com/d/pXEBnx4v7cvodhYfG
+
 ### 개발 규칙
 <details>
 <summary>내용</summary>
@@ -107,6 +113,7 @@ const functionalComponent = ({...props}) => {} ❌
 </details>
 
 ### 폴더 구조
+- client
 ```bash
 - src
   |-- Assets
@@ -131,7 +138,29 @@ const functionalComponent = ({...props}) => {} ❌
               |-- style.ts
 
 ```
+- server
+```bash
+- src
+  |-- auth
+  |-- awards
+  |-- clubs
+  |-- colleges
+  |-- comments
+  |-- commons
+  |-- config
+  |-- departments
+  |-- forms
+  |-- likes
+  |-- notifications
+  |-- posters
+  |-- postings
+  |-- users
+  |     |-- controller.tsx
+  |     |-- service.tsx
+  |     |-- dto.tsx
+  |     |-- entity.tsx
 
+```
 ## Design
 ### 스타일 가이드
 + <a href="https://www.notion.so/">Notion</a>을 이용하여 디자인에 관한 <a href="https://flicker-particle-a8a.notion.site/54c1bbc0088849e794f3f9a80b6c9e28?v=115f2c94ea984b949242bbd2000f6f06">전반적인 규칙</a>을 정하고 공유하였습니다.
