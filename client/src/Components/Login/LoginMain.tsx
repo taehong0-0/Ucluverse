@@ -46,12 +46,14 @@ const LoginMain = () => {
       gapi.auth2.getAuthInstance().attachClickHandler('GgCustomLogin', options, onSignIn, onSignInFailure);
     });
   };
+  const checkAjouMail = (email: string) => {
+    return email.includes('@ajou.ac.kr');
+  };
   const onSignIn = async (googleUser: any) => {
     const profile = googleUser.getBasicProfile();
     const email = profile.getEmail();
-    const isAjouMail = email.includes('@ajou.ac.kr');
 
-    if (isAjouMail) {
+    if (checkAjouMail(email)) {
       axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/login?email=${email}`).then((res) => {
         if (res.data.status === 1) {
           window.location.replace(`/login/info?email=${email}`);
@@ -80,7 +82,7 @@ const LoginMain = () => {
         <LoginDetailSpan>아주메일로 로그인을 진행해주세요</LoginDetailSpan>
         <LoginButtonContainer>
           <button id="GgCustomLogin">
-            <img src={GoogleIcon}/>
+            <img src={GoogleIcon} />
             <p>구글 로그인</p>
           </button>
         </LoginButtonContainer>
