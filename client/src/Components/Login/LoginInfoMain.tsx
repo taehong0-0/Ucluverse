@@ -27,7 +27,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import AWS from 'aws-sdk';
 import { toast } from 'react-toastify';
-import { departmentList } from '../../Util/constant';
+import { departmentList } from '../../Util/constants/constant';
 import { makeStyles, Theme } from '@mui/material';
 import { useReducer } from 'react';
 interface AvatarType {
@@ -41,7 +41,8 @@ const LoginInfoMain = (): ReactElement => {
   const email = urlParams.get('email');
   const [avatar, setAvatar] = useReducer(
     (prev: AvatarType, next: Partial<AvatarType>) => {
-      return { ...prev, ...next };
+      const newAvatar = { ...prev, ...next };
+      return newAvatar;
     },
     { head: 1, body: 1, accessorie: 1 },
   );

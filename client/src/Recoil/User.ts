@@ -22,7 +22,7 @@ export const userState = atom<UserType>({
 export const userDataState = selector({
   key: 'userDataState',
   get: async () => {
-    const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/isLogin`);
+    const res = await api.get(`/auth/isLogin`);
 
     return res.data;
   },
