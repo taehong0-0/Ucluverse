@@ -16,6 +16,7 @@ import { ClubType } from '../../Types/ClubType';
 import { ActivityPostType, BoardType } from '../../Types/PostType';
 import { useSetRecoilState } from 'recoil';
 import { theme } from '../../Recoil/Theme';
+import api from '../../Util/helpers/Auth/Api';
 
 const AboutList = ['전체 게시판', '공지사항', '동아리 소개', '활동 게시판', '수상 게시판'];
 const CommunicationList = ['자유 게시판', 'QNA 게시판'];
