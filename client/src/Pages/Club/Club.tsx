@@ -38,7 +38,7 @@ const Club = (): ReactElement => {
   const [CommunicationBoards, setCommunicationBoards] = useState<BoardType[]>([]);
   // 데이터 요청해서 받아오기
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/club/${clubId}`).then((res) => {
+    api.get(`/clubs/club/${clubId}`).then((res) => {
       setClub(res.data.res.clubs);
       const clubBoards = res.data.res.clubs.clubBoards[0];
       AboutList.map((boardName) => {
@@ -51,7 +51,7 @@ const Club = (): ReactElement => {
         ]);
       });
     });
-    // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
+    // api.get(`/`).then((res) => {
     //   setActivityList(res.data);
     // });
   }, []);

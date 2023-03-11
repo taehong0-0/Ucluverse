@@ -9,6 +9,7 @@ import Cookies from 'universal-cookie';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userState } from '../../Recoil/User';
 import GoogleIcon from '../../Assets/icon/g-logo.png';
+import api from '../../Util/helpers/Auth/Api';
 
 declare global {
   interface Window {
@@ -54,7 +55,7 @@ const LoginMain = () => {
     const email = profile.getEmail();
 
     if (checkAjouMail(email)) {
-      axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/login?email=${email}`).then((res) => {
+      api.get(`/auth/login?email=${email}`).then((res) => {
         if (res.data.status === 1) {
           window.location.replace(`/login/info?email=${email}`);
         } else {

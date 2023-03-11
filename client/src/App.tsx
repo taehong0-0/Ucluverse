@@ -18,6 +18,7 @@ import { ClubListState, DepartmentListState } from './Recoil/Club';
 import MyPage from './Pages/MyPage/MyPage';
 import { Loading } from './Components/Animation/';
 import Metaverse from './Pages/Metaverse/Metaverse';
+import api from './Util/helpers/Auth/Api';
 
 axios.defaults.withCredentials = true;
 
@@ -25,11 +26,11 @@ const App = () => {
   const setClubList = useSetRecoilState(ClubListState);
   const setDepartmentList = useSetRecoilState(DepartmentListState);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/department`).then((res) => {
+    api.get(`/clubs/department`).then((res) => {
       setDepartmentList(res.data.res.clubs);
     });
 
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/central`).then((res) => {
+    api.get(`/clubs/central`).then((res) => {
       setClubList(res.data.res.clubs);
     });
   }, []);
@@ -90,9 +91,9 @@ const App = () => {
           <Route
             path="metaverse"
             element={
-             <AuthRoute>
+              <AuthRoute>
                 <Metaverse />
-             </AuthRoute>
+              </AuthRoute>
             }
           ></Route>
           <Route path="/introduce" element={<Introduce />} />

@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../../Recoil/User';
+import api from '../../../Util/helpers/Auth/Api';
 
 interface props {
   title: string;
@@ -20,7 +21,7 @@ const ClubHeader = (props: props): ReactElement => {
   const [like, setLike] = useState<boolean>(user.starredClubs.includes(clubId));
   const onClick = () => {
     setLike((like) => !like);
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/user/userClub/star`, {
+    api.post(`/user/userClub/star`, {
       userIdx: user.userIdx,
       clubIdx: clubId,
     });

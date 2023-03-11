@@ -1,23 +1,19 @@
 import React, { ReactElement, useEffect } from 'react';
 import { ClubContainer, ImgContainer } from './style';
 import titleImg from '../../../Assets/활동 우수 동아리.png';
-import test1 from '../../../Assets/test1.jpeg';
-import test2 from '../../../Assets/test2.jpeg';
-import test3 from '../../../Assets/test3.jpeg';
-import test4 from '../../../Assets/test4.jpeg';
-import test5 from '../../../Assets/test5.jpeg';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { ClubType } from '../../../Types/ClubType';
 import { useScrollFadeIn } from '../../../Hooks';
 import axios from 'axios';
+import api from '../../../Util/helpers/Auth/Api';
 
 const MainGreatClub = (): ReactElement => {
   const animation = useScrollFadeIn('up', 1, 0, 0.5);
   const animation2 = useScrollFadeIn('up', 1, 0, 0.05);
   const [greatList, setGreatList] = useState<ClubType[]>([]);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/greatClubs`).then((res) => {
+    api.get(`/clubs/greatClubs`).then((res) => {
       setGreatList(res.data.res.clubs);
     });
   }, []);

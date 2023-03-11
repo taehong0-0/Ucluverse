@@ -4,7 +4,8 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { ReactElement } from 'react';
 import { isAsExpression } from 'typescript';
 import { UserType } from '../../../../Types/UserType';
-import { departmentIdxList } from '../../../../Util/constant';
+import { departmentIdxList } from '../../../../Util/constants/constant';
+import api from '../../../../Util/helpers/Auth/Api';
 import Button from '../../../Button/Button';
 import { AdminMemberContainer, MemberBodyContainer } from './style';
 interface Props {
@@ -27,8 +28,8 @@ const AdminMember = (props: Props): ReactElement => {
   const [memberList, setMemberList] = useState<Member[]>([]);
   useEffect(() => {
     // todo: 데이터 요청
-    // axios.get(`${process.env.REACT_APP_SERVER_URL}/departments`).then((res) => console.log(res));
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/users/${clubId}`).then((res) => {
+    // api.get(`/departments`).then((res) => console.log(res));
+    api.get(`/clubs/users/${clubId}`).then((res) => {
       setMemberList(res.data.res.user.sort(sortFunction));
     });
   }, []);
@@ -59,7 +60,7 @@ const AdminMember = (props: Props): ReactElement => {
         })
         .sort(sortFunction);
     });
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/user/userClub/changeRole/${member.userClub.userClubIdx}`);
+    api.post(`/user/userClub/changeRole/${member.userClub.userClubIdx}`);
   };
   return (
     <AdminMemberContainer>

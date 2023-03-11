@@ -12,6 +12,7 @@ import { useLottie } from '../../../Hooks';
 import { useScrollFadeIn } from '../../../Hooks';
 import YukeyHello from '../../../Assets/Lottie/YukeyHello.json';
 import { Wave } from '../../Animation';
+import api from '../../../Util/helpers/Auth/Api';
 
 interface departmentCategoryType {
   [index: string]: string[];
@@ -119,7 +120,7 @@ const DepartmentBody = () => {
   const departmentClubList = useRecoilValue(DepartmentListState);
 
   // useEffect(() => {
-  //   axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/department`).then((res) => {
+  //   api.get(`/clubs/department`).then((res) => {
   //     setDepartmentClubList(res.data);
   //   });
   // }, []);
@@ -142,8 +143,8 @@ const DepartmentBody = () => {
   return (
     <ClubBodyContainer>
       <section className="top">
-        <div className='topBG' />
-        <Wave/>
+        <div className="topBG" />
+        <Wave />
       </section>
       <section className="title" {...animation}>
         <span>아주대학교 소학회를 모아봤어요!</span>
@@ -151,13 +152,13 @@ const DepartmentBody = () => {
           <div id="lottieYukey" {...lottieYuKey} />
         </article>
       </section>
-      <section className="content" {...animation3} >
+      <section className="content" {...animation3}>
         <ClubCategory
           categoryName="단과"
           onClick={clickCollegeCategory}
           selectedCategory={collegeCategory}
           categoryList={collegeCategoryList}
-          categoryCSS='first'
+          categoryCSS="first"
         />
         {collegeCategory !== '' && (
           <ClubCategory
@@ -165,7 +166,7 @@ const DepartmentBody = () => {
             onClick={clickDepartmentCategory}
             selectedCategory={departmentCategory}
             categoryList={departmentCategoryList[collegeCategory]}
-            categoryCSS='second'
+            categoryCSS="second"
           />
         )}
         {collegeCategory !== '' && departmentCategory !== '' && (
@@ -173,8 +174,8 @@ const DepartmentBody = () => {
         )}
       </section>
       <section className="bottom">
-        <Wave rotation={180}/>
-        <div className='bottomBG' />
+        <Wave rotation={180} />
+        <div className="bottomBG" />
       </section>
     </ClubBodyContainer>
   );

@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import { ClubType } from '../../../Types/ClubType';
 import { useEffect } from 'react';
 import axios from 'axios';
-import {useScrollFadeIn} from '../../../Hooks';
+import { useScrollFadeIn } from '../../../Hooks';
+import api from '../../../Util/helpers/Auth/Api';
 
 interface props {
   imgURL: string;
@@ -17,7 +18,7 @@ const MainNewClub = (): ReactElement => {
   const animation2 = useScrollFadeIn('right', 1, 0.2);
   const [club, setClub] = useState<ClubType | null>(null);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/newClubs`).then((res) => {
+    api.get(`/clubs/newClubs`).then((res) => {
       setClub(res.data.res.clubs[1]);
     });
   }, []);

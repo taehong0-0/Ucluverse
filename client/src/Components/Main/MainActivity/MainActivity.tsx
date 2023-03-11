@@ -9,6 +9,7 @@ import { ActivityPostType } from '../../../Types/PostType';
 import { useState } from 'react';
 import axios from 'axios';
 import { useScrollFadeIn } from '../../../Hooks';
+import api from '../../../Util/helpers/Auth/Api';
 
 interface buttonProps {
   className?: string;
@@ -21,7 +22,7 @@ const MainActivity = (): ReactElement => {
   const [activityList, setActivityList] = useState<ActivityPostType[]>([]);
   const activityRef = useRef<HTMLDivElement[]>([]);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/main?boardName=활동 게시판`).then((res) => {
+    api.get(`/postings/main?boardName=활동 게시판`).then((res) => {
       setActivityList(res.data.res.postings);
     });
   }, []);

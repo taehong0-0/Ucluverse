@@ -3,7 +3,8 @@ import { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { ReactElement } from 'react';
 import { UserType } from '../../../../Types/UserType';
-import { departmentIdxList } from '../../../../Util/constant';
+import { departmentIdxList } from '../../../../Util/constants/constant';
+import api from '../../../../Util/helpers/Auth/Api';
 import Button from '../../../Button/Button';
 import { AdminEnrollmentListContainer, ListBodyContainer } from './style';
 interface Props {
@@ -22,7 +23,7 @@ const AdminEnrollmentList = (props: Props): ReactElement => {
   const modalRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     //todo: 데이터 요청
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/user/userClub/applied/users/${clubId}`).then((res) => {
+    api.get(`/user/userClub/applied/users/${clubId}`).then((res) => {
       setMemberList(res.data.res.user);
     });
   }, [clubId]);
@@ -48,14 +49,14 @@ const AdminEnrollmentList = (props: Props): ReactElement => {
   };
   const accept = (userId: number) => {
     setMemberList((memberList) => memberList.filter((member) => member.userIdx !== userId));
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/user/userClub/accept`, {
+    api.post(`/user/userClub/accept`, {
       userIdx: userId,
       clubIdx: clubId,
     });
   };
   const reject = (userId: number) => {
     setMemberList((memberList) => memberList.filter((member) => member.userIdx !== userId));
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/user/userClub/reject`, {
+    api.post(`/user/userClub/reject`, {
       userIdx: userId,
       clubIdx: clubId,
     });

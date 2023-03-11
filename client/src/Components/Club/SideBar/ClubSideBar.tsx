@@ -9,7 +9,8 @@ import useCheckRole from '../../../Hooks/useCheckRole';
 import { ClubContext } from '../../../Pages/Club/Club';
 import { userState } from '../../../Recoil/User';
 import { BoardType } from '../../../Types/PostType';
-import { departmentIdxList } from '../../../Util/constant';
+import { departmentIdxList } from '../../../Util/constants/constant';
+import api from '../../../Util/helpers/Auth/Api';
 import Button from '../../Button/Button';
 import FloatInput from '../../Input/Input';
 import { BoardContainer, SideBarContainer } from './style';
@@ -79,7 +80,7 @@ const ClubSideBar = (props: props): ReactElement => {
       });
   };
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/forms/${clubId}`).then((res) => {
+    api.get(`/forms/${clubId}`).then((res) => {
       setForm(res.data.res.form);
     });
   }, [clubId]);

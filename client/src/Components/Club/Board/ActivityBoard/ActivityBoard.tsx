@@ -7,6 +7,7 @@ import { useRecoilValue } from 'recoil';
 import useCheckRole from '../../../../Hooks/useCheckRole';
 import { userState } from '../../../../Recoil/User';
 import { PostTitleType } from '../../../../Types/PostType';
+import api from '../../../../Util/helpers/Auth/Api';
 import Button from '../../../Button/Button';
 import Posting from '../../Posting/Posting';
 import { ActivityBoardContainer, ActivityContainer } from './style';
@@ -63,7 +64,7 @@ const ActivityBoard = (props: Props) => {
   const user = useRecoilValue(userState);
   const status = useCheckRole(clubId);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`).then((res) => {
+    api.get(`/postings/clubBoard/${boardIdx}`).then((res) => {
       setActivityPosts(res.data.res.postings);
     });
   }, []);
