@@ -1,30 +1,17 @@
-import axios from 'axios';
-import React, { ReactElement } from 'react';
 import { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
 import singInImg from '../../Assets/로그인.png';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { LoginButtonContainer, LoginContentContainer, LoginDetailSpan, LoginMainContainer } from './style';
-import Cookies from 'universal-cookie';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { userState } from '../../Recoil/User';
 import GoogleIcon from '../../Assets/icon/g-logo.png';
-import api from '../../Util/helpers/Auth/Api';
+import { onLogin } from '../../Util/helpers/Auth/Auth';
 
 declare global {
   interface Window {
     gapi: any;
   }
 }
-const cookies = new Cookies();
-
-export const setCookie = (name: any, value: any, option: any) => {
-  return cookies.set(name, value, { ...option });
-};
-axios.defaults.withCredentials = true;
 
 const LoginMain = () => {
-  const [user, setUser] = useRecoilState(userState);
   const notify = () =>
     toast('아주메일로 로그인 해주세요', {
       position: 'top-right',
@@ -55,15 +42,7 @@ const LoginMain = () => {
     const email = profile.getEmail();
 
     if (checkAjouMail(email)) {
-      api.get(`/auth/login?email=${email}`).then((res) => {
-        if (res.data.status === 1) {
-          window.location.replace(`/login/info?email=${email}`);
-        } else {
-          const { currentHashedRefreshToken, ...userData } = res.data.user;
-          setUser(userData);
-          window.location.replace('/');
-        }
-      });
+      onLogin(email);
     } else {
       notify();
     }

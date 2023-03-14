@@ -8,7 +8,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import fs from 'fs';
 import {
   CharacterContainer,
   DropZoneDiv,
@@ -25,10 +24,8 @@ import { useState } from 'react';
 import CharacterButton from '../Button/CharacterButton';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import AWS from 'aws-sdk';
 import { toast } from 'react-toastify';
 import { departmentList } from '../../Util/constants/constant';
-import { makeStyles, Theme } from '@mui/material';
 import { useReducer } from 'react';
 interface AvatarType {
   head: number;
