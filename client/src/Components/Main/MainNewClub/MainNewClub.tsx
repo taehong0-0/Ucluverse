@@ -18,7 +18,7 @@ const MainNewClub = (): ReactElement => {
   const animation2 = useScrollFadeIn('right', 1, 0.2);
   const [club, setClub] = useState<ClubType | null>(null);
   useEffect(() => {
-    api.get(`/clubs/newClubs`).then((res) => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/newClubs`).then((res) => {
       setClub(res.data.res.clubs[1]);
     });
   }, []);

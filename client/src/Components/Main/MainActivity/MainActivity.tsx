@@ -22,7 +22,7 @@ const MainActivity = (): ReactElement => {
   const [activityList, setActivityList] = useState<ActivityPostType[]>([]);
   const activityRef = useRef<HTMLDivElement[]>([]);
   useEffect(() => {
-    api.get(`/postings/main?boardName=활동 게시판`).then((res) => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/main?boardName=활동 게시판`).then((res) => {
       setActivityList(res.data.res.postings);
     });
   }, []);

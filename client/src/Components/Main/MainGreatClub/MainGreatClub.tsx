@@ -13,7 +13,7 @@ const MainGreatClub = (): ReactElement => {
   const animation2 = useScrollFadeIn('up', 1, 0, 0.05);
   const [greatList, setGreatList] = useState<ClubType[]>([]);
   useEffect(() => {
-    api.get(`/clubs/greatClubs`).then((res) => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/greatClubs`).then((res) => {
       setGreatList(res.data.res.clubs);
     });
   }, []);

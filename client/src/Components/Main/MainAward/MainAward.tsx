@@ -11,7 +11,7 @@ import api from '../../../Util/helpers/Auth/Api';
 const MainAward = (): ReactElement => {
   const [awardList, setAwardList] = useState<AwardPostType[]>([]);
   useEffect(() => {
-    api.get(`/awards/all`).then((res) => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/awards/all`).then((res) => {
       setAwardList(res.data.res.awards);
     });
   }, []);

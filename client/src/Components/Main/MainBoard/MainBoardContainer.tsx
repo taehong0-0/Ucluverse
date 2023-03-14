@@ -25,10 +25,10 @@ const MainBoardContainer = (): ReactElement => {
   const animation = useScrollFadeIn('up', 1, 0, 0.05);
 
   useEffect(() => {
-    // api.get(`/`).then((res) => {
+    //  axios.get(`${process.env.REACT_APP_SERVER_URL}`).then((res) => {
     //   setNoticeList(res.data);
     // });
-    // api.get(`/`).then((res) => {
+    //  axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
     //   setFAQList(res.data);
     // });
   }, []);
