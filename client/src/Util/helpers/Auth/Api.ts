@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { onRefreshUpdate } from './Auth';
 import { getCookieToken, removeCookieToken, setRefreshToken } from './Cookie';
 
 // url 호출 시 기본 값 셋팅
@@ -18,28 +19,12 @@ api.interceptors.response.use(
       response: { status },
     } = error;
     if (status === 401) {
-      if (error.response.data.message === 'refresh_token expired') {
-        removeCookieToken();
-        window.location.replace('/login');
-      } else if (error.response.data.message === 'expired') {
-        const originalRequest = config;
-        const prevRefreshToken = getCookieToken();
-        const { data } = await axios.post(
-          `${process.env.REACT_APP_SERVER_URL}/refresh`,
-          {},
-          { headers: { authorization: `Bearer ${prevRefreshToken}` } },
-        );
-        // 새로운 토큰 저장
-        const { accessToken, refreshToken } = data;
-        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        setRefreshToken(refreshToken);
-        // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
-        return axios(originalRequest);
+      if (error.response.data.message === 'expired') {
+        if (onRefreshUpdate()) {
+          return axios(config);
+        }
       }
     }
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    console.log('response error', error);
     return Promise.reject(error);
   },
 );

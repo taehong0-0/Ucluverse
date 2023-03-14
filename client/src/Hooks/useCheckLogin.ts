@@ -1,27 +1,29 @@
-import axios from 'axios';
-import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { userDataState } from '../Recoil/User';
+import { userState } from '../Recoil/User';
+import api from '../Util/helpers/Auth/Api';
 
 const useCheckLogin = () => {
-  const [userData, setUserData] = useRecoilState<any>(userDataState);
-  if (userData.status === 1) {
-    setUserData(userData.user);
-  } else {
-    setUserData({
-      userIdx: 0,
-      name: '',
-      departmentIdx: 0,
-      nickname: '',
-      studentId: 0,
-      email: '',
-      BDOList: null,
-      isAdmin: false,
-      profilePhoto: '',
-      phoneNumber: '',
-    });
-  }
-  return userData.status;
+  const [user, setUser] = useRecoilState(userState);
+  api.get(`/auth/isLogin`).then((res) => {
+    if (res.status === 1) {
+      setUser(res.data.user);
+    } else {
+      setUser({
+        userIdx: 0,
+        name: '',
+        departmentIdx: 0,
+        nickname: '',
+        studentId: 0,
+        email: '',
+        BODList: null,
+        isAdmin: false,
+        profilePhoto: '',
+        phoneNumber: '',
+        starredClubs: [],
+      });
+    }
+  });
+  return user.userIdx === 0 ? false : true;
 };
 
 export default useCheckLogin;

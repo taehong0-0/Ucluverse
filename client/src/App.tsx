@@ -19,6 +19,7 @@ import MyPage from './Pages/MyPage/MyPage';
 import { Loading } from './Components/Animation/';
 import Metaverse from './Pages/Metaverse/Metaverse';
 import api from './Util/helpers/Auth/Api';
+import { onRefreshUpdate } from './Util/helpers/Auth/Auth';
 
 axios.defaults.withCredentials = true;
 
@@ -33,6 +34,8 @@ const App = () => {
     api.get(`/clubs/central`).then((res) => {
       setClubList(res.data.res.clubs);
     });
+
+    onRefreshUpdate();
   }, []);
   return (
     <>
