@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import useCheckRole from '../../../../Hooks/useCheckRole';
 import { PostTitleType } from '../../../../Types/PostType';
+import api from '../../../../Util/helpers/Auth/Api';
 import Button from '../../../Button/Button';
 import PostTitle from '../../Post/Title/PostTitle';
 import { ClubBoardContainer, PostContainer } from './style';
@@ -20,11 +21,11 @@ const PostBoard = (props: props) => {
   const role = useCheckRole(clubId);
   useEffect(() => {
     if (boardName === '전체 게시판') {
-      axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/club/entire/${clubId}`).then((res) => {
+      api.get(`/postings/club/entire/${clubId}`).then((res) => {
         setPostList(res.data.res.postings.sort(sortFunc) ?? []);
       });
     } else {
-      axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`).then((res) => {
+      api.get(`/postings/clubBoard/${boardIdx}`).then((res) => {
         setPostList(res.data.res.postings);
       });
     }

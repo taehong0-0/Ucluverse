@@ -10,6 +10,7 @@ import YukeyHello from '../../../Assets/Lottie/YukeyHello.json';
 import { useLottie } from '../../../Hooks';
 import { useScrollFadeIn } from '../../../Hooks';
 import { Wave } from '../../Animation';
+import api from '../../../Util/helpers/Auth/Api';
 
 const categoryList = [
   '전체',
@@ -34,7 +35,7 @@ const ClubBody = () => {
   const clubList = useRecoilValue(ClubListState);
 
   // useEffect(() => {
-  //   axios.get(`${process.env.REACT_APP_SERVER_URL}/clubs/central`).then((res) => {
+  //   api.get(`/clubs/central`).then((res) => {
   //     setClubList(res.data.res.clubs);
   //   });
   // }, []);

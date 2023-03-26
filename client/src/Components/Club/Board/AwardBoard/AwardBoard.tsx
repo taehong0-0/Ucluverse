@@ -14,6 +14,7 @@ import DropZone from '../../../DropZone/DropZone';
 import useCheckRole from '../../../../Hooks/useCheckRole';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../../../Recoil/User';
+import api from '../../../../Util/helpers/Auth/Api';
 
 interface Props {
   clubId: number;
@@ -91,7 +92,7 @@ const AwardBoard = (props: Props) => {
     }
   };
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/awards/club/${clubId}`).then((res) => {
+    api.get(`/awards/club/${clubId}`).then((res) => {
       setAwardPosts(res.data.res.awards);
     });
   }, []);
@@ -103,7 +104,7 @@ const AwardBoard = (props: Props) => {
     overflow-y: scroll;
     width: 100%;`;
     } else {
-      axios.get(`${process.env.REACT_APP_SERVER_URL}/awards/club/${clubId}`).then((res) => {
+      api.get(`/awards/club/${clubId}`).then((res) => {
         setAwardPosts(res.data.res.awards);
       });
     }

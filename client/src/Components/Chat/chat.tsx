@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { userDataState, userState } from '../../Recoil/User';
-import socket from '../../Util/socket';
+import socket from '../../Util/helpers/socket';
 import { ChatContainer, ChatTitle, ChatLog } from './style';
 
 const Chat = (socketId: any) => {

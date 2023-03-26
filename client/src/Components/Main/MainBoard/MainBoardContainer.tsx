@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { PostTitleType } from '../../../Types/PostType';
 import axios from 'axios';
 import { useScrollFadeIn } from '../../../Hooks';
+import api from '../../../Util/helpers/Auth/Api';
 
 //테스트용 더미데이터
 const posts = [
@@ -21,13 +22,13 @@ const MainBoardContainer = (): ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [noticeList, setNoticeList] = useState<PostTitleType[]>([]);
   const [FAQList, setFAQList] = useState<PostTitleType[]>([]);
-  const animation = useScrollFadeIn('up', 1, 0, .05);
+  const animation = useScrollFadeIn('up', 1, 0, 0.05);
 
   useEffect(() => {
-    // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
+    //  axios.get(`${process.env.REACT_APP_SERVER_URL}`).then((res) => {
     //   setNoticeList(res.data);
     // });
-    // axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
+    //  axios.get(`${process.env.REACT_APP_SERVER_URL}/`).then((res) => {
     //   setFAQList(res.data);
     // });
   }, []);

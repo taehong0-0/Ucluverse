@@ -1,14 +1,16 @@
 import React, { ReactElement, useState } from 'react';
 import LinkButton from '../Button/LinkButton';
 import { HeaderContainer, HeaderLinkContainer, UserInfoContainer, BackGround } from './style';
-import Assets from '../../Assets'
+import Assets from '../../Assets';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../Recoil/User';
 import { theme } from '../../Recoil/Theme';
 import axios from 'axios';
 import { PresignedPost } from 'aws-sdk/clients/s3';
+import api from '../../Util/helpers/Auth/Api';
+import { onLogout } from '../../Util/helpers/Auth/Auth';
 
-const Header = () : ReactElement => {
+const Header = (): ReactElement => {
   const { logoImg, logoImgWhite, profileImg, profileImgWhite, alarmImg, logoutImg, mypageImg } = Assets;
   const user = useRecoilValue(userState);
   const themeColor = useRecoilValue(theme);
@@ -44,9 +46,7 @@ const Header = () : ReactElement => {
             width="24px"
             height="21px"
             onClick={() => {
-              axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/logout`).then((res) => {
-                window.location.href = '/';
-              });
+              onLogout();
             }}
           />
           <LinkButton url="/mypage">
@@ -54,7 +54,7 @@ const Header = () : ReactElement => {
           </LinkButton>
         </UserInfoContainer>
       )}
-    <BackGround color={themeColor} />
+      <BackGround color={themeColor} />
     </HeaderContainer>
   );
 };

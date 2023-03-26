@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../../Recoil/User';
+import api from '../../../Util/helpers/Auth/Api';
 
 const ClubPost = (): ReactElement => {
   const url = useLocation();
@@ -19,7 +20,7 @@ const ClubPost = (): ReactElement => {
   const user = useRecoilValue(userState);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/postings/${postId}/${user.userIdx}`).then((res) => {
+    api.get(`/postings/${postId}/${user.userIdx}`).then((res) => {
       setPost(res.data.res.postings);
     });
   }, []);

@@ -8,6 +8,7 @@ import peopleImg from '../../../Assets/people.png';
 import { ClubContainer, ClubListContainer, ClubNavigator } from './style';
 import { ClubType } from '../../../Types/ClubType';
 import { Link } from 'react-router-dom';
+import api from '../../../Util/helpers/Auth/Api';
 
 const MyClub = (): ReactElement => {
   const user = useRecoilValue(userState);
@@ -15,9 +16,9 @@ const MyClub = (): ReactElement => {
   const [clubList, setClubList] = useState<ClubType[]>([]);
 
   useEffect(() => {
-    const api =
+    const apiURL =
       index === 0 ? `user/userClub/stared/clubs/${user.userIdx}` : `user/userClub/accepted/clubs/${user.userIdx}`;
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/${api}`).then((res) => {
+    api.get(`/${apiURL}`).then((res) => {
       setClubList(res.data.res.clubs);
     });
   }, [index]);

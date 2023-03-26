@@ -6,6 +6,7 @@ import { AwardPostType } from '../../../Types/PostType';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Wave } from '../../Animation';
+import api from '../../../Util/helpers/Auth/Api';
 
 const MainAward = (): ReactElement => {
   const [awardList, setAwardList] = useState<AwardPostType[]>([]);
@@ -28,7 +29,7 @@ const MainAward = (): ReactElement => {
   return (
     <AwardContainer>
       <div>
-          <Wave rotation={180}/>
+        <Wave rotation={180} />
         <img src={awardHeaderImg} />
         <span>열심히 활동한 동아리를 볼 수 있어요.</span>
       </div>
@@ -52,7 +53,7 @@ const MainAward = (): ReactElement => {
           );
         })}
       </Slider>
-      <Wave location={11}/>
+      <Wave location={11} />
     </AwardContainer>
   );
 };

@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { userDataState, userState } from '../../../Recoil/User';
 import { InfoRightContainer, InfoContainer, InfoDetail, ImageDetail } from './style';
 import Button from '../../Button/Button';
-import { departmentIdxList, departmentList } from '../../../Util/constant';
+import { departmentIdxList, departmentList } from '../../../Util/constants/constant';
 
 const MyInfo = (): ReactElement => {
   const [user, setUser] = useRecoilState(userState);

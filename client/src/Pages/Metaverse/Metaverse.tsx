@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import socket from '../../Util/socket';
+import socket from '../../Util/helpers/socket';
 import Background from '../../Components/Background/background';
 import Character from '../../Components/Character/character';
 import defaultMapSetting from '../../libs/defaultMapSetting';

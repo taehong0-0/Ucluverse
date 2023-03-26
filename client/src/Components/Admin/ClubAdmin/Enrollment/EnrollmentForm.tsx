@@ -19,7 +19,7 @@ const AdminEnrollmentForm = (props: Props): ReactElement => {
   const [notice, setNotice] = useState<string>('');
   const [questions, setQuestions] = useState<string[]>([]);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/forms/${clubId}`).then((res) => {
+    api.get(`/forms/${clubId}`).then((res) => {
       if (res.data.isSuccess) {
         setNotice(res.data.res.form.notice);
         setQuestions(res.data.res.form.questions.map((question: Question) => question.content));
@@ -45,7 +45,7 @@ const AdminEnrollmentForm = (props: Props): ReactElement => {
     });
   }, []);
   const submit = () => {
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/forms`, {
+    api.post(`/forms`, {
       clubIdx: clubId,
       notice: noticeRef.current?.value,
       questions: questions,

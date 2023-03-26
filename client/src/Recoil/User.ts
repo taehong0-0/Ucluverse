@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { atom, selector } from 'recoil';
 import { UserType } from '../Types/UserType';
+import api from '../Util/helpers/Auth/Api';
 
 export const userState = atom<UserType>({
   key: 'userState',
@@ -22,7 +23,7 @@ export const userState = atom<UserType>({
 export const userDataState = selector({
   key: 'userDataState',
   get: async () => {
-    const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/isLogin`);
+    const res = await api.get(`/auth/isLogin`);
 
     return res.data;
   },

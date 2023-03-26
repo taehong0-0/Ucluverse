@@ -8,7 +8,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import fs from 'fs';
 import {
   CharacterContainer,
   DropZoneDiv,
@@ -25,26 +24,39 @@ import { useState } from 'react';
 import CharacterButton from '../Button/CharacterButton';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import AWS from 'aws-sdk';
 import { toast } from 'react-toastify';
-import { departmentList } from '../../Util/constant';
-import { makeStyles, Theme } from '@mui/material';
+import { departmentList } from '../../Util/constants/constant';
+import { useReducer } from 'react';
+interface AvatarType {
+  head: number;
+  body: number;
+  accessorie: number;
+}
 const LoginInfoMain = (): ReactElement => {
   const url = useLocation();
   const urlParams = new URLSearchParams(url.search);
   const email = urlParams.get('email');
-  const [head, setHead] = useState<number>(1);
-  const [body, setBody] = useState<number>(1);
-  const [accessorie, setAccessorie] = useState<number>(1);
+  const [avatar, setAvatar] = useReducer(
+    (prev: AvatarType, next: Partial<AvatarType>) => {
+      const newAvatar = { ...prev, ...next };
+      return newAvatar;
+    },
+    { head: 1, body: 1, accessorie: 1 },
+  );
   // 정보 입력
   const nameRef = useRef<HTMLInputElement>(null);
   const studentIDRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const nickNameRef = useRef<HTMLInputElement>(null);
-  //image DropZone
   const [department, setDepartment] = useState<string>('');
+  //image DropZone
   const [image, setImage] = useState<string | null>(null);
   const [file, setFile] = useState<Blob | null>(null);
+
+  const changeAvatar = (type: keyof AvatarType, num: number) => {
+    setAvatar({ [type]: num });
+  };
+
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file: Blob) => {
       const reader = new FileReader();
@@ -64,7 +76,7 @@ const LoginInfoMain = (): ReactElement => {
   const handleChange = (event: SelectChangeEvent) => {
     setDepartment(event.target.value);
   };
-  const submit = async () => {
+  const checkValidInput = () => {
     if (
       !nameRef.current?.value ||
       department === '' ||
@@ -81,62 +93,33 @@ const LoginInfoMain = (): ReactElement => {
         draggable: true,
         progress: undefined,
       });
-      return;
-    } else {
-      const option = {
-        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-        region: process.env.REACT_APP_AWS_REGION,
-      };
-      const s3 = new AWS.S3(option);
-      const param = {
-        Bucket: process.env.REACT_APP_AWS_S3_BUCKET_NAME ?? '',
-        ACL: 'public-read',
-        ContentType: `image/jpeg`,
-        Key: `user/profile/${new Date().toString()}.png`,
-        Body: file ?? '',
-      };
-      if (file === null) {
-        axios
-          .post(`${process.env.REACT_APP_SERVER_URL}/user/signup`, {
-            name: nameRef.current.value,
-            department: department,
-            email,
-            studentId: studentIDRef.current.value,
-            phoneNumber: phoneRef.current.value,
-            nickname: nickNameRef.current.value,
-          })
-          .then((response) => {
-            console.log('response : ', JSON.stringify(response, null, 2));
-            window.location.replace('/login');
-          })
-          .catch((error) => {
-            console.log('failed', error);
-          });
-      } else {
-        await s3
-          .upload(param)
-          .promise()
-          .then((data) => {
-            axios
-              .post(`${process.env.REACT_APP_SERVER_URL}/user/signup`, {
-                name: nameRef.current?.value,
-                department: department,
-                email,
-                studentId: studentIDRef.current?.value,
-                phoneNumber: phoneRef.current?.value,
-                nickname: nickNameRef.current?.value,
-                profilePhotoPath: data.Location,
-              })
-              .then((response) => {
-                console.log('response : ', JSON.stringify(response, null, 2));
-                window.location.replace('/login');
-              })
-              .catch((error) => {
-                console.log('failed', error);
-              });
-          });
-      }
+      return false;
+    }
+    return true;
+  };
+  const submit = async () => {
+    if (checkValidInput()) {
+      const bodyData = new FormData();
+      bodyData.append('name', nameRef.current!.value);
+      bodyData.append('department', department);
+      bodyData.append('studentID', studentIDRef.current!.value);
+      bodyData.append('phone', phoneRef.current!.value);
+      bodyData.append('nickName', nickNameRef.current!.value);
+      bodyData.append('profilePhoto', file ?? '');
+      bodyData.append('email', email ?? '');
+      axios
+        .post(`${process.env.REACT_APP_SERVER_URL}/user/signup`, bodyData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((response) => {
+          console.log('response : ', JSON.stringify(response, null, 2));
+          window.location.replace('/login');
+        })
+        .catch((error) => {
+          console.log('failed', error);
+        });
     }
   };
   return (
@@ -193,13 +176,26 @@ const LoginInfoMain = (): ReactElement => {
             <CharacterContainer>
               <img src={characterImg} width="140px" height="140px"></img>
               <div>
-                <CharacterButton content="머리" number={head} maxNum={10} setNumber={setHead}></CharacterButton>
-                <CharacterButton content="상의" number={body} maxNum={10} setNumber={setBody}></CharacterButton>
+                <CharacterButton
+                  content="머리"
+                  type="head"
+                  number={avatar.head}
+                  maxNum={10}
+                  setNumber={changeAvatar}
+                ></CharacterButton>
+                <CharacterButton
+                  content="상의"
+                  type="body"
+                  number={avatar.body}
+                  maxNum={10}
+                  setNumber={changeAvatar}
+                ></CharacterButton>
                 <CharacterButton
                   content="악세사리"
-                  number={accessorie}
+                  type="accessorie"
+                  number={avatar.accessorie}
                   maxNum={10}
-                  setNumber={setAccessorie}
+                  setNumber={changeAvatar}
                 ></CharacterButton>
               </div>
             </CharacterContainer>

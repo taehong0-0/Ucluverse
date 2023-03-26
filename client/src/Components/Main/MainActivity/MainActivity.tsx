@@ -9,6 +9,7 @@ import { ActivityPostType } from '../../../Types/PostType';
 import { useState } from 'react';
 import axios from 'axios';
 import { useScrollFadeIn } from '../../../Hooks';
+import api from '../../../Util/helpers/Auth/Api';
 
 interface buttonProps {
   className?: string;

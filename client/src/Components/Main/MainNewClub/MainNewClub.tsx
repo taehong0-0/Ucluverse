@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import { ClubType } from '../../../Types/ClubType';
 import { useEffect } from 'react';
 import axios from 'axios';
-import {useScrollFadeIn} from '../../../Hooks';
+import { useScrollFadeIn } from '../../../Hooks';
+import api from '../../../Util/helpers/Auth/Api';
 
 interface props {
   imgURL: string;
