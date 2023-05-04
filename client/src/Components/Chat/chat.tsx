@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { userDataState, userState } from '../../Recoil/User';
+import { userDataState } from '../../Recoil/User';
 import socket from '../../Util/helpers/socket';
 import { ChatContainer, ChatTitle, ChatLog } from './style';
 
-const Chat = (socketId: any) => {
+function Chat(socketId: any) {
   const user = useRecoilValue(userDataState);
-  const [receivedChatData, setReceivedChatData] = useState({ socketId: '', message: '' });
+  // const [receivedChatData, setReceivedChatData] = useState({ socketId: '', message: '' });
   const [chatHtml, setChatHtml] = useState('');
 
   useEffect((): any => {
     socket.on('RECEIVE_MESSAGE', (chatData: any) => {
-      setReceivedChatData(chatData);
+      // setReceivedChatData(chatData);
       setChatHtml(
-        (prev) => prev + `<p class="Nickname">${chatData.userName}</p> <p class="Content">${chatData.message}<p>`,
+        (prev) =>
+          `${prev}<p class="Nickname">${chatData.userName}</p> <p class="Content">${chatData.message}<p>`,
       );
     });
     return () => socket.off('RECEIVE_MESSAGE');
   });
 
-  useEffect(() => {}, [receivedChatData]);
+  // useEffect(() => {}, [receivedChatData]);
 
   useEffect(() => {
     const autoScroll = document.querySelector('.chatStyle');
@@ -34,7 +35,7 @@ const Chat = (socketId: any) => {
       socket.emit('SEND_MESSAGE', {
         socketId: socketId.socketId,
         userName: user.user.name,
-        message: message,
+        message,
       });
     }
   };
@@ -52,6 +53,6 @@ const Chat = (socketId: any) => {
       </form>
     </ChatContainer>
   );
-};
+}
 
 export default Chat;
