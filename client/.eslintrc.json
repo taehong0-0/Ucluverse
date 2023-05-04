@@ -3,7 +3,15 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended", "airbnb"],
+  "extends": [
+    // "eslint:recommended",
+    "eslint-config-prettier",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb-base",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
   "overrides": [],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -13,6 +21,13 @@
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
     "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    // "operator-linebreak": ["error", "before"],
+    "arrow-body-style": "off",
+    "no-nested-ternary": "off",
+    "no-underscore-dangle": "off",
+    "implicit-arrow-linebreak": "off",
+    "operator-linebreak": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -22,8 +37,14 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
-    // "react/prop-types": [0, { "ignore": ["ignore"], "customValidator": ["customValidator"], "skipUndeclared": true }]
+    ],
+    "prettier/prettier": "error",
+    "import/no-extraneous-dependencies": "off",
+    "import/prefer-default-export": "off",
+    "import/no-cycle": "off",
+    "indent": "off",
+    "object-curly-newline": "off"
+    // "array-callback-return": "off"
   },
   "settings": {
     "import/resolver": {

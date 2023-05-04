@@ -53,8 +53,8 @@
     "dev": "env-cmd -f .env.development react-scripts start",
     "prod": "env-cmd -f .env.production react-scripts start",
     "build": "react-scripts build",
-    "prettier": "prettier --check --config ./.prettierrc './src/Components/Button'",
-    "prettier:fix": "prettier --write --config ./.prettierrc './src/Components/Button'",
+    "prettier": "prettier --check --config ./.prettierrc './src/'",
+    "prettier:fix": "prettier --write --config ./.prettierrc './src/'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -86,9 +86,14 @@
     "@typescript-eslint/parser": "^5.56.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.36.0",
-    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.5.1",
     "typescript": "^4.6.2"
   }
