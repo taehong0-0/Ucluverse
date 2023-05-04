@@ -1,67 +1,64 @@
-import axios from 'axios';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useRecoilValue } from 'recoil';
+// import { useRecoilValue } from 'recoil';
 import useCheckRole from '../../../../Hooks/useCheckRole';
-import { userState } from '../../../../Recoil/User';
+// import { userState } from '../../../../Recoil/User';
 import { PostTitleType } from '../../../../Types/PostType';
 import api from '../../../../Util/helpers/Auth/Api';
 import Button from '../../../Button/Button';
-import Posting from '../../Posting/Posting';
 import { ActivityBoardContainer, ActivityContainer } from './style';
 
-const posts = [
-  {
-    title: '제목',
-    author: 'ㅁㅁ',
-    type: 'ㅁㅁ',
-    path: '',
-    createdAt: '2022.04.11',
-    postId: 3,
-  },
-  {
-    title: '제목',
-    author: 'ㅁㅁ',
-    type: 'ㅁㅁ',
-    path: '',
-    createdAt: '2022.04.11',
-    postId: 3,
-  },
-  {
-    title: '제목',
-    author: 'ㅁㅁ',
-    type: 'ㅁㅁ',
-    path: '',
-    createdAt: '2022.04.11',
-    postId: 3,
-  },
-  {
-    title: '제목',
-    author: 'ㅁㅁ',
-    type: 'ㅁㅁ',
-    path: '',
-    createdAt: '2022.04.11',
-    postId: 3,
-  },
-  {
-    title: '제목',
-    author: 'ㅁㅁ',
-    type: 'ㅁㅁ',
-    path: '',
-    createdAt: '2022.04.11',
-    postId: 3,
-  },
-];
+// const posts = [
+//   {
+//     title: '제목',
+//     author: 'ㅁㅁ',
+//     type: 'ㅁㅁ',
+//     path: '',
+//     createdAt: '2022.04.11',
+//     postId: 3,
+//   },
+//   {
+//     title: '제목',
+//     author: 'ㅁㅁ',
+//     type: 'ㅁㅁ',
+//     path: '',
+//     createdAt: '2022.04.11',
+//     postId: 3,
+//   },
+//   {
+//     title: '제목',
+//     author: 'ㅁㅁ',
+//     type: 'ㅁㅁ',
+//     path: '',
+//     createdAt: '2022.04.11',
+//     postId: 3,
+//   },
+//   {
+//     title: '제목',
+//     author: 'ㅁㅁ',
+//     type: 'ㅁㅁ',
+//     path: '',
+//     createdAt: '2022.04.11',
+//     postId: 3,
+//   },
+//   {
+//     title: '제목',
+//     author: 'ㅁㅁ',
+//     type: 'ㅁㅁ',
+//     path: '',
+//     createdAt: '2022.04.11',
+//     postId: 3,
+//   },
+// ];
 interface Props {
   boardIdx: number;
   clubId: number;
 }
-const ActivityBoard = (props: Props) => {
+function ActivityBoard(props: Props) {
   const { boardIdx, clubId } = props;
   const [activityPosts, setActivityPosts] = useState<PostTitleType[]>([]);
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
   const status = useCheckRole(clubId);
   useEffect(() => {
     api.get(`/postings/clubBoard/${boardIdx}`).then((res) => {
@@ -80,7 +77,11 @@ const ActivityBoard = (props: Props) => {
         progress: undefined,
       });
     } else {
-      window.history.pushState({ boardIdx, boardName: '활동 게시판' }, '', `/club/${clubId}/posting`);
+      window.history.pushState(
+        { boardIdx, boardName: '활동 게시판' },
+        '',
+        `/club/${clubId}/posting`,
+      );
       window.location.href = `/club/${clubId}/posting`;
     }
   };
@@ -96,7 +97,7 @@ const ActivityBoard = (props: Props) => {
           {activityPosts.map((post) => (
             <ActivityContainer key={post.createdAt}>
               <Link to={`/club/${clubId}/post?postId=${post.postingIdx}`}>
-                <img src={post.path ?? ''} />
+                <img alt="" src={post.path ?? ''} />
                 <div>
                   <span>{post.title}</span>
                   <span>{post.createdAt.slice(0, 10)}</span>
@@ -106,8 +107,8 @@ const ActivityBoard = (props: Props) => {
           ))}
         </div>
       </div>
-      <Button name="글작성" clickEvent={postClick}></Button>
+      <Button name="글작성" clickEvent={postClick} />
     </ActivityBoardContainer>
   );
-};
+}
 export default ActivityBoard;

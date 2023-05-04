@@ -1,18 +1,14 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { PostContainer } from './style';
-import test1 from '../../../Assets/test1.jpeg';
 import PostHeader from './Header/PostHeader';
 import PostMain from './Main/PostMain';
-import { useState } from 'react';
 import { PostType } from '../../../Types/PostType';
-import { useEffect } from 'react';
-import axios from 'axios';
-import { useRecoilValue } from 'recoil';
 import { userState } from '../../../Recoil/User';
 import api from '../../../Util/helpers/Auth/Api';
 
-const ClubPost = (): ReactElement => {
+function ClubPost(): ReactElement {
   const url = useLocation();
   const [post, setPost] = useState<PostType | null>(null);
   const urlParams = new URLSearchParams(url.search);
@@ -30,5 +26,5 @@ const ClubPost = (): ReactElement => {
       <PostMain post={post} />
     </PostContainer>
   );
-};
+}
 export default ClubPost;

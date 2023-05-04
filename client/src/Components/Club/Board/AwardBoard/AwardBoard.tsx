@@ -1,25 +1,22 @@
-import { useCallback, useRef } from 'react';
-import { useEffect, useState } from 'react';
-import Button from '../../../Button/Button';
-import FloatInput from '../../../Input/Input';
-import { AwardBoardContainer, AwardListContainer } from './style';
-import { useDropzone } from 'react-dropzone';
-import fileUploadImg from '../../../../Assets/파일 업로드.png';
-import { DropZoneDiv } from './style';
+import { useRef, useEffect, useState } from 'react';
 import axios from 'axios';
 import AWS from 'aws-sdk';
 import { toast } from 'react-toastify';
+// import { useRecoilValue } from 'recoil';
+import Button from '../../../Button/Button';
+import FloatInput from '../../../Input/Input';
+import { AwardBoardContainer, AwardListContainer } from './style';
+import fileUploadImg from '../../../../Assets/파일 업로드.png';
 import { AwardPostType } from '../../../../Types/PostType';
 import DropZone from '../../../DropZone/DropZone';
 import useCheckRole from '../../../../Hooks/useCheckRole';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../../../Recoil/User';
+// import { userState } from '../../../../Recoil/User';
 import api from '../../../../Util/helpers/Auth/Api';
 
 interface Props {
   clubId: number;
 }
-const AwardBoard = (props: Props) => {
+function AwardBoard(props: Props) {
   const { clubId } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -29,7 +26,7 @@ const AwardBoard = (props: Props) => {
   const [image, setImage] = useState<string | null>(null);
   const [file, setFile] = useState<Blob | null>(null);
   const [awardPosts, setAwardPosts] = useState<AwardPostType[]>([]);
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
   const status = useCheckRole(clubId);
   const option = {
     accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
@@ -40,7 +37,7 @@ const AwardBoard = (props: Props) => {
   const param = {
     Bucket: process.env.REACT_APP_AWS_S3_BUCKET_NAME ?? '',
     ACL: 'public-read',
-    ContentType: `image/jpeg`,
+    ContentType: 'image/jpeg',
     Key: `user/profile/${new Date().toString()}.png`,
     Body: file ?? '',
   };
@@ -63,7 +60,6 @@ const AwardBoard = (props: Props) => {
       !image
     ) {
       notify();
-      return;
     } else {
       await s3
         .upload(param)
@@ -142,7 +138,7 @@ const AwardBoard = (props: Props) => {
         <AwardListContainer>
           {awardPosts.map((award) => (
             <div key={award.awardTitle}>
-              <img src={award.path} />
+              <img alt="" src={award.path} />
               <div>
                 <span>{award.awardName}</span>
                 <span>
@@ -160,12 +156,12 @@ const AwardBoard = (props: Props) => {
             <span>수상 내역 등록</span>
             <div>
               <div>
-                <FloatInput inputRef={awardTitleRef} name="대회" type="midium"></FloatInput>
-                <FloatInput inputRef={awardNameRef} name="상" type="midium"></FloatInput>
+                <FloatInput inputRef={awardTitleRef} name="대회" type="midium" />
+                <FloatInput inputRef={awardNameRef} name="상" type="midium" />
                 <span>사진</span>
                 <DropZone setFile={setFile} setImage={setImage}>
                   {!image ? (
-                    <img src={fileUploadImg} width="30px" height="27px" />
+                    <img alt="" src={fileUploadImg} width="30px" height="27px" />
                   ) : (
                     <img
                       src={image}
@@ -181,7 +177,7 @@ const AwardBoard = (props: Props) => {
               </div>
               <div>
                 <span>내용</span>
-                <textarea ref={awardContentRef}></textarea>
+                <textarea ref={awardContentRef} />
               </div>
             </div>
             <div>
@@ -195,5 +191,5 @@ const AwardBoard = (props: Props) => {
       )}
     </AwardBoardContainer>
   );
-};
+}
 export default AwardBoard;

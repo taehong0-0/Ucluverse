@@ -1,18 +1,16 @@
-import React, { ReactElement, useContext } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { ClubContext } from '../../../Pages/Club/Club';
-import { BoardType } from '../../../Types/PostType';
+import React, { ReactElement } from 'react';
+
 import ActivityBoard from './ActivityBoard/ActivityBoard';
 import AwardBoard from './AwardBoard/AwardBoard';
 import InfoBoard from './InfoBoard/InfoBoard';
 import PostBoard from './PostBoard/PostBoard';
-interface props {
+
+interface IProps {
   boardIdx: number;
   clubId: number;
   boardName: string;
 }
-const ClubBoard = (props: props): ReactElement => {
+function ClubBoard(props: IProps): ReactElement {
   const { boardIdx, clubId, boardName } = props;
 
   return (
@@ -28,5 +26,5 @@ const ClubBoard = (props: props): ReactElement => {
       )}
     </>
   );
-};
+}
 export default ClubBoard;

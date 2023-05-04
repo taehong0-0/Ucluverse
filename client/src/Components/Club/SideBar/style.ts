@@ -68,7 +68,8 @@ export const SideBarContainer = styled.div`
           }
           &::-webkit-scrollbar {
             width: 3px;
-            background: transparent linear-gradient(180deg, #ffffff 0%, #ffffff 100%) 0% 0% no-repeat padding-box;
+            background: transparent linear-gradient(180deg, #ffffff 0%, #ffffff 100%) 0% 0%
+              no-repeat padding-box;
             box-shadow: 1px 1px 4px #00000029;
           }
           &::-webkit-scrollbar-thumb {
@@ -94,7 +95,8 @@ export const SideBarContainer = styled.div`
         overflow: auto;
         &::-webkit-scrollbar {
           width: 3px;
-          background: transparent linear-gradient(180deg, #ffffff 0%, #ffffff 100%) 0% 0% no-repeat padding-box;
+          background: transparent linear-gradient(180deg, #ffffff 0%, #ffffff 100%) 0% 0% no-repeat
+            padding-box;
           box-shadow: 1px 1px 4px #00000029;
         }
         &::-webkit-scrollbar-thumb {

@@ -1,9 +1,8 @@
-import { InfoBoardContainer } from './style';
-import test3 from '../../../../Assets/test3.jpeg';
 import { useContext } from 'react';
+import { InfoBoardContainer } from './style';
 import { ClubContext } from '../../../../Pages/Club/Club';
 
-const InfoBoard = () => {
+function InfoBoard() {
   const contextValue = useContext(ClubContext);
   const club = contextValue?.club;
   return (
@@ -14,11 +13,11 @@ const InfoBoard = () => {
           <span>{'>'}</span>
           <span>동아리 소개</span>
         </div>
-        <img src={club?.logoPath ?? ''} />
+        <img alt="" src={club?.logoPath ?? ''} />
         <span>{club?.name}</span>
         <span>{club?.introductionDesc}</span>
       </div>
     </InfoBoardContainer>
   );
-};
+}
 export default InfoBoard;

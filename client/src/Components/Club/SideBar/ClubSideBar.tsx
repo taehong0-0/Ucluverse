@@ -1,39 +1,37 @@
-import { ConstructionOutlined } from '@mui/icons-material';
+/* eslint-disable no-restricted-syntax */
 import axios from 'axios';
-import React, { ReactElement, SetStateAction, useEffect, useRef, useState } from 'react';
-import { Dispatch } from 'react';
+import React, { ReactElement, SetStateAction, useEffect, useRef, useState, Dispatch } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import useCheckRole from '../../../Hooks/useCheckRole';
-import { ClubContext } from '../../../Pages/Club/Club';
 import { userState } from '../../../Recoil/User';
 import { BoardType } from '../../../Types/PostType';
-import { departmentIdxList } from '../../../Util/constants/constant';
 import api from '../../../Util/helpers/Auth/Api';
 import Button from '../../Button/Button';
 import FloatInput from '../../Input/Input';
 import { BoardContainer, SideBarContainer } from './style';
-interface props {
+
+interface IProps {
   AboutBoardList: BoardType[];
   CommunicationBoardList: BoardType[];
   clubId: number;
   setBoardIdx: Dispatch<SetStateAction<number>>;
   setBoardName: Dispatch<SetStateAction<string>>;
 }
-
+interface Question {
+  content: string;
+  questionIdx: number;
+  formIdx: number;
+}
 interface Form {
   clubIdx: number;
   notice: string;
   formIdx: number;
   questions: Question[];
 }
-interface Question {
-  content: string;
-  questionIdx: number;
-  formIdx: number;
-}
-const ClubSideBar = (props: props): ReactElement => {
+
+function ClubSideBar(props: IProps): ReactElement {
   const { AboutBoardList, CommunicationBoardList, setBoardIdx, setBoardName, clubId } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [form, setForm] = useState<Form | null>(null);
@@ -58,7 +56,7 @@ const ClubSideBar = (props: props): ReactElement => {
     });
   };
   const submit = () => {
-    for (let input of inputRef.current) {
+    for (const input of inputRef.current) {
       if (!input.value) {
         showToast('모든 질문에 응답해주세요.');
         return;
@@ -71,10 +69,10 @@ const ClubSideBar = (props: props): ReactElement => {
       .post(`${process.env.REACT_APP_SERVER_URL}/user/userClub/answer`, {
         userIdx: user.userIdx,
         clubIdx: clubId,
-        answerList: answerList,
+        answerList,
         submissionFiles: [],
       })
-      .then((res) => {
+      .then(() => {
         showToast('신청이 완료되었습니다.');
         setIsOpen(false);
       });
@@ -170,7 +168,8 @@ const ClubSideBar = (props: props): ReactElement => {
                   .map((question, idx) => {
                     return (
                       <FloatInput
-                        name={'질문 ' + (idx + 1)}
+                        name={`질문 ${idx + 1}`}
+                        // eslint-disable-next-line no-return-assign
                         inputRef={(el: HTMLInputElement) => (inputRef.current[idx] = el)}
                         type="midium"
                         detail={question}
@@ -191,5 +190,5 @@ const ClubSideBar = (props: props): ReactElement => {
       )}
     </SideBarContainer>
   );
-};
+}
 export default ClubSideBar;

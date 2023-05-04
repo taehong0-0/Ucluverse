@@ -1,11 +1,12 @@
 import React, { ReactElement } from 'react';
 import { PostType } from '../../../../Types/PostType';
 import { PostMainContainer } from './style';
-interface props {
+
+interface IProps {
   post: PostType | null;
 }
 
-const PostMain = (props: props): ReactElement => {
+function PostMain(props: IProps): ReactElement {
   const { post } = props;
 
   return (
@@ -13,5 +14,5 @@ const PostMain = (props: props): ReactElement => {
       <span dangerouslySetInnerHTML={{ __html: post?.content ?? '' }} />
     </PostMainContainer>
   );
-};
+}
 export default PostMain;

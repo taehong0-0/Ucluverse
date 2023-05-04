@@ -1,7 +1,4 @@
-import axios from 'axios';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import useCheckRole from '../../../../Hooks/useCheckRole';
 import { PostTitleType } from '../../../../Types/PostType';
@@ -10,12 +7,23 @@ import Button from '../../../Button/Button';
 import PostTitle from '../../Post/Title/PostTitle';
 import { ClubBoardContainer, PostContainer } from './style';
 
-interface props {
+interface IProps {
   boardIdx: number;
   clubId: number;
   boardName: string;
 }
-const PostBoard = (props: props) => {
+
+const sortFunc = (a: PostTitleType, b: PostTitleType) => {
+  if (a.type === '공지사항' && b.type === '공지사항') {
+    return 0;
+  }
+  if (a.type === '공지사항') {
+    return -1;
+  }
+  return 1;
+};
+
+function PostBoard(props: IProps) {
   const { boardIdx, clubId, boardName } = props;
   const [postList, setPostList] = useState<PostTitleType[]>([]);
   const role = useCheckRole(clubId);
@@ -30,15 +38,6 @@ const PostBoard = (props: props) => {
       });
     }
   }, [boardName]);
-  const sortFunc = (a: PostTitleType, b: PostTitleType) => {
-    if (a.type === '공지사항' && b.type === '공지사항') {
-      return 0;
-    } else if (a.type === '공지사항') {
-      return -1;
-    } else {
-      return 1;
-    }
-  };
   const setToast = (message: string) => {
     toast(message, {
       position: 'top-right',
@@ -79,12 +78,12 @@ const PostBoard = (props: props) => {
               type={post.type}
               postId={post.postingIdx}
               clubId={clubId}
-            ></PostTitle>
+            />
           ))}
         </PostContainer>
       </div>
-      {boardName !== '전체 게시판' && <Button name="글작성" clickEvent={clickEvent}></Button>}
+      {boardName !== '전체 게시판' && <Button name="글작성" clickEvent={clickEvent} />}
     </ClubBoardContainer>
   );
-};
+}
 export default PostBoard;

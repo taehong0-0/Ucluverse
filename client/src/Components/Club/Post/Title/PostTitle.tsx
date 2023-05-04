@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { TitleContainer } from './style';
-interface props {
+
+interface IProps {
   title: string;
   author: string;
   date: string;
@@ -9,7 +10,7 @@ interface props {
   postId: number;
   clubId: number;
 }
-const PostTitle = (props: props): ReactElement => {
+function PostTitle(props: IProps): ReactElement {
   const { title, author, date, type, postId, clubId } = props;
   return (
     <TitleContainer>
@@ -23,5 +24,5 @@ const PostTitle = (props: props): ReactElement => {
       </div>
     </TitleContainer>
   );
-};
+}
 export default PostTitle;

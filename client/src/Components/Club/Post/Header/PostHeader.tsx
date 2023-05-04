@@ -1,14 +1,13 @@
 import React, { ReactElement } from 'react';
+import { useRecoilValue } from 'recoil';
 import { HeaderContainer } from './style';
-import test1 from '../../../../Assets/test1.jpeg';
 import { PostType } from '../../../../Types/PostType';
 import { userState } from '../../../../Recoil/User';
-import { useRecoilValue } from 'recoil';
 
-interface props {
+interface IProps {
   post: PostType | null;
 }
-const PostHeader = (props: props): ReactElement => {
+function PostHeader(props: IProps): ReactElement {
   const user = useRecoilValue(userState);
   const { post } = props;
   return (
@@ -34,12 +33,12 @@ const PostHeader = (props: props): ReactElement => {
           <span>{post?.author.name}</span>
         </div>
         {post?.author.profilePhoto ? (
-          <img src={post.author.profilePhoto} width="90px" height="90px"></img>
+          <img alt="" src={post.author.profilePhoto} width="90px" height="90px" />
         ) : (
-          <div></div>
+          <div />
         )}
       </div>
     </HeaderContainer>
   );
-};
+}
 export default PostHeader;

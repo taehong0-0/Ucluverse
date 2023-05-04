@@ -1,23 +1,18 @@
-import { useRef, useState } from 'react';
-import Button from '../../Button/Button';
-import Editor from '../../Editor/Editor';
-import FloatInput from '../../Input/Input';
-import { PostingContainer } from './style';
+import { useRef, useState, useEffect } from 'react';
 import { Buffer } from 'buffer';
 import AWS from 'aws-sdk';
 import axios from 'axios';
 import { useRecoilValue } from 'recoil';
+import Button from '../../Button/Button';
+import Editor from '../../Editor/Editor';
+import FloatInput from '../../Input/Input';
+import { PostingContainer } from './style';
 import { userState } from '../../../Recoil/User';
-import { useContext } from 'react';
-import { ClubContext } from '../../../Pages/Club/Club';
-import { Link, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
-import { send } from 'node:process';
 
 interface Props {
   clubId: number;
 }
-const Posting = (props: Props) => {
+function Posting(props: Props) {
   const { clubId } = props;
   const user = useRecoilValue(userState);
   const { boardIdx, boardName } = window.history.state;
@@ -33,7 +28,8 @@ const Posting = (props: Props) => {
       region: process.env.REACT_APP_AWS_REGION,
     };
     const s3 = new AWS.S3(option);
-    const srcRegEx = /<img src=\"([^\"]*?)\" \/>/gi;
+    // eslint-disable-next-line no-useless-escape
+    const srcRegEx = /<img alt ="" src=\"([^\"]*?)\" \/>/gi;
     const srcList = content.match(srcRegEx);
     const promiseList = srcList?.map(async (tag, idx) => {
       tag.match(srcRegEx);
@@ -67,12 +63,12 @@ const Posting = (props: Props) => {
       .post(`${process.env.REACT_APP_SERVER_URL}/postings/clubBoard/${boardIdx}`, {
         userIdx: user.userIdx,
         title: titleRef.current.value,
-        content: content,
+        content,
         images: imageList,
         allowComments: true,
         isPublic: true,
       })
-      .then((res) => {
+      .then(() => {
         window.location.href = `/club/${clubId}/board`;
       });
   };
@@ -90,8 +86,8 @@ const Posting = (props: Props) => {
         <FloatInput inputRef={titleRef} name="제목" type="large" />
         <Editor setContent={setContent} />
       </div>
-      <Button name="작성" clickEvent={submit}></Button>
+      <Button name="작성" clickEvent={submit} />
     </PostingContainer>
   );
-};
+}
 export default Posting;
