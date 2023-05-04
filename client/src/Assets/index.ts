@@ -8,8 +8,18 @@ import mypageImg from './내정보.svg';
 import groupImg from './단체사진.jpg';
 import Icons from './icon';
 
-const { facebookIcon ,InstaIcon, GithubIcon } = Icons;
+const { facebookIcon, InstaIcon, GithubIcon } = Icons;
 
-export default { 
-    facebookIcon, InstaIcon, GithubIcon, 
-    groupImg, logoImg, logoImgWhite, profileImg, profileImgWhite, alarmImg, logoutImg, mypageImg };
+export default {
+  facebookIcon,
+  InstaIcon,
+  GithubIcon,
+  groupImg,
+  logoImg,
+  logoImgWhite,
+  profileImg,
+  profileImgWhite,
+  alarmImg,
+  logoutImg,
+  mypageImg,
+};
