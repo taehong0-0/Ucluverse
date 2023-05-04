@@ -1,38 +1,31 @@
+/* eslint-disable indent */
+/* eslint-disable operator-linebreak */
 import styled from 'styled-components';
 
 export const LinkButtonContainer = styled.button`
   background: none;
-  white-space : nowrap;
+  white-space: nowrap;
   border: none;
   font: normal normal bold 14px Noto Sans KR;
   cursor: pointer;
 
   a {
     text-decoration: none;
-    color : ${(props) => (
-        props.color == 'darkPurple' &&
-          props.theme.font.darkPurple ||
-        props.color == 'yellow' &&
-          props.theme.font.yellow ||
-        props.color == 'default' &&
-          props.theme.font.default ||
-        props.color == 'purple' &&
-          props.theme.font.purple ||
-        props.color == 'lightYellow' &&
-          props.theme.font.lightYellow
-      )};
+    color: ${(props) =>
+      // eslint-disable-next-line implicit-arrow-linebreak
+      (props.color === 'darkPurple' && props.theme.font.darkPurple) ||
+      (props.color === 'yellow' && props.theme.font.yellow) ||
+      (props.color === 'default' && props.theme.font.default) ||
+      (props.color === 'purple' && props.theme.font.purple) ||
+      (props.color === 'lightYellow' && props.theme.font.lightYellow)};
 
     :hover {
-      color : ${ (props) => (
-        props.color == 'purple' &&
-        'var(--primary-d1)' ||
-        'var(--primary-0)'
-      )}
+      color: ${(props) => (props.color === 'purple' && 'var(--primary-d1)') || 'var(--primary-0)'};
     }
   }
 
-  @media (max-width : 960px) {
-    font-size : 14px;
+  @media (max-width: 960px) {
+    font-size: 14px;
   }
 `;
 
@@ -58,7 +51,7 @@ export const ButtonContainer = styled.button`
   width: auto;
   height: auto;
   line-height: 2.125rem;
-  padding : .5rem 1.2rem;
+  padding: 0.5rem 1.2rem;
   background: var(--primary-d1);
   box-shadow: 2px 2px 6px #33333329;
   border: none;

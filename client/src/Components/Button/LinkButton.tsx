@@ -1,24 +1,22 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { LinkButtonContainer } from './style';
-import { useRecoilValue } from 'recoil'
 import { theme } from '../../Recoil/Theme';
 
-interface props {
+interface IProps {
   url: string;
-  children: JSX.Element | string;
+  children: any;
 }
 
-const LinkButton = (props: props): ReactElement => {
+function LinkButton(props: IProps): ReactElement {
   const { url, children } = props;
   const themeColor = useRecoilValue(theme);
-  
+
   return (
     <LinkButtonContainer color={themeColor}>
-      <Link to={url}>
-        {children}
-      </Link>
+      <Link to={url}>{children}</Link>
     </LinkButtonContainer>
   );
-};
+}
 export default LinkButton;

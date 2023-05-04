@@ -1,12 +1,11 @@
-import { MouseEventHandler } from 'react';
 import { ButtonContainer } from './style';
 
-interface props {
+interface IProps {
   clickEvent: () => void;
   name: string;
 }
 
-const Button = (props: props) => {
+function Button(props: IProps) {
   const { clickEvent, name } = props;
   return (
     <ButtonContainer
@@ -18,5 +17,5 @@ const Button = (props: props) => {
       <h4>{name}</h4>
     </ButtonContainer>
   );
-};
+}
 export default Button;

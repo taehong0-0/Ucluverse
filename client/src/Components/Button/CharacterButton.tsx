@@ -2,14 +2,16 @@ import React, { ReactElement } from 'react';
 import { CharacterButtonContainer } from './style';
 import leftArrow from '../../Assets/왼쪽화살표.svg';
 import rightArrow from '../../Assets/오른쪽화살표.svg';
-interface props {
+
+interface IProps {
   content: string;
   type: string;
   number: number;
   maxNum: number;
+  // eslint-disable-next-line no-unused-vars
   setNumber(type: string, num: number): void;
 }
-const CharacterButton = (props: props): ReactElement => {
+function CharacterButton(props: IProps): ReactElement {
   const { content, type, number, maxNum, setNumber } = props;
   const minus = () => {
     if (number > 1) setNumber(type, number - 1);
@@ -21,16 +23,16 @@ const CharacterButton = (props: props): ReactElement => {
   return (
     <CharacterButtonContainer>
       <button onClick={() => minus()}>
-        <img src={leftArrow}></img>
+        <img alt="" src={leftArrow} />
       </button>
       <span>
         {content}
         {number}
       </span>
       <button onClick={() => plus()}>
-        <img src={rightArrow}></img>
+        <img alt="" src={rightArrow} />
       </button>
     </CharacterButtonContainer>
   );
-};
+}
 export default CharacterButton;
