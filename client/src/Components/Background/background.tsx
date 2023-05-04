@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import testMap from '../../Assets/testMap.png';
-const Background = ({ marginBackground }: any) => {
+
+function Background({ marginBackground }: any) {
   const canvasBackgroundRef = useRef<any>(null);
   const background = new Image();
 
@@ -24,6 +25,7 @@ const Background = ({ marginBackground }: any) => {
 
   useEffect(() => {
     const context = canvasBackgroundRef.current?.getContext('2d');
+    // eslint-disable-next-line no-unused-expressions
     context !== null && context.clearRect(0, 0, window.screen.width, window.screen.height);
     context?.drawImage(
       background,
@@ -46,6 +48,6 @@ const Background = ({ marginBackground }: any) => {
       className="backgroundCanvas"
     />
   );
-};
+}
 
 export default Background;
