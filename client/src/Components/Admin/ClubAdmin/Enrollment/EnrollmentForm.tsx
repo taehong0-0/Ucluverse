@@ -1,10 +1,11 @@
-import axios from 'axios';
-import { ChangeEvent, useState } from 'react';
-import { useCallback } from 'react';
-import { useEffect } from 'react';
-import { ReactElement, useRef } from 'react';
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
+// eslint-disable-next-line object-curly-newline
+import { ChangeEvent, useState, useCallback, useEffect, ReactElement, useRef } from 'react';
+import api from '../../../../Util/helpers/Auth/Api';
 import Button from '../../../Button/Button';
 import { AdminEnrollmentFormContainer, FormBodyContainer } from './style';
+/* eslint-disable react/button-has-type */
 interface Props {
   clubId: number;
 }
@@ -13,7 +14,7 @@ interface Question {
   questionIdx: number;
   formIdx: number;
 }
-const AdminEnrollmentForm = (props: Props): ReactElement => {
+function AdminEnrollmentForm(props: Props): ReactElement {
   const { clubId } = props;
   const noticeRef = useRef<HTMLTextAreaElement>(null);
   const [notice, setNotice] = useState<string>('');
@@ -27,28 +28,22 @@ const AdminEnrollmentForm = (props: Props): ReactElement => {
     });
   }, [clubId]);
   const addQuestion = () => {
-    setQuestions((questions) => [...questions, '']);
+    setQuestions((prev) => [...prev, '']);
   };
   const removeQuestion = (index: number) => {
-    setQuestions((questions) =>
-      questions.filter((question, idx) => {
-        return idx !== index;
-      }),
-    );
+    setQuestions((prev) => prev.filter((question, idx) => idx !== index));
   };
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>, idx: number) => {
     // console.log(e.target.value);
-    setQuestions((questions) => {
-      return questions.map((question, index) => {
-        return index === idx ? e.target.value : question;
-      });
-    });
+    setQuestions((prev) =>
+      prev.map((question, index) => (index === idx ? e.target.value : question)),
+    );
   }, []);
   const submit = () => {
-    api.post(`/forms`, {
+    api.post('/forms', {
       clubIdx: clubId,
       notice: noticeRef.current?.value,
-      questions: questions,
+      questions,
     });
   };
   return (
@@ -57,21 +52,21 @@ const AdminEnrollmentForm = (props: Props): ReactElement => {
       <FormBodyContainer>
         <div>
           <span>공지사항</span>
-          <textarea ref={noticeRef} defaultValue={notice}></textarea>
+          <textarea ref={noticeRef} defaultValue={notice} />
         </div>
         {questions.map((question, idx) => (
-          <div key={idx}>
+          <div key={question}>
             <span>질문</span>
-            <input onChange={(e) => onChange(e, idx)} value={question}></input>
+            <input onChange={(e) => onChange(e, idx)} value={question} />
             <button onClick={() => removeQuestion(idx)}>취소</button>
           </div>
         ))}
       </FormBodyContainer>
       <div>
-        <Button name="추가" clickEvent={addQuestion}></Button>
-        <Button name="저장" clickEvent={submit}></Button>
+        <Button name="추가" clickEvent={addQuestion} />
+        <Button name="저장" clickEvent={submit} />
       </div>
     </AdminEnrollmentFormContainer>
   );
-};
+}
 export default AdminEnrollmentForm;

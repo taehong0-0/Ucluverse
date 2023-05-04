@@ -1,20 +1,14 @@
-import axios from 'axios';
-import { info } from 'console';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { ReactElement } from 'react';
-import { isAsExpression } from 'typescript';
+// eslint-disable-next-line object-curly-newline
+import { ChangeEvent, useEffect, useState, ReactElement } from 'react';
+
 import { UserType } from '../../../../Types/UserType';
 import { departmentIdxList } from '../../../../Util/constants/constant';
 import api from '../../../../Util/helpers/Auth/Api';
-import Button from '../../../Button/Button';
 import { AdminMemberContainer, MemberBodyContainer } from './style';
+
 interface Props {
   clubId: number;
 }
-
-type Member = UserType & {
-  userClub: UserClub;
-};
 interface UserClub {
   userClubIdx: number;
   userIdx: number;
@@ -23,9 +17,25 @@ interface UserClub {
   status: string;
   star: boolean;
 }
-const AdminMember = (props: Props): ReactElement => {
+type Member = UserType & {
+  userClub: UserClub;
+};
+
+function AdminMember(props: Props): ReactElement {
   const { clubId } = props;
   const [memberList, setMemberList] = useState<Member[]>([]);
+  const sortFunction = (a: Member, b: Member) => {
+    if (a.userClub.role === 'manager' && b.userClub.role === 'manager') {
+      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    }
+    if (a.userClub.role === 'manager') {
+      return -1;
+    }
+    if (b.userClub.role === 'manager') {
+      return 1;
+    }
+    return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+  };
   useEffect(() => {
     // todo: 데이터 요청
     // api.get(`/departments`).then((res) => console.log(res));
@@ -33,27 +43,16 @@ const AdminMember = (props: Props): ReactElement => {
       setMemberList(res.data.res.user.sort(sortFunction));
     });
   }, []);
-  const sortFunction = (a: Member, b: Member) => {
-    if (a.userClub.role === 'manager' && b.userClub.role === 'manager') {
-      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-    } else if (a.userClub.role === 'manager') {
-      return -1;
-    } else if (b.userClub.role === 'manager') {
-      return 1;
-    } else {
-      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-    }
-  };
   const onChange = (e: ChangeEvent<HTMLSelectElement>, member: Member) => {
-    setMemberList((memberList) => {
-      return memberList
+    setMemberList((prev) => {
+      return prev
         .map((element) => {
           if (element === member) {
             const { userClub, ...info } = element;
             userClub.role = e.target.value;
             return {
               ...info,
-              userClub: userClub,
+              userClub,
             };
           }
           return element;
@@ -78,13 +77,20 @@ const AdminMember = (props: Props): ReactElement => {
               <div>
                 <select
                   id={member.name + member.studentId}
-                  className={member.userClub.role && member.userClub.role === 'manager' ? 'manager' : 'member'}
+                  className={
+                    member.userClub.role && member.userClub.role === 'manager'
+                      ? 'manager'
+                      : 'member'
+                  }
                   onChange={(e) => onChange(e, member)}
                 >
                   <option value="manager" selected={member.userClub.role === 'manager'}>
                     임원
                   </option>
-                  <option value="member" selected={!member.userClub.role || member.userClub.role === 'member'}>
+                  <option
+                    value="member"
+                    selected={!member.userClub.role || member.userClub.role === 'member'}
+                  >
                     회원
                   </option>
                 </select>
@@ -98,5 +104,5 @@ const AdminMember = (props: Props): ReactElement => {
       </MemberBodyContainer>
     </AdminMemberContainer>
   );
-};
+}
 export default AdminMember;

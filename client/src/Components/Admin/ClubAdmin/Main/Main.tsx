@@ -1,20 +1,18 @@
-import { useCallback } from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { ReactElement, useRef } from 'react';
-import { useDropzone } from 'react-dropzone';
+/* eslint-disable no-useless-escape */
+import { useCallback, useState, useEffect, ReactElement } from 'react';
+import axios from 'axios';
+import AWS from 'aws-sdk';
 import { ClubType } from '../../../../Types/ClubType';
 import fileUploadImg from '../../../../Assets/파일 업로드.png';
 import Button from '../../../Button/Button';
 import DropZone from '../../../DropZone/DropZone';
-import { AdminMainContainer, BodyContainer, DropZoneDiv } from './style';
-import axios from 'axios';
-import AWS from 'aws-sdk';
+import { AdminMainContainer, BodyContainer } from './style';
+
 interface Props {
   club: ClubType | null;
   clubId: number;
 }
-const AdminMain = (props: Props): ReactElement => {
+function AdminMain(props: Props): ReactElement {
   const { club, clubId } = props;
   const [tag, setTag] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
@@ -33,7 +31,7 @@ const AdminMain = (props: Props): ReactElement => {
   const param = {
     Bucket: process.env.REACT_APP_AWS_S3_BUCKET_NAME ?? '',
     ACL: 'public-read',
-    ContentType: `image/jpeg`,
+    ContentType: 'image/jpeg',
     Key: `user/profile/${new Date().toString()}.png`,
     Body: file ?? '',
   };
@@ -76,13 +74,13 @@ const AdminMain = (props: Props): ReactElement => {
         </div>
         <div className="introduce">
           <span>소개글</span>
-          <textarea value={introduce} onChange={onChangeIntroduce}></textarea>
+          <textarea value={introduce} onChange={onChangeIntroduce} />
         </div>
         <div className="poster">
           <span>홍보포스터</span>
           <DropZone setFile={setFile} setImage={setImage}>
             {!image && !club?.logoPath ? (
-              <img src={fileUploadImg} width="30px" height="27px" />
+              <img alt="" src={fileUploadImg} width="30px" height="27px" />
             ) : image ? (
               <img
                 src={image ?? undefined}
@@ -107,8 +105,8 @@ const AdminMain = (props: Props): ReactElement => {
           </DropZone>
         </div>
       </BodyContainer>
-      <Button name="확인" clickEvent={submit}></Button>
+      <Button name="확인" clickEvent={submit} />
     </AdminMainContainer>
   );
-};
+}
 export default AdminMain;

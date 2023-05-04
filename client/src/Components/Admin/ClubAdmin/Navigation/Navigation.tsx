@@ -1,12 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
-import { ReactElement } from 'react';
+import { Dispatch, SetStateAction, ReactElement } from 'react';
 import { AdminNavigationContainer } from './style';
 
 interface Props {
   idx: number;
   setIdx: Dispatch<SetStateAction<number>>;
 }
-const AdminNavigation = (props: Props): ReactElement => {
+function AdminNavigation(props: Props): ReactElement {
   const { idx, setIdx } = props;
   return (
     <AdminNavigationContainer>
@@ -24,5 +23,5 @@ const AdminNavigation = (props: Props): ReactElement => {
       </span>
     </AdminNavigationContainer>
   );
-};
+}
 export default AdminNavigation;
