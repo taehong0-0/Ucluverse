@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Yukey from '../../Assets/Yukey.png';
+
 const direct: any = {
   up: 32 * 6,
   down: 0,
@@ -19,10 +20,11 @@ const dance: any = {
   leftMid: 32 * 15,
 };
 
-const Character = ({ socketId, users, marginBackground, move }: any) => {
+function Character({ socketId, users }: any) {
   const characterCanvas = useRef<any>(null);
 
-  const changeMotion = (direction: any, state: any) => dance[state] ?? direct[direction] + run[state];
+  const changeMotion = (direction: any, state: any) =>
+    dance[state] ?? direct[direction] + run[state];
 
   const [characterImg, setCharacterImg] = useState<any>();
 
@@ -34,7 +36,7 @@ const Character = ({ socketId, users, marginBackground, move }: any) => {
     if (!characterCanvas.current) return;
     const actx = characterCanvas.current.getContext('2d');
     actx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    Object.entries(users).map(([key, { x, y, direction, state }]: any) => {
+    Object.entries(users).forEach(([key, { x, y, direction, state }]: any) => {
       if (key !== socketId) {
         if (characterImg === undefined || !characterImg) return;
         characterImg.src = Yukey;
@@ -77,6 +79,6 @@ const Character = ({ socketId, users, marginBackground, move }: any) => {
       className="characterCanvas"
     />
   );
-};
+}
 
 export default Character;
