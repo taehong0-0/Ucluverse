@@ -1,12 +1,13 @@
-import { Dispatch, SetStateAction } from 'react';
-import { ReactElement, useCallback } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-interface Props {
-  setFile: Dispatch<SetStateAction<Blob | null>>;
+interface IProps {
   setImage: Dispatch<SetStateAction<string | null>>;
+  setFile: Dispatch<SetStateAction<Blob | null>>;
+  children: any;
 }
-const DropZone: React.FC<Props> = ({ setFile, setImage, children }) => {
+function DropZone(props: IProps) {
+  const { setFile, setImage, children } = props;
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file: Blob) => {
       const reader = new FileReader();
@@ -17,7 +18,7 @@ const DropZone: React.FC<Props> = ({ setFile, setImage, children }) => {
       reader.onerror = () => console.log('file reading has failed');
       reader.onload = () => {
         // Do whatever you want with the file contents
-        const binaryStr = reader.result;
+        // const binaryStr = reader.result;
       };
       reader.readAsArrayBuffer(file);
     });
@@ -29,6 +30,5 @@ const DropZone: React.FC<Props> = ({ setFile, setImage, children }) => {
       {children}
     </div>
   );
-};
-
+}
 export default DropZone;
