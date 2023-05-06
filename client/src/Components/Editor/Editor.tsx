@@ -1,10 +1,10 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { CKEditor } from 'ckeditor4-react';
 
-interface props {
+interface IProps {
   setContent: Dispatch<SetStateAction<string>>;
 }
-const Editor = (props: props) => {
+function Editor(props: IProps) {
   const { setContent } = props;
   const config = {
     height: '25rem',
@@ -17,9 +17,9 @@ const Editor = (props: props) => {
           setContent(event.editor.getData());
         }}
         config={config}
-      // style={{ height: '600px' }}
+        // style={{ height: '600px' }}
       />
     </div>
   );
-};
+}
 export default Editor;
