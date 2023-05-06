@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
-interface props {
+
+interface IProps {
   type: string;
 }
 const largeStyle = css`
@@ -8,7 +9,7 @@ const largeStyle = css`
 const midiumStyle = css`
   width: 16.5rem;
 `;
-export const InputContainer = styled.div<props>`
+export const InputContainer = styled.div<IProps>`
   display: flex;
   flex-direction: column;
   width: 10vw;
