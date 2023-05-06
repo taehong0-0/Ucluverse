@@ -84,11 +84,11 @@ export const FooterDiv = styled.footer<propsInfo>`
   border-radius: 0;
 
   background-image: ${(props) =>
-    (props.color == 'darkPurple' && props.theme.footer.darkPurple) ||
-    (props.color == 'yellow' && props.theme.footer.yellow) ||
-    (props.color == 'default' && props.theme.footer.default) ||
-    (props.color == 'purple' && props.theme.footer.purple) ||
-    (props.color == 'lightYellow' && props.theme.footer.lightYellow)};
+    (props.color === 'darkPurple' && props.theme.footer.darkPurple) ||
+    (props.color === 'yellow' && props.theme.footer.yellow) ||
+    (props.color === 'default' && props.theme.footer.default) ||
+    (props.color === 'purple' && props.theme.footer.purple) ||
+    (props.color === 'lightYellow' && props.theme.footer.lightYellow)};
 
   img {
     display: block;
@@ -102,11 +102,11 @@ export const FooterDiv = styled.footer<propsInfo>`
   p {
     text-align: center;
     color: ${(props) =>
-      (props.color == 'darkPurple' && props.theme.font.darkPurple) ||
-      (props.color == 'yellow' && props.theme.font.yellow) ||
-      (props.color == 'default' && props.theme.font.default) ||
-      (props.color == 'purple' && props.theme.font.purple) ||
-      (props.color == 'lightYellow' && props.theme.font.lightYellow)};
+      (props.color === 'darkPurple' && props.theme.font.darkPurple) ||
+      (props.color === 'yellow' && props.theme.font.yellow) ||
+      (props.color === 'default' && props.theme.font.default) ||
+      (props.color === 'purple' && props.theme.font.purple) ||
+      (props.color === 'lightYellow' && props.theme.font.lightYellow)};
 
     :first-child {
       padding-top: 24px;
