@@ -1,13 +1,11 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ClubType } from '../../../Types/ClubType';
 import { ClubListContainer } from './style';
 
-interface props {
+interface IProps {
   clubList: ClubType[] | null;
 }
-const ClubList = (props: props) => {
+function ClubList(props: IProps) {
   const { clubList } = props;
 
   return (
@@ -17,7 +15,7 @@ const ClubList = (props: props) => {
           return (
             <Link to={`/club/${club.clubIdx}`} key={club.clubIdx}>
               <div>
-                {club.logoPath ? <img src={club.logoPath ?? ''}></img> : <div></div>}
+                {club.logoPath ? <img alt="" src={club.logoPath ?? ''} /> : <div />}
                 <span>{club.name}</span>
               </div>
             </Link>
@@ -26,5 +24,5 @@ const ClubList = (props: props) => {
       </div>
     </ClubListContainer>
   );
-};
+}
 export default ClubList;

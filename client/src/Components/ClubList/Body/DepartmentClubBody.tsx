@@ -1,18 +1,12 @@
-import character from '../../../Assets/Character-hello.png';
 import { useState } from 'react';
+// import { useRecoilValue } from 'recoil';
 import ClubCategory from '../Category/ClubCategory';
 import ClubList from '../ClubList/ClubList';
 import { ClubBodyContainer } from './style';
-import { ClubType } from '../../../Types/ClubType';
-import { useEffect } from 'react';
-import axios from 'axios';
-import { useRecoilValue } from 'recoil';
-import { DepartmentListState } from '../../../Recoil/Club';
-import { useLottie } from '../../../Hooks';
-import { useScrollFadeIn } from '../../../Hooks';
+// import { DepartmentListState } from '../../../Recoil/Club';
+import { useLottie, useScrollFadeIn } from '../../../Hooks';
 import YukeyHello from '../../../Assets/Lottie/YukeyHello.json';
 import { Wave } from '../../Animation';
-import api from '../../../Util/helpers/Auth/Api';
 
 interface departmentCategoryType {
   [index: string]: string[];
@@ -51,7 +45,13 @@ const departmentCategoryList: departmentCategoryType = {
     '융합시스템공학과',
   ],
   정보통신대학: ['전자공학과'],
-  소프트웨어융합대학: ['미디어학과', '소프트웨어학과', '국방디지털융합학과', '사이버보안학과', '인공지능융합학과'],
+  소프트웨어융합대학: [
+    '미디어학과',
+    '소프트웨어학과',
+    '국방디지털융합학과',
+    '사이버보안학과',
+    '인공지능융합학과',
+  ],
   자연과학대학: ['수학과', '화학과', '물리학과', '생명과학과'],
   경영대학: ['경영학과', '금융공학과', 'e-비지니스학과', '글로벌경영학과'],
   인문대학: ['국어국문학과', '사학과', '영어영문학과', '문화콘텐츠학과', '불어불문학과'],
@@ -109,7 +109,7 @@ const clubList: any[] = [
     department: 'e-비지니스학과',
   },
 ];
-const DepartmentBody = () => {
+function DepartmentBody() {
   const lottieYuKey = useLottie(YukeyHello, true, 20, 20);
   const animation = useScrollFadeIn();
   const animation2 = useScrollFadeIn('up', 1, 0.15, 0);
@@ -117,7 +117,7 @@ const DepartmentBody = () => {
   const [collegeCategory, setCollegeCategory] = useState<string>('');
   const [departmentCategory, setDepartmentCategory] = useState<string>('');
   // const [departmentClubList, setDepartmentClubList] = useState<ClubType[]>([]);
-  const departmentClubList = useRecoilValue(DepartmentListState);
+  // const departmentClubList = useRecoilValue(DepartmentListState);
 
   // useEffect(() => {
   //   api.get(`/clubs/department`).then((res) => {
@@ -179,5 +179,5 @@ const DepartmentBody = () => {
       </section>
     </ClubBodyContainer>
   );
-};
+}
 export default DepartmentBody;

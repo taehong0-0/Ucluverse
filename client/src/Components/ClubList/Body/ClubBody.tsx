@@ -1,16 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import ClubCategory from '../Category/ClubCategory';
 import ClubList from '../ClubList/ClubList';
 import { ClubBodyContainer } from './style';
-import { ClubType } from '../../../Types/ClubType';
-import axios from 'axios';
-import { useRecoilValue } from 'recoil';
 import { ClubListState } from '../../../Recoil/Club';
 import YukeyHello from '../../../Assets/Lottie/YukeyHello.json';
-import { useLottie } from '../../../Hooks';
-import { useScrollFadeIn } from '../../../Hooks';
+import { useLottie, useScrollFadeIn } from '../../../Hooks';
 import { Wave } from '../../Animation';
-import api from '../../../Util/helpers/Auth/Api';
 
 const categoryList = [
   '전체',
@@ -24,7 +20,7 @@ const categoryList = [
   '종교',
   '준/가동아리',
 ];
-const ClubBody = () => {
+function ClubBody() {
   const lottieYuKey = useLottie(YukeyHello, true, 20, 20);
   const animation = useScrollFadeIn();
   const animation2 = useScrollFadeIn('up', 1, 0.15, 0);
@@ -39,8 +35,8 @@ const ClubBody = () => {
   //     setClubList(res.data.res.clubs);
   //   });
   // }, []);
-  const clickCategory = (category: string) => {
-    setCategory(category);
+  const clickCategory = (paramCategory: string) => {
+    setCategory(paramCategory);
   };
   return (
     <ClubBodyContainer>
@@ -63,7 +59,9 @@ const ClubBody = () => {
         />
         <ClubList
           clubList={
-            category === '전체' ? clubList : clubList.filter((club) => club.clubCategories.includes(category + '분과'))
+            category === '전체'
+              ? clubList
+              : clubList.filter((club) => club.clubCategories.includes(`${category}분과`))
           }
         />
       </section>
@@ -73,5 +71,5 @@ const ClubBody = () => {
       </section>
     </ClubBodyContainer>
   );
-};
+}
 export default ClubBody;

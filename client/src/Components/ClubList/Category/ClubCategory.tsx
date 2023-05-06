@@ -1,16 +1,16 @@
-import { Dispatch, SetStateAction } from 'react';
 import { ClubCategoryContainer } from './style';
 
-interface props {
+interface IProps {
+  // eslint-disable-next-line no-unused-vars
   onClick: (category: string) => void;
   categoryList: string[];
   selectedCategory: string;
   categoryName: string;
-  categoryCSS? : string;
+  categoryCSS?: string;
 }
 
-const ClubCategory = (props: props) => {
-  const { onClick, categoryName, categoryList, selectedCategory, categoryCSS = 'first' } = props;
+function ClubCategory(props: IProps) {
+  const { onClick, categoryList, selectedCategory, categoryCSS = 'first' } = props;
   return (
     <ClubCategoryContainer>
       <section>
@@ -28,5 +28,5 @@ const ClubCategory = (props: props) => {
       </section>
     </ClubCategoryContainer>
   );
-};
+}
 export default ClubCategory;
