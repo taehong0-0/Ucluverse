@@ -1,10 +1,9 @@
-import { PropaneSharp } from '@mui/icons-material';
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
   display: flex;
   width: 90%;
-  max-width : ${(props) => props.theme.layout.maxWidth};
+  max-width: ${(props) => props.theme.layout.maxWidth};
   height: 6.25rem;
   line-height: 6.25rem;
   margin: 0 auto;
@@ -13,7 +12,7 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
 
   > * {
-    z-index : 1;
+    z-index: 1;
   }
 
   button {
@@ -41,7 +40,7 @@ export const HeaderLinkContainer = styled.section`
     display: flex;
     flex-direction: column;
     width: 80%;
-    margin : 0 auto;
+    margin: 0 auto;
   }
 `;
 
@@ -58,24 +57,18 @@ export const UserInfoContainer = styled.div`
 `;
 
 export const BackGround = styled.div`
-    position : absolute;
-    border-radius : 0;
-    left : 0;
-    top : 0;
-    width : 100%;
-    height : 100px;
-    z-index : 0;
+  position: absolute;
+  border-radius: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 0;
 
-    background-color : ${(props) => (
-        props.color == 'darkPurple' &&
-          props.theme.header.darkPurple ||
-        props.color == 'yellow' &&
-          props.theme.header.yellow ||
-        props.color == 'default' &&
-          props.theme.header.default ||
-        props.color == 'purple' &&
-          props.theme.header.purple ||
-        props.color == 'lightYellow' &&
-          props.theme.header.lightYellow
-      )};
-`
+  background-color: ${(props) =>
+    (props.color === 'darkPurple' && props.theme.header.darkPurple) ||
+    (props.color === 'yellow' && props.theme.header.yellow) ||
+    (props.color === 'default' && props.theme.header.default) ||
+    (props.color === 'purple' && props.theme.header.purple) ||
+    (props.color === 'lightYellow' && props.theme.header.lightYellow)};
+`;
